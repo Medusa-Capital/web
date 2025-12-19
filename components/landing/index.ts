@@ -1,0 +1,11 @@
+export { Header } from "./Header";
+export { Hero } from "./Hero";
+export { Stats } from "./Stats";
+export { ValueProp } from "./ValueProp";
+export { Features } from "./Features";
+export { Modules } from "./Modules";
+export { Team } from "./Team";
+export { Testimonials } from "./Testimonials";
+export { FAQ } from "./FAQ";
+export { FinalCTA } from "./FinalCTA";
+export { Footer } from "./Footer";
