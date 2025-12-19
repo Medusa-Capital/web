@@ -1,0 +1,200 @@
+{
+  "data": {
+    "branding": {
+      "colorScheme": "dark",
+      "fonts": [
+        {
+          "family": "sans-serif",
+          "count": 69
+        },
+        {
+          "family": "Inter-Regular",
+          "count": 60
+        },
+        {
+          "family": "Cormorant-Bold",
+          "count": 9
+        }
+      ],
+      "colors": {
+        "primary": "#CCCCE0",
+        "accent": "#010052",
+        "background": "#000000",
+        "textPrimary": "#010052",
+        "link": "#010052"
+      },
+      "typography": {
+        "fontFamilies": {
+          "primary": "Inter-Regular",
+          "heading": "Cormorant-Bold"
+        },
+        "fontStacks": {
+          "body": [
+            "Inter-Regular",
+            "sans-serif"
+          ],
+          "heading": [
+            "Cormorant-Bold",
+            "sans-serif"
+          ],
+          "paragraph": [
+            "Inter-Regular",
+            "sans-serif"
+          ]
+        },
+        "fontSizes": {
+          "h1": "80px",
+          "h2": "60px",
+          "body": "20px"
+        }
+      },
+      "spacing": {
+        "baseUnit": 4,
+        "borderRadius": "14px"
+      },
+      "components": {
+        "input": {
+          "background": "#F9F9FF",
+          "textColor": "#000000",
+          "borderColor": "#3A54F8",
+          "borderRadius": "12px",
+          "borderRadiusCorners": {
+            "topLeft": "12px",
+            "topRight": "12px",
+            "bottomRight": "12px",
+            "bottomLeft": "12px"
+          },
+          "shadow": "none"
+        }
+      },
+      "images": {
+        "logo": "data:image/svg+xml;utf8,%3Csvg%20width%3D%2234%22%20height%3D%2235%22%20viewBox%3D%220%200%2034%2035%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20class%3D%22toggle-circle%22%20style%3D%22fill%3A%20none%20!important%3B%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cpath%20d%3D%22M16.962%2034.0534C26.3299%2034.0534%2033.924%2026.4303%2033.924%2017.0267C33.924%207.62311%2026.3299%200%2016.962%200C7.59415%200%200%207.62311%200%2017.0267C0%2026.4303%207.59415%2034.0534%2016.962%2034.0534Z%22%20fill%3D%22white%22%20style%3D%22fill%3A%20rgb(255%2C%20255%2C%20255)%20!important%3B%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cpath%20d%3D%22M7.02771%2026.9605C1.56668%2021.4995%201.58718%2012.6248%207.07351%207.13855%22%20stroke%3D%22%239392DF%22%20stroke-width%3D%223%22%20stroke-linecap%3D%22round%22%20style%3D%22fill%3A%20none%20!important%3B%20stroke%3A%20rgb(147%2C%20146%2C%20223)%20!important%3B%20stroke-width%3A%203px%20!important%3B%20stroke-linecap%3A%20round%20!important%3B%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C%2Fsvg%3E",
+        "favicon": "https://medusacapital.xyz/assets/img/medusa-fav.png",
+        "ogImage": null
+      },
+      "__framework_hints": [],
+      "__llm_logo_reasoning": {
+        "selectedIndex": 2,
+        "reasoning": "Logo rejected: Red flags detected (small square icon). Heuristic fallback: Moderate indicators: variant bonus (+8), in header, no link (brand logos usually link to homepage, penalty), header location, visible, reasonable size, small square icon (likely UI icon, heavy penalty), SVG format. Score: 49. May benefit from LLM validation.",
+        "confidence": 0.5,
+        "rejected": true
+      },
+      "__llm_button_reasoning": {
+        "primary": {
+          "index": -1,
+          "text": "N/A",
+          "reasoning": "LLM failed"
+        },
+        "secondary": {
+          "index": -1,
+          "text": "N/A",
+          "reasoning": "LLM failed"
+        },
+        "confidence": 0
+      },
+      "confidence": {
+        "buttons": 0,
+        "colors": 0,
+        "overall": 0
+      }
+    },
+    "metadata": {
+      "viewport": [
+        "width=device-width, initial-scale=1.0",
+        "width=device-width, initial-scale=1"
+      ],
+      "title": "Medusa Capital",
+      "language": "en",
+      "robots": "noindex",
+      "favicon": "https://medusacapital.xyz/assets/img/medusa-fav.png",
+      "scrapeId": "019b36d2-236d-72d2-aca0-aae85da66dfc",
+      "sourceURL": "https://medusacapital.xyz/",
+      "url": "https://medusacapital.xyz/",
+      "statusCode": 200,
+      "contentType": "text/html",
+      "timezone": "America/New_York",
+      "proxyUsed": "basic",
+      "indexId": "d4eb7859-cae4-4ab8-8535-89d91a09a423",
+      "creditsUsed": 1,
+      "concurrencyLimited": false
+    }
+  },
+  "scrape_id": "019b36d2-236d-72d2-aca0-aae85da66dfc",
+  "id": "2oSxvTP6PMAf0mkZFCfbU",
+  "startedAt": "2025-12-19T13:34:59.596Z",
+  "endedAt": "2025-12-19T13:35:04.989Z",
+  "endpoint": "scrape",
+  "formState": {
+    "extractSetupCompleted": false,
+    "urls": [],
+    "extractSchema": {
+      "type": "object",
+      "required": [],
+      "properties": {
+        "company_mission": {
+          "type": "string"
+        },
+        "supports_sso": {
+          "type": "boolean"
+        },
+        "is_open_source": {
+          "type": "boolean"
+        },
+        "is_in_yc": {
+          "type": "boolean"
+        }
+      }
+    },
+    "extractPrompt": "Extract the company details, following the schema.",
+    "enableWebSearch": false,
+    "constrainUrls": false,
+    "options": {
+      "onlyMainContent": false,
+      "parsePDF": true,
+      "stealthMode": false,
+      "excludeTags": [],
+      "includeTags": [],
+      "waitFor": "",
+      "timeout": "",
+      "maxAge": "2 days",
+      "ignoreSitemap": false,
+      "crawlEntireDomain": false,
+      "sitemap": "include",
+      "limit": "10",
+      "maxDepth": "",
+      "excludePaths": [],
+      "includePaths": [],
+      "includeSubdomains": false,
+      "search": "",
+      "scrapeContentFromSearchResults": true,
+      "timeBasedSearch": "",
+      "location": "",
+      "prompt": ""
+    },
+    "formats": [
+      "branding"
+    ],
+    "sources": [
+      "web"
+    ],
+    "categories": [],
+    "jsonSchema": {
+      "type": "object",
+      "required": [],
+      "properties": {
+        "company_name": {
+          "type": "string"
+        },
+        "company_description": {
+          "type": "string"
+        }
+      }
+    },
+    "jsonPrompt": "",
+    "agent": {},
+    "url": "medusacapital.xyz/",
+    "endpoint": "scrape"
+  },
+  "status": "success",
+  "version": "gwVuNZTpZFZfsKSaLl25g"
+}
