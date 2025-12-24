@@ -40,6 +40,23 @@ const features = [
 export function Features() {
   return (
     <section className="relative px-6 py-16 lg:py-24">
+      {/* Radial glow effects - matching legacy site */}
+      <div
+        className="circle-radial"
+        style={{
+          top: '10%',
+          right: '-500px',
+          opacity: 0.25,
+        }}
+      />
+      <div
+        className="circle-radial"
+        style={{
+          bottom: '20%',
+          left: '-400px',
+          opacity: 0.2,
+        }}
+      />
       {/* Background Medusa graphic */}
       <div
         className="hidden lg:block absolute pointer-events-none select-none"

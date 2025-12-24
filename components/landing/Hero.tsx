@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import Image from "next/image";
 
 export function Hero() {
@@ -14,9 +15,19 @@ export function Hero() {
         backgroundRepeat: 'no-repeat',
       }}
     >
+      {/* Radial glow effects - matching legacy site */}
+      <div
+        className="circle-radial"
+        style={{
+          top: '-200px',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          opacity: 0.4,
+        }}
+      />
       <div className="relative z-10 max-w-4xl mx-auto text-center">
-        {/* Welcome badge - matching legacy .badge-wrapper */}
-        <div className="inline-flex items-center gap-3 mb-5 px-3 py-1.5 rounded-full border border-[#535296] bg-white/[0.14] text-white text-sm md:text-base">
+        {/* Welcome badge */}
+        <Badge variant="hero" className="mb-5">
           <Image
             src="/img/icons/logo-icon.svg"
             alt=""
@@ -25,7 +36,7 @@ export function Hero() {
             className="w-5 h-5 md:w-6 md:h-6"
           />
           Bienvenido a Medusa Capital
-        </div>
+        </Badge>
 
         {/* Main headline - matching legacy exactly with Title Case */}
         <h1 className="font-[family-name:var(--font-heading)] text-[clamp(44px,5vw,80px)] font-bold text-white leading-[1.1] mb-6 capitalize">
@@ -60,10 +71,11 @@ export function Hero() {
           </div>
         </div>
 
-        {/* CTA Button - matching legacy button gradient */}
+        {/* CTA Button */}
         <Button
+          variant="primaryGlow"
           size="lg"
-          className="btn-primary-glow text-white px-8 py-6 text-base font-semibold rounded-lg"
+          className="px-8 py-6 text-base font-semibold rounded-lg"
           onClick={() => window.open("https://calendly.com/contacto-medusacapital/30min", "_blank")}
         >
           Quiero Reservar Mi Plaza

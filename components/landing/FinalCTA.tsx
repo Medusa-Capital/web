@@ -86,8 +86,9 @@ export function FinalCTA() {
                 riesgo.
               </p>
               <Button
+                variant="primaryGlow"
                 size="lg"
-                className="bg-[#4355d9] hover:bg-[#5266e8] text-white px-8 py-6 text-base font-medium rounded-lg transition-all duration-200 hover:scale-105"
+                className="px-8 py-6 text-base font-medium rounded-lg"
                 onClick={() => window.open("https://calendly.com/contacto-medusacapital/30min", "_blank")}
               >
                 Quiero Reservar Mi Plaza

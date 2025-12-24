@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import { Card } from "@/components/ui/card";
 
 // Team data matching the original site (2 professors: Borja Neira & Alejandro Gilabert)
 const team = [
@@ -23,7 +24,7 @@ const team = [
 
 function TeamCard({ member }: { member: typeof team[0] }) {
   return (
-    <div className="flex-shrink-0 w-[calc(100vw-70px)] max-w-[734px] mr-[clamp(20px,4vw,40px)] glass-card">
+    <Card variant="glass" className="flex-shrink-0 w-[calc(100vw-70px)] max-w-[734px] mr-[clamp(20px,4vw,40px)] px-[30px]">
       {/* LinkedIn icon in top right */}
       <a
         href={member.linkedin}
@@ -59,13 +60,27 @@ function TeamCard({ member }: { member: typeof team[0] }) {
           {member.bio}
         </p>
       </div>
-    </div>
+    </Card>
   );
 }
 
 export function Team() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [isPaused, setIsPaused] = useState(false);
+
+  // Radial glow positioning for Team section
+  const glowStyles = {
+    left: {
+      top: '20%',
+      left: '-300px',
+      opacity: 0.3,
+    },
+    right: {
+      bottom: '10%',
+      right: '-400px',
+      opacity: 0.25,
+    },
+  };
 
   useEffect(() => {
     const scrollContainer = scrollRef.current;
@@ -102,7 +117,10 @@ export function Team() {
 
   return (
     <section className="relative py-24 overflow-hidden bg-[#010052] z-20">
-      <div className="max-w-6xl mx-auto px-6">
+      {/* Radial glow effects - matching legacy site */}
+      <div className="circle-radial" style={glowStyles.left} />
+      <div className="circle-radial" style={glowStyles.right} />
+      <div className="max-w-6xl mx-auto px-6 relative z-10">
         {/* Header */}
         <div className="text-center mb-12">
           <h2 className="font-[family-name:var(--font-heading)] text-4xl md:text-5xl font-bold text-white leading-tight mb-4">

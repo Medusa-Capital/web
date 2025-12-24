@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { cn } from "@/lib/utils";
+import { Badge } from "@/components/ui/badge";
 
 const modules = [
   {
@@ -110,11 +111,11 @@ export function Modules() {
             }}
           >
             {/* Title with pill border */}
-            <div className="inline-block px-6 py-3 rounded-full border border-[#B9B8EB]/40 mb-6">
+            <Badge variant="pill" className="mb-6">
               <h3 className="font-[family-name:var(--font-heading)] text-xl md:text-2xl font-bold text-white">
                 {currentModule.title}
               </h3>
-            </div>
+            </Badge>
             <p className="text-[#B9B8EB] font-medium mb-4">
               {currentModule.subtitle}
             </p>

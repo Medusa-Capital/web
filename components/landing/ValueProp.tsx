@@ -6,6 +6,23 @@ import Image from "next/image";
 export function ValueProp() {
   return (
     <section className="relative py-24 px-6">
+      {/* Radial glow effects - matching legacy site */}
+      <div
+        className="circle-radial"
+        style={{
+          top: '-100px',
+          left: '-300px',
+          opacity: 0.3,
+        }}
+      />
+      <div
+        className="circle-radial"
+        style={{
+          bottom: '-200px',
+          right: '-400px',
+          opacity: 0.25,
+        }}
+      />
       {/* Background content-sec-obj graphic - right side */}
       <div
         className="hidden lg:block absolute pointer-events-none select-none"
@@ -40,10 +57,11 @@ export function ValueProp() {
               <span className="text-white font-medium">criterio propio</span> y{" "}
               <span className="text-white font-medium">herramientas para ser rentable</span>.
             </p>
-            {/* Orange CTA button matching legacy */}
+            {/* Orange CTA button */}
             <Button
+              variant="secondaryGlow"
               size="lg"
-              className="btn-secondary-glow text-white px-8 py-6 text-base font-semibold rounded-lg"
+              className="px-8 py-6 text-base font-semibold rounded-lg"
               onClick={() => window.open("https://calendly.com/contacto-medusacapital/30min", "_blank")}
             >
               Empezar Ahora

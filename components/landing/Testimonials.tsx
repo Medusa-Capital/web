@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { Card } from "@/components/ui/card";
 
 const testimonials = [
   {
@@ -48,11 +49,9 @@ const column3 = [testimonials[2], testimonials[5], testimonials[0], testimonials
 
 function TestimonialCard({ testimonial }: { testimonial: typeof testimonials[0] }) {
   return (
-    <div
-      className="relative rounded-[clamp(20px,2vw,30px)] p-6 mb-4 glass-card testimonial-card-bg"
-      style={{
-        paddingBottom: "50px",
-      }}
+    <Card
+      variant="glass"
+      className="p-6 pb-[50px] mb-4 testimonial-card-bg"
     >
       {/* Header with avatar */}
       <div className="flex items-center gap-3 mb-4">
@@ -75,7 +74,7 @@ function TestimonialCard({ testimonial }: { testimonial: typeof testimonials[0] 
       <p className="text-[#cccce0]/70 text-sm leading-relaxed">
         {testimonial.text}
       </p>
-    </div>
+    </Card>
   );
 }
 
@@ -123,7 +122,25 @@ function ScrollingColumn({
 export function Testimonials() {
   return (
     <section className="relative py-24 px-6 overflow-hidden bg-[#010052] z-20">
-      <div className="max-w-6xl mx-auto">
+      {/* Radial glow effects - matching legacy site */}
+      <div
+        className="circle-radial"
+        style={{
+          top: '50%',
+          left: '-400px',
+          transform: 'translateY(-50%)',
+          opacity: 0.35,
+        }}
+      />
+      <div
+        className="circle-radial"
+        style={{
+          top: '30%',
+          right: '-500px',
+          opacity: 0.25,
+        }}
+      />
+      <div className="max-w-6xl mx-auto relative z-10">
         {/* Header */}
         <div className="text-center mb-16">
           <h2 className="font-[family-name:var(--font-heading)] text-4xl md:text-5xl font-bold text-white leading-tight mb-4">
