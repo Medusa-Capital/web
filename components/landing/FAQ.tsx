@@ -75,17 +75,7 @@ function CustomArrowIcon({ className }: { className?: string }) {
 
 export function FAQ() {
   return (
-    <section className="relative py-24 px-6 pb-0 bg-[#010052] z-20">
-      {/* Radial glow effects - matching legacy site */}
-      <div
-        className="circle-radial"
-        style={{
-          top: '-200px',
-          left: '50%',
-          transform: 'translateX(-50%)',
-          opacity: 0.3,
-        }}
-      />
+    <section className="relative py-24 px-6 pb-0">
       <div className="max-w-6xl mx-auto relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-[5fr_7fr] gap-6">
           {/* Left header - col-lg-5 */}

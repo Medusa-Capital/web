@@ -6,23 +6,6 @@ import Image from "next/image";
 export function ValueProp() {
   return (
     <section className="relative py-24 px-6">
-      {/* Radial glow effects - matching legacy site */}
-      <div
-        className="circle-radial"
-        style={{
-          top: '-100px',
-          left: '-300px',
-          opacity: 0.3,
-        }}
-      />
-      <div
-        className="circle-radial"
-        style={{
-          bottom: '-200px',
-          right: '-400px',
-          opacity: 0.25,
-        }}
-      />
       {/* Background content-sec-obj graphic - right side */}
       <div
         className="hidden lg:block absolute pointer-events-none select-none"

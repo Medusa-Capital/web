@@ -68,20 +68,6 @@ export function Team() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [isPaused, setIsPaused] = useState(false);
 
-  // Radial glow positioning for Team section
-  const glowStyles = {
-    left: {
-      top: '20%',
-      left: '-300px',
-      opacity: 0.3,
-    },
-    right: {
-      bottom: '10%',
-      right: '-400px',
-      opacity: 0.25,
-    },
-  };
-
   useEffect(() => {
     const scrollContainer = scrollRef.current;
     if (!scrollContainer) return;
@@ -116,10 +102,7 @@ export function Team() {
   const duplicatedTeam = [...team, ...team];
 
   return (
-    <section className="relative py-24 overflow-hidden bg-[#010052] z-20">
-      {/* Radial glow effects - matching legacy site */}
-      <div className="circle-radial" style={glowStyles.left} />
-      <div className="circle-radial" style={glowStyles.right} />
+    <section className="relative py-24 overflow-hidden">
       <div className="max-w-6xl mx-auto px-6 relative z-10">
         {/* Header */}
         <div className="text-center mb-12">

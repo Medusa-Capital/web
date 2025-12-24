@@ -61,7 +61,7 @@ export function Modules() {
   const currentModule = modules.find((m) => m.id === activeModule)!;
 
   return (
-    <section className="relative py-24 px-6 bg-[#010052] z-20">
+    <section className="relative py-24 px-6">
       <div className="max-w-4xl mx-auto text-center">
         {/* Header */}
         <h2 className="font-[family-name:var(--font-heading)] text-4xl md:text-5xl font-bold text-white leading-tight mb-12">

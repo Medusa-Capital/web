@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 
 export function FinalCTA() {
   return (
-    <section className="relative py-24 px-6 overflow-hidden bg-[#010052] z-20">
+    <section className="relative py-24 px-6 overflow-hidden">
       {/* Background radial gradient glow - matches legacy .sec-bg SVG */}
       <svg
         width="1440"

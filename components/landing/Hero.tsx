@@ -15,16 +15,6 @@ export function Hero() {
         backgroundRepeat: 'no-repeat',
       }}
     >
-      {/* Radial glow effects - matching legacy site */}
-      <div
-        className="circle-radial"
-        style={{
-          top: '-200px',
-          left: '50%',
-          transform: 'translateX(-50%)',
-          opacity: 0.4,
-        }}
-      />
       <div className="relative z-10 max-w-4xl mx-auto text-center">
         {/* Welcome badge */}
         <Badge variant="hero" className="mb-5">
