@@ -60,26 +60,26 @@ export function Modules() {
   const currentModule = modules.find((m) => m.id === activeModule)!;
 
   return (
-    <section className="relative py-24 px-6 bg-gradient-to-b from-[#050520] to-[#0a0a2e]">
+    <section className="relative py-24 px-6 bg-[#010052] z-20">
       <div className="max-w-4xl mx-auto text-center">
         {/* Header */}
-        <h2 className="font-[family-name:var(--font-heading)] text-4xl md:text-5xl font-bold text-[#CCCCE0] leading-tight mb-12">
+        <h2 className="font-[family-name:var(--font-heading)] text-4xl md:text-5xl font-bold text-white leading-tight mb-12">
           Tu Ruta de Aprendizaje
           <br />
           con Medusa Capital
         </h2>
 
-        {/* Tab navigation */}
-        <div className="flex flex-wrap justify-center gap-2 mb-12">
+        {/* Tab navigation - pill style matching legacy */}
+        <div className="inline-flex flex-wrap justify-center gap-1 mb-12 p-1.5 rounded-full bg-[#0a0a3a] border border-[#B9B8EB]/5">
           {modules.map((module) => (
             <button
               key={module.id}
               onClick={() => setActiveModule(module.id)}
               className={cn(
-                "px-4 py-2 rounded-full text-sm font-medium transition-all duration-300",
+                "px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300",
                 activeModule === module.id
-                  ? "bg-purple-600 text-white shadow-lg shadow-purple-500/25"
-                  : "bg-white/5 text-white/60 hover:bg-white/10 hover:text-white/80"
+                  ? "bg-[#4355d9] text-white"
+                  : "bg-transparent text-[#B9B8EB]/50 hover:text-[#B9B8EB]"
               )}
             >
               Módulo {module.id}
@@ -87,17 +87,41 @@ export function Modules() {
           ))}
         </div>
 
-        {/* Module content card */}
-        <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8 md:p-12">
-          <h3 className="font-[family-name:var(--font-heading)] text-2xl md:text-3xl font-bold text-[#CCCCE0] mb-3">
-            {currentModule.title}
-          </h3>
-          <p className="text-purple-400 font-medium mb-6">
-            {currentModule.subtitle}
-          </p>
-          <p className="text-white/60 leading-relaxed max-w-2xl mx-auto">
-            {currentModule.description}
-          </p>
+        {/* Module content card with gradient background */}
+        <div className="relative">
+          {/* Radial glow on the right side */}
+          <div
+            className="absolute pointer-events-none"
+            style={{
+              right: "-50px",
+              top: "50%",
+              transform: "translateY(-50%)",
+              width: "350px",
+              height: "350px",
+              background: "radial-gradient(circle, rgba(185, 184, 235, 0.35) 0%, rgba(185, 184, 235, 0.15) 40%, transparent 70%)",
+              filter: "blur(50px)",
+            }}
+          />
+          {/* Card with gradient from top to bottom */}
+          <div
+            className="relative rounded-3xl p-8 md:p-12 border border-[#B9B8EB]/20"
+            style={{
+              background: "linear-gradient(180deg, rgba(67, 85, 217, 0.4) 0%, rgba(27, 26, 100, 0.6) 50%, rgba(1, 0, 82, 0.8) 100%)",
+            }}
+          >
+            {/* Title with pill border */}
+            <div className="inline-block px-6 py-3 rounded-full border border-[#B9B8EB]/40 mb-6">
+              <h3 className="font-[family-name:var(--font-heading)] text-xl md:text-2xl font-bold text-white">
+                {currentModule.title}
+              </h3>
+            </div>
+            <p className="text-[#B9B8EB] font-medium mb-4">
+              {currentModule.subtitle}
+            </p>
+            <p className="text-[#B9B8EB]/60 leading-relaxed max-w-2xl mx-auto text-sm md:text-base">
+              {currentModule.description}
+            </p>
+          </div>
         </div>
       </div>
     </section>

@@ -117,25 +117,175 @@
   --sidebar-ring: oklch(0.551 0.027 264.364);
 }
 
-/* Medusa Capital Brand */
-.medusa {
-  --medusa-bg-start: #000000;
-  --medusa-bg-end: #0a0a2e;
-  --medusa-bg-mid: #050520;
-  --medusa-primary: #CCCCE0;
-  --medusa-primary-muted: #9999b3;
-  --medusa-accent: #6366f1;
-  --medusa-accent-hover: #818cf8;
-  --medusa-glow: #8b5cf6;
-  --medusa-card: rgba(255, 255, 255, 0.05);
-  --medusa-card-hover: rgba(255, 255, 255, 0.08);
-  --medusa-border: rgba(255, 255, 255, 0.1);
-  --medusa-border-glow: rgba(139, 92, 246, 0.5);
+/* Medusa Capital - Main page background */
+.medusa-bg {
+  /* Base: Deep navy/indigo matching legacy --primary: #010052 */
+  background-color: #010052;
+  position: relative;
+  min-height: 100vh;
+}
+
+/* Ensure content is above any overlays */
+.medusa-bg > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* ===== LEGACY STYLING: Gradients & Effects ===== */
+
+/* Glassmorphic card style */
+.glass-card {
+  position: relative;
+  background-color: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: clamp(20px, 2vw, 30px);
+  padding: clamp(20px, 2vw, 32px) 30px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+}
+
+/* Gradient border utility using mask technique */
+.gradient-border {
+  position: relative;
+}
+.gradient-border::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: inherit;
+  border: 2px solid transparent;
+  background: linear-gradient(0deg, rgba(1, 0, 82, 1) 0%, rgba(185, 184, 235, 1) 100%) border-box;
+  -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: destination-out;
+  mask-composite: exclude;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Circle radial glow effect */
+.circle-radial {
+  background: #b9b8eb;
+  background: radial-gradient(closest-side, #b9b8eb, rgba(1, 0, 82, 0));
+  position: absolute;
+  display: block;
+  width: 1200px;
+  height: 900px;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+/* Primary button with gradient glow */
+.btn-primary-glow {
+  position: relative;
+  background: linear-gradient(0deg, #657ef3 0%, rgb(58, 84, 248) 100%);
+  box-shadow: inset 0px 0px 6px rgba(255, 172, 227, 0.5);
+  transition: all 0.3s ease;
+}
+.btn-primary-glow:hover {
+  filter: brightness(1.4);
+  transform: scale(1.05);
+}
+
+/* Secondary button (orange) */
+.btn-secondary-glow {
+  position: relative;
+  background: linear-gradient(0deg, #e85c30 0%, #ff7a4d 100%);
+  box-shadow: inset 0px 0px 6px rgba(255, 172, 227, 0.3);
+  transition: all 0.3s ease;
+}
+.btn-secondary-glow:hover {
+  filter: brightness(1.2);
+  transform: scale(1.05);
+}
+
+/* ===== ANIMATIONS ===== */
+
+/* Coin rotation animation - matching legacy */
+@keyframes coin-anim {
+  to {
+    transform: rotateY(-360deg);
+  }
+}
+.animate-coin {
+  animation: 6s linear infinite coin-anim;
+}
+
+/* Testimonials infinite scroll animations */
+@keyframes scroll-down {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-50%);
+  }
+}
+
+@keyframes scroll-up {
+  0% {
+    transform: translateY(-50%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.animate-scroll-down {
+  animation: scroll-down 40s linear infinite;
+}
+
+.animate-scroll-up {
+  animation: scroll-up 40s linear infinite;
+}
+
+/* Legacy testimonial animations */
+@keyframes testi-y {
+  from {
+    transform: translateY(-80%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes testi-y-inverse {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-80%);
+  }
+}
+
+/* Testimonial card background */
+.testimonial-card-bg {
+  background-image: url('/img/test-card-bg.webp');
+  background-size: cover;
+  background-position: center;
+}
+
+/* Video wrapper background */
+.video-wrapper-bg {
+  background-image: url('/img/video-wrapper-bg.webp');
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+
+/* Tab section h4 wrapper glow */
+.tab-h4-glow {
+  background: linear-gradient(0deg, rgba(1, 0, 82, 0) 0%, rgba(185, 184, 235, 0.2) 100%);
+  box-shadow: inset 0px 0px 10px rgba(255, 172, 227, 0.25);
 }
 
 @layer base {
   * {
     @apply border-border outline-ring/50;
+  }
+  html, body {
+    overflow-x: clip; /* clip instead of hidden - doesn't break sticky */
   }
   body {
     @apply bg-background text-foreground;

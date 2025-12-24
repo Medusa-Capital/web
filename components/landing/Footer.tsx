@@ -1,36 +1,28 @@
-import { Twitter, Youtube } from "lucide-react";
+// Full Medusa Capital Logo - Light version (for dark backgrounds)
+function LogoLight({ className = "" }: { className?: string }) {
+  return (
+    <svg width="180" height="60" viewBox="0 0 223 74" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
+      <path d="M29.348 73.8227L25.4742 71.5276L3.08622 58.2761C2.10144 57.8959 1.2686 57.203 0.715406 56.3039C0.162214 55.4048 -0.0807825 54.3491 0.0236847 53.2986C0.0236847 46.3501 0.0358675 39.4015 0.0602313 32.4529C0.0694179 31.731 0.27941 31.0259 0.666689 30.4166C1.05397 29.8073 1.60324 29.3178 2.25298 29.003C7.12575 26.0794 11.9985 23.1776 16.8713 20.2978C18.4306 19.3769 19.9801 18.4486 21.5199 17.5131C21.707 17.3749 21.9301 17.2939 22.1622 17.2796C22.3943 17.2653 22.6256 17.3185 22.8282 17.4327L28.8656 20.963L26.227 22.4906L8.32688 32.8915C7.79315 33.1649 7.34903 33.5857 7.04718 34.1039C6.74534 34.6221 6.59842 35.216 6.62385 35.8151C6.62385 40.7342 6.62385 45.6459 6.62385 50.565C6.62385 50.7404 6.62385 50.9158 6.62385 51.0913C6.60021 51.6344 6.73652 52.1726 7.01586 52.639C7.29521 53.1055 7.70531 53.4797 8.19532 53.7152L29.2968 66.3162C29.5088 66.689 29.3553 67.2445 29.3553 67.7269L29.348 73.8227Z" fill="#B9B8EB"/>
+      <path d="M31.555 10.5401V18.2147L23.7195 13.5953C23.3134 13.329 22.8384 13.1871 22.3527 13.1871C21.8671 13.1871 21.392 13.329 20.9859 13.5953L12.7485 18.3974L0.176763 25.7577C0.14212 25.7767 0.105307 25.7914 0.0671258 25.8015C0.0671258 23.945 0.00865257 22.147 0.0671258 20.2905C0.10225 19.6047 0.314673 18.9398 0.683636 18.3608C1.0526 17.7817 1.56548 17.3083 2.17216 16.9867L23.873 5.95723C24.3372 5.65466 24.8794 5.49357 25.4335 5.49357L31.555 10.5401Z" fill="#B9B8EB"/>
+      <path d="M31.5547 0V6.13968L26.5844 3.21602L26.3359 3.04791L28.2436 1.915C29.1646 1.37412 30.0782 0.811316 31.0138 0.292367C31.1874 0.182933 31.368 0.0852573 31.5547 0Z" fill="#B9B8EB"/>
+      <path d="M33.5518 73.822L37.4257 71.5269L59.8136 58.2901C60.7984 57.9098 61.6312 57.217 62.1844 56.3179C62.7376 55.4188 62.9806 54.363 62.8761 53.3126C62.8761 46.364 62.8761 39.4154 62.8761 32.4669C62.867 31.745 62.657 31.0399 62.2697 30.4305C61.8824 29.8212 61.3331 29.3318 60.6834 29.017L54.6095 32.8908L56.3125 35.8145C56.3125 40.7335 56.3125 45.6453 56.3125 50.5643C56.3125 50.7397 56.3125 50.9152 56.3125 51.0906C56.3362 51.6338 56.1999 52.1719 55.9205 52.6384C55.6412 53.1048 55.2311 53.479 54.7411 53.7146L33.6395 66.3155C33.4276 66.6883 33.5811 67.2438 33.5811 67.7262L33.5518 73.822Z" fill="#B9B8EB"/>
+      <path d="M31.3439 10.5401V18.2147L39.1793 13.5953C39.5854 13.329 40.0605 13.1871 40.5461 13.1871C41.0317 13.1871 41.5068 13.329 41.9129 13.5953L50.1503 18.3974L62.7221 25.7577C62.7567 25.7767 62.7935 25.7914 62.8317 25.8015C62.8317 23.945 62.8902 22.147 62.8317 20.2905C62.7966 19.6047 62.5842 18.9398 62.2152 18.3608C61.8462 17.7817 61.3334 17.3083 60.7267 16.9867L39.0185 5.95723C38.5543 5.65466 38.0121 5.49357 37.458 5.49357L31.3439 10.5401Z" fill="#B9B8EB"/>
+      <path d="M31.3439 0V6.13968L36.3141 3.21602L36.5626 3.04791L34.6403 1.86383C33.7193 1.32296 32.8057 0.760152 31.8701 0.241203C31.7 0.14981 31.5242 0.0692477 31.3439 0Z" fill="#B9B8EB"/>
+      {/* Text paths abbreviated for space - full logo shown */}
+      <path d="M77.0369 13.9828L78.1164 14.0573L77.7069 31.663C77.6821 33.003 77.9427 34.0576 78.4886 34.8269C79.0593 35.5713 79.8534 35.9435 80.8708 35.9435C80.9452 35.9435 80.9824 36.018 80.9824 36.1668C80.9824 36.3157 80.9452 36.3902 80.8708 36.3902L77.2603 36.3157L74.9153 36.353C74.5183 36.3778 73.9848 36.3902 73.3148 36.3902C73.2403 36.3902 73.2031 36.3157 73.2031 36.1668C73.2031 36.018 73.2403 35.9435 73.3148 35.9435C74.3322 35.9435 75.1386 35.5589 75.7342 34.7896C76.3297 34.0204 76.6399 32.9782 76.6647 31.663L77.0369 13.9828Z" fill="#B9B8EB"/>
+    </svg>
+  );
+}
 
 export function Footer() {
   return (
-    <footer className="relative py-16 px-6 bg-[#050510] border-t border-white/5">
+    <footer className="relative py-16 px-6 border-t border-[#B9B8EB]/20 bg-[#010052] z-20">
       <div className="max-w-6xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-12">
           {/* Left - Logo and tagline */}
           <div>
-            <div className="flex items-center gap-2 mb-4">
-              <svg
-                width="34"
-                height="35"
-                viewBox="0 0 34 35"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <circle cx="17" cy="17.5" r="16" fill="white" />
-                <path
-                  d="M7.02771 26.9605C1.56668 21.4995 1.58718 12.6248 7.07351 7.13855"
-                  stroke="#9392DF"
-                  strokeWidth="3"
-                  strokeLinecap="round"
-                />
-              </svg>
-              <span className="text-white font-medium tracking-wider text-sm">
-                MEDUSA
-                <span className="block text-[10px] tracking-[0.3em] text-white/70">
-                  CAPITAL
-                </span>
-              </span>
-            </div>
-            <p className="text-white/40 text-sm max-w-sm">
+            <LogoLight className="h-12 w-auto mb-4" />
+            <p className="text-[#B9B8EB]/40 text-sm max-w-sm">
               Únete a la única formación de habla hispana con resultados
               probados y profesores de alto nivel.
             </p>
@@ -38,37 +30,44 @@ export function Footer() {
 
           {/* Right - Social links */}
           <div className="md:text-right">
-            <h4 className="text-white/60 font-medium mb-4">
+            <h4 className="text-[#A3A3C3] font-semibold mb-4">
               Síguenos en Redes Sociales
             </h4>
-            <div className="flex gap-4 md:justify-end">
+            <div className="flex flex-wrap gap-3 md:justify-end">
+              {/* X/Twitter - Pill style matching legacy */}
               <a
-                href="https://twitter.com/Axel_Mnvn"
+                href="https://x.com/Axel_Mnvn"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 text-white/40 hover:text-white transition-colors"
+                className="flex items-center gap-2 px-4 py-2 rounded-lg bg-[#1b1a64]/50 border border-[#B9B8EB]/20 text-[#B9B8EB]/70 hover:text-white hover:border-[#B9B8EB]/40 transition-colors"
               >
-                <Twitter className="w-5 h-5" />
+                <svg className="w-4 h-4" viewBox="0 0 20 19" fill="currentColor">
+                  <path d="M15.75 0.890625H18.8175L12.1175 8.18425L20 18.1094H13.8287L8.995 12.0888L3.46375 18.1094H0.395L7.56125 10.3075L0 0.890625H6.32875L10.6975 6.39231L15.75 0.890625ZM14.675 16.3614H16.375L5.40375 2.54719H3.58125L14.675 16.3614Z" />
+                </svg>
                 <span className="text-sm">@Axel_Mnvn</span>
               </a>
+              {/* Substack */}
               <a
                 href="https://substack.com/@axelmnvn"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 text-white/40 hover:text-white transition-colors"
+                className="flex items-center gap-2 px-4 py-2 rounded-lg bg-[#1b1a64]/50 border border-[#B9B8EB]/20 text-[#B9B8EB]/70 hover:text-white hover:border-[#B9B8EB]/40 transition-colors"
               >
-                <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M22.539 8.242H1.46V5.406h21.08v2.836zM1.46 10.812V24L12 18.11 22.54 24V10.812H1.46zM22.54 0H1.46v2.836h21.08V0z" />
+                <svg className="w-4 h-4" viewBox="0 0 19 22" fill="currentColor">
+                  <path d="M18.6875 4.9555H0.3125V7.55562H18.6875V4.9555ZM0.3125 9.911V22L9.5 16.6018L18.6875 22V9.911H0.3125ZM18.6875 0H0.3125V2.59875H18.6875V0Z" />
                 </svg>
                 <span className="text-sm">@axelmnvn</span>
               </a>
+              {/* YouTube */}
               <a
-                href="https://youtube.com/@Axel_mnvn"
+                href="https://www.youtube.com/@Axel_mnvn"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 text-white/40 hover:text-white transition-colors"
+                className="flex items-center gap-2 px-4 py-2 rounded-lg bg-[#1b1a64]/50 border border-[#B9B8EB]/20 text-[#B9B8EB]/70 hover:text-white hover:border-[#B9B8EB]/40 transition-colors"
               >
-                <Youtube className="w-5 h-5" />
+                <svg className="w-5 h-4" viewBox="0 0 25 18" fill="currentColor">
+                  <path d="M10.1 12.6429L16.328 9L10.1 5.35714V12.6429ZM23.972 3.135C24.128 3.70571 24.236 4.47071 24.308 5.44214C24.392 6.41357 24.428 7.25143 24.428 7.98L24.5 9C24.5 11.6593 24.308 13.6143 23.972 14.865C23.672 15.9579 22.976 16.6621 21.896 16.9657C21.332 17.1236 20.3 17.2329 18.716 17.3057C17.156 17.3907 15.728 17.4271 14.408 17.4271L12.5 17.5C7.472 17.5 4.34 17.3057 3.104 16.9657C2.024 16.6621 1.328 15.9579 1.028 14.865C0.872 14.2943 0.764 13.5293 0.692 12.5579C0.608 11.5864 0.572 10.7486 0.572 10.02L0.5 9C0.5 6.34071 0.692 4.38571 1.028 3.135C1.328 2.04214 2.024 1.33786 3.104 1.03429C3.668 0.876429 4.7 0.767143 6.284 0.694286C7.844 0.609286 9.272 0.572857 10.592 0.572857L12.5 0.5C17.528 0.5 20.66 0.694286 21.896 1.03429C22.976 1.33786 23.672 2.04214 23.972 3.135Z" />
+                </svg>
                 <span className="text-sm">@Axel_mnvn</span>
               </a>
             </div>
@@ -76,8 +75,8 @@ export function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="pt-8 border-t border-white/5 text-center">
-          <p className="text-white/30 text-sm">
+        <div className="pt-8 border-t border-[#B9B8EB]/20 text-center">
+          <p className="text-[#B9B8EB]/40 text-sm">
             ©Medusa Capital 2025. Todos los Derechos Reservados.
           </p>
         </div>

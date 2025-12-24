@@ -14,7 +14,7 @@ import {
 
 export default function Page() {
   return (
-    <main className="medusa min-h-screen bg-black">
+    <main className="medusa-bg min-h-screen">
       <Header />
       <Hero />
       <Stats />
