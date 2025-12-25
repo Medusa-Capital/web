@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
+import { trackEvent } from "@/lib/analytics";
 
 const modules = [
   {
@@ -60,6 +61,16 @@ export function Modules() {
   const [activeModule, setActiveModule] = useState(1);
   const currentModule = modules.find((m) => m.id === activeModule)!;
 
+  const handleModuleChange = (moduleId: number) => {
+    const module = modules.find((m) => m.id === moduleId);
+    trackEvent("module_view", {
+      module_id: moduleId,
+      module_title: module?.title || "unknown",
+      category: "engagement",
+    });
+    setActiveModule(moduleId);
+  };
+
   return (
     <section className="relative py-[100px] px-6">
       <div className="max-w-4xl mx-auto text-center">
@@ -75,7 +86,7 @@ export function Modules() {
           {modules.map((module) => (
             <button
               key={module.id}
-              onClick={() => setActiveModule(module.id)}
+              onClick={() => handleModuleChange(module.id)}
               className={cn(
                 "px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300",
                 activeModule === module.id
