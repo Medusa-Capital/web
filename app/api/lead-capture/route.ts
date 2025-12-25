@@ -1,0 +1,32 @@
+import { NextRequest, NextResponse } from "next/server";
+
+const AIRTABLE_WEBHOOK_URL =
+  "https://hooks.airtable.com/workflows/v1/genericWebhook/appm5ImZjJIK6m2yl/wflRiDLbj1jjOabcs/wtr0vVMTBQHF662Cf";
+
+export async function POST(request: NextRequest) {
+  try {
+    const body = await request.json();
+
+    const response = await fetch(AIRTABLE_WEBHOOK_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    });
+
+    if (!response.ok) {
+      return NextResponse.json(
+        { error: "Failed to submit to Airtable" },
+        { status: response.status }
+      );
+    }
+
+    return NextResponse.json({ success: true });
+  } catch {
+    return NextResponse.json(
+      { error: "Internal server error" },
+      { status: 500 }
+    );
+  }
+}
