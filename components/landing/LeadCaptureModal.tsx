@@ -17,6 +17,8 @@ import {
   CountryCode,
   getCountryCallingCode,
 } from "libphonenumber-js";
+import { trackModalEvent, trackFormEvent, trackVideoEvent } from "@/lib/analytics";
+import { getUTMParamsForSubmission } from "@/lib/utm";
 
 // Supported countries with their codes and flags
 const COUNTRIES = [
@@ -97,6 +99,7 @@ export function LeadCaptureModal() {
     // Show modal after 1 second
     const timer = setTimeout(() => {
       setIsOpen(true);
+      trackModalEvent("lead_capture", "open");
     }, 1000);
 
     return () => clearTimeout(timer);
@@ -120,6 +123,7 @@ export function LeadCaptureModal() {
     acceptedTerms;
 
   const handleClose = () => {
+    trackModalEvent("lead_capture", "close");
     setIsOpen(false);
     // Mark as seen so it doesn't show again this session
     localStorage.setItem("medusa-lead-modal-seen", "true");
@@ -128,6 +132,7 @@ export function LeadCaptureModal() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitError(null);
+    trackFormEvent("lead_capture", "submit");
 
     // Mark all fields as touched
     setTouched({
@@ -147,6 +152,8 @@ export function LeadCaptureModal() {
         selectedCountry.code
       );
 
+      const utmParams = getUTMParamsForSubmission();
+
       const response = await fetch("/api/lead-capture", {
         method: "POST",
         headers: {
@@ -158,6 +165,7 @@ export function LeadCaptureModal() {
           email: formData.email.trim().toLowerCase(),
           phone: formattedPhone,
           consent: acceptedTerms,
+          ...utmParams,
         }),
       });
 
@@ -169,8 +177,11 @@ export function LeadCaptureModal() {
       localStorage.setItem("medusa-lead-modal-submitted", "true");
       localStorage.setItem("medusa-lead-modal-seen", "true");
 
+      trackFormEvent("lead_capture", "success");
+      trackVideoEvent("masterclass", "play");
       setIsSubmitted(true);
     } catch {
+      trackFormEvent("lead_capture", "error");
       setSubmitError(
         "Ha ocurrido un error. Por favor, inténtalo de nuevo."
       );
