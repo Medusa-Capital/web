@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { trackEvent } from "@/lib/analytics";
 
 export function Header() {
   const [isDark, setIsDark] = useState(true);
@@ -31,13 +32,18 @@ export function Header() {
           <Link
             href="/blog"
             className="text-[#B9B8EB]/70 hover:text-white transition-colors font-medium"
+            onClick={() => trackEvent("navigation_click", { destination: "blog", category: "navigation" })}
           >
             Blog
           </Link>
 
           {/* Dark/Light mode toggle - pill style matching legacy */}
           <button
-          onClick={() => setIsDark(!isDark)}
+          onClick={() => {
+            const newMode = !isDark;
+            setIsDark(newMode);
+            trackEvent("theme_toggle", { theme: newMode ? "dark" : "light", category: "engagement" });
+          }}
           className="relative flex items-center w-24 h-10 rounded-full bg-white/20 dark:bg-white/30 cursor-pointer transition-colors duration-300"
         >
           {/* Toggle circle */}
