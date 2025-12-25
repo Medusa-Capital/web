@@ -8,6 +8,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { trackEvent } from "@/lib/analytics";
 
 const faqs = [
   {
@@ -74,6 +75,17 @@ function CustomArrowIcon({ className }: { className?: string }) {
 }
 
 export function FAQ() {
+  const handleAccordionChange = (value: string) => {
+    if (value) {
+      const index = parseInt(value.replace("item-", ""));
+      trackEvent("faq_expand", {
+        faq_index: index,
+        faq_question: faqs[index]?.question || "unknown",
+        category: "engagement",
+      });
+    }
+  };
+
   return (
     <section className="relative pt-[100px] px-6 pb-0">
       <div className="max-w-6xl mx-auto relative z-10">
@@ -89,7 +101,13 @@ export function FAQ() {
           </div>
 
           {/* Right accordion - col-lg-7 */}
-          <Accordion type="single" collapsible defaultValue="item-0" className="w-full">
+          <Accordion
+            type="single"
+            collapsible
+            defaultValue="item-0"
+            className="w-full"
+            onValueChange={handleAccordionChange}
+          >
             {faqs.map((faq, i) => (
               <AccordionItem
                 key={i}
