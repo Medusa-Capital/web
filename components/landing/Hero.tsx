@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import Image from "next/image";
+import { trackCTAClick, trackOutboundLink } from "@/lib/analytics";
 
 export function Hero() {
   return (
@@ -66,7 +67,11 @@ export function Hero() {
           variant="primaryGlow"
           size="lg"
           className="px-8 py-6 text-base font-semibold rounded-lg"
-          onClick={() => window.open("https://calendly.com/contacto-medusacapital/30min", "_blank")}
+          onClick={() => {
+            trackCTAClick("hero_cta", "calendly");
+            trackOutboundLink("https://calendly.com/contacto-medusacapital/30min", "Quiero Reservar Mi Plaza");
+            window.open("https://calendly.com/contacto-medusacapital/30min", "_blank");
+          }}
         >
           Quiero Reservar Mi Plaza
         </Button>
