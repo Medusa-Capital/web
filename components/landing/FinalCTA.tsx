@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 
 export function FinalCTA() {
   return (
-    <section className="relative py-24 px-6 overflow-hidden">
+    <section className="relative py-[100px] px-6 overflow-hidden">
       <div className="max-w-[973px] mx-auto relative">
         {/* Outer card with gradient border - matches legacy .cta-main-wrapper.card */}
         <div

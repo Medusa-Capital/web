@@ -75,7 +75,7 @@ function CustomArrowIcon({ className }: { className?: string }) {
 
 export function FAQ() {
   return (
-    <section className="relative py-24 px-6 pb-0">
+    <section className="relative pt-[100px] px-6 pb-0">
       <div className="max-w-6xl mx-auto relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-[5fr_7fr] gap-6">
           {/* Left header - col-lg-5 */}

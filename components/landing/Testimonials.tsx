@@ -121,7 +121,7 @@ function ScrollingColumn({
 
 export function Testimonials() {
   return (
-    <section className="relative py-24 px-6 overflow-hidden">
+    <section className="relative py-[100px] px-6 overflow-hidden">
       <div className="max-w-6xl mx-auto relative z-10">
         {/* Header */}
         <div className="text-center mb-16">

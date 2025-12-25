@@ -21,9 +21,9 @@ export default function Page() {
       <div className="relative z-10">
         <Header />
         <Hero />
-        <Stats />
         <ValueProp />
         <Features />
+        <Stats />
         <Modules />
         <Team />
         <Testimonials />

@@ -39,7 +39,7 @@ const features = [
 
 export function Features() {
   return (
-    <section className="relative px-6 py-16 lg:py-24">
+    <section className="relative pr-6">
       {/* Background Medusa graphic */}
       <div
         className="hidden lg:block absolute pointer-events-none select-none"
@@ -77,7 +77,7 @@ export function Features() {
           </div>
 
           {/* Right - Cards list with vertical spacing */}
-          <div className="flex flex-col gap-8">
+          <div className="flex flex-row flex-wrap gap-8">
             {features.map((feature, i) => (
               <div key={i} className="flex gap-4 md:gap-8">
                 {/* Step count badge */}

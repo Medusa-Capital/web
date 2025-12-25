@@ -7,7 +7,7 @@ import Image from "next/image";
 export function Hero() {
   return (
     <section
-      className="relative min-h-screen flex flex-col items-center justify-center px-6 pt-32 pb-16"
+      className="relative min-h-screen flex flex-col items-center justify-center px-6 pt-[25px] pb-16"
       style={{
         backgroundImage: 'url("/img/hero-strokes.webp")',
         backgroundSize: 'contain',
@@ -29,10 +29,10 @@ export function Hero() {
         </Badge>
 
         {/* Main headline - matching legacy exactly with Title Case */}
-        <h1 className="font-[family-name:var(--font-heading)] text-[clamp(44px,5vw,80px)] font-bold text-white leading-[1.1] mb-6 capitalize">
-          Formación En Criptomonedas
+        <h1 className="font-[family-name:var(--font-heading)] text-[clamp(32px,5vw,80px)] font-bold text-white leading-[1.1] mb-6 capitalize">
+          <span className="whitespace-nowrap">Formación En Criptomonedas</span>
           <br />
-          <span className="text-[#B9B8EB]">Para Inversores Exigentes</span>
+          <span className="text-[#B9B8EB] whitespace-nowrap">Para Inversores Exigentes</span>
         </h1>
 
         {/* Subheadline */}
@@ -44,7 +44,7 @@ export function Hero() {
 
         {/* Video Container */}
         <div
-          className="relative w-full max-w-3xl mx-auto mb-8 rounded-[30px] overflow-hidden"
+          className="relative w-full max-w-[766px] mx-auto mb-8 rounded-[30px] overflow-hidden"
         >
           <div className="aspect-video overflow-hidden">
             <iframe
@@ -88,7 +88,7 @@ export function Hero() {
         </div>
 
         {/* Partner logos - using actual brand logo images */}
-        <div className="mt-12 flex items-center justify-center gap-6 md:gap-14">
+        <div className="mt-12 flex items-center justify-center gap-6 md:gap-14 h-[150px]">
           {/* JF Partners logo */}
           <Image
             src="/img/brand-logo-1.webp"
@@ -98,15 +98,15 @@ export function Hero() {
             className="h-12 md:h-14 w-auto"
           />
 
-          <span className="text-[#B9B8EB]/40 text-2xl font-light">×</span>
+          <span className="text-[#B9B8EB]/40 text-2xl font-light w-[50px] h-[50px] flex items-center justify-center">×</span>
 
           {/* Medusa Capital logo */}
           <Image
             src="/img/brand-logo-2.webp"
             alt="Medusa Capital"
             width={180}
-            height={60}
-            className="h-12 md:h-14 w-auto"
+            height={100}
+            className="h-[100px] w-auto"
           />
         </div>
       </div>

@@ -61,7 +61,7 @@ export function Modules() {
   const currentModule = modules.find((m) => m.id === activeModule)!;
 
   return (
-    <section className="relative py-24 px-6">
+    <section className="relative py-[100px] px-6">
       <div className="max-w-4xl mx-auto text-center">
         {/* Header */}
         <h2 className="font-[family-name:var(--font-heading)] text-4xl md:text-5xl font-bold text-white leading-tight mb-12">
@@ -71,7 +71,7 @@ export function Modules() {
         </h2>
 
         {/* Tab navigation - pill style matching legacy */}
-        <div className="inline-flex flex-wrap justify-center gap-1 mb-12 p-1.5 rounded-full bg-[#0a0a3a] border border-[#B9B8EB]/5">
+        <div className="inline-flex flex-wrap justify-center gap-1 mb-12 p-1.5 rounded-full bg-[#423d80] border border-[#B9B8EB]/5">
           {modules.map((module) => (
             <button
               key={module.id}
