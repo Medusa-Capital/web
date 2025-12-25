@@ -1,18 +1,22 @@
 import type { Metadata } from "next";
-import { Geist_Mono, Inter, Cormorant } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
-
-const cormorant = Cormorant({
-  subsets: ["latin"],
-  weight: ["700"],
-  variable: "--font-heading",
+const inter = localFont({
+  src: [
+    { path: "../public/fonts/inter/inter-regular.ttf", weight: "400", style: "normal" },
+    { path: "../public/fonts/inter/inter-medium.ttf", weight: "500", style: "normal" },
+    { path: "../public/fonts/inter/inter-semibold.ttf", weight: "600", style: "normal" },
+    { path: "../public/fonts/inter/inter-bold.ttf", weight: "700", style: "normal" },
+  ],
+  variable: "--font-sans",
+  display: "swap",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+const cormorant = localFont({
+  src: [{ path: "../public/fonts/cormorant/cormorant-bold.ttf", weight: "700", style: "normal" }],
+  variable: "--font-heading",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -27,7 +31,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es" className={`${inter.variable} ${cormorant.variable}`}>
-      <body className={`${geistMono.variable} antialiased`}>{children}</body>
+      <body className="antialiased">{children}</body>
     </html>
   );
 }

@@ -51,7 +51,7 @@ function TestimonialCard({ testimonial }: { testimonial: typeof testimonials[0] 
   return (
     <Card
       variant="glass"
-      className="p-6 pb-[50px] mb-4 testimonial-card-bg"
+      className="p-6 pb-[50px] mb-4 !bg-white/5"
     >
       {/* Header with avatar */}
       <div className="flex items-center gap-3 mb-4">
@@ -90,7 +90,7 @@ function ScrollingColumn({
 
   return (
     <div className="relative h-[600px] md:h-[880px] overflow-hidden">
-      {/* Gradient overlays for fade effect - matching legacy */}
+      {/* Gradient overlays for fade effect */}
       <div
         className="absolute top-0 left-0 right-0 h-[160px] md:h-[211px] z-10 pointer-events-none"
         style={{

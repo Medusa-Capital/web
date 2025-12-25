@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { Card } from "@/components/ui/card";
 
 // Team data matching the original site (2 professors: Borja Neira & Alejandro Gilabert)
 const team = [
@@ -24,43 +23,42 @@ const team = [
 
 function TeamCard({ member }: { member: typeof team[0] }) {
   return (
-    <Card variant="glass" className="flex-shrink-0 w-[calc(100vw-70px)] max-w-[734px] mr-[clamp(20px,4vw,40px)] px-[30px]">
-      {/* LinkedIn icon in top right */}
-      <a
-        href={member.linkedin}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="absolute top-3.5 right-3.5 w-[42px] h-[42px] rounded-full bg-[#B9B8EB]/30 flex items-center justify-center hover:bg-[#0077b5] transition-colors"
-      >
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
-          <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
-        </svg>
-      </a>
-
-      {/* Avatar */}
-      <div className="mb-4">
+    <div className="flex-shrink-0 w-[calc(100vw-70px)] max-w-[650px] mr-[clamp(20px,4vw,40px)] flex gap-6">
+      {/* Photo with LinkedIn badge */}
+      <div className="relative flex-shrink-0">
         <Image
           src={member.photo}
           alt={member.name}
-          width={80}
-          height={80}
-          className="w-20 h-20 rounded-full object-cover"
+          width={200}
+          height={240}
+          className="w-[180px] h-[220px] object-cover rounded-2xl"
         />
+        {/* LinkedIn badge */}
+        <a
+          href={member.linkedin}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="absolute -top-2 -right-2 w-[42px] h-[42px] rounded-full bg-[#4355d9] flex items-center justify-center hover:bg-[#0077b5] transition-colors"
+        >
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="white">
+            <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+          </svg>
+        </a>
       </div>
 
       {/* Content */}
-      <div>
-        <h3 className="text-[#e8a060] font-semibold text-lg">
+      <div className="flex flex-col justify-center">
+        <h3 className="text-white font-semibold text-2xl mb-1">
           {member.name}
         </h3>
-        <span className="text-[#cccce0]/60 text-[17px] font-semibold uppercase tracking-wider">
-          • {member.role}
+        <span className="text-[#cccce0]/60 text-sm font-medium uppercase tracking-wider mb-4">
+          - {member.role}
         </span>
-        <p className="text-[#cccce0]/70 text-sm leading-relaxed mt-3">
+        <p className="text-[#cccce0]/70 text-sm leading-relaxed">
           {member.bio}
         </p>
       </div>
-    </Card>
+    </div>
   );
 }
 
