@@ -12,7 +12,7 @@ declare global {
       targetId: string,
       config?: Record<string, unknown>
     ) => void;
-    dataLayer: unknown[];
+    dataLayer?: unknown[];
   }
 }
 
