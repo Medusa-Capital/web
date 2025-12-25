@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { trackCTAClick, trackOutboundLink } from "@/lib/analytics";
 
 export function FinalCTA() {
   return (
@@ -44,7 +45,11 @@ export function FinalCTA() {
                 variant="primaryGlow"
                 size="lg"
                 className="px-8 py-6 text-base font-medium rounded-lg"
-                onClick={() => window.open("https://calendly.com/contacto-medusacapital/30min", "_blank")}
+                onClick={() => {
+                  trackCTAClick("final_cta", "calendly");
+                  trackOutboundLink("https://calendly.com/contacto-medusacapital/30min", "Quiero Reservar Mi Plaza");
+                  window.open("https://calendly.com/contacto-medusacapital/30min", "_blank");
+                }}
               >
                 Quiero Reservar Mi Plaza
               </Button>
