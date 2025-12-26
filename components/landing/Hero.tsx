@@ -96,17 +96,17 @@ export function Hero() {
         </div>
 
         {/* Partner logos - using actual brand logo images */}
-        <div className="mt-8 md:mt-12 flex flex-col md:flex-row items-center justify-center gap-2 md:gap-14">
+        <div className="mt-8 md:mt-12 flex flex-row items-center justify-center gap-4 md:gap-14">
           {/* JF Partners logo */}
           <Image
             src="/img/brand-logo-1.webp"
             alt="JF Partners"
             width={180}
             height={60}
-            className="h-8 md:h-[100px] w-auto"
+            className="h-12 md:h-[100px] w-auto"
           />
 
-          <span className="text-white text-lg md:text-2xl font-light hidden md:block">×</span>
+          <span className="text-white text-base md:text-2xl font-light">×</span>
 
           {/* Medusa Capital logo */}
           <Image
@@ -114,7 +114,7 @@ export function Hero() {
             alt="Medusa Capital"
             width={180}
             height={100}
-            className="h-12 md:h-[100px] w-auto"
+            className="h-10 md:h-[100px] w-auto"
           />
         </div>
       </div>
