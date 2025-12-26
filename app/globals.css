@@ -325,10 +325,12 @@
   * {
     @apply border-border outline-ring/50;
   }
-  html, body {
+  html {
     overflow-x: clip; /* clip instead of hidden - doesn't break sticky */
+    overflow-y: scroll; /* always show scrollbar to prevent layout shift */
   }
   body {
+    overflow-x: clip;
     @apply bg-background text-foreground;
   }
 }
