@@ -103,10 +103,10 @@ export function Hero() {
             alt="JF Partners"
             width={180}
             height={60}
-            className="h-12 md:h-[100px] w-auto"
+            className="h-12 md:h-20 w-auto"
           />
 
-          <span className="text-white text-base md:text-2xl font-light">×</span>
+          <span className="text-white text-lg md:text-2xl font-light">×</span>
 
           {/* Medusa Capital logo */}
           <Image
@@ -114,7 +114,7 @@ export function Hero() {
             alt="Medusa Capital"
             width={180}
             height={100}
-            className="h-10 md:h-[100px] w-auto"
+            className="h-12 md:h-20 w-auto"
           />
         </div>
       </div>
