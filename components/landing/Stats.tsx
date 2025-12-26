@@ -21,7 +21,7 @@ export function Stats() {
       <div className="max-w-6xl mx-auto text-center">
         {/* Content wrapper with gradient border - matching legacy content-sec */}
         <div
-          className="relative rounded-[clamp(30px,4vw,44px)] p-[clamp(40px,6vw,96px)] gradient-border"
+          className="relative rounded-[clamp(30px,4vw,44px)] px-[clamp(40px,6vw,96px)] py-[70px] gradient-border"
           style={{
             background: "linear-gradient(0deg, rgba(1, 0, 82, 1) 0%, rgba(185, 184, 235, 0.1) 100%)",
           }}
