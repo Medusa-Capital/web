@@ -8,7 +8,7 @@ import { trackCTAClick, trackOutboundLink } from "@/lib/analytics";
 export function Hero() {
   return (
     <section
-      className="relative min-h-screen flex flex-col items-center justify-center px-6 pt-[25px] pb-16"
+      className="relative min-h-screen flex flex-col items-center justify-center px-4 md:px-6 pt-[25px] pb-16"
       style={{
         backgroundImage: 'url("/img/hero-strokes.webp")',
         backgroundSize: 'contain',
@@ -16,7 +16,7 @@ export function Hero() {
         backgroundRepeat: 'no-repeat',
       }}
     >
-      <div className="relative z-10 max-w-4xl mx-auto text-center">
+      <div className="relative z-10 w-full max-w-4xl mx-auto text-center">
         {/* Welcome badge */}
         <Badge variant="hero" className="mb-5">
           <Image
@@ -29,11 +29,14 @@ export function Hero() {
           Bienvenido a Medusa Capital
         </Badge>
 
-        {/* Main headline - matching legacy exactly with Title Case */}
-        <h1 className="font-[family-name:var(--font-heading)] text-[clamp(32px,5vw,80px)] font-bold text-white leading-[1.1] mb-6 capitalize">
-          <span className="whitespace-nowrap">Formación En Criptomonedas</span>
+        {/* Main headline */}
+        <h1
+          className="font-[family-name:var(--font-heading)] font-bold text-white leading-tight mb-6 capitalize"
+          style={{ fontSize: 'clamp(1.5rem, 6vw, 4.5rem)' }}
+        >
+          Formación En Criptomonedas
           <br />
-          <span className="text-[#B9B8EB] whitespace-nowrap">Para Inversores Exigentes</span>
+          <span className="text-[#B9B8EB]">Para Inversores Exigentes</span>
         </h1>
 
         {/* Subheadline */}
@@ -93,17 +96,17 @@ export function Hero() {
         </div>
 
         {/* Partner logos - using actual brand logo images */}
-        <div className="mt-12 flex items-center justify-center gap-6 md:gap-14 h-[150px]">
+        <div className="mt-8 md:mt-12 flex flex-col md:flex-row items-center justify-center gap-2 md:gap-14">
           {/* JF Partners logo */}
           <Image
             src="/img/brand-logo-1.webp"
             alt="JF Partners"
             width={180}
             height={60}
-            className="h-12 md:h-14 w-auto"
+            className="h-8 md:h-14 w-auto"
           />
 
-          <span className="text-[#B9B8EB]/40 text-2xl font-light w-[50px] h-[50px] flex items-center justify-center">×</span>
+          <span className="text-[#B9B8EB]/40 text-lg md:text-2xl font-light hidden md:block">×</span>
 
           {/* Medusa Capital logo */}
           <Image
@@ -111,7 +114,7 @@ export function Hero() {
             alt="Medusa Capital"
             width={180}
             height={100}
-            className="h-[100px] w-auto"
+            className="h-12 md:h-[100px] w-auto"
           />
         </div>
       </div>

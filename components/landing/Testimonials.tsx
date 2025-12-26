@@ -121,11 +121,11 @@ function ScrollingColumn({
 
 export function Testimonials() {
   return (
-    <section className="relative py-[100px] px-6 overflow-hidden">
+    <section className="relative py-16 md:py-[100px] px-4 md:px-6 overflow-hidden">
       <div className="max-w-6xl mx-auto relative z-10">
         {/* Header */}
-        <div className="text-center mb-16">
-          <h2 className="font-[family-name:var(--font-heading)] text-4xl md:text-5xl font-bold text-white leading-tight mb-4">
+        <div className="text-center mb-8 md:mb-16">
+          <h2 className="font-[family-name:var(--font-heading)] text-3xl md:text-5xl font-bold text-white leading-tight mb-4">
             Qué dicen Nuestros Alumnos
           </h2>
           <p className="text-[#B9B8EB]/50 max-w-2xl mx-auto">

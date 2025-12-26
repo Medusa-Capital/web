@@ -38,44 +38,44 @@ const team = [
 
 function TeamCard({ member }: { member: typeof team[0] }) {
   return (
-    <div className="flex-shrink-0 w-[600px] min-h-[320px] flex gap-6 p-6 rounded-3xl border border-[#B9B8EB]/10 bg-gradient-to-br from-[#1b1a64]/60 to-[#0a0a2e]/80 backdrop-blur-sm items-stretch">
+    <div className="flex-shrink-0 w-[calc(100vw-32px)] md:w-[600px] min-h-0 md:min-h-[320px] flex flex-col md:flex-row gap-4 md:gap-6 p-4 md:p-6 rounded-2xl md:rounded-3xl border border-[#B9B8EB]/10 bg-gradient-to-br from-[#1b1a64]/60 to-[#0a0a2e]/80 backdrop-blur-sm items-stretch">
       {/* Photo with LinkedIn badge */}
-      <div className="relative flex-shrink-0">
+      <div className="relative flex-shrink-0 self-center md:self-auto">
         <Image
           src={member.photo}
           alt={member.name}
           width={180}
           height={280}
-          className="w-[180px] h-full min-h-[280px] object-cover object-top rounded-2xl"
+          className="w-[140px] md:w-[180px] h-[200px] md:h-full md:min-h-[280px] object-cover object-top rounded-xl md:rounded-2xl"
         />
         {/* LinkedIn badge */}
         <a
           href={member.linkedin}
           target="_blank"
           rel="noopener noreferrer"
-          className="absolute top-3 right-3 w-10 h-10 rounded-full bg-[#4355d9] flex items-center justify-center hover:bg-[#0077b5] transition-colors shadow-lg"
+          className="absolute top-2 right-2 md:top-3 md:right-3 w-8 h-8 md:w-10 md:h-10 rounded-full bg-[#4355d9] flex items-center justify-center hover:bg-[#0077b5] transition-colors shadow-lg"
           onClick={() => trackOutboundLink(member.linkedin, `LinkedIn - ${member.name}`)}
         >
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="white">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="white" className="md:w-[18px] md:h-[18px]">
             <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
           </svg>
         </a>
       </div>
 
       {/* Content */}
-      <div className="flex flex-col justify-start flex-1 min-w-0 py-1">
+      <div className="flex flex-col justify-start flex-1 min-w-0 py-1 text-center md:text-left">
         {/* Role badge */}
-        <span className="inline-block self-start px-3 py-1 text-xs font-semibold uppercase tracking-wider rounded-full bg-[#4355d9]/20 text-[#B9B8EB] mb-2">
+        <span className="inline-block self-center md:self-start px-3 py-1 text-xs font-semibold uppercase tracking-wider rounded-full bg-[#4355d9]/20 text-[#B9B8EB] mb-2">
           {member.role}
         </span>
 
         {/* Name */}
-        <h3 className="text-white font-bold text-2xl mb-3 leading-tight">
+        <h3 className="text-white font-bold text-xl md:text-2xl mb-2 md:mb-3 leading-tight">
           {member.name}
         </h3>
 
         {/* Bio - full text visible */}
-        <p className="text-[#B9B8EB]/60 text-sm leading-relaxed">
+        <p className="text-[#B9B8EB]/60 text-xs md:text-sm leading-relaxed">
           {member.bio}
         </p>
       </div>
@@ -121,11 +121,11 @@ export function Team() {
   const duplicatedTeam = [...team, ...team];
 
   return (
-    <section className="relative py-[100px] overflow-hidden">
-      <div className="max-w-6xl mx-auto px-6 relative z-10">
+    <section className="relative py-16 md:py-[100px] overflow-hidden">
+      <div className="max-w-6xl mx-auto px-4 md:px-6 relative z-10">
         {/* Header */}
-        <div className="text-center mb-12">
-          <h2 className="font-[family-name:var(--font-heading)] text-4xl md:text-5xl font-bold text-white leading-tight mb-4">
+        <div className="text-center mb-8 md:mb-12">
+          <h2 className="font-[family-name:var(--font-heading)] text-3xl md:text-5xl font-bold text-white leading-tight mb-4">
             Conoce al Equipo
           </h2>
           <p className="text-[#B9B8EB]/50 max-w-xl mx-auto">

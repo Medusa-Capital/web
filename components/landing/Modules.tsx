@@ -72,23 +72,23 @@ export function Modules() {
   };
 
   return (
-    <section className="relative py-[100px] px-6">
+    <section className="relative py-16 md:py-[100px] px-4 md:px-6">
       <div className="max-w-4xl mx-auto text-center">
         {/* Header */}
-        <h2 className="font-[family-name:var(--font-heading)] text-4xl md:text-5xl font-bold text-white leading-tight mb-12">
+        <h2 className="font-[family-name:var(--font-heading)] text-3xl md:text-5xl font-bold text-white leading-tight mb-8 md:mb-12">
           Tu Ruta de Aprendizaje
           <br />
           con Medusa Capital
         </h2>
 
-        {/* Tab navigation - pill style matching legacy */}
-        <div className="inline-flex flex-wrap justify-center gap-1 mb-12 p-1.5 rounded-full bg-[#423d80] border border-[#B9B8EB]/5">
+        {/* Tab navigation - grid on mobile, pill on desktop */}
+        <div className="grid grid-cols-3 gap-2 md:inline-flex md:flex-wrap md:justify-center md:gap-1 mb-8 md:mb-12 p-2 md:p-1.5 rounded-2xl md:rounded-full bg-[#423d80] border border-[#B9B8EB]/5">
           {modules.map((module) => (
             <button
               key={module.id}
               onClick={() => handleModuleChange(module.id)}
               className={cn(
-                "px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300",
+                "px-3 md:px-5 py-2 md:py-2.5 rounded-xl md:rounded-full text-xs md:text-sm font-medium transition-all duration-300",
                 activeModule === module.id
                   ? "bg-[#4355d9] text-white"
                   : "bg-transparent text-[#B9B8EB]/50 hover:text-[#B9B8EB]"
@@ -116,14 +116,14 @@ export function Modules() {
           />
           {/* Card with gradient from top to bottom */}
           <div
-            className="relative rounded-3xl p-8 md:p-12 border border-[#B9B8EB]/20"
+            className="relative rounded-2xl md:rounded-3xl p-5 md:p-12 border border-[#B9B8EB]/20"
             style={{
               background: "linear-gradient(180deg, rgba(67, 85, 217, 0.4) 0%, rgba(27, 26, 100, 0.6) 50%, rgba(1, 0, 82, 0.8) 100%)",
             }}
           >
             {/* Title with pill border */}
-            <Badge variant="pill" className="mb-6">
-              <h3 className="font-[family-name:var(--font-heading)] text-xl md:text-2xl font-bold text-white">
+            <Badge variant="pill" className="mb-4 md:mb-6">
+              <h3 className="font-[family-name:var(--font-heading)] text-lg md:text-2xl font-bold text-white">
                 {currentModule.title}
               </h3>
             </Badge>

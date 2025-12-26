@@ -87,15 +87,15 @@ export function FAQ() {
   };
 
   return (
-    <section className="relative pt-[100px] px-6 pb-0">
+    <section className="relative pt-16 md:pt-[100px] px-4 md:px-6 pb-0">
       <div className="max-w-6xl mx-auto relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-[5fr_7fr] gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[5fr_7fr] gap-4 md:gap-6">
           {/* Left header - col-lg-5 */}
-          <div>
-            <Badge variant="section" className="mb-4">
+          <div className="mb-4 lg:mb-0">
+            <Badge variant="section" className="mb-3 md:mb-4">
               FAQs
             </Badge>
-            <h2 className="font-[family-name:var(--font-heading)] text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight">
+            <h2 className="font-[family-name:var(--font-heading)] text-2xl md:text-4xl lg:text-5xl font-bold text-white leading-tight">
               Preguntas que consideramos relevantes
             </h2>
           </div>

@@ -39,7 +39,7 @@ const features = [
 
 export function Features() {
   return (
-    <section className="relative pr-6">
+    <section className="relative px-4 md:px-6">
       {/* Background Medusa graphic */}
       <div
         className="hidden lg:block absolute pointer-events-none select-none"
@@ -62,12 +62,12 @@ export function Features() {
         <div className="lg:grid lg:grid-cols-2 lg:gap-12">
           {/* Left content - sticky */}
           <div>
-            <div className="lg:sticky lg:top-[clamp(140px,4vw,162px)] mb-12 lg:mb-0">
-              <h2 className="font-[family-name:var(--font-heading)] text-[clamp(36px,4.5vw,60px)] font-bold text-white leading-tight mb-6">
+            <div className="lg:sticky lg:top-[clamp(140px,4vw,162px)] mb-12 lg:mb-0 text-center lg:text-left">
+              <h2 className="font-[family-name:var(--font-heading)] text-[clamp(28px,4.5vw,60px)] font-bold text-white leading-tight mb-6">
                 Un Método Claro para Entender, Evaluar e Invertir en Cripto con
                 Criterio
               </h2>
-              <p className="text-[#cccce0] text-lg leading-relaxed">
+              <p className="text-[#cccce0] text-base md:text-lg leading-relaxed">
                 Desde Bitcoin hasta DeFi, pasando por tokenomics, ciclos de
                 mercado y gestión del riesgo. Una formación paso a paso diseñada
                 para ayudarte a interpretar este nuevo ecosistema con el mismo
@@ -77,17 +77,17 @@ export function Features() {
           </div>
 
           {/* Right - Cards list with vertical spacing */}
-          <div className="flex flex-row flex-wrap gap-8">
+          <div className="flex flex-col gap-8">
             {features.map((feature, i) => (
               <div key={i} className="flex gap-4 md:gap-8">
-                {/* Step count badge */}
-                <div className="flex-shrink-0">
+                {/* Step count badge - hidden on mobile */}
+                <div className="flex-shrink-0 hidden md:block">
                   <Image
                     src={feature.countIcon}
                     alt={`Step ${feature.number}`}
                     width={112}
                     height={112}
-                    className="w-14 md:w-20 lg:w-[112px] h-auto rounded-full"
+                    className="w-20 lg:w-[112px] h-auto rounded-full"
                   />
                 </div>
 
