@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { trackOutboundLink } from "@/lib/analytics";
 
-// Team data - 4 members: Founder + 3 Professors
+// Team data - 5 members: Founder + 4 Professors
 const team = [
   {
     name: 'Alex "Axel" Cuesta',
@@ -33,6 +33,13 @@ const team = [
     bio: "Ingeniero de telecomunicaciones con experiencia en desarrollo de productos blockchain, es Product Owner en ONYZE, una de las principales custodias cripto en España. Profesor universitario en CEDEU, ha trabajado en soluciones DeFi y estrategias de tokenización para startups del sector. Combina perfil técnico y visión de negocio para enseñar cómo funciona la infraestructura blockchain más allá de la especulación.",
     linkedin: "#",
     photo: "/img/member-4.webp",
+  },
+  {
+    name: "Esteban Rivero",
+    role: "PROFESOR",
+    bio: "Licenciado en ADE y Máster en Auditoría y Finanzas. Ejerce como consultor especializado en riesgos y regulación, y experto en fiscalidad de los criptoactivos. Fundador del proyecto de divulgación CeroUnoCrypto, dónde hace fáciles temas sobre regulación y fiscalidad de los criptoactivos, para la comunidad en español. Ayuda a inversores a entender cómo tributan los criptoactivos, y a sobrevivir a Hacienda con estrategias legales y sentido común.",
+    linkedin: "https://www.linkedin.com/in/esteban-rivero/",
+    photo: "/img/member-4.png",
   },
 ];
 

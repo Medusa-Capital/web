@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export function Footer() {
   return (
@@ -67,10 +68,16 @@ export function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="pt-8 border-t border-[#B9B8EB]/20 text-center">
+        <div className="pt-8 border-t border-[#B9B8EB]/20 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-[#B9B8EB]/40 text-sm">
             ©Medusa Capital 2025. Todos los Derechos Reservados.
           </p>
+          <Link
+            href="/privacidad"
+            className="text-[#B9B8EB]/40 text-sm hover:text-white transition-colors"
+          >
+            Política de Privacidad
+          </Link>
         </div>
       </div>
     </footer>

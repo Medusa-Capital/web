@@ -21,13 +21,22 @@ export function Header() {
         </Link>
 
         {/* Navigation */}
-        <Link
-          href="/blog"
-          className="text-[#B9B8EB]/70 hover:text-white transition-colors font-semibold text-xl md:text-2xl"
-          onClick={() => trackEvent("navigation_click", { destination: "blog", category: "navigation" })}
-        >
-          Blog
-        </Link>
+        <nav className="flex items-center gap-6 md:gap-8">
+          <Link
+            href="/colaboradores"
+            className="text-[#B9B8EB]/70 hover:text-white transition-colors font-semibold text-lg md:text-xl"
+            onClick={() => trackEvent("navigation_click", { destination: "colaboradores", category: "navigation" })}
+          >
+            Colaboradores
+          </Link>
+          <Link
+            href="/blog"
+            className="text-[#B9B8EB]/70 hover:text-white transition-colors font-semibold text-lg md:text-xl"
+            onClick={() => trackEvent("navigation_click", { destination: "blog", category: "navigation" })}
+          >
+            Blog
+          </Link>
+        </nav>
       </div>
     </header>
   );
