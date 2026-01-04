@@ -8,7 +8,7 @@ import { trackCTAClick, trackOutboundLink } from "@/lib/analytics";
 export function Hero() {
   return (
     <section
-      className="relative min-h-screen flex flex-col items-center justify-center px-4 md:px-6 pt-[25px] pb-16"
+      className="relative min-h-screen flex flex-col items-center justify-center px-4 md:px-6 pt-[100px] pb-[100px] mt-0"
       style={{
         backgroundImage: 'url("/img/hero-strokes.webp")',
         backgroundSize: 'contain',
@@ -96,7 +96,7 @@ export function Hero() {
         </div>
 
         {/* Partner logos - using actual brand logo images */}
-        <div className="mt-8 md:mt-12 flex flex-row items-center justify-center gap-4 md:gap-14">
+        <div className="mt-[100px] flex flex-row items-center justify-center gap-4 md:gap-14">
           {/* JF Partners logo */}
           <Image
             src="/img/brand-logo-1.webp"
@@ -114,7 +114,7 @@ export function Hero() {
             alt="Medusa Capital"
             width={180}
             height={100}
-            className="h-12 md:h-20 w-auto"
+            className="h-12 md:h-[100px] w-auto"
           />
         </div>
       </div>

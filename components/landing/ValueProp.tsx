@@ -5,7 +5,7 @@ import Image from "next/image";
 
 export function ValueProp() {
   return (
-    <section className="relative py-[100px] px-6">
+    <section className="relative py-[100px] px-6 mt-0">
       {/* Background content-sec-obj graphic - right side */}
       <div
         className="hidden lg:block absolute pointer-events-none select-none"

@@ -17,7 +17,7 @@ export function Stats() {
   ];
 
   return (
-    <section className="relative py-[100px] px-6">
+    <section className="relative py-[100px] px-6 mt-0">
       <div className="max-w-6xl mx-auto text-center">
         {/* Content wrapper with gradient border - matching legacy content-sec */}
         <div
