@@ -10,7 +10,7 @@ const team = [
     name: 'Alex "Axel" Cuesta',
     role: "FUNDADOR",
     bio: "Más de 7 años de experiencia analizando mercados financieros, he desarrollado un enfoque propio que combina fundamentos macroeconómicos, lectura institucional y análisis fundamental para entender las claves para que un activo digital triunfe.",
-    linkedin: "#",
+    linkedin: "https://www.linkedin.com/in/alejandro-cuesta/",
     photo: "/img/member-1.webp",
   },
   {
@@ -24,14 +24,14 @@ const team = [
     name: "Borja Neira",
     role: "PROFESOR",
     bio: "Especialista en tokenización de activos y analista financiero. Candidato a CFA y Proxy Product Owner en Mercedes-Benz, trabaja investigando cómo los activos tokenizados impactan en la lógica tradicional de asignación de carteras. Combina formación financiera rigurosa con un enfoque puramente económico sobre cripto, centrado en DeFi, RWAs y la transformación estructural de los mercados privados.",
-    linkedin: "#",
+    linkedin: "https://www.linkedin.com/in/bneira/",
     photo: "/img/member-3.webp",
   },
   {
     name: "Alejandro Gilabert",
     role: "PROFESOR",
     bio: "Ingeniero de telecomunicaciones con experiencia en desarrollo de productos blockchain, es Product Owner en ONYZE, una de las principales custodias cripto en España. Profesor universitario en CEDEU, ha trabajado en soluciones DeFi y estrategias de tokenización para startups del sector. Combina perfil técnico y visión de negocio para enseñar cómo funciona la infraestructura blockchain más allá de la especulación.",
-    linkedin: "#",
+    linkedin: "https://www.linkedin.com/in/alejandrogilabertramirez/",
     photo: "/img/member-4.webp",
   },
   {

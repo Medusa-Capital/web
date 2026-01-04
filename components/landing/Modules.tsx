@@ -1,9 +1,10 @@
 "use client";
 
 import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { Badge } from "@/components/ui/badge";
 import { trackEvent } from "@/lib/analytics";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const modules = [
   {
@@ -55,13 +56,29 @@ const modules = [
     description:
       "Cubre perfilamiento de inversor, gestión activa/pasiva, estrategias delta-neutral y control de riesgos.",
   },
+  {
+    id: 8,
+    title: "DeFi - Finanzas Descentralizadas",
+    subtitle: "El sistema financiero abierto",
+    description:
+      "Explora protocolos de lending, DEXs, liquidity pools, yield farming y staking. Aprende a evaluar riesgos de smart contracts y a generar rendimiento en DeFi.",
+  },
+  {
+    id: 9,
+    title: "Fiscalidad de los Criptoactivos",
+    subtitle: "Obligaciones y optimización fiscal",
+    description:
+      "Entiende cómo declarar criptoactivos en España, calcular plusvalías, documentar operaciones y aplicar estrategias legales para optimizar tu carga tributaria.",
+  },
 ];
 
 export function Modules() {
   const [activeModule, setActiveModule] = useState(1);
+  const [direction, setDirection] = useState(0);
   const currentModule = modules.find((m) => m.id === activeModule)!;
 
   const handleModuleChange = (moduleId: number) => {
+    setDirection(moduleId > activeModule ? 1 : -1);
     const module = modules.find((m) => m.id === moduleId);
     trackEvent("module_view", {
       module_id: moduleId,
@@ -71,68 +88,224 @@ export function Modules() {
     setActiveModule(moduleId);
   };
 
-  return (
-    <section className="relative py-16 md:py-[100px] px-4 md:px-6">
-      <div className="max-w-4xl mx-auto text-center">
-        {/* Header */}
-        <h2 className="font-[family-name:var(--font-heading)] text-3xl md:text-5xl font-bold text-white leading-tight mb-8 md:mb-12">
-          Tu Ruta de Aprendizaje
-          <br />
-          con Medusa Capital
-        </h2>
+  const goToPrev = () => {
+    if (activeModule > 1) handleModuleChange(activeModule - 1);
+  };
 
-        {/* Tab navigation - grid on mobile, pill on desktop */}
-        <div className="grid grid-cols-3 gap-2 md:inline-flex md:flex-wrap md:justify-center md:gap-1 mb-8 md:mb-12 p-2 md:p-1.5 rounded-2xl md:rounded-full bg-[#423d80] border border-[#B9B8EB]/5">
-          {modules.map((module) => (
-            <button
-              key={module.id}
-              onClick={() => handleModuleChange(module.id)}
-              className={cn(
-                "px-3 md:px-5 py-2 md:py-2.5 rounded-xl md:rounded-full text-xs md:text-sm font-medium transition-all duration-300",
-                activeModule === module.id
-                  ? "bg-[#4355d9] text-white"
-                  : "bg-transparent text-[#B9B8EB]/50 hover:text-[#B9B8EB]"
-              )}
-            >
-              Módulo {module.id}
-            </button>
-          ))}
+  const goToNext = () => {
+    if (activeModule < modules.length) handleModuleChange(activeModule + 1);
+  };
+
+  const progressPercentage = (activeModule / modules.length) * 100;
+
+  return (
+    <section className="relative py-16 md:py-[100px] px-4 md:px-6 overflow-hidden">
+      <div className="max-w-5xl mx-auto">
+        {/* Header */}
+        <div className="text-center mb-10 md:mb-16">
+          <h2 className="font-[family-name:var(--font-heading)] text-3xl md:text-5xl font-bold text-white leading-tight mb-4">
+            Tu Ruta de Aprendizaje
+          </h2>
+          <p className="text-[#B9B8EB]/60 text-lg">
+            9 módulos para dominar el ecosistema cripto
+          </p>
         </div>
 
-        {/* Module content card with gradient background */}
+        {/* Progress bar */}
+        <div className="max-w-2xl mx-auto mb-8 md:mb-12">
+          <div className="flex justify-between text-xs text-[#B9B8EB]/50 mb-2">
+            <span>Módulo {activeModule} de {modules.length}</span>
+            <span>{Math.round(progressPercentage)}% del programa</span>
+          </div>
+          <div className="h-1 bg-[#423d80] rounded-full overflow-hidden">
+            <motion.div
+              className="h-full bg-gradient-to-r from-[#4355d9] to-[#6366f1]"
+              initial={false}
+              animate={{ width: `${progressPercentage}%` }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
+            />
+          </div>
+        </div>
+
+        {/* Module selector - horizontal scroll */}
+        <div className="relative mb-8 md:mb-12">
+          {/* Navigation arrows */}
+          <button
+            onClick={goToPrev}
+            disabled={activeModule === 1}
+            className={cn(
+              "absolute left-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-[#1a1952] border border-[#B9B8EB]/20 flex items-center justify-center transition-all",
+              activeModule === 1
+                ? "opacity-30 cursor-not-allowed"
+                : "hover:bg-[#4355d9] hover:border-[#4355d9]"
+            )}
+          >
+            <ChevronLeft className="w-5 h-5 text-white" />
+          </button>
+          <button
+            onClick={goToNext}
+            disabled={activeModule === modules.length}
+            className={cn(
+              "absolute right-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-[#1a1952] border border-[#B9B8EB]/20 flex items-center justify-center transition-all",
+              activeModule === modules.length
+                ? "opacity-30 cursor-not-allowed"
+                : "hover:bg-[#4355d9] hover:border-[#4355d9]"
+            )}
+          >
+            <ChevronRight className="w-5 h-5 text-white" />
+          </button>
+
+          {/* Module pills */}
+          <div className="mx-12 overflow-x-auto scrollbar-hide">
+            <div className="flex justify-center gap-2 md:gap-3 min-w-max px-4">
+              {modules.map((module) => (
+                <button
+                  key={module.id}
+                  onClick={() => handleModuleChange(module.id)}
+                  className={cn(
+                    "relative px-4 md:px-5 py-2.5 md:py-3 rounded-full text-sm font-medium transition-all duration-300 whitespace-nowrap",
+                    activeModule === module.id
+                      ? "bg-[#4355d9] text-white shadow-lg shadow-[#4355d9]/30"
+                      : "bg-[#1a1952] text-[#B9B8EB]/50 hover:text-[#B9B8EB] hover:bg-[#252463] border border-[#B9B8EB]/10"
+                  )}
+                >
+                  <span className="relative z-10">{module.id}</span>
+                  {activeModule === module.id && (
+                    <motion.div
+                      layoutId="activeModule"
+                      className="absolute inset-0 bg-[#4355d9] rounded-full"
+                      transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                    />
+                  )}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Module content card */}
         <div className="relative">
-          {/* Radial glow on the right side */}
+          {/* Decorative glows */}
           <div
             className="absolute pointer-events-none"
             style={{
-              right: "-50px",
+              right: "-100px",
               top: "50%",
               transform: "translateY(-50%)",
-              width: "350px",
-              height: "350px",
-              background: "radial-gradient(circle, rgba(185, 184, 235, 0.35) 0%, rgba(185, 184, 235, 0.15) 40%, transparent 70%)",
+              width: "400px",
+              height: "400px",
+              background:
+                "radial-gradient(circle, rgba(99, 102, 241, 0.3) 0%, rgba(99, 102, 241, 0.1) 40%, transparent 70%)",
+              filter: "blur(60px)",
+            }}
+          />
+          <div
+            className="absolute pointer-events-none"
+            style={{
+              left: "-100px",
+              top: "30%",
+              width: "300px",
+              height: "300px",
+              background:
+                "radial-gradient(circle, rgba(67, 85, 217, 0.25) 0%, transparent 60%)",
               filter: "blur(50px)",
             }}
           />
-          {/* Card with gradient from top to bottom */}
+
+          {/* Card */}
           <div
-            className="relative rounded-2xl md:rounded-3xl p-5 md:p-12 border border-[#B9B8EB]/20"
+            className="relative rounded-2xl md:rounded-3xl border border-[#B9B8EB]/15 overflow-hidden"
             style={{
-              background: "linear-gradient(180deg, rgba(67, 85, 217, 0.4) 0%, rgba(27, 26, 100, 0.6) 50%, rgba(1, 0, 82, 0.8) 100%)",
+              background:
+                "linear-gradient(135deg, rgba(67, 85, 217, 0.3) 0%, rgba(27, 26, 100, 0.5) 50%, rgba(1, 0, 82, 0.7) 100%)",
             }}
           >
-            {/* Title with pill border */}
-            <Badge variant="pill" className="mb-4 md:mb-6">
-              <h3 className="font-[family-name:var(--font-heading)] text-lg md:text-2xl font-bold text-white">
-                {currentModule.title}
-              </h3>
-            </Badge>
-            <p className="text-[#B9B8EB] font-medium mb-4">
-              {currentModule.subtitle}
-            </p>
-            <p className="text-[#B9B8EB]/60 leading-relaxed max-w-2xl mx-auto text-sm md:text-base">
-              {currentModule.description}
-            </p>
+            {/* Large decorative module number */}
+            <div className="absolute top-4 right-4 md:top-8 md:right-8 font-[family-name:var(--font-heading)] text-[80px] md:text-[150px] font-bold text-white/[0.03] leading-none select-none">
+              {String(activeModule).padStart(2, "0")}
+            </div>
+
+            <div className="relative p-6 md:p-12">
+              <AnimatePresence mode="wait" custom={direction}>
+                <motion.div
+                  key={activeModule}
+                  custom={direction}
+                  initial={{ opacity: 0, x: direction * 50 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: direction * -50 }}
+                  transition={{ duration: 0.3, ease: "easeInOut" }}
+                >
+                  {/* Module number badge */}
+                  <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#4355d9]/20 border border-[#4355d9]/30 mb-4 md:mb-6">
+                    <span className="text-[#6366f1] text-xs font-semibold">
+                      MÓDULO {activeModule}
+                    </span>
+                  </div>
+
+                  {/* Title */}
+                  <h3 className="font-[family-name:var(--font-heading)] text-xl md:text-3xl font-bold text-white mb-3 md:mb-4 leading-tight">
+                    {currentModule.title}
+                  </h3>
+
+                  {/* Subtitle */}
+                  <p className="text-[#6366f1] font-medium mb-4 md:mb-6 text-sm md:text-base">
+                    {currentModule.subtitle}
+                  </p>
+
+                  {/* Description */}
+                  <p className="text-[#B9B8EB]/60 leading-relaxed max-w-2xl text-sm md:text-base">
+                    {currentModule.description}
+                  </p>
+                </motion.div>
+              </AnimatePresence>
+
+              {/* Navigation hint */}
+              <div className="flex items-center justify-between mt-8 pt-6 border-t border-[#B9B8EB]/10">
+                <button
+                  onClick={goToPrev}
+                  disabled={activeModule === 1}
+                  className={cn(
+                    "flex items-center gap-2 text-sm transition-colors",
+                    activeModule === 1
+                      ? "text-[#B9B8EB]/20 cursor-not-allowed"
+                      : "text-[#B9B8EB]/50 hover:text-white"
+                  )}
+                >
+                  <ChevronLeft className="w-4 h-4" />
+                  <span className="hidden md:inline">Anterior</span>
+                </button>
+
+                {/* Dot indicators */}
+                <div className="flex gap-1.5">
+                  {modules.map((module) => (
+                    <button
+                      key={module.id}
+                      onClick={() => handleModuleChange(module.id)}
+                      className={cn(
+                        "w-2 h-2 rounded-full transition-all duration-300",
+                        activeModule === module.id
+                          ? "bg-[#4355d9] w-6"
+                          : "bg-[#B9B8EB]/20 hover:bg-[#B9B8EB]/40"
+                      )}
+                    />
+                  ))}
+                </div>
+
+                <button
+                  onClick={goToNext}
+                  disabled={activeModule === modules.length}
+                  className={cn(
+                    "flex items-center gap-2 text-sm transition-colors",
+                    activeModule === modules.length
+                      ? "text-[#B9B8EB]/20 cursor-not-allowed"
+                      : "text-[#B9B8EB]/50 hover:text-white"
+                  )}
+                >
+                  <span className="hidden md:inline">Siguiente</span>
+                  <ChevronRight className="w-4 h-4" />
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>

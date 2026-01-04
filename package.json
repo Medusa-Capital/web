@@ -6,7 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "inbox": "bun scripts/process-blog-inbox.ts",
+    "inbox:dry": "bun scripts/process-blog-inbox.ts --dry-run",
+    "inbox:cleanup": "bun scripts/process-blog-inbox.ts --cleanup"
   },
   "dependencies": {
     "@base-ui/react": "^1.0.0",

@@ -48,7 +48,7 @@ export function Hero() {
 
         {/* Video Container */}
         <div
-          className="relative w-full max-w-[766px] mx-auto mb-8 rounded-[30px] overflow-hidden"
+          className="relative w-full mx-auto mb-8 rounded-[30px] overflow-hidden"
         >
           <div className="aspect-video overflow-hidden">
             <iframe
@@ -72,8 +72,8 @@ export function Hero() {
           className="px-8 py-6 text-base font-semibold rounded-lg"
           onClick={() => {
             trackCTAClick("hero_cta", "calendly");
-            trackOutboundLink("https://calendly.com/contacto-medusacapital/30min", "Quiero Reservar Mi Plaza");
-            window.open("https://calendly.com/contacto-medusacapital/30min", "_blank");
+            trackOutboundLink("https://calendly.com/contacto-medusacapital/sesion-estrategica-15-clon?month=2026-01", "Quiero Reservar Mi Plaza");
+            window.open("https://calendly.com/contacto-medusacapital/sesion-estrategica-15-clon?month=2026-01", "_blank");
           }}
         >
           Quiero Reservar Mi Plaza

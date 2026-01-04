@@ -45,7 +45,7 @@ export function ValueProp() {
               variant="secondaryGlow"
               size="lg"
               className="px-8 py-6 text-base font-semibold rounded-lg"
-              onClick={() => window.open("https://calendly.com/contacto-medusacapital/30min", "_blank")}
+              onClick={() => window.open("https://calendly.com/contacto-medusacapital/sesion-estrategica-15-clon?month=2026-01", "_blank")}
             >
               Empezar Ahora
             </Button>

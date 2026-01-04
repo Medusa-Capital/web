@@ -47,8 +47,8 @@ export function FinalCTA() {
                 className="px-8 py-6 text-base font-medium rounded-lg"
                 onClick={() => {
                   trackCTAClick("final_cta", "calendly");
-                  trackOutboundLink("https://calendly.com/contacto-medusacapital/30min", "Quiero Reservar Mi Plaza");
-                  window.open("https://calendly.com/contacto-medusacapital/30min", "_blank");
+                  trackOutboundLink("https://calendly.com/contacto-medusacapital/sesion-estrategica-15-clon?month=2026-01", "Quiero Reservar Mi Plaza");
+                  window.open("https://calendly.com/contacto-medusacapital/sesion-estrategica-15-clon?month=2026-01", "_blank");
                 }}
               >
                 Quiero Reservar Mi Plaza
