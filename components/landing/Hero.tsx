@@ -67,9 +67,9 @@ export function Hero() {
 
         {/* CTA Button */}
         <Button
-          variant="primaryGlow"
+          variant="secondaryGlow"
           size="lg"
-          className="px-8 py-6 text-base font-semibold rounded-lg"
+          className="px-8 py-6 text-base font-semibold rounded-lg !bg-gradient-to-t !from-[#e85c30] !to-[#ff7a4d]"
           onClick={() => {
             trackCTAClick("hero_cta", "calendly");
             trackOutboundLink("https://calendly.com/contacto-medusacapital/sesion-estrategica-15-clon?month=2026-01", "Quiero Reservar Mi Plaza");
@@ -95,28 +95,6 @@ export function Hero() {
           </p>
         </div>
 
-        {/* Partner logos - using actual brand logo images */}
-        <div className="mt-[100px] flex flex-row items-center justify-center gap-4 md:gap-14">
-          {/* JF Partners logo */}
-          <Image
-            src="/img/brand-logo-1.webp"
-            alt="JF Partners"
-            width={180}
-            height={60}
-            className="h-12 md:h-20 w-auto"
-          />
-
-          <span className="text-white text-lg md:text-2xl font-light">×</span>
-
-          {/* Medusa Capital logo */}
-          <Image
-            src="/img/brand-logo-2.webp"
-            alt="Medusa Capital"
-            width={180}
-            height={100}
-            className="h-12 md:h-[100px] w-auto"
-          />
-        </div>
       </div>
     </section>
   );

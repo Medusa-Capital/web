@@ -4,7 +4,7 @@ date: "2025-10-28"
 description: "Por suerte, el sector privado no es tan ineficiente y tenemos esta semana repleta de **resultados empresariales importantes**. Esto es lo que marcará el deve..."
 tags: ["bitcoin", "ethereum", "solana", "analisis", "mercado", "institucional"]
 author: "Axel"
-image: "/img/blog/pesimismo-por-doquier-pero-las-metricas-dicen-lo-contrario/image-8.png"
+image: "/img/blog/pesimismo-por-doquier-pero-las-metricas-dicen-lo-contrario/G4XUxSYWcAAC0Yb.png"
 featured: true
 published: true
 category: "article"

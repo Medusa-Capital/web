@@ -67,23 +67,24 @@ function parseInboxFile(filePath: string): ProcessedArticle | null {
   // Generate slug from title
   const slug = generateSlug(title);
 
-  // Find where the actual content starts (after the second title heading)
+  // Find where the actual content starts (the first heading after metadata)
+  // This is typically the repeated title without "ARTÍCULO:" prefix
   let contentStartIndex = 0;
-  let foundFirstTitle = false;
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
-    // Look for the second occurrence of the title (usually "# **Title**" or "## Title")
+    // Skip the first "# ARTÍCULO..." line and metadata, find the content title
     if (line.startsWith("#") && !line.startsWith("# ARTÍCULO")) {
-      if (foundFirstTitle) {
-        contentStartIndex = i;
-        break;
-      }
-      foundFirstTitle = true;
+      contentStartIndex = i;
+      break;
     }
   }
 
   // Extract content (everything after the metadata section)
   let articleContent = lines.slice(contentStartIndex).join("\n").trim();
+
+  // Remove the repeated title heading if present (it's already in frontmatter)
+  // Matches: "# Title" or "# **Title**" at the start
+  articleContent = articleContent.replace(/^#\s+\*?\*?[^#\n]+\*?\*?\s*\n+/, "");
 
   // Clean up the content
   articleContent = cleanupContent(articleContent, slug);

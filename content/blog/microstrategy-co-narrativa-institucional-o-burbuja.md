@@ -4,7 +4,7 @@ date: "2025-07-02"
 description: "Saylor no va al banco a pedir dinero. Lo que hace es emitir instrumentos financieros adaptados a cada tipo de inversor:"
 tags: ["bitcoin", "ethereum", "solana", "analisis", "mercado", "institucional"]
 author: "Axel"
-image: "/img/blog/microstrategy-co-narrativa-institucional-o-burbuja/image-4.png"
+image: "/img/blog/medusa_capital.jpeg"
 featured: true
 published: true
 category: "article"

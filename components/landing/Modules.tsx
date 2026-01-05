@@ -16,52 +16,52 @@ const modules = [
   },
   {
     id: 2,
-    title: "Fundamentos de Blockchain y Navegación Web3",
-    subtitle: "Tu brújula en el ecosistema descentralizado",
+    title: "Esenciales Blockchain",
+    subtitle: "Comprende la tecnología y sus implicaciones económicas",
     description:
-      "Aprende sobre DeFi, exchanges centralizados y descentralizados, wallets, bridges, bots y los fundamentos para navegar Web3 de forma segura.",
+      "Sienta las bases para moverte con soltura en el entorno blockchain. Se explican conceptos clave como DeFi, exchanges centralizados y descentralizados, wallets, bridges, bots y herramientas básicas para navegar en Web3. Es una guía práctica para entender cómo funciona este nuevo ecosistema y cómo participar de forma segura y eficaz.",
   },
   {
     id: 3,
-    title: "Ciclos de Mercado y Dinámica de Capitales",
-    subtitle: "Entendiendo los flujos del dinero",
-    description:
-      "Examina los flujos de capital, dinámicas macro y micro, ciclos de mercado, comportamiento institucional y mecánicas del 'smart money'.",
-  },
-  {
-    id: 4,
-    title: "Análisis Fundamental de Proyectos",
-    subtitle: "Evaluando el valor real",
-    description:
-      "Aprende a evaluar whitepapers, valoración de tokens, tokenomics y desarrollo de tesis de inversión para proyectos cripto.",
-  },
-  {
-    id: 5,
-    title: "Análisis On-Chain",
-    subtitle: "Leyendo la blockchain",
-    description:
-      "Enfócate en leer el comportamiento de la blockchain, rastrear smart money, identificar wallets y usar herramientas como Arkham.",
-  },
-  {
-    id: 6,
-    title: "Psicología del Trading",
-    subtitle: "Dominando tu mente",
-    description:
-      "Aborda sesgos cognitivos, disciplina emocional, teoría de la reflexividad y marcos de toma de decisiones.",
-  },
-  {
-    id: 7,
-    title: "Estrategia y Gestión de Portafolio",
-    subtitle: "Construyendo tu cartera",
-    description:
-      "Cubre perfilamiento de inversor, gestión activa/pasiva, estrategias delta-neutral y control de riesgos.",
-  },
-  {
-    id: 8,
     title: "DeFi - Finanzas Descentralizadas",
     subtitle: "El sistema financiero abierto",
     description:
       "Explora protocolos de lending, DEXs, liquidity pools, yield farming y staking. Aprende a evaluar riesgos de smart contracts y a generar rendimiento en DeFi.",
+  },
+  {
+    id: 4,
+    title: "Dinámicas de Mercado",
+    subtitle: "Narrativas, ciclos y comportamiento institucional",
+    description:
+      "Aprende cómo fluye el capital en cripto. Analizamos las dinámicas macro y micro que mueven el mercado: ciclos, rotación sectorial, comportamiento institucional, y las mecánicas detrás del dinero inteligente. Clave para interpretar tendencias y posicionarse antes que el resto.",
+  },
+  {
+    id: 5,
+    title: "Análisis Fundamental",
+    subtitle: "Detecta valor en un mercado saturado",
+    description:
+      "Una guía para detectar oportunidades sólidas a largo plazo. Aprenderás a analizar whitepapers, evaluar la propuesta de valor de un token, entender la tokenomics, y construir una tesis completa sobre un proyecto. Incluye estudios reales sobre casos relevantes como $HYPE, Terra, stablecoins y más.",
+  },
+  {
+    id: 6,
+    title: "Análisis On-Chain",
+    subtitle: "Lectura directa del comportamiento del mercado",
+    description:
+      "Profundiza en la lectura directa de la blockchain. Estudia el comportamiento de smart money, detecta wallets relevantes, identifica señales de entrada y salida de capital, y utiliza herramientas como Arkham para tomar decisiones basadas en datos reales y verificables.",
+  },
+  {
+    id: 7,
+    title: "Psicología del Trading",
+    subtitle: "Mentalidad, sesgos y toma de decisiones racionales",
+    description:
+      "El mayor enemigo de tus inversiones eres tú mismo. En este módulo abordamos la psicología financiera, sesgos cognitivos, sistemas de pensamiento, y cómo desarrollar la disciplina emocional necesaria para mantener tu plan. Incluye la teoría de la reflexividad y cómo impacta en cripto.",
+  },
+  {
+    id: 8,
+    title: "Estrategia y Gestión de Cartera",
+    subtitle: "De la teoría a la acción",
+    description:
+      "Aprende a construir, proteger y escalar tu portafolio. Diseña tu perfil de inversor, comprende la diferencia entre gestión activa y pasiva, y domina estrategias complejas (Delta Neutral), gestión por escenarios y control del riesgo. Todo con enfoque práctico, desde la teoría hasta el caso de uso.",
   },
   {
     id: 9,
@@ -103,10 +103,10 @@ export function Modules() {
       <div className="max-w-5xl mx-auto">
         {/* Header */}
         <div className="text-center mb-10 md:mb-16">
-          <h2 className="font-[family-name:var(--font-heading)] text-3xl md:text-5xl font-bold text-white leading-tight mb-4">
+          <h2 className="font-[family-name:var(--font-heading)] text-4xl md:text-6xl font-bold text-white leading-tight mb-4">
             Tu Ruta de Aprendizaje
           </h2>
-          <p className="text-[#B9B8EB]/60 text-lg">
+          <p className="text-[#B9B8EB]/60 text-xl md:text-2xl">
             9 módulos para dominar el ecosistema cripto
           </p>
         </div>

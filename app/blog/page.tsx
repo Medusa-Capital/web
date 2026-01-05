@@ -32,7 +32,7 @@ export default function BlogPage() {
           <div className="max-w-6xl mx-auto px-6">
             {/* Header */}
             <div className="text-center mb-12">
-              <h1 className="text-4xl md:text-5xl font-bold text-white mb-4 font-heading">
+              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-4 font-heading">
                 Blog
               </h1>
               <p className="text-[#B9B8EB]/60 max-w-2xl mx-auto">

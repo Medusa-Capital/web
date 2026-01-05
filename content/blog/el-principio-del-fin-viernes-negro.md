@@ -4,7 +4,7 @@ date: "2025-10-12"
 description: "Los niveles de complacencia en el mercado eran extremos. Los índices daban la sensación de \"imparables\":"
 tags: ["mercado", "macro", "defi", "onchain", "analisis"]
 author: "Axel"
-image: "/img/blog/el-principio-del-fin-viernes-negro/image-4.png"
+image: "/img/blog/el-principio-del-fin-viernes-negro/G3FUBsAWQAA9Ejv.jpeg"
 featured: true
 published: true
 category: "article"

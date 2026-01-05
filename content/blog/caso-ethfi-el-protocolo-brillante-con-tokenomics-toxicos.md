@@ -4,7 +4,7 @@ date: "2025-10-30"
 description: "El resultado es un ecosistema donde la creación de valor ocurre a nivel protocolo (más TVL, más productos, más revenue), pero la captura de valor se desvanec..."
 tags: ["mercado", "defi", "analisis"]
 author: "Axel"
-image: "/img/blog/caso-ethfi-el-protocolo-brillante-con-tokenomics-toxicos/image-4.png"
+image: "/img/blog/caso-ethfi-el-protocolo-brillante-con-tokenomics-toxicos/G4gNLtHWsAAcNU3.jpeg"
 featured: true
 published: true
 category: "article"

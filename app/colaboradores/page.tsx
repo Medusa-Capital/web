@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
+import Image from "next/image";
 import { Header } from "@/components/landing/Header";
 import { Footer } from "@/components/landing/Footer";
 import { PageBackground } from "@/components/landing/PageBackground";
@@ -18,6 +19,7 @@ const collaborators = [
     glowColor: "bg-amber-500/30",
     borderAccent: "hover:border-amber-500/30",
     buttonAccent: "bg-amber-500/20 hover:bg-amber-500/30 text-amber-200",
+    photo: "/img/avatar/pablogil.png",
   },
   {
     name: "JF Partners",
@@ -29,17 +31,7 @@ const collaborators = [
     glowColor: "bg-cyan-500/30",
     borderAccent: "hover:border-cyan-500/30",
     buttonAccent: "bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-200",
-  },
-  {
-    name: "CeroUnoCrypto",
-    tagline: "Fiscalidad y Regulación Cripto",
-    description:
-      "Plataforma especializada en fiscalidad de criptoactivos en España. Ayudamos a inversores a declarar correctamente, optimizar su situación fiscal y navegar el marco regulatorio con confianza.",
-    url: "https://cerounocrypto.com/",
-    accentColor: "from-violet-500/20 via-purple-500/10 to-transparent",
-    glowColor: "bg-violet-500/30",
-    borderAccent: "hover:border-violet-500/30",
-    buttonAccent: "bg-violet-500/20 hover:bg-violet-500/30 text-violet-200",
+    photo: "/img/avatar/javierdv.png",
   },
 ];
 
@@ -140,6 +132,24 @@ function CollaboratorCard({
         <div className="absolute -bottom-20 -right-10 md:-bottom-16 md:-right-4 text-[200px] md:text-[280px] font-bold text-white/[0.02] leading-none pointer-events-none select-none">
           {collaborator.name.charAt(0)}
         </div>
+
+        {/* Photo - always visible with left edge fade */}
+        {collaborator.photo && (
+          <div 
+            className="absolute bottom-0 right-0 w-[280px] md:w-[350px] h-[350px] md:h-[450px] pointer-events-none"
+            style={{
+              maskImage: 'linear-gradient(to right, transparent 0%, black 40%)',
+              WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 40%)',
+            }}
+          >
+            <Image
+              src={collaborator.photo}
+              alt={collaborator.name}
+              fill
+              className="object-contain object-bottom"
+            />
+          </div>
+        )}
       </a>
     </motion.div>
   );

@@ -4,7 +4,7 @@ date: "2025-10-20"
 description: "Esto es más difícil de digerir cuando este año ha sido catalogado como el \"año de la adopción institucional\". A pesar del moderado rendimiento del precio, **..."
 tags: ["bitcoin", "ethereum", "analisis", "mercado", "institucional", "macro"]
 author: "Axel"
-image: "/img/blog/entramos-en-bear-maket/image-17.png"
+image: "/img/blog/entramos-en-bear-maket/G3eEdhfW8AAwNTQ.png"
 featured: true
 published: true
 category: "article"

@@ -45,9 +45,22 @@ const team = [
 
 function TeamCard({ member }: { member: typeof team[0] }) {
   return (
-    <div className="flex-shrink-0 w-[calc(100vw-32px)] md:w-[600px] min-h-0 md:min-h-[320px] flex flex-col md:flex-row gap-4 md:gap-6 p-4 md:p-6 rounded-2xl md:rounded-3xl border border-[#B9B8EB]/10 bg-gradient-to-br from-[#1b1a64]/60 to-[#0a0a2e]/80 backdrop-blur-sm items-stretch">
-      {/* Photo with LinkedIn badge */}
-      <div className="relative flex-shrink-0 self-center md:self-auto">
+    <div className="relative flex-shrink-0 w-[calc(100vw-32px)] md:w-[600px] min-h-0 md:min-h-[320px] flex flex-col md:flex-row gap-4 md:gap-6 p-4 md:p-6 rounded-2xl md:rounded-3xl border border-[#B9B8EB]/10 bg-gradient-to-br from-[#1b1a64]/60 to-[#0a0a2e]/80 backdrop-blur-sm items-stretch">
+      {/* LinkedIn badge - top right of card */}
+      <a
+        href={member.linkedin}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="absolute top-3 right-3 md:top-4 md:right-4 w-8 h-8 md:w-10 md:h-10 rounded-full bg-[#4355d9] flex items-center justify-center hover:bg-[#0077b5] transition-colors shadow-lg z-10"
+        onClick={() => trackOutboundLink(member.linkedin, `LinkedIn - ${member.name}`)}
+      >
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="white" className="md:w-[18px] md:h-[18px]">
+          <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+        </svg>
+      </a>
+
+      {/* Photo */}
+      <div className="flex-shrink-0 self-center md:self-auto">
         <Image
           src={member.photo}
           alt={member.name}
@@ -55,18 +68,6 @@ function TeamCard({ member }: { member: typeof team[0] }) {
           height={280}
           className="w-[140px] md:w-[180px] h-[200px] md:h-full md:min-h-[280px] object-cover object-top rounded-xl md:rounded-2xl"
         />
-        {/* LinkedIn badge */}
-        <a
-          href={member.linkedin}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="absolute top-2 right-2 md:top-3 md:right-3 w-8 h-8 md:w-10 md:h-10 rounded-full bg-[#4355d9] flex items-center justify-center hover:bg-[#0077b5] transition-colors shadow-lg"
-          onClick={() => trackOutboundLink(member.linkedin, `LinkedIn - ${member.name}`)}
-        >
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="white" className="md:w-[18px] md:h-[18px]">
-            <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
-          </svg>
-        </a>
       </div>
 
       {/* Content */}
