@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { trackOutboundLink } from "@/lib/analytics";
+import { useTheme } from "@/components/providers/ThemeProvider";
 
 // Team data - 5 members: Founder + 4 Professors
 const team = [
@@ -43,9 +44,16 @@ const team = [
   },
 ];
 
-function TeamCard({ member }: { member: typeof team[0] }) {
+function TeamCard({ member, theme }: { member: typeof team[0]; theme: "dark" | "light" }) {
   return (
-    <div className="relative flex-shrink-0 w-[calc(100vw-32px)] md:w-[600px] min-h-0 md:min-h-[320px] flex flex-col md:flex-row gap-4 md:gap-6 p-4 md:p-6 rounded-2xl md:rounded-3xl border border-[#B9B8EB]/10 bg-gradient-to-br from-[#1b1a64]/60 to-[#0a0a2e]/80 backdrop-blur-sm items-stretch">
+    <div 
+      className="relative flex-shrink-0 w-[calc(100vw-32px)] md:w-[600px] min-h-0 md:min-h-[320px] flex flex-col md:flex-row gap-4 md:gap-6 p-4 md:p-6 rounded-2xl md:rounded-3xl border dark:border-[#B9B8EB]/10 light:border-[#010052]/10 backdrop-blur-sm items-stretch transition-all duration-300"
+      style={{
+        background: theme === "light"
+          ? "linear-gradient(to bottom right, rgba(255, 255, 255, 0.95) 0%, rgba(245, 243, 240, 0.9) 100%)"
+          : "linear-gradient(to bottom right, rgba(27, 26, 100, 0.6) 0%, rgba(10, 10, 46, 0.8) 100%)"
+      }}
+    >
       {/* LinkedIn badge - top right of card */}
       <a
         href={member.linkedin}
@@ -73,17 +81,17 @@ function TeamCard({ member }: { member: typeof team[0] }) {
       {/* Content */}
       <div className="flex flex-col justify-start flex-1 min-w-0 py-1 text-center md:text-left">
         {/* Role badge */}
-        <span className="inline-block self-center md:self-start px-3 py-1 text-xs font-semibold uppercase tracking-wider rounded-full bg-[#4355d9]/20 text-[#B9B8EB] mb-2">
+        <span className="inline-block self-center md:self-start px-3 py-1 text-xs font-semibold uppercase tracking-wider rounded-full bg-[#4355d9]/20 dark:text-[#B9B8EB] light:text-[#3a54f8] mb-2 transition-colors duration-300">
           {member.role}
         </span>
 
         {/* Name */}
-        <h3 className="text-white font-bold text-xl md:text-2xl mb-2 md:mb-3 leading-tight">
+        <h3 className="dark:text-white light:text-[#010052] font-bold text-xl md:text-2xl mb-2 md:mb-3 leading-tight transition-colors duration-300">
           {member.name}
         </h3>
 
         {/* Bio - full text visible */}
-        <p className="text-[#B9B8EB]/60 text-xs md:text-sm leading-relaxed">
+        <p className="dark:text-[#B9B8EB]/60 light:text-[#3d3d6b] text-xs md:text-sm leading-relaxed transition-colors duration-300">
           {member.bio}
         </p>
       </div>
@@ -92,6 +100,7 @@ function TeamCard({ member }: { member: typeof team[0] }) {
 }
 
 export function Team() {
+  const { theme } = useTheme();
   const scrollRef = useRef<HTMLDivElement>(null);
   const [isPaused, setIsPaused] = useState(false);
 
@@ -133,10 +142,10 @@ export function Team() {
       <div className="max-w-6xl mx-auto px-4 md:px-6 relative z-10">
         {/* Header */}
         <div className="text-center mb-8 md:mb-12">
-          <h2 className="font-[family-name:var(--font-heading)] text-4xl md:text-6xl font-bold text-white leading-tight mb-4">
+          <h2 className="font-[family-name:var(--font-heading)] text-4xl md:text-6xl font-bold dark:text-white light:text-[#010052] leading-tight mb-4 transition-colors duration-300">
             Conoce al Equipo
           </h2>
-          <p className="text-[#B9B8EB]/50 text-xl md:text-2xl max-w-xl mx-auto">
+          <p className="dark:text-[#B9B8EB]/50 light:text-[#3d3d6b]/70 text-xl md:text-2xl max-w-xl mx-auto transition-colors duration-300">
             Llevamos en el sector de las criptomonedas desde 2018 y sumamos más de 15 años
             de experiencia combinada en finanzas tradicionales y digitales.
           </p>
@@ -152,7 +161,7 @@ export function Team() {
         style={{ scrollBehavior: 'auto' }}
       >
         {duplicatedTeam.map((member, i) => (
-          <TeamCard key={i} member={member} />
+          <TeamCard key={i} member={member} theme={theme} />
         ))}
       </div>
     </section>

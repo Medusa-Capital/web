@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { trackEvent } from "@/lib/analytics";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useTheme } from "@/components/providers/ThemeProvider";
 
 const modules = [
   {
@@ -73,6 +74,7 @@ const modules = [
 ];
 
 export function Modules() {
+  const { theme } = useTheme();
   const [activeModule, setActiveModule] = useState(1);
   const [direction, setDirection] = useState(0);
   const currentModule = modules.find((m) => m.id === activeModule)!;
@@ -103,21 +105,21 @@ export function Modules() {
       <div className="max-w-5xl mx-auto">
         {/* Header */}
         <div className="text-center mb-10 md:mb-16">
-          <h2 className="font-[family-name:var(--font-heading)] text-4xl md:text-6xl font-bold text-white leading-tight mb-4">
+          <h2 className="font-[family-name:var(--font-heading)] text-4xl md:text-6xl font-bold dark:text-white light:text-[#010052] leading-tight mb-4 transition-colors duration-300">
             Tu Ruta de Aprendizaje
           </h2>
-          <p className="text-[#B9B8EB]/60 text-xl md:text-2xl">
+          <p className="dark:text-[#B9B8EB]/60 light:text-[#3d3d6b]/70 text-xl md:text-2xl transition-colors duration-300">
             9 módulos para dominar el ecosistema cripto
           </p>
         </div>
 
         {/* Progress bar */}
         <div className="max-w-2xl mx-auto mb-8 md:mb-12">
-          <div className="flex justify-between text-xs text-[#B9B8EB]/50 mb-2">
+          <div className="flex justify-between text-xs dark:text-[#B9B8EB]/50 light:text-[#3d3d6b]/60 mb-2 transition-colors duration-300">
             <span>Módulo {activeModule} de {modules.length}</span>
             <span>{Math.round(progressPercentage)}% del programa</span>
           </div>
-          <div className="h-1 bg-[#423d80] rounded-full overflow-hidden">
+          <div className="h-1 dark:bg-[#423d80] light:bg-[#010052]/10 rounded-full overflow-hidden transition-colors duration-300">
             <motion.div
               className="h-full bg-gradient-to-r from-[#4355d9] to-[#6366f1]"
               initial={false}
@@ -134,25 +136,25 @@ export function Modules() {
             onClick={goToPrev}
             disabled={activeModule === 1}
             className={cn(
-              "absolute left-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-[#1a1952] border border-[#B9B8EB]/20 flex items-center justify-center transition-all",
+              "absolute left-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full dark:bg-[#1a1952] light:bg-white border dark:border-[#B9B8EB]/20 light:border-[#010052]/15 flex items-center justify-center transition-all",
               activeModule === 1
                 ? "opacity-30 cursor-not-allowed"
                 : "hover:bg-[#4355d9] hover:border-[#4355d9]"
             )}
           >
-            <ChevronLeft className="w-5 h-5 text-white" />
+            <ChevronLeft className="w-5 h-5 dark:text-white light:text-[#010052]" />
           </button>
           <button
             onClick={goToNext}
             disabled={activeModule === modules.length}
             className={cn(
-              "absolute right-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-[#1a1952] border border-[#B9B8EB]/20 flex items-center justify-center transition-all",
+              "absolute right-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full dark:bg-[#1a1952] light:bg-white border dark:border-[#B9B8EB]/20 light:border-[#010052]/15 flex items-center justify-center transition-all",
               activeModule === modules.length
                 ? "opacity-30 cursor-not-allowed"
                 : "hover:bg-[#4355d9] hover:border-[#4355d9]"
             )}
           >
-            <ChevronRight className="w-5 h-5 text-white" />
+            <ChevronRight className="w-5 h-5 dark:text-white light:text-[#010052]" />
           </button>
 
           {/* Module pills */}
@@ -166,7 +168,7 @@ export function Modules() {
                     "relative px-4 md:px-5 py-2.5 md:py-3 rounded-full text-sm font-medium transition-all duration-300 whitespace-nowrap",
                     activeModule === module.id
                       ? "bg-[#4355d9] text-white shadow-lg shadow-[#4355d9]/30"
-                      : "bg-[#1a1952] text-[#B9B8EB]/50 hover:text-[#B9B8EB] hover:bg-[#252463] border border-[#B9B8EB]/10"
+                      : "dark:bg-[#1a1952] light:bg-white dark:text-[#B9B8EB]/50 light:text-[#3d3d6b]/60 dark:hover:text-[#B9B8EB] light:hover:text-[#010052] dark:hover:bg-[#252463] light:hover:bg-[#f5f3f0] border dark:border-[#B9B8EB]/10 light:border-[#010052]/10"
                   )}
                 >
                   <span className="relative z-10">{module.id}</span>
@@ -187,41 +189,44 @@ export function Modules() {
         <div className="relative">
           {/* Decorative glows */}
           <div
-            className="absolute pointer-events-none"
+            className="absolute pointer-events-none transition-opacity duration-300"
             style={{
               right: "-100px",
               top: "50%",
               transform: "translateY(-50%)",
               width: "400px",
               height: "400px",
-              background:
-                "radial-gradient(circle, rgba(99, 102, 241, 0.3) 0%, rgba(99, 102, 241, 0.1) 40%, transparent 70%)",
+              background: theme === "light"
+                ? "radial-gradient(circle, rgba(58, 84, 248, 0.1) 0%, rgba(58, 84, 248, 0.03) 40%, transparent 70%)"
+                : "radial-gradient(circle, rgba(99, 102, 241, 0.3) 0%, rgba(99, 102, 241, 0.1) 40%, transparent 70%)",
               filter: "blur(60px)",
             }}
           />
           <div
-            className="absolute pointer-events-none"
+            className="absolute pointer-events-none transition-opacity duration-300"
             style={{
               left: "-100px",
               top: "30%",
               width: "300px",
               height: "300px",
-              background:
-                "radial-gradient(circle, rgba(67, 85, 217, 0.25) 0%, transparent 60%)",
+              background: theme === "light"
+                ? "radial-gradient(circle, rgba(1, 0, 82, 0.08) 0%, transparent 60%)"
+                : "radial-gradient(circle, rgba(67, 85, 217, 0.25) 0%, transparent 60%)",
               filter: "blur(50px)",
             }}
           />
 
           {/* Card */}
           <div
-            className="relative rounded-2xl md:rounded-3xl border border-[#B9B8EB]/15 overflow-hidden"
+            className="relative rounded-2xl md:rounded-3xl border dark:border-[#B9B8EB]/15 light:border-[#010052]/10 overflow-hidden transition-all duration-300"
             style={{
-              background:
-                "linear-gradient(135deg, rgba(67, 85, 217, 0.3) 0%, rgba(27, 26, 100, 0.5) 50%, rgba(1, 0, 82, 0.7) 100%)",
+              background: theme === "light"
+                ? "linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(245, 243, 240, 0.9) 50%, rgba(255, 255, 255, 0.95) 100%)"
+                : "linear-gradient(135deg, rgba(67, 85, 217, 0.3) 0%, rgba(27, 26, 100, 0.5) 50%, rgba(1, 0, 82, 0.7) 100%)",
             }}
           >
             {/* Large decorative module number */}
-            <div className="absolute top-4 right-4 md:top-8 md:right-8 font-[family-name:var(--font-heading)] text-[80px] md:text-[150px] font-bold text-white/[0.03] leading-none select-none">
+            <div className="absolute top-4 right-4 md:top-8 md:right-8 font-[family-name:var(--font-heading)] text-[80px] md:text-[150px] font-bold dark:text-white/[0.03] light:text-[#010052]/[0.03] leading-none select-none transition-colors duration-300">
               {String(activeModule).padStart(2, "0")}
             </div>
 
@@ -243,7 +248,7 @@ export function Modules() {
                   </div>
 
                   {/* Title */}
-                  <h3 className="font-[family-name:var(--font-heading)] text-xl md:text-3xl font-bold text-white mb-3 md:mb-4 leading-tight">
+                  <h3 className="font-[family-name:var(--font-heading)] text-xl md:text-3xl font-bold dark:text-white light:text-[#010052] mb-3 md:mb-4 leading-tight transition-colors duration-300">
                     {currentModule.title}
                   </h3>
 
@@ -253,22 +258,22 @@ export function Modules() {
                   </p>
 
                   {/* Description */}
-                  <p className="text-[#B9B8EB]/60 leading-relaxed max-w-2xl text-sm md:text-base">
+                  <p className="dark:text-[#B9B8EB]/60 light:text-[#3d3d6b] leading-relaxed max-w-2xl text-sm md:text-base transition-colors duration-300">
                     {currentModule.description}
                   </p>
                 </motion.div>
               </AnimatePresence>
 
               {/* Navigation hint */}
-              <div className="flex items-center justify-between mt-8 pt-6 border-t border-[#B9B8EB]/10">
+              <div className="flex items-center justify-between mt-8 pt-6 border-t dark:border-[#B9B8EB]/10 light:border-[#010052]/10 transition-colors duration-300">
                 <button
                   onClick={goToPrev}
                   disabled={activeModule === 1}
                   className={cn(
                     "flex items-center gap-2 text-sm transition-colors",
                     activeModule === 1
-                      ? "text-[#B9B8EB]/20 cursor-not-allowed"
-                      : "text-[#B9B8EB]/50 hover:text-white"
+                      ? "dark:text-[#B9B8EB]/20 light:text-[#010052]/20 cursor-not-allowed"
+                      : "dark:text-[#B9B8EB]/50 light:text-[#3d3d6b]/60 dark:hover:text-white light:hover:text-[#010052]"
                   )}
                 >
                   <ChevronLeft className="w-4 h-4" />
@@ -285,7 +290,7 @@ export function Modules() {
                         "w-2 h-2 rounded-full transition-all duration-300",
                         activeModule === module.id
                           ? "bg-[#4355d9] w-6"
-                          : "bg-[#B9B8EB]/20 hover:bg-[#B9B8EB]/40"
+                          : "dark:bg-[#B9B8EB]/20 light:bg-[#010052]/15 dark:hover:bg-[#B9B8EB]/40 light:hover:bg-[#010052]/30"
                       )}
                     />
                   ))}
@@ -297,8 +302,8 @@ export function Modules() {
                   className={cn(
                     "flex items-center gap-2 text-sm transition-colors",
                     activeModule === modules.length
-                      ? "text-[#B9B8EB]/20 cursor-not-allowed"
-                      : "text-[#B9B8EB]/50 hover:text-white"
+                      ? "dark:text-[#B9B8EB]/20 light:text-[#010052]/20 cursor-not-allowed"
+                      : "dark:text-[#B9B8EB]/50 light:text-[#3d3d6b]/60 dark:hover:text-white light:hover:text-[#010052]"
                   )}
                 >
                   <span className="hidden md:inline">Siguiente</span>

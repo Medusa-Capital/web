@@ -4,6 +4,7 @@ import "./globals.css";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { Suspense } from "react";
 import { AnalyticsProvider } from "@/components/providers/AnalyticsProvider";
+import { ThemeProvider } from "@/components/providers/ThemeProvider";
 
 const inter = localFont({
   src: [
@@ -35,11 +36,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es" className={`${inter.variable} ${cormorant.variable}`}>
+    <html lang="es" className={`${inter.variable} ${cormorant.variable} dark`} suppressHydrationWarning>
       <body className="antialiased">
-        <Suspense fallback={null}>
-          <AnalyticsProvider>{children}</AnalyticsProvider>
-        </Suspense>
+        <ThemeProvider>
+          <Suspense fallback={null}>
+            <AnalyticsProvider>{children}</AnalyticsProvider>
+          </Suspense>
+        </ThemeProvider>
       </body>
       {GA_MEASUREMENT_ID && <GoogleAnalytics gaId={GA_MEASUREMENT_ID} />}
     </html>

@@ -1,10 +1,19 @@
+"use client";
+
+import { useTheme } from "@/components/providers/ThemeProvider";
+
 // Background with radial glows that scroll with content
 // Glows are positioned throughout the page and come into view as user scrolls
 export function PageBackground() {
+  const { theme } = useTheme();
+  
   return (
     <div className="absolute inset-0 pointer-events-none overflow-hidden" style={{ zIndex: 0 }}>
       {/* Base background color - fixed to always cover viewport */}
-      <div className="fixed inset-0 bg-[#010052]" />
+      <div 
+        className="fixed inset-0 transition-colors duration-500"
+        style={{ backgroundColor: theme === "light" ? "#faf8f5" : "#010052" }}
+      />
 
       {/* Top center glow - near hero */}
       <div
@@ -13,7 +22,7 @@ export function PageBackground() {
           top: '-300px',
           left: '50%',
           transform: 'translateX(-50%)',
-          opacity: 0.4,
+          opacity: theme === "light" ? 0.3 : 0.4,
         }}
       />
 
@@ -23,7 +32,7 @@ export function PageBackground() {
         style={{
           top: '1500px',
           left: '-400px',
-          opacity: 0.3,
+          opacity: theme === "light" ? 0.2 : 0.3,
         }}
       />
 
@@ -33,7 +42,7 @@ export function PageBackground() {
         style={{
           top: '3000px',
           right: '-400px',
-          opacity: 0.25,
+          opacity: theme === "light" ? 0.15 : 0.25,
         }}
       />
 
@@ -44,7 +53,7 @@ export function PageBackground() {
           top: '5000px',
           left: '50%',
           transform: 'translateX(-50%)',
-          opacity: 0.3,
+          opacity: theme === "light" ? 0.2 : 0.3,
         }}
       />
     </div>

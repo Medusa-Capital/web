@@ -11,3 +11,4 @@ export { FinalCTA } from "./FinalCTA";
 export { Footer } from "./Footer";
 export { PageBackground } from "./PageBackground";
 export { LeadCaptureModal } from "./LeadCaptureModal";
+export { ThemeToggle } from "./ThemeToggle";

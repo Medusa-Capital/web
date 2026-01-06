@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { useTheme } from "@/components/providers/ThemeProvider";
 
 const features = [
   {
@@ -38,11 +39,13 @@ const features = [
 ];
 
 export function Features() {
+  const { theme } = useTheme();
+  
   return (
     <section className="relative px-4 md:px-6 mt-0 py-[50px]">
       {/* Background Medusa graphic */}
       <div
-        className="hidden lg:block absolute pointer-events-none select-none"
+        className="hidden lg:block absolute pointer-events-none select-none transition-opacity duration-300"
         style={{
           left: 0,
           top: 0,
@@ -54,6 +57,7 @@ export function Features() {
           backgroundSize: "contain",
           backgroundRepeat: "no-repeat",
           zIndex: 0,
+          opacity: theme === "light" ? 0.1 : 1,
         }}
       />
 
@@ -63,11 +67,11 @@ export function Features() {
           {/* Left content - sticky */}
           <div>
             <div className="lg:sticky lg:top-[clamp(140px,4vw,162px)] mb-12 lg:mb-0 text-center lg:text-left">
-              <h2 className="font-[family-name:var(--font-heading)] text-[clamp(28px,4.5vw,60px)] font-bold text-white leading-tight mb-6">
+              <h2 className="font-[family-name:var(--font-heading)] text-[clamp(28px,4.5vw,60px)] font-bold dark:text-white light:text-[#010052] leading-tight mb-6 transition-colors duration-300">
                 Un Método Claro para Entender, Evaluar e Invertir en Cripto con
                 Criterio
               </h2>
-              <p className="text-[#cccce0] text-base md:text-lg leading-relaxed">
+              <p className="dark:text-[#cccce0] light:text-[#3d3d6b] text-base md:text-lg leading-relaxed transition-colors duration-300">
                 Desde Bitcoin hasta DeFi, pasando por tokenomics, ciclos de
                 mercado y gestión del riesgo. Una formación paso a paso diseñada
                 para ayudarte a interpretar este nuevo ecosistema con el mismo
@@ -93,8 +97,7 @@ export function Features() {
 
                 {/* Card */}
                 <div
-                  className="flex-1 rounded-[clamp(20px,2vw,30px)] p-5 lg:p-8 shadow-2xl border border-white/10"
-                  style={{ backgroundColor: "#1b1a64" }}
+                  className="flex-1 rounded-[clamp(20px,2vw,30px)] p-5 lg:p-8 shadow-2xl transition-all duration-300 dark:border-white/10 light:border-[#010052]/10 border dark:bg-[#1b1a64] light:bg-white/90 light:shadow-lg"
                 >
                   <div className="mb-4">
                     <Image
@@ -105,10 +108,10 @@ export function Features() {
                       className="w-16 md:w-20 lg:w-[100px] h-auto"
                     />
                   </div>
-                  <h3 className="text-white font-semibold text-lg lg:text-xl mb-3">
+                  <h3 className="dark:text-white light:text-[#010052] font-semibold text-lg lg:text-xl mb-3 transition-colors duration-300">
                     {feature.title}
                   </h3>
-                  <p className="text-[#cccce0] text-sm lg:text-base leading-relaxed">
+                  <p className="dark:text-[#cccce0] light:text-[#3d3d6b] text-sm lg:text-base leading-relaxed transition-colors duration-300">
                     {feature.description}
                   </p>
                 </div>

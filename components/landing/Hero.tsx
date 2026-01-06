@@ -4,18 +4,29 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import Image from "next/image";
 import { trackCTAClick, trackOutboundLink } from "@/lib/analytics";
+import { useTheme } from "@/components/providers/ThemeProvider";
 
 export function Hero() {
+  const { theme } = useTheme();
+  
   return (
     <section
       className="relative min-h-screen flex flex-col items-center justify-center px-4 md:px-6 pt-[100px] pb-[100px] mt-0"
       style={{
-        backgroundImage: 'url("/img/hero-strokes.webp")',
+        backgroundImage: theme === "light" ? 'none' : 'url("/img/hero-strokes.webp")',
         backgroundSize: 'contain',
         backgroundPosition: 'center 20px',
         backgroundRepeat: 'no-repeat',
       }}
     >
+      {/* Light theme decorative elements */}
+      {theme === "light" && (
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute top-20 left-1/4 w-64 h-64 bg-[#3a54f8]/5 rounded-full blur-3xl" />
+          <div className="absolute top-40 right-1/4 w-48 h-48 bg-[#010052]/5 rounded-full blur-3xl" />
+        </div>
+      )}
+      
       <div className="relative z-10 w-full max-w-4xl mx-auto text-center">
         {/* Welcome badge */}
         <Badge variant="hero" className="mb-5">
@@ -24,23 +35,23 @@ export function Hero() {
             alt=""
             width={24}
             height={24}
-            className="w-5 h-5 md:w-6 md:h-6"
+            className={`w-5 h-5 md:w-6 md:h-6 ${theme === "light" ? "brightness-0" : ""}`}
           />
           Bienvenido a Medusa Capital
         </Badge>
 
         {/* Main headline */}
         <h1
-          className="font-[family-name:var(--font-heading)] font-bold text-white leading-tight mb-6 capitalize"
+          className="font-[family-name:var(--font-heading)] font-bold leading-tight mb-6 capitalize transition-colors duration-300 dark:text-white light:text-[#010052]"
           style={{ fontSize: 'clamp(1.5rem, 6vw, 4.5rem)' }}
         >
           Formación En Criptomonedas
           <br />
-          <span className="text-[#B9B8EB]">Para Inversores Exigentes</span>
+          <span className="dark:text-[#B9B8EB] light:text-[#3a54f8]">Para Inversores Exigentes</span>
         </h1>
 
         {/* Subheadline */}
-        <p className="text-[#cccce0] text-[clamp(16px,2vw,20px)] max-w-2xl mx-auto mb-8">
+        <p className="dark:text-[#cccce0] light:text-[#3d3d6b] text-[clamp(16px,2vw,20px)] max-w-2xl mx-auto mb-8 transition-colors duration-300">
           Un programa formativo completo diseñado para que el pequeño y mediano
           inversor no sólo no pierda poder adquisitivo, sino que pueda
           rentabilizar su patrimonio
@@ -88,7 +99,7 @@ export function Hero() {
             height={40}
             className="h-10 w-auto"
           />
-          <p className="text-[#cccce0]/60 text-sm">
+          <p className="dark:text-[#cccce0]/60 light:text-[#3d3d6b]/70 text-sm transition-colors duration-300">
             Medusa Capital ha ayudado a{" "}
             <span className="text-[#3a54f8] font-semibold">200+</span> inversores a
             entender el mercado de las criptomonedas

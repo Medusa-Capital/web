@@ -2,40 +2,45 @@
 
 import { Button } from "@/components/ui/button";
 import { trackCTAClick, trackOutboundLink } from "@/lib/analytics";
+import { useTheme } from "@/components/providers/ThemeProvider";
 
 export function FinalCTA() {
+  const { theme } = useTheme();
+  
   return (
     <section className="relative py-[100px] px-6 overflow-hidden">
       <div className="max-w-[973px] mx-auto relative">
         {/* Outer card with gradient border - matches legacy .cta-main-wrapper.card */}
         <div
-          className="relative rounded-[44px] p-[2px]"
+          className="relative rounded-[44px] p-[2px] transition-all duration-300"
           style={{
-            background: "linear-gradient(180deg, rgba(185, 184, 235, 0.6) 0%, rgba(67, 85, 217, 0.3) 100%)",
+            background: theme === "light"
+              ? "linear-gradient(180deg, rgba(58, 84, 248, 0.4) 0%, rgba(1, 0, 82, 0.2) 100%)"
+              : "linear-gradient(180deg, rgba(185, 184, 235, 0.6) 0%, rgba(67, 85, 217, 0.3) 100%)",
           }}
         >
           {/* Inner padding wrapper */}
           <div
-            className="rounded-[42px] p-[10px] md:p-[20px]"
-            style={{ backgroundColor: "rgba(1, 0, 82, 0.8)" }}
+            className="rounded-[42px] p-[10px] md:p-[20px] transition-colors duration-300"
+            style={{ backgroundColor: theme === "light" ? "rgba(255, 255, 255, 0.95)" : "rgba(1, 0, 82, 0.8)" }}
           >
             {/* Inner card with background image - matches legacy .cta-wrapper */}
             <div
-              className="relative rounded-[30px] py-[40px] md:py-[60px] px-5 text-center"
+              className="relative rounded-[30px] py-[40px] md:py-[60px] px-5 text-center transition-all duration-300"
               style={{
-                backgroundColor: "#010052",
-                backgroundImage: "url('/img/cta-bg.webp')",
+                backgroundColor: theme === "light" ? "#f5f3f0" : "#010052",
+                backgroundImage: theme === "light" ? "none" : "url('/img/cta-bg.webp')",
                 backgroundRepeat: "no-repeat",
                 backgroundSize: "cover",
                 backgroundPosition: "center",
               }}
             >
-              <h2 className="font-[family-name:var(--font-heading)] text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight mb-4 max-w-[500px] mx-auto italic">
+              <h2 className="font-[family-name:var(--font-heading)] text-3xl md:text-4xl lg:text-5xl font-bold dark:text-white light:text-[#010052] leading-tight mb-4 max-w-[500px] mx-auto italic transition-colors duration-300">
                 Comienza a Invertir
                 <br />
                 con Confianza.
               </h2>
-              <p className="text-[#B9B8EB]/80 text-base leading-relaxed mb-6 max-w-[500px] mx-auto">
+              <p className="dark:text-[#B9B8EB]/80 light:text-[#3d3d6b] text-base leading-relaxed mb-6 max-w-[500px] mx-auto transition-colors duration-300">
                 El mundo cripto no es humo… si sabes interpretarlo. Aquí
                 aprenderás a analizar activos digitales como lo harías con cualquier
                 otra clase de activo: con fundamentos, contexto y gestión del

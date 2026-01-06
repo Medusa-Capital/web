@@ -2,13 +2,16 @@
 
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import { useTheme } from "@/components/providers/ThemeProvider";
 
 export function ValueProp() {
+  const { theme } = useTheme();
+  
   return (
     <section className="relative py-[100px] px-6 mt-0">
       {/* Background content-sec-obj graphic - right side */}
       <div
-        className="hidden lg:block absolute pointer-events-none select-none"
+        className="hidden lg:block absolute pointer-events-none select-none transition-opacity duration-300"
         style={{
           right: 0,
           top: 0,
@@ -20,6 +23,7 @@ export function ValueProp() {
           backgroundRepeat: "no-repeat",
           backgroundPosition: "right",
           zIndex: 0,
+          opacity: theme === "light" ? 0.15 : 1,
         }}
       />
 
@@ -27,18 +31,18 @@ export function ValueProp() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Left content */}
           <div>
-            <h2 className="font-[family-name:var(--font-heading)] text-[clamp(30px,4vw,50px)] font-bold text-white leading-tight mb-6">
+            <h2 className="font-[family-name:var(--font-heading)] text-[clamp(30px,4vw,50px)] font-bold dark:text-white light:text-[#010052] leading-tight mb-6 transition-colors duration-300">
               Conviértete en un Inversor Experto en Bitcoin y otros Activos
               Digitales
             </h2>
-            <p className="text-[#cccce0] text-lg leading-relaxed mb-8">
+            <p className="dark:text-[#cccce0] light:text-[#3d3d6b] text-lg leading-relaxed mb-8 transition-colors duration-300">
               En Medusa Capital aprenderás a navegar por el mercado de las
               criptomonedas, aprenderás estrategias de inversión probadas, y
               sabrás cómo moverte por el universo DeFi de manera segura. No te
               prometemos rentabilidad inmediata. Obtendrás{" "}
-              <span className="text-white font-medium">conocimiento</span>,{" "}
-              <span className="text-white font-medium">criterio propio</span> y{" "}
-              <span className="text-white font-medium">herramientas para ser rentable</span>.
+              <span className="dark:text-white light:text-[#010052] font-medium">conocimiento</span>,{" "}
+              <span className="dark:text-white light:text-[#010052] font-medium">criterio propio</span> y{" "}
+              <span className="dark:text-white light:text-[#010052] font-medium">herramientas para ser rentable</span>.
             </p>
             {/* Orange CTA button */}
             <Button

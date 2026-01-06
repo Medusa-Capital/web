@@ -44,6 +44,7 @@
 }
 
 @custom-variant dark (&:is(.dark *));
+@custom-variant light (&:is(.light *));
 
 @theme inline {
   --color-background: var(--background);
@@ -156,14 +157,77 @@
   --sidebar-accent-foreground: oklch(0.985 0.002 247.839);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.551 0.027 264.364);
+  
+  /* Medusa-specific dark theme variables */
+  --medusa-bg: #010052;
+  --medusa-bg-secondary: #1b1a64;
+  --medusa-text: #ffffff;
+  --medusa-text-secondary: #cccce0;
+  --medusa-text-muted: #B9B8EB;
+  --medusa-accent: #3a54f8;
+  --medusa-accent-secondary: #B9B8EB;
+  --medusa-glow: rgba(185, 184, 235, 0.4);
+  --medusa-border: rgba(255, 255, 255, 0.1);
+  --medusa-card-bg: rgba(27, 26, 100, 1);
+  --medusa-glass-bg: rgba(255, 255, 255, 0.1);
+}
+
+/* ===== LIGHT THEME ===== */
+/* Refined warm cream with navy accents - based on brand guidelines */
+.light {
+  --background: oklch(0.98 0.005 80);
+  --foreground: oklch(0.15 0.04 270);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.15 0.04 270);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.15 0.04 270);
+  --primary: oklch(0.45 0.22 277);
+  --primary-foreground: oklch(0.98 0.01 272);
+  --secondary: oklch(0.95 0.01 270);
+  --secondary-foreground: oklch(0.20 0.04 270);
+  --muted: oklch(0.96 0.005 270);
+  --muted-foreground: oklch(0.45 0.02 270);
+  --accent: oklch(0.95 0.02 270);
+  --accent-foreground: oklch(0.20 0.04 270);
+  --destructive: oklch(0.55 0.22 25);
+  --border: oklch(0.15 0.04 270 / 12%);
+  --input: oklch(0.15 0.04 270 / 8%);
+  --ring: oklch(0.45 0.22 277);
+  --chart-1: oklch(0.55 0.18 277);
+  --chart-2: oklch(0.50 0.20 277);
+  --chart-3: oklch(0.45 0.22 277);
+  --chart-4: oklch(0.40 0.20 277);
+  --chart-5: oklch(0.35 0.18 277);
+  --sidebar: oklch(0.97 0.005 80);
+  --sidebar-foreground: oklch(0.15 0.04 270);
+  --sidebar-primary: oklch(0.45 0.22 277);
+  --sidebar-primary-foreground: oklch(0.98 0.01 272);
+  --sidebar-accent: oklch(0.95 0.02 270);
+  --sidebar-accent-foreground: oklch(0.20 0.04 270);
+  --sidebar-border: oklch(0.15 0.04 270 / 10%);
+  --sidebar-ring: oklch(0.45 0.22 277);
+  
+  /* Medusa-specific light theme variables */
+  --medusa-bg: #faf8f5;
+  --medusa-bg-secondary: #f0ede8;
+  --medusa-text: #010052;
+  --medusa-text-secondary: #3d3d6b;
+  --medusa-text-muted: #6b6b9e;
+  --medusa-accent: #3a54f8;
+  --medusa-accent-secondary: #010052;
+  --medusa-glow: rgba(1, 0, 82, 0.15);
+  --medusa-border: rgba(1, 0, 82, 0.12);
+  --medusa-card-bg: rgba(255, 255, 255, 0.9);
+  --medusa-glass-bg: rgba(1, 0, 82, 0.05);
 }
 
 /* Medusa Capital - Main page background */
 .medusa-bg {
-  /* Base: Deep navy/indigo matching legacy --primary: #010052 */
-  background-color: #010052;
+  /* Base: Uses CSS variable for theme support */
+  background-color: var(--medusa-bg);
   position: relative;
   min-height: 100vh;
+  transition: background-color 0.3s ease;
 }
 
 /* Ensure content is above any overlays */
@@ -172,18 +236,35 @@
   z-index: 1;
 }
 
+/* Theme-aware text utilities */
+.medusa-text {
+  color: var(--medusa-text);
+  transition: color 0.3s ease;
+}
+
+.medusa-text-secondary {
+  color: var(--medusa-text-secondary);
+  transition: color 0.3s ease;
+}
+
+.medusa-text-muted {
+  color: var(--medusa-text-muted);
+  transition: color 0.3s ease;
+}
+
 /* ===== LEGACY STYLING: Gradients & Effects ===== */
 
-/* Glassmorphic card style */
+/* Glassmorphic card style - theme aware */
 .glass-card {
   position: relative;
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: var(--medusa-glass-bg);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-radius: clamp(20px, 2vw, 30px);
   padding: clamp(20px, 2vw, 32px) 30px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--medusa-border);
   overflow: hidden;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 /* Gradient border utility using mask technique */
@@ -207,7 +288,12 @@
   pointer-events: none;
 }
 
-/* Circle radial glow effect */
+/* Light theme gradient border */
+.light .gradient-border::before {
+  background: linear-gradient(0deg, rgba(1, 0, 82, 0.3) 0%, rgba(58, 84, 248, 0.6) 100%) border-box;
+}
+
+/* Circle radial glow effect - theme aware */
 .circle-radial {
   background: #b9b8eb;
   background: radial-gradient(closest-side, #b9b8eb, rgba(1, 0, 82, 0));
@@ -217,6 +303,13 @@
   height: 900px;
   border-radius: 50%;
   pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+/* Light theme glow - more subtle */
+.light .circle-radial {
+  background: radial-gradient(closest-side, rgba(58, 84, 248, 0.2), rgba(1, 0, 82, 0));
+  opacity: 0.5;
 }
 
 /* Primary button with gradient glow */
@@ -231,6 +324,15 @@
   transform: scale(1.05);
 }
 
+/* Light theme primary button */
+.light .btn-primary-glow {
+  box-shadow: 0 4px 20px rgba(58, 84, 248, 0.3);
+}
+.light .btn-primary-glow:hover {
+  filter: brightness(1.1);
+  box-shadow: 0 6px 30px rgba(58, 84, 248, 0.4);
+}
+
 /* Secondary button (orange) */
 .btn-secondary-glow {
   position: relative;
@@ -241,6 +343,14 @@
 .btn-secondary-glow:hover {
   filter: brightness(1.2);
   transform: scale(1.05);
+}
+
+/* Light theme secondary button */
+.light .btn-secondary-glow {
+  box-shadow: 0 4px 20px rgba(232, 92, 48, 0.25);
+}
+.light .btn-secondary-glow:hover {
+  box-shadow: 0 6px 30px rgba(232, 92, 48, 0.35);
 }
 
 /* ===== ANIMATIONS ===== */
@@ -319,6 +429,35 @@
 .tab-h4-glow {
   background: linear-gradient(0deg, rgba(1, 0, 82, 0) 0%, rgba(185, 184, 235, 0.2) 100%);
   box-shadow: inset 0px 0px 10px rgba(255, 172, 227, 0.25);
+}
+
+/* Light theme tab glow */
+.light .tab-h4-glow {
+  background: linear-gradient(0deg, rgba(58, 84, 248, 0) 0%, rgba(58, 84, 248, 0.08) 100%);
+  box-shadow: inset 0px 0px 10px rgba(58, 84, 248, 0.1);
+}
+
+/* ===== THEME TRANSITION UTILITIES ===== */
+.theme-transition {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Feature card theme support */
+.feature-card {
+  background-color: var(--medusa-card-bg);
+  border: 1px solid var(--medusa-border);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Light mode specific overrides for hardcoded colors */
+.light [style*="background-color: #1b1a64"],
+.light [style*="backgroundColor: #1b1a64"] {
+  background-color: var(--medusa-card-bg) !important;
+}
+
+.light [style*="background-color: #010052"],
+.light [style*="backgroundColor: #010052"] {
+  background-color: var(--medusa-bg) !important;
 }
 
 @layer base {
