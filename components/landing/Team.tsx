@@ -133,10 +133,10 @@ export function Team() {
       <div className="max-w-6xl mx-auto px-4 md:px-6 relative z-10">
         {/* Header */}
         <div className="text-center mb-8 md:mb-12">
-          <h2 className="font-[family-name:var(--font-heading)] text-3xl md:text-5xl font-bold text-white leading-tight mb-4">
+          <h2 className="font-[family-name:var(--font-heading)] text-4xl md:text-6xl font-bold text-white leading-tight mb-4">
             Conoce al Equipo
           </h2>
-          <p className="text-[#B9B8EB]/50 max-w-xl mx-auto">
+          <p className="text-[#B9B8EB]/50 text-xl md:text-2xl max-w-xl mx-auto">
             Llevamos en el sector de las criptomonedas desde 2018 y sumamos más de 15 años
             de experiencia combinada en finanzas tradicionales y digitales.
           </p>

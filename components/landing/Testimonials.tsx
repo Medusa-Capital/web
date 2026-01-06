@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import { Card } from "@/components/ui/card";
 
 const testimonials = [
   {
@@ -49,12 +48,17 @@ const column3 = [testimonials[2], testimonials[5], testimonials[0], testimonials
 
 function TestimonialCard({ testimonial }: { testimonial: typeof testimonials[0] }) {
   return (
-    <Card
-      variant="glass"
-      className="p-6 pb-[50px] mb-4 !bg-white/5"
+    <div
+      className="gap-6 overflow-hidden text-sm group/card flex flex-col relative rounded-[20px] p-6 pb-[50px] mb-4"
+      style={{
+        background: 'rgba(0, 0, 0, 0.1)',
+        backdropFilter: 'blur(40px) saturate(150%)',
+        WebkitBackdropFilter: 'blur(40px) saturate(150%)',
+        border: '1px solid rgba(255, 255, 255, 0.08)',
+      }}
     >
       {/* Header with avatar */}
-      <div className="flex items-center gap-3 mb-4">
+      <div className="flex items-center gap-3 mb-4 relative z-10">
         {/* Avatar image */}
         <Image
           src={testimonial.avatar}
@@ -71,10 +75,10 @@ function TestimonialCard({ testimonial }: { testimonial: typeof testimonials[0] 
         </div>
       </div>
       {/* Content */}
-      <p className="text-[#cccce0]/70 text-sm leading-relaxed">
+      <p className="text-[#cccce0]/70 text-sm leading-relaxed relative z-10">
         {testimonial.text}
       </p>
-    </Card>
+    </div>
   );
 }
 
@@ -89,21 +93,7 @@ function ScrollingColumn({
   const duplicated = [...testimonials, ...testimonials, ...testimonials, ...testimonials];
 
   return (
-    <div className="relative h-[600px] md:h-[880px] overflow-hidden">
-      {/* Gradient overlays for fade effect */}
-      <div
-        className="absolute top-0 left-0 right-0 h-[160px] md:h-[211px] z-10 pointer-events-none"
-        style={{
-          background: "linear-gradient(0deg, rgba(1, 0, 82, 0) 0%, rgb(1, 0, 82) 100%)",
-        }}
-      />
-      <div
-        className="absolute bottom-0 left-0 right-0 h-[160px] md:h-[211px] z-10 pointer-events-none"
-        style={{
-          background: "linear-gradient(180deg, rgba(1, 0, 82, 0) 0%, rgb(1, 0, 82) 100%)",
-        }}
-      />
-
+    <div className="relative h-[600px] md:h-[880px] overflow-hidden [mask-image:linear-gradient(to_bottom,transparent,black_15%,black_85%,transparent)] [-webkit-mask-image:linear-gradient(to_bottom,transparent,black_15%,black_85%,transparent)]">
       {/* Scrolling content */}
       <div
         className={`flex flex-col ${direction === "down" ? "animate-scroll-down" : "animate-scroll-up"}`}
@@ -122,13 +112,49 @@ function ScrollingColumn({
 export function Testimonials() {
   return (
     <section className="relative py-16 md:py-[100px] px-4 md:px-6 overflow-hidden">
+      {/* Background gradient orbs - positioned behind the cards */}
+      <div 
+        className="absolute pointer-events-none"
+        style={{
+          top: '35%',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          width: '600px',
+          height: '600px',
+          background: 'radial-gradient(circle, rgba(67, 85, 217, 0.5) 0%, rgba(67, 85, 217, 0.2) 35%, transparent 65%)',
+          filter: 'blur(40px)',
+        }}
+      />
+      <div 
+        className="absolute pointer-events-none"
+        style={{
+          top: '25%',
+          left: '20%',
+          width: '400px',
+          height: '400px',
+          background: 'radial-gradient(circle, rgba(99, 102, 241, 0.45) 0%, rgba(99, 102, 241, 0.15) 40%, transparent 70%)',
+          filter: 'blur(50px)',
+        }}
+      />
+      <div 
+        className="absolute pointer-events-none"
+        style={{
+          top: '50%',
+          right: '15%',
+          width: '450px',
+          height: '450px',
+          background: 'radial-gradient(circle, rgba(67, 85, 217, 0.4) 0%, rgba(99, 102, 241, 0.1) 45%, transparent 70%)',
+          filter: 'blur(45px)',
+        }}
+      />
+
       <div className="max-w-6xl mx-auto relative z-10">
         {/* Header */}
         <div className="text-center mb-8 md:mb-16">
-          <h2 className="font-[family-name:var(--font-heading)] text-3xl md:text-5xl font-bold text-white leading-tight mb-4">
+          <h2 className="font-[family-name:var(--font-heading)] text-4xl md:text-6xl font-bold text-white leading-tight mb-4">
             Qué dicen Nuestros Alumnos
           </h2>
-          <p className="text-[#B9B8EB]/50 max-w-2xl mx-auto">
+          <p className="text-[#B9B8EB]/50 text-xl md:text-2xl max-w-4xl mx-auto">
             Nuestra formación ha cambiado la manera en la que nuestros alumnos
             perciben el sistema monetario. Ahora conocen el sistema y tienen las
             herramientas para rentabilizar su dinero. Aquí tienes algunos testimonios sobre su aprendizaje.
