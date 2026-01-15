@@ -35,7 +35,7 @@ const COUNTRIES = [
 ];
 
 // Unlisted YouTube video URL (shown after successful submission)
-const MASTERCLASS_VIDEO_ID = "tYAxUd_Ishg";
+const MASTERCLASS_VIDEO_ID = "9rNDE3FMWlo";
 
 // Validation helpers
 const isValidName = (name: string): boolean => {
@@ -493,7 +493,7 @@ export function LeadCaptureModal() {
                 {/* Card */}
                 <div className="glass-card gradient-border p-6 pt-8 text-center">
                   <h3 className="text-2xl md:text-3xl font-bold text-white font-heading mb-6">
-                    Narrativas Ganadoras 2026
+                    Toma de liquidez
                   </h3>
 
                   {/* Locked preview */}
@@ -554,7 +554,7 @@ export function LeadCaptureModal() {
                   ¡Acceso Concedido!
                 </div>
                 <h3 className="text-2xl md:text-3xl font-bold text-white font-heading">
-                  Narrativas Ganadoras 2026
+                  Toma de liquidez
                 </h3>
               </div>
 
@@ -564,7 +564,7 @@ export function LeadCaptureModal() {
                   width="100%"
                   height="100%"
                   src={`https://www.youtube.com/embed/${MASTERCLASS_VIDEO_ID}?autoplay=1`}
-                  title="Masterclass - Narrativas Ganadoras 2026"
+                  title="Masterclass - Toma de liquidez"
                   frameBorder="0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                   referrerPolicy="strict-origin-when-cross-origin"
