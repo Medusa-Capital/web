@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import { GoogleAnalytics } from "@next/third-parties/google";
+import { Analytics } from "@vercel/analytics/next";
 import { Suspense } from "react";
 import { AnalyticsProvider } from "@/components/providers/AnalyticsProvider";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
@@ -43,6 +44,7 @@ export default function RootLayout({
             <AnalyticsProvider>{children}</AnalyticsProvider>
           </Suspense>
         </ThemeProvider>
+        <Analytics />
       </body>
       {GA_MEASUREMENT_ID && <GoogleAnalytics gaId={GA_MEASUREMENT_ID} />}
     </html>
