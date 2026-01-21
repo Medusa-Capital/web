@@ -164,3 +164,11 @@ export function getLatestMarketAnalysis(): BlogPostMeta | null {
 export function getArticles(): BlogPostMeta[] {
   return getPostsByCategory("article");
 }
+
+export function getFeaturedArticles(): BlogPostMeta[] {
+  return getArticles().filter((post) => post.featured);
+}
+
+export function getRegularArticles(): BlogPostMeta[] {
+  return getArticles().filter((post) => !post.featured);
+}

@@ -75,7 +75,7 @@ export function Footer() {
         {/* Bottom bar */}
         <div className="pt-8 border-t dark:border-[#B9B8EB]/20 light:border-[#010052]/10 flex flex-col md:flex-row items-center justify-between gap-4 transition-colors duration-300">
           <p className="dark:text-[#B9B8EB]/40 light:text-[#3d3d6b]/50 text-sm transition-colors duration-300">
-            ©Medusa Capital 2025. Todos los Derechos Reservados.
+            ©Medusa Capital 2026. Todos los Derechos Reservados.
           </p>
           <Link
             href="/privacidad"

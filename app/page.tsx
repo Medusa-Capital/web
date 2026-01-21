@@ -1,6 +1,7 @@
 import {
   Header,
   Hero,
+  ProblemSection,
   Stats,
   ValueProp,
   Features,
@@ -21,6 +22,7 @@ export default function Page() {
       <div className="relative z-10">
         <Header />
         <Hero />
+        <ProblemSection />
         <ValueProp />
         <Features />
         <Stats />

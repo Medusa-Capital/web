@@ -8,16 +8,16 @@ export function Stats() {
   
   const stats = [
     {
-      value: "+200",
-      label: "Alumnos han aprendido a gestionar su cartera con nosotros",
+      value: "+250",
+      label: "Alumnos formados",
     },
     {
       value: "+50",
-      label: "Reseñas positivas avalan el método utilizado durante estos dos años",
+      label: "Reseñas positivas",
     },
     {
       value: "+20.000",
-      label: "Seguidores interesados en formación referente a activos digitales",
+      label: "Seguidores",
     },
   ];
 
@@ -46,8 +46,7 @@ export function Stats() {
 
           {/* Headline - matching legacy styling */}
           <h2 className="font-[family-name:var(--font-heading)] text-[clamp(36px,4.5vw,60px)] font-bold dark:text-white light:text-[#010052] leading-tight mb-16 max-w-4xl mx-auto transition-colors duration-300">
-            Ayudamos a inversores tradicionales a entender cripto con el mismo
-            rigor con el que analizan acciones o ETFs
+            Te ayudamos a entender el mercado de activos digitales con el mismo rigor con el que analizan empresas tradicionales.
           </h2>
 
           {/* Stats grid */}

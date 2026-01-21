@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { trackEvent } from "@/lib/analytics";
@@ -14,6 +15,8 @@ const modules = [
     subtitle: "Redefiniendo el dinero desde su origen",
     description:
       "Entiende por qué existe Bitcoin, cómo funciona su red, cómo se custodia, cómo se representa el valor y cómo propone una alternativa soberana al sistema fiat. Este módulo incluye fundamentos teóricos, arquitectura del sistema e implicaciones económicas.",
+    imageUrl:
+      "https://www.estrategiasdeinversion.com/uploads/noticias_redaccion/graficos_dentro/202601/semana_1/btc_portada.jpg",
   },
   {
     id: 2,
@@ -21,6 +24,8 @@ const modules = [
     subtitle: "Comprende la tecnología y sus implicaciones económicas",
     description:
       "Sienta las bases para moverte con soltura en el entorno blockchain. Se explican conceptos clave como DeFi, exchanges centralizados y descentralizados, wallets, bridges, bots y herramientas básicas para navegar en Web3. Es una guía práctica para entender cómo funciona este nuevo ecosistema y cómo participar de forma segura y eficaz.",
+    imageUrl:
+      "https://img.computing.es/wp-content/uploads/2024/01/29164754/blockchain.jpg",
   },
   {
     id: 3,
@@ -28,6 +33,8 @@ const modules = [
     subtitle: "El sistema financiero abierto",
     description:
       "Explora protocolos de lending, DEXs, liquidity pools, yield farming y staking. Aprende a evaluar riesgos de smart contracts y a generar rendimiento en DeFi.",
+    imageUrl:
+      "https://media.licdn.com/dms/image/v2/D4D12AQHGtgWKSk8kEA/article-cover_image-shrink_720_1280/article-cover_image-shrink_720_1280/0/1678283219216?e=2147483647&v=beta&t=q-J13FfgI3lE-G8ZLqUwInUQRDjy6lC9EyizBbATrQA",
   },
   {
     id: 4,
@@ -35,6 +42,8 @@ const modules = [
     subtitle: "Narrativas, ciclos y comportamiento institucional",
     description:
       "Aprende cómo fluye el capital en cripto. Analizamos las dinámicas macro y micro que mueven el mercado: ciclos, rotación sectorial, comportamiento institucional, y las mecánicas detrás del dinero inteligente. Clave para interpretar tendencias y posicionarse antes que el resto.",
+    imageUrl:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUfAcCT5FDTrc7-zuTO48aD3anRW3Qtkgrsg&s",
   },
   {
     id: 5,
@@ -42,6 +51,8 @@ const modules = [
     subtitle: "Detecta valor en un mercado saturado",
     description:
       "Una guía para detectar oportunidades sólidas a largo plazo. Aprenderás a analizar whitepapers, evaluar la propuesta de valor de un token, entender la tokenomics, y construir una tesis completa sobre un proyecto. Incluye estudios reales sobre casos relevantes como $HYPE, Terra, stablecoins y más.",
+    imageUrl:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQjsmUdW-ZpKRozvY8NXNzPSEz3arWVnFfnCg&s",
   },
   {
     id: 6,
@@ -49,6 +60,8 @@ const modules = [
     subtitle: "Lectura directa del comportamiento del mercado",
     description:
       "Profundiza en la lectura directa de la blockchain. Estudia el comportamiento de smart money, detecta wallets relevantes, identifica señales de entrada y salida de capital, y utiliza herramientas como Arkham para tomar decisiones basadas en datos reales y verificables.",
+    imageUrl:
+      "https://tectum.io/wp-content/uploads/2023/05/on-chain-vs-off-chain-16x9-1.jpg",
   },
   {
     id: 7,
@@ -56,6 +69,8 @@ const modules = [
     subtitle: "Mentalidad, sesgos y toma de decisiones racionales",
     description:
       "El mayor enemigo de tus inversiones eres tú mismo. En este módulo abordamos la psicología financiera, sesgos cognitivos, sistemas de pensamiento, y cómo desarrollar la disciplina emocional necesaria para mantener tu plan. Incluye la teoría de la reflexividad y cómo impacta en cripto.",
+    imageUrl:
+      "https://www.avatrade.es/wp-content/uploads/2022/11/Online-Trading-Psychology.png.webp",
   },
   {
     id: 8,
@@ -63,6 +78,8 @@ const modules = [
     subtitle: "De la teoría a la acción",
     description:
       "Aprende a construir, proteger y escalar tu portafolio. Diseña tu perfil de inversor, comprende la diferencia entre gestión activa y pasiva, y domina estrategias complejas (Delta Neutral), gestión por escenarios y control del riesgo. Todo con enfoque práctico, desde la teoría hasta el caso de uso.",
+    imageUrl:
+      "https://media.licdn.com/dms/image/v2/C4E12AQFvWMy3K9600Q/article-cover_image-shrink_720_1280/article-cover_image-shrink_720_1280/0/1520137905379?e=2147483647&v=beta&t=WIa4YqwhDNj0uPt8aBOP0i7YAml7JYnvfqaTu-zFlOk",
   },
   {
     id: 9,
@@ -70,6 +87,8 @@ const modules = [
     subtitle: "Obligaciones y optimización fiscal",
     description:
       "Entiende cómo declarar criptoactivos en España, calcular plusvalías, documentar operaciones y aplicar estrategias legales para optimizar tu carga tributaria.",
+    imageUrl:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGH-DJ_9DRmgFU-oHKlgSM9zCQIMHki985vg&s",
   },
 ];
 
@@ -111,22 +130,6 @@ export function Modules() {
           <p className="dark:text-[#B9B8EB]/60 light:text-[#3d3d6b]/70 text-xl md:text-2xl transition-colors duration-300">
             9 módulos para dominar el ecosistema cripto
           </p>
-        </div>
-
-        {/* Progress bar */}
-        <div className="max-w-2xl mx-auto mb-8 md:mb-12">
-          <div className="flex justify-between text-xs dark:text-[#B9B8EB]/50 light:text-[#3d3d6b]/60 mb-2 transition-colors duration-300">
-            <span>Módulo {activeModule} de {modules.length}</span>
-            <span>{Math.round(progressPercentage)}% del programa</span>
-          </div>
-          <div className="h-1 dark:bg-[#423d80] light:bg-[#010052]/10 rounded-full overflow-hidden transition-colors duration-300">
-            <motion.div
-              className="h-full bg-gradient-to-r from-[#4355d9] to-[#6366f1]"
-              initial={false}
-              animate={{ width: `${progressPercentage}%` }}
-              transition={{ duration: 0.3, ease: "easeOut" }}
-            />
-          </div>
         </div>
 
         {/* Module selector - horizontal scroll */}
@@ -225,11 +228,6 @@ export function Modules() {
                 : "linear-gradient(135deg, rgba(67, 85, 217, 0.3) 0%, rgba(27, 26, 100, 0.5) 50%, rgba(1, 0, 82, 0.7) 100%)",
             }}
           >
-            {/* Large decorative module number */}
-            <div className="absolute top-4 right-4 md:top-8 md:right-8 font-[family-name:var(--font-heading)] text-[80px] md:text-[150px] font-bold dark:text-white/[0.03] light:text-[#010052]/[0.03] leading-none select-none transition-colors duration-300">
-              {String(activeModule).padStart(2, "0")}
-            </div>
-
             <div className="relative p-6 md:p-12">
               <AnimatePresence mode="wait" custom={direction}>
                 <motion.div
@@ -240,31 +238,111 @@ export function Modules() {
                   exit={{ opacity: 0, x: direction * -50 }}
                   transition={{ duration: 0.3, ease: "easeInOut" }}
                 >
-                  {/* Module number badge */}
-                  <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#4355d9]/20 border border-[#4355d9]/30 mb-4 md:mb-6">
-                    <span className="text-[#6366f1] text-xs font-semibold">
-                      MÓDULO {activeModule}
-                    </span>
+                  {/* Two-column layout */}
+                  <div className="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-6 md:gap-8 mb-6">
+                    {/* Content column */}
+                    <div>
+                      {/* Module number with divider */}
+                      <div className="flex items-center gap-4 mb-4">
+                        <div className="relative">
+                          <span className="text-4xl md:text-5xl font-[family-name:var(--font-heading)] font-bold bg-gradient-to-br from-[#B9B8EB] to-[#6366f1] bg-clip-text text-transparent">
+                            {String(activeModule).padStart(2, "0")}
+                          </span>
+                          <div
+                            className="absolute -inset-3 rounded-lg blur-xl -z-10 transition-colors duration-300"
+                            style={{
+                              background:
+                                theme === "light"
+                                  ? "linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(185, 184, 235, 0.1))"
+                                  : "linear-gradient(135deg, rgba(185, 184, 235, 0.2), rgba(99, 102, 241, 0.2))",
+                            }}
+                          />
+                        </div>
+                        <div className="h-12 w-px bg-gradient-to-b from-transparent via-[#B9B8EB]/50 to-transparent" />
+                        <span className="text-xs font-medium uppercase tracking-wide dark:text-[#B9B8EB]/60 light:text-[#3d3d6b]/60 transition-colors duration-300">
+                          Módulo
+                        </span>
+                      </div>
+
+                      {/* Title */}
+                      <h3 className="font-[family-name:var(--font-heading)] text-xl md:text-[32px] font-bold dark:text-white light:text-[#010052] mb-3 leading-tight transition-colors duration-300">
+                        {currentModule.title}
+                      </h3>
+
+                      {/* Subtitle */}
+                      <p className="text-sm md:text-base font-semibold bg-gradient-to-r from-[#B9B8EB] to-[#6366f1] bg-clip-text text-transparent mb-4">
+                        {currentModule.subtitle}
+                      </p>
+                    </div>
+
+                    {/* Image column */}
+                    <div className="flex items-center justify-center md:justify-end">
+                      <div className="relative w-[140px] h-[140px] md:w-[180px] md:h-[180px]">
+                        {/* Glow effect */}
+                        <div
+                          className="absolute inset-0 rounded-full blur-2xl transition-colors duration-300"
+                          style={{
+                            background:
+                              theme === "light"
+                                ? "linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(185, 184, 235, 0.15))"
+                                : "linear-gradient(135deg, rgba(99, 102, 241, 0.4), rgba(185, 184, 235, 0.3))",
+                          }}
+                        />
+
+                        {/* Border gradient */}
+                        <div className="absolute inset-0 rounded-full bg-gradient-to-br from-[#B9B8EB]/40 via-[#6366f1]/30 to-transparent p-[2px]">
+                          <div className="w-full h-full rounded-full dark:bg-[#010052]/80 light:bg-white/80 backdrop-blur-sm overflow-hidden transition-colors duration-300">
+                            <AnimatePresence mode="wait">
+                              <motion.div
+                                key={activeModule}
+                                initial={{ opacity: 0, scale: 0.8 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                exit={{ opacity: 0, scale: 0.8 }}
+                                transition={{ duration: 0.4 }}
+                                className="w-full h-full relative"
+                              >
+                                <Image
+                                  src={currentModule.imageUrl}
+                                  alt={currentModule.title}
+                                  fill
+                                  className="object-cover"
+                                  unoptimized
+                                />
+                              </motion.div>
+                            </AnimatePresence>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
 
-                  {/* Title */}
-                  <h3 className="font-[family-name:var(--font-heading)] text-xl md:text-3xl font-bold dark:text-white light:text-[#010052] mb-3 md:mb-4 leading-tight transition-colors duration-300">
-                    {currentModule.title}
-                  </h3>
-
-                  {/* Subtitle */}
-                  <p className="text-[#6366f1] font-medium mb-4 md:mb-6 text-sm md:text-base">
-                    {currentModule.subtitle}
-                  </p>
-
                   {/* Description */}
-                  <p className="dark:text-[#B9B8EB]/60 light:text-[#3d3d6b] leading-relaxed max-w-2xl text-sm md:text-base transition-colors duration-300">
+                  <p className="dark:text-[#B9B8EB]/70 light:text-[#3d3d6b] leading-relaxed text-sm md:text-base transition-colors duration-300 mb-6">
                     {currentModule.description}
                   </p>
+
+                  {/* Progress tags */}
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <div className="px-3 py-1.5 rounded-full bg-[#6366f1]/15 border border-[#6366f1]/30">
+                      <span className="text-xs font-medium dark:text-[#B9B8EB] light:text-[#4355d9] transition-colors duration-300">
+                        Módulo {activeModule}/{modules.length}
+                      </span>
+                    </div>
+                    <div className="w-1 h-1 rounded-full dark:bg-[#B9B8EB]/30 light:bg-[#010052]/20" />
+                    {/* Mini progress bar */}
+                    <div className="flex-1 min-w-[120px] h-2 dark:bg-[#B9B8EB]/10 light:bg-[#010052]/10 rounded-full overflow-hidden transition-colors duration-300">
+                      <motion.div
+                        className="h-full bg-gradient-to-r from-[#B9B8EB] to-[#6366f1]"
+                        initial={{ width: 0 }}
+                        animate={{ width: `${progressPercentage}%` }}
+                        transition={{ duration: 0.8, ease: "easeOut" }}
+                      />
+                    </div>
+                  </div>
                 </motion.div>
               </AnimatePresence>
 
-              {/* Navigation hint */}
+              {/* Navigation */}
               <div className="flex items-center justify-between mt-8 pt-6 border-t dark:border-[#B9B8EB]/10 light:border-[#010052]/10 transition-colors duration-300">
                 <button
                   onClick={goToPrev}
@@ -283,15 +361,21 @@ export function Modules() {
                 {/* Dot indicators */}
                 <div className="flex gap-1.5">
                   {modules.map((module) => (
-                    <button
+                    <motion.button
                       key={module.id}
                       onClick={() => handleModuleChange(module.id)}
                       className={cn(
-                        "w-2 h-2 rounded-full transition-all duration-300",
+                        "h-2 rounded-full transition-colors duration-300",
                         activeModule === module.id
-                          ? "bg-[#4355d9] w-6"
-                          : "dark:bg-[#B9B8EB]/20 light:bg-[#010052]/15 dark:hover:bg-[#B9B8EB]/40 light:hover:bg-[#010052]/30"
+                          ? "bg-gradient-to-r from-[#B9B8EB] to-[#6366f1] shadow-[0_0_8px_rgba(99,102,241,0.6)]"
+                          : module.id < activeModule
+                            ? "bg-[#6366f1]/40"
+                            : "dark:bg-[#B9B8EB]/15 light:bg-[#010052]/15"
                       )}
+                      animate={{
+                        width: activeModule === module.id ? 32 : 8,
+                      }}
+                      transition={{ duration: 0.3 }}
                     />
                   ))}
                 </div>

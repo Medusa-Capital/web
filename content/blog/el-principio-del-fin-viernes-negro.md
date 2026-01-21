@@ -5,7 +5,7 @@ description: "Los niveles de complacencia en el mercado eran extremos. Los índi
 tags: ["mercado", "macro", "defi", "onchain", "analisis"]
 author: "Axel"
 image: "/img/blog/el-principio-del-fin-viernes-negro/G3FUBsAWQAA9Ejv.jpeg"
-featured: true
+featured: false
 published: true
 category: "article"
 ---

@@ -333,10 +333,10 @@
   box-shadow: 0 6px 30px rgba(58, 84, 248, 0.4);
 }
 
-/* Secondary button (orange) */
+/* Secondary button (green) */
 .btn-secondary-glow {
   position: relative;
-  background: linear-gradient(0deg, #e85c30 0%, #ff7a4d 100%);
+  background: linear-gradient(0deg, #50d98a 0%, #68fe9a 100%);
   box-shadow: inset 0px 0px 6px rgba(255, 172, 227, 0.3);
   transition: all 0.3s ease;
 }

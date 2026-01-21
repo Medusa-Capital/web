@@ -5,7 +5,7 @@ description: "Esto es más difícil de digerir cuando este año ha sido cataloga
 tags: ["bitcoin", "ethereum", "analisis", "mercado", "institucional", "macro"]
 author: "Axel"
 image: "/img/blog/entramos-en-bear-maket/G3eEdhfW8AAwNTQ.png"
-featured: true
+featured: false
 published: true
 category: "article"
 ---

@@ -5,7 +5,7 @@ description: "Bitcoin cerró octubre rojo por primera vez en 7 años, pero insti
 tags: ["bitcoin", "analisis", "mercado", "institucional", "etf"]
 author: "Axel"
 image: "/img/blog/btc-debajo-100k/G5n9vZ9XQAA7X6F.png"
-featured: true
+featured: false
 published: true
 category: "article"
 ---

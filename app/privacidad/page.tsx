@@ -22,7 +22,7 @@ export default function PrivacyPolicyPage() {
                 Política de Privacidad
               </h1>
               <p className="text-[#B9B8EB]/60">
-                Última actualización: Enero 2025
+                Última actualización: Enero 2026
               </p>
             </div>
 

@@ -5,7 +5,7 @@ description: "Análisis completo del mercado cripto: liquidez global, tensiones 
 tags: ["bitcoin", "analisis", "macro", "liquidez", "institucional"]
 author: "Axel"
 image: "/img/blog/btc-suelo-confirmado/G7QylE6XEAA-t3Z.png"
-featured: true
+featured: false
 published: true
 category: "article"
 ---

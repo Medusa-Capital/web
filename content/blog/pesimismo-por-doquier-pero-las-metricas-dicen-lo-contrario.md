@@ -5,7 +5,7 @@ description: "Por suerte, el sector privado no es tan ineficiente y tenemos esta
 tags: ["bitcoin", "ethereum", "solana", "analisis", "mercado", "institucional"]
 author: "Axel"
 image: "/img/blog/pesimismo-por-doquier-pero-las-metricas-dicen-lo-contrario/G4XUxSYWcAAC0Yb.png"
-featured: true
+featured: false
 published: true
 category: "article"
 ---

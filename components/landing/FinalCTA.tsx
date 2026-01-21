@@ -49,7 +49,7 @@ export function FinalCTA() {
               <Button
                 variant="secondaryGlow"
                 size="lg"
-                className="px-8 py-6 text-base font-semibold rounded-lg !bg-gradient-to-t !from-[#e85c30] !to-[#ff7a4d]"
+                className="px-8 py-6 text-base font-semibold rounded-lg !bg-gradient-to-t !from-[#50d98a] !to-[#68fe9a]"
                 onClick={() => {
                   trackCTAClick("final_cta", "calendly");
                   trackOutboundLink("https://calendly.com/contacto-medusacapital/sesion-estrategica-15-clon?month=2026-01", "Quiero Reservar Mi Plaza");
