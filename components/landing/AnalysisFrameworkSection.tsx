@@ -381,14 +381,14 @@ export function AnalysisFrameworkSection() {
                       </p>
 
                       {/* Tags */}
-                      <div className="mt-auto flex flex-wrap gap-1.5">
+                      <div className="mt-auto flex flex-wrap gap-2">
                         {layer.tags.map((tag) => (
                           <span
                             key={tag}
-                            className={`px-2.5 py-1 rounded-md text-xs font-medium transition-colors duration-300 ${
+                            className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors duration-300 ${
                               theme === "light"
-                                ? "bg-[#50d98a]/10 text-[#2d8a5a]"
-                                : "bg-white/5 text-[#B9B8EB]/80"
+                                ? "bg-[#50d98a]/10 text-[#2d8a5a] border border-[#50d98a]/20"
+                                : "bg-[#50d98a]/15 text-white/90 border border-[#50d98a]/25"
                             }`}
                           >
                             {tag}
@@ -438,14 +438,14 @@ export function AnalysisFrameworkSection() {
                         </div>
 
                         {/* Tags - compact */}
-                        <div className="mt-auto flex flex-wrap gap-1">
+                        <div className="mt-auto flex flex-wrap gap-1.5">
                           {layer.tags.slice(0, 3).map((tag) => (
                             <span
                               key={tag}
-                              className={`px-2 py-0.5 rounded text-[10px] font-medium transition-colors duration-300 ${
+                              className={`px-2.5 py-1 rounded-lg text-[11px] font-medium transition-colors duration-300 ${
                                 theme === "light"
-                                  ? "bg-[#fb923c]/10 text-[#c26a1a]"
-                                  : "bg-white/5 text-[#cccce0]/70"
+                                  ? "bg-[#fb923c]/10 text-[#c26a1a] border border-[#fb923c]/20"
+                                  : "bg-[#fb923c]/15 text-white/90 border border-[#fb923c]/25"
                               }`}
                             >
                               {tag}
@@ -495,10 +495,10 @@ export function AnalysisFrameworkSection() {
                         {/* Subtitle as tag */}
                         <div className="mt-auto">
                           <span
-                            className={`px-2 py-0.5 rounded text-[10px] font-medium ${
+                            className={`px-2.5 py-1 rounded-lg text-[11px] font-medium ${
                               theme === "light"
-                                ? "bg-[#fbbf24]/10 text-[#a16207]"
-                                : "bg-white/5 text-[#cccce0]/70"
+                                ? "bg-[#fbbf24]/10 text-[#a16207] border border-[#fbbf24]/20"
+                                : "bg-[#fbbf24]/15 text-white/90 border border-[#fbbf24]/25"
                             }`}
                           >
                             Complementario
