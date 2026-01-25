@@ -14,7 +14,7 @@ const team = [
     description:
       "Más de 7 años de experiencia analizando mercados financieros, he desarrollado un enfoque propio que combina fundamentos macroeconómicos, lectura institucional y análisis fundamental para entender las claves para que un activo digital triunfe.",
     linkedin: "https://www.linkedin.com/in/alejandro-cuesta/",
-    photo: "/img/team-alex.png",
+    photo: "/img/team-alex.png?v=2",
   },
   {
     name: "Alejandro García",
@@ -22,7 +22,7 @@ const team = [
     description:
       "Economista con máster en mercados financieros, lleva desde 2018 analizando el ecosistema cripto con foco en protocolos DeFi y métricas on-chain. Ha formado a decenas de alumnos en programas académicos y trabajó como líder de operaciones en la startup Depasify, ayudando a levantar +2M€ en financiación.",
     linkedin: "#",
-    photo: "/img/team-alejandro-garcia.png",
+    photo: "/img/team-alejandro-garcia.png?v=2",
   },
   {
     name: "Borja Neira",
@@ -30,7 +30,7 @@ const team = [
     description:
       "Especialista en tokenización de activos y analista financiero. Candidato a CFA y Proxy Product Owner en Mercedes-Benz, trabaja investigando cómo los activos tokenizados impactan en la lógica tradicional de asignación de carteras.",
     linkedin: "https://www.linkedin.com/in/bneira/",
-    photo: "/img/team-borja.png",
+    photo: "/img/team-borja.png?v=2",
   },
   {
     name: "Alejandro Gilabert",
@@ -38,7 +38,7 @@ const team = [
     description:
       "Ingeniero de telecomunicaciones con experiencia en desarrollo de productos blockchain, es Product Owner en ONYZE, una de las principales custodias cripto en España. Profesor universitario en CEDEU, ha trabajado en soluciones DeFi y estrategias de tokenización.",
     linkedin: "https://www.linkedin.com/in/alejandrogilabertramirez/",
-    photo: "/img/team-alejandro-gilabert.png",
+    photo: "/img/team-alejandro-gilabert.png?v=2",
   },
   {
     name: "Esteban Rivero",
@@ -46,7 +46,7 @@ const team = [
     description:
       "Licenciado en ADE y Máster en Auditoría y Finanzas. Ejerce como consultor especializado en riesgos y regulación, y experto en fiscalidad de los criptoactivos. Fundador del proyecto de divulgación CeroUnoCrypto.",
     linkedin: "https://www.linkedin.com/in/esteban-rivero/",
-    photo: "/img/team-esteban.png",
+    photo: "/img/team-esteban.png?v=2",
   },
 ];
 

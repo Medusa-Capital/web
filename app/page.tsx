@@ -7,12 +7,14 @@ import {
   Features,
   Modules,
   Team,
+  InstitutionalQuotes,
   Testimonials,
   FAQ,
   FinalCTA,
   Footer,
   PageBackground,
   LeadCaptureModal,
+  AnalysisFrameworkSection,
 } from "@/components/landing";
 
 export default function Page() {
@@ -23,6 +25,8 @@ export default function Page() {
         <Header />
         <Hero />
         <ProblemSection />
+        <AnalysisFrameworkSection />
+        <InstitutionalQuotes />
         <ValueProp />
         <Features />
         <Stats />

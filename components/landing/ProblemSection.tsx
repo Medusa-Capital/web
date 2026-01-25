@@ -1,46 +1,65 @@
 "use client";
 
-import { TrendingDown, Clock, AlertTriangle } from "lucide-react";
+import { FileX, Scale, Brain, Users, ChevronRight } from "lucide-react";
 import { useTheme } from "@/components/providers/ThemeProvider";
+import { Button } from "@/components/ui/button";
+import { trackCTAClick } from "@/lib/analytics";
+
+// Accent colors for each card
+const cardAccents = [
+  { color: "#f87171", bg: "rgba(248, 113, 113, 0.1)", bgDark: "rgba(248, 113, 113, 0.15)" }, // red
+  { color: "#fb923c", bg: "rgba(251, 146, 60, 0.1)", bgDark: "rgba(251, 146, 60, 0.15)" },   // orange
+  { color: "#fbbf24", bg: "rgba(251, 191, 36, 0.1)", bgDark: "rgba(251, 191, 36, 0.15)" },   // amber
+];
 
 export function ProblemSection() {
   const { theme } = useTheme();
 
   const problems = [
     {
-      icon: <AlertTriangle className="w-6 h-6 stroke-[2.5]" />,
-      title: "SIGUEN SEÑALES SIN CRITERIO",
-      items: [
-        "Compran por FOMO lo que dice un anónimo en Twitter",
-        "No entienden QUÉ compraron ni POR QUÉ",
-        "Venden en pánico cuando cae -20% (justo antes de la subida)",
-        "Pierden 60-80% por no gestionar el riesgo",
+      icon: <FileX className="w-6 h-6 stroke-[1.5]" />,
+      title: "Sin tesis",
+      lead: "Compran narrativas, no inversiones.",
+      bullets: [
+        "Entran por ruido de redes, no por criterios propios",
+        "No definen qué invalidaría su idea",
+        "Sin horizonte temporal ni escenarios definidos",
       ],
     },
     {
-      icon: <TrendingDown className="w-6 h-6 stroke-[2.5]" />,
-      title: "SABEN PERO EJECUTAN MAL",
-      items: [
-        "Están +457% arriba y acaban cerrando la posición en negativo",
-        "Saben identificar oportunidades pero no cuándo salir",
-        "Holdean cadáveres esperando \"la vuelta\"",
-        "Saben de DeFi, métricas on-chain... pero no tienen SISTEMA",
+      icon: <Scale className="w-6 h-6 stroke-[1.5]" />,
+      title: "Sin gestión de riesgo",
+      lead: "Un buen activo con mal sizing sigue perdiendo.",
+      bullets: [
+        "Tamaños de posición arbitrarios o emocionales",
+        "Sin plan para drawdowns ni reservas de liquidez",
+        "Promedian a la baja o venden en pánico",
       ],
     },
     {
-      icon: <Clock className="w-6 h-6 stroke-[2.5]" />,
-      title: "DAN SU VIDA SIN VER RESULTADOS",
-      items: [
-        "Investigan 40h a la semana proyectos que nunca despegan",
-        "Pagan 5 comunidades, 3 newsletters y leen a 20 analistas distintos",
-        "No tienen tiempo para familia, solo para cripto",
-        "Resultado: estrés y 0 resultados mientras otros SÍ ganan",
+      icon: <Brain className="w-6 h-6 stroke-[1.5]" />,
+      title: "Sin sistema",
+      lead: "Confunden invertir con trading impulsivo.",
+      bullets: [
+        "Persiguen el precio, ignoran los fundamentales",
+        "Cambian el plan ante cualquier volatilidad",
+        "No miden resultados, no iteran, no aprenden",
       ],
     },
   ];
 
+  const processSteps = ["Tesis", "Valoración", "Ejecución", "Revisión"];
+
+  const scrollToMethod = () => {
+    trackCTAClick("problem_section_cta", "scroll_to_method");
+    const methodSection = document.getElementById("method");
+    if (methodSection) {
+      methodSection.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
-    <section className="relative py-16 md:py-[75px] px-4 md:px-6">
+    <section className="relative py-12 md:py-16 px-4 md:px-6">
       {/* Background decorative elements */}
       <div
         className="absolute pointer-events-none transition-opacity duration-300"
@@ -73,75 +92,138 @@ export function ProblemSection() {
 
       <div className="max-w-6xl mx-auto relative z-10">
         {/* Heading */}
-        <h2 className="font-[family-name:var(--font-heading)] text-3xl md:text-5xl lg:text-[60px] font-bold dark:text-white light:text-[#010052] text-center mb-8 md:mb-12 leading-tight transition-colors duration-300">
-          ¿Por Qué el 90% de los Inversores en Cripto Pierden Dinero?
-        </h2>
+        <div className="text-center mb-8 md:mb-10">
+          <h2 className="font-[family-name:var(--font-heading)] text-4xl md:text-5xl lg:text-[56px] font-bold dark:text-white light:text-[#010052] mb-3 md:mb-4 leading-[1.15] transition-colors duration-300 max-w-4xl mx-auto">
+            Por qué la mayoría pierde dinero en cripto
+            <br />
+            <span className="dark:text-[#B9B8EB]/80 light:text-[#3a54f8]/90 text-[0.9em]">(y cómo evitarlo)</span>
+          </h2>
+          <p className="dark:text-[#cccce0] light:text-[#3d3d6b] text-base md:text-lg leading-relaxed max-w-2xl mx-auto mb-3 transition-colors duration-300">
+            No es el mercado, es el proceso. Estos son los 3 patrones más comunes.
+          </p>
+          {/* Proof line with icon */}
+          <div className="flex items-center justify-center gap-2 dark:text-[#B9B8EB]/80 light:text-[#3d3d6b]/85 text-sm transition-colors duration-300">
+            <Users className="w-4 h-4 shrink-0" />
+            <span>Basado en los errores más frecuentes que vemos en alumnos y carteras reales.</span>
+          </div>
+        </div>
 
         {/* Grid de 3 Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {problems.map((problem, index) => (
-            <div
-              key={index}
-              className="rounded-[20px] md:rounded-[30px] p-6 md:p-8 min-h-[280px] transition-all duration-300 group"
-              style={{
-                background:
-                  theme === "light"
-                    ? "rgba(255, 255, 255, 0.9)"
-                    : "rgba(197, 191, 230, 0.04)",
-                backdropFilter: "blur(40px)",
-                WebkitBackdropFilter: "blur(40px)",
-                border:
-                  theme === "light"
-                    ? "1px solid rgba(1, 0, 82, 0.1)"
-                    : "1px solid rgba(197, 191, 230, 0.15)",
-                boxShadow:
-                  theme === "light"
-                    ? "0 4px 20px rgba(1, 0, 82, 0.05)"
-                    : "0 8px 32px rgba(0, 0, 0, 0.5)",
-              }}
-            >
-              {/* Icon */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 mb-8 md:mb-10">
+          {problems.map((problem, index) => {
+            const accent = cardAccents[index];
+            return (
               <div
-                className="mb-6 w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300"
-                style={{
-                  background:
-                    theme === "light"
-                      ? "rgba(58, 84, 248, 0.1)"
-                      : "rgba(197, 191, 230, 0.08)",
-                  boxShadow:
-                    theme === "light"
-                      ? "0 0 15px rgba(58, 84, 248, 0.2)"
-                      : "0 0 15px rgba(197, 191, 230, 0.4)",
-                }}
+                key={index}
+                className={`h-full flex flex-col rounded-[20px] transition-all duration-[400ms] ease-[cubic-bezier(0.2,0,0,1)] group hover:-translate-y-1.5 relative overflow-hidden backdrop-blur-xl ${
+                  theme === "light"
+                    ? "bg-white/90 border border-[#010052]/10 shadow-[0_4px_24px_rgba(1,0,82,0.08)] hover:shadow-[0_24px_48px_-12px_rgba(1,0,82,0.15)]"
+                    : "bg-[#1b1a64]/60 border border-[#c5bfe6]/20 shadow-[0_8px_32px_rgba(0,0,0,0.4)] hover:shadow-[0_24px_48px_-12px_rgba(0,0,0,0.6)]"
+                }`}
               >
-                <div className="dark:text-[#c5bfe6] light:text-[#3a54f8] transition-colors duration-300">
-                  {problem.icon}
+                {/* Card number badge */}
+                <div
+                  className="absolute top-6 right-6 w-7 h-7 rounded-lg flex items-center justify-center text-xs font-semibold opacity-60 group-hover:opacity-90 transition-opacity duration-300"
+                  style={{
+                    background: theme === "light" ? accent.bg : accent.bgDark,
+                    color: accent.color,
+                  }}
+                >
+                  {String(index + 1).padStart(2, "0")}
+                </div>
+
+                {/* Header */}
+                <div className="p-6 pb-0 relative z-10">
+                  {/* Icon wrapper */}
+                  <div
+                    className="w-12 h-12 rounded-xl flex items-center justify-center mb-4 transition-transform duration-300 group-hover:scale-105"
+                    style={{
+                      background: theme === "light" ? accent.bg : accent.bgDark,
+                    }}
+                  >
+                    <div style={{ color: accent.color }}>
+                      {problem.icon}
+                    </div>
+                  </div>
+
+                  {/* Title */}
+                  <h3
+                    className={`font-[family-name:var(--font-heading)] text-2xl md:text-[28px] font-bold leading-tight tracking-[-0.02em] transition-colors duration-300 ${
+                      theme === "light" ? "text-[#010052]" : "text-white"
+                    }`}
+                  >
+                    {problem.title}
+                  </h3>
+                </div>
+
+                {/* Content */}
+                <div className="flex-1 flex flex-col p-6 pt-3 relative z-10">
+                  {/* Lead sentence / quote */}
+                  <p
+                    className={`text-base leading-relaxed mb-4 pb-4 transition-colors duration-300 ${
+                      theme === "light"
+                        ? "text-[#3d3d6b] border-b border-[#010052]/20"
+                        : "text-[#cccce0] border-b border-white/20"
+                    }`}
+                  >
+                    {problem.lead}
+                    {(index === 0 || index === 2) && <br />}&nbsp;
+                  </p>
+
+                  {/* Bullets with colored dots */}
+                  <div className="space-y-3">
+                    {problem.bullets.map((bullet, bulletIndex) => (
+                      <div key={bulletIndex} className="flex items-start gap-3">
+                        <span
+                          className="w-[5px] h-[5px] rounded-full mt-[7px] shrink-0"
+                          style={{ background: accent.color }}
+                        />
+                        <p
+                          className={`text-[13px] leading-relaxed transition-colors duration-300 ${
+                            theme === "light" ? "text-[#3d3d6b]/80" : "text-[#cccce0]/80"
+                          }`}
+                        >
+                          {bullet}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
+            );
+          })}
+        </div>
 
-              {/* Divider */}
-              <div className="border-b dark:border-white/10 light:border-[#010052]/10 mb-4 pb-1 transition-colors duration-300" />
-
-              {/* Title */}
-              <h3 className="font-[family-name:var(--font-heading)] text-xl md:text-2xl font-bold dark:text-white light:text-[#010052] mb-4 leading-tight transition-colors duration-300">
-                {problem.title}
-              </h3>
-
-              {/* Items */}
-              <div className="space-y-3">
-                {problem.items.map((item, itemIndex) => (
-                  <div key={itemIndex} className="flex items-start gap-3">
-                    <span className="text-[#ff4444] mt-1 shrink-0 text-lg">
-                      ✗
-                    </span>
-                    <p className="dark:text-[#cccce0]/90 light:text-[#3d3d6b] text-sm md:text-base leading-relaxed transition-colors duration-300">
-                      {item}
-                    </p>
-                  </div>
-                ))}
+        {/* Closing bridge + CTA */}
+        <div className="text-center">
+          <p className="dark:text-[#cccce0] light:text-[#3d3d6b] text-base md:text-lg leading-relaxed max-w-2xl mx-auto mb-3 transition-colors duration-300">
+            Nuestro método convierte esto en un proceso repetible:
+          </p>
+          <div className="flex flex-wrap items-center justify-center gap-2 md:gap-3 mb-6">
+            {processSteps.map((step, index) => (
+              <div key={step} className="flex items-center gap-2 md:gap-3">
+                <div className="flex items-center gap-2">
+                  <span className="flex items-center justify-center w-6 h-6 rounded-full dark:bg-emerald-500/30 dark:text-emerald-300 light:bg-emerald-500/25 light:text-emerald-700 text-xs font-semibold transition-colors duration-300">
+                    {index + 1}
+                  </span>
+                  <span className="text-sm font-medium dark:text-white/90 light:text-[#010052]/90 transition-colors duration-300">
+                    {step}
+                  </span>
+                </div>
+                {index < processSteps.length - 1 && (
+                  <ChevronRight className="w-4 h-4 dark:text-[#B9B8EB]/30 light:text-[#3d3d6b]/30 transition-colors duration-300" />
+                )}
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
+          <Button
+            variant="secondaryGlow"
+            size="lg"
+            onClick={scrollToMethod}
+            className="px-8 py-6 text-base font-semibold rounded-xl"
+          >
+            Ver el método
+          </Button>
         </div>
       </div>
     </section>

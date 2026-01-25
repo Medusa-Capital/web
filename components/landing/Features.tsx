@@ -42,7 +42,7 @@ export function Features() {
   const { theme } = useTheme();
   
   return (
-    <section className="relative px-4 md:px-6 mt-0 py-[50px]">
+    <section id="method" className="relative px-4 md:px-6 mt-0 py-[50px]">
       {/* Background Medusa graphic */}
       <div
         className="hidden lg:block absolute pointer-events-none select-none transition-opacity duration-300"

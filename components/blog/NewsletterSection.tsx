@@ -96,7 +96,7 @@ export function NewsletterSection() {
                   />
                   <Button
                     type="submit"
-                    variant="primaryGlow"
+                    variant="secondaryGlow"
                     disabled={status === "loading"}
                     className="h-12 px-6 rounded-xl font-semibold"
                   >

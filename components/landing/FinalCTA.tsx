@@ -35,17 +35,17 @@ export function FinalCTA() {
                 backgroundPosition: "center",
               }}
             >
-              <h2 className="font-[family-name:var(--font-heading)] text-3xl md:text-4xl lg:text-5xl font-bold dark:text-white light:text-[#010052] leading-tight mb-4 max-w-[500px] mx-auto italic transition-colors duration-300">
-                Comienza a Invertir
-                <br />
-                con Confianza.
-              </h2>
-              <p className="dark:text-[#B9B8EB]/80 light:text-[#3d3d6b] text-base leading-relaxed mb-6 max-w-[500px] mx-auto transition-colors duration-300">
-                El mundo cripto no es humo… si sabes interpretarlo. Aquí
-                aprenderás a analizar activos digitales como lo harías con cualquier
-                otra clase de activo: con fundamentos, contexto y gestión del
-                riesgo.
-              </p>
+              <div className="flex flex-col items-center w-fit mx-auto">
+                <h2 className="font-[family-name:var(--font-heading)] text-3xl md:text-4xl lg:text-5xl font-bold dark:text-white light:text-[#010052] leading-tight mb-4 italic transition-colors duration-300 whitespace-nowrap">
+                  Comienza a invertir con confianza.
+                </h2>
+                <p className="dark:text-[#B9B8EB]/80 light:text-[#3d3d6b] text-base leading-relaxed mb-6 transition-colors duration-300 w-[75%]">
+                  El mundo cripto no es humo… si sabes interpretarlo. Aquí
+                  aprenderás a analizar activos digitales como lo harías con cualquier
+                  otra clase de activo: con fundamentos, contexto y gestión del
+                  riesgo.
+                </p>
+              </div>
               <Button
                 variant="secondaryGlow"
                 size="lg"
@@ -56,7 +56,7 @@ export function FinalCTA() {
                   window.open("https://calendly.com/contacto-medusacapital/sesion-estrategica-15-clon?month=2026-01", "_blank");
                 }}
               >
-                Quiero Reservar Mi Plaza
+                Quiero reservar mi plaza
               </Button>
             </div>
           </div>

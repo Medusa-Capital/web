@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useTheme } from "@/components/providers/ThemeProvider";
+import { Disclaimer } from "./Disclaimer";
 
 export function Footer() {
   const { theme } = useTheme();
@@ -29,7 +30,7 @@ export function Footer() {
           {/* Right - Social links */}
           <div className="md:text-right">
             <h4 className="dark:text-[#A3A3C3] light:text-[#3d3d6b] font-semibold mb-4 transition-colors duration-300">
-              Síguenos en Redes Sociales
+              Síguenos en redes sociales
             </h4>
             <div className="flex flex-wrap gap-3 md:justify-end">
               {/* X/Twitter - Pill style matching legacy */}
@@ -72,8 +73,11 @@ export function Footer() {
           </div>
         </div>
 
+        {/* Disclaimer */}
+        <Disclaimer />
+
         {/* Bottom bar */}
-        <div className="pt-8 border-t dark:border-[#B9B8EB]/20 light:border-[#010052]/10 flex flex-col md:flex-row items-center justify-between gap-4 transition-colors duration-300">
+        <div className="pt-6 mt-6 border-t dark:border-[#B9B8EB]/20 light:border-[#010052]/10 flex flex-col md:flex-row items-center justify-between gap-4 transition-colors duration-300">
           <p className="dark:text-[#B9B8EB]/40 light:text-[#3d3d6b]/50 text-sm transition-colors duration-300">
             ©Medusa Capital 2026. Todos los Derechos Reservados.
           </p>

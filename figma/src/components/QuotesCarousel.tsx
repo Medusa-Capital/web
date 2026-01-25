@@ -299,7 +299,7 @@ export function QuotesCarouselOption4() {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setVisibleIndices((prev) => 
+      setVisibleIndices((prev) =>
         prev.map((idx) => (idx + 1) % quotes.length)
       );
     }, 5000);
@@ -348,6 +348,122 @@ export function QuotesCarouselOption4() {
             }`}
           />
         ))}
+      </div>
+    </div>
+  );
+}
+
+// OPCIÓN 5: Featured single quote - Editorial style
+export function QuotesCarouselFeatured() {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const DURATION = 6000; // 6 seconds per quote
+
+  useEffect(() => {
+    if (isPaused) return;
+
+    const startTime = Date.now();
+    const interval = setInterval(() => {
+      const elapsed = Date.now() - startTime;
+      const newProgress = Math.min((elapsed / DURATION) * 100, 100);
+      setProgress(newProgress);
+
+      if (elapsed >= DURATION) {
+        setCurrentIndex((prev) => (prev + 1) % quotes.length);
+        setProgress(0);
+        clearInterval(interval);
+      }
+    }, 50);
+
+    return () => clearInterval(interval);
+  }, [currentIndex, isPaused]);
+
+  const quote = quotes[currentIndex];
+
+  return (
+    <div
+      className="relative py-16 px-4"
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+    >
+      {/* Main content container */}
+      <div className="max-w-[900px] mx-auto">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={currentIndex}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            className="text-center"
+          >
+            {/* Quote mark */}
+            <div className="mb-8">
+              <Quote className="w-10 h-10 text-[#c5bfe6] opacity-40 mx-auto" />
+            </div>
+
+            {/* Quote text */}
+            <blockquote className="font-['Cormorant_Garamond'] text-[28px] md:text-[36px] italic text-white leading-relaxed mb-10">
+              "{quote.text}"
+            </blockquote>
+
+            {/* Author section */}
+            <div className="flex items-center justify-center gap-5">
+              {/* Photo */}
+              <div className="relative">
+                <div className="w-20 h-20 rounded-full overflow-hidden border-2 border-[rgba(197,191,230,0.3)] shadow-lg">
+                  <img
+                    src={quote.image}
+                    alt={quote.author}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              </div>
+
+              {/* Name and credentials */}
+              <div className="text-left">
+                <h4 className="font-['Inter'] text-lg font-semibold text-white">
+                  {quote.author}
+                </h4>
+                <p className="font-['Inter'] text-sm text-[#c5bfe6]">
+                  {quote.position}
+                </p>
+                <p className="font-['Inter'] text-xs text-[rgba(204,204,224,0.6)]">
+                  {quote.company}
+                </p>
+              </div>
+            </div>
+          </motion.div>
+        </AnimatePresence>
+
+        {/* Progress bar */}
+        <div className="mt-12 h-[2px] bg-[rgba(197,191,230,0.1)] rounded-full overflow-hidden max-w-[400px] mx-auto">
+          <motion.div
+            className="h-full bg-gradient-to-r from-[#c5bfe6] to-[#8b7fd8]"
+            style={{ width: `${progress}%` }}
+            transition={{ duration: 0.05 }}
+          />
+        </div>
+
+        {/* Navigation dots */}
+        <div className="flex justify-center gap-3 mt-6">
+          {quotes.map((_, idx) => (
+            <button
+              key={idx}
+              onClick={() => {
+                setCurrentIndex(idx);
+                setProgress(0);
+              }}
+              className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                idx === currentIndex
+                  ? 'bg-[#c5bfe6] scale-125'
+                  : 'bg-[rgba(197,191,230,0.25)] hover:bg-[rgba(197,191,230,0.5)]'
+              }`}
+              aria-label={`Ver cita de ${quotes[idx].author}`}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );

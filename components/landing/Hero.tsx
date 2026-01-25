@@ -68,7 +68,7 @@ export function Hero() {
           />
           <p className="dark:text-[#cccce0]/60 light:text-[#3d3d6b]/70 text-sm transition-colors duration-300">
           Más de {" "}
-            <span className="text-[#3a54f8] font-semibold">250</span> inversores ya están aplicando el Sistema Medusa para batir
+            <span className="text-[#3a54f8] font-semibold">250 inversores</span> ya están aplicando el Sistema Medusa para batir
             a Bitcoin sin estar 24/7 pegados al gráfico
           </p>
         </div>
