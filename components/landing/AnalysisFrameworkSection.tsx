@@ -21,7 +21,7 @@ const analysisLayers = [
   {
     id: "fundamental",
     weight: 60,
-    title: "Análisis Fundamental",
+    title: "Análisis fundamental",
     description:
       "El análisis que más impacta en la cartera. Si veo un buen proyecto con descuento, compro al menos el 50% de la posición total.",
     icon: BarChart3,
@@ -36,7 +36,7 @@ const analysisLayers = [
   {
     id: "macro",
     weight: 20,
-    title: "Análisis Macro",
+    title: "Análisis macro",
     description:
       "Monitoreo de variables macroeconómicas que impactan el ciclo de mercado.",
     icon: Globe,
@@ -51,7 +51,7 @@ const analysisLayers = [
   {
     id: "onchain",
     weight: 10,
-    title: "Análisis On-Chain",
+    title: "Análisis on-chain",
     description:
       "Datos de blockchain para validar tendencias y comportamiento del mercado.",
     icon: LinkIcon,
@@ -66,7 +66,7 @@ const analysisLayers = [
   {
     id: "technical",
     weight: 10,
-    title: "Análisis Técnico",
+    title: "Análisis técnico",
     subtitle: "Complementario",
     description:
       "Uso tomas de liquidez como eje principal. Nunca compro solo por técnico si los fundamentales son débiles.",
@@ -84,38 +84,38 @@ const analysisLayers = [
 const principles = [
   {
     icon: Target,
-    title: "Calidad sobre Cantidad",
+    title: "Calidad sobre cantidad",
     quote: "Centrarnos en los pocos activos de calidad que existen.",
     detail: "Mejor 3 posiciones de alta convicción que 30 tokens mediocres.",
   },
   {
     icon: Droplets,
-    title: "Comprar Cuando Hay Sangre",
+    title: "Comprar cuando hay sangre",
     quote: "Las compras se hacen cuando nadie, pero nadie mira.",
     detail: "El mejor momento para comprar es cuando da más miedo.",
   },
   {
     icon: Settings,
-    title: "El Trabajo Se Hace Antes",
+    title: "El trabajo se hace antes",
     quote: "Estos momentos no son para comprar tokens sin parar.",
     detail: "La investigación ocurre en silencio, no en ATH.",
   },
   {
     icon: DoorOpen,
-    title: "Saber Cuándo Salir",
+    title: "Saber cuándo salir",
     quote: "Cuando todo el mundo hable de un proyecto... salid.",
     detail:
       "Tomar profits contra-intuitivamente separa ganadores de perdedores.",
   },
   {
     icon: RefreshCcw,
-    title: "Compound en Ganadores",
+    title: "Compound en ganadores",
     quote: "Cuando el mercado te da la razón, haz compound en ellos.",
     detail: "No rotar prematuramente de posiciones ganadoras.",
   },
   {
     icon: Shield,
-    title: "Gestión de Riesgo",
+    title: "Gestión de riesgo",
     quote: "Máximo 80% exposición. Nunca apalancamiento excesivo.",
     detail: "Proteger capital > Maximizar ganancias.",
   },
@@ -539,7 +539,7 @@ export function AnalysisFrameworkSection() {
         <div>
           <div className="text-center mb-8 md:mb-10">
             <h3 className="font-[family-name:var(--font-heading)] text-3xl md:text-4xl font-bold dark:text-white light:text-[#010052] mb-3 leading-tight transition-colors duration-300">
-              Los Principios que Guían Cada Decisión
+              Los principios que guían cada decisión
             </h3>
           </div>
 
