@@ -8,16 +8,17 @@ import { useTheme } from "@/components/providers/ThemeProvider";
 export function NewsletterSection() {
   const { theme } = useTheme();
   const [email, setEmail] = useState("");
-  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [status, setStatus] = useState<"idle" | "success">("idle");
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!email) return;
 
-    setStatus("loading");
+    // Open Substack subscription page with email pre-filled
+    // Using simple=true to skip the recommendations page
+    const substackUrl = `https://axelmnvn.substack.com/subscribe?email=${encodeURIComponent(email)}&simple=true`;
+    window.open(substackUrl, "_blank", "noopener,noreferrer");
 
-    // TODO: Replace with actual newsletter API call
-    await new Promise((resolve) => setTimeout(resolve, 1000));
     setStatus("success");
     setEmail("");
   };
@@ -57,7 +58,7 @@ export function NewsletterSection() {
 
             <div className="relative z-10 text-center">
               <h2 className="font-[family-name:var(--font-heading)] text-3xl md:text-[42px] md:leading-[52px] font-bold dark:text-white light:text-[#010052] mb-4 transition-colors duration-300">
-                Suscríbete a Nuestro Newsletter
+                Suscríbete a nuestra newsletter
               </h2>
               <p className="dark:text-[#cccce0]/70 light:text-[#3d3d6b] text-base leading-relaxed max-w-[500px] mx-auto mb-8 transition-colors duration-300">
                 Recibe análisis exclusivos, alertas de proyectos prometedores y
@@ -97,35 +98,9 @@ export function NewsletterSection() {
                   <Button
                     type="submit"
                     variant="secondaryGlow"
-                    disabled={status === "loading"}
                     className="h-12 px-6 rounded-xl font-semibold"
                   >
-                    {status === "loading" ? (
-                      <span className="flex items-center gap-2">
-                        <svg
-                          className="w-4 h-4 animate-spin"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                        >
-                          <circle
-                            className="opacity-25"
-                            cx="12"
-                            cy="12"
-                            r="10"
-                            stroke="currentColor"
-                            strokeWidth="4"
-                          />
-                          <path
-                            className="opacity-75"
-                            fill="currentColor"
-                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                          />
-                        </svg>
-                        Enviando...
-                      </span>
-                    ) : (
-                      "Suscribirme"
-                    )}
+                    Suscribirme
                   </Button>
                 </form>
               )}

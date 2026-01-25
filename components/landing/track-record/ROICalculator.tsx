@@ -457,6 +457,7 @@ export function ROICalculator() {
                 <Button
                   variant="secondaryGlow"
                   className="w-full rounded-xl px-6 py-3 h-auto text-[15px] font-semibold"
+                  onClick={() => window.open("https://calendly.com/contacto-medusacapital/sesion-estrategica-15-clon?month=2026-01", "_blank")}
                 >
                   Quiero aprender el Sistema Medusa
                 </Button>

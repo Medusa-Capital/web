@@ -11,6 +11,7 @@ interface PageCTAProps {
   buttonText: string;
   buttonHref?: string;
   buttonEmail?: string;
+  buttonExternalUrl?: string;
 }
 
 export function PageCTA({
@@ -19,6 +20,7 @@ export function PageCTA({
   buttonText,
   buttonHref,
   buttonEmail,
+  buttonExternalUrl,
 }: PageCTAProps) {
   const { theme } = useTheme();
 
@@ -88,6 +90,8 @@ export function PageCTA({
 
             {buttonEmail ? (
               <a href={`mailto:${buttonEmail}`}>{buttonContent}</a>
+            ) : buttonExternalUrl ? (
+              <a href={buttonExternalUrl} target="_blank" rel="noopener noreferrer">{buttonContent}</a>
             ) : buttonHref ? (
               <Link href={buttonHref}>{buttonContent}</Link>
             ) : (

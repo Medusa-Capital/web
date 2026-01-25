@@ -159,7 +159,7 @@ export default function ColaboradoresPage() {
             title="¿Quieres Colaborar con Medusa Capital?"
             description="Estamos siempre buscando talento excepcional para crear contenido educativo de máxima calidad."
             buttonText="Contáctanos"
-            buttonEmail="contacto@medusacapital.io"
+            buttonEmail="contacto@medusacapital.xyz"
           />
         </main>
         <Footer />

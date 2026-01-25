@@ -324,7 +324,7 @@ export default function TrackRecordPage() {
             title="¿Listo para replicar estos resultados?"
             description="Únete a Medusa Capital y aprende la metodología exacta que usamos para identificar estas oportunidades."
             buttonText="Quiero reservar mi plaza"
-            buttonHref="/"
+            buttonExternalUrl="https://calendly.com/contacto-medusacapital/sesion-estrategica-15-clon?month=2026-01"
           />
         </main>
 

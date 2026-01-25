@@ -60,7 +60,7 @@ export default function Blog() {
         <section className="pt-0 pb-16 px-8">
           <div className="max-w-[1200px] mx-auto">
             <h2 className="font-['Cormorant_Garamond'] text-[42px] font-bold text-white mb-8">
-              Artículos Destacados
+              Artículos destacados
             </h2>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -129,7 +129,7 @@ export default function Blog() {
         <section className="py-16 px-8">
           <div className="max-w-[1200px] mx-auto">
             <h2 className="font-['Cormorant_Garamond'] text-[42px] font-bold text-white mb-8">
-              Más Artículos
+              Más artículos
             </h2>
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -194,7 +194,7 @@ export default function Blog() {
               
               <div className="relative z-10 text-center">
                 <h2 className="font-['Cormorant_Garamond:Bold',sans-serif] text-[42px] leading-[52px] text-white mb-4">
-                  Suscríbete a Nuestro Newsletter
+                  Suscríbete a nuestra newsletter
                 </h2>
                 <p className="font-['Inter'] text-[16px] leading-[26px] text-[rgba(204,204,224,0.7)] max-w-[500px] mx-auto mb-8">
                   Recibe análisis exclusivos, alertas de proyectos prometedores y contenido educativo directamente en tu email.
