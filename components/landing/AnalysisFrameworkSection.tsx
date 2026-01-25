@@ -232,7 +232,7 @@ export function AnalysisFrameworkSection() {
             - Right bottom left (10%): On-Chain
             - Right bottom right (10%): Technical
           */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 md:gap-4 min-h-[600px] lg:min-h-[500px]">
+          <div className="grid grid-cols-1 lg:grid-cols-[2fr_3fr] gap-3 md:gap-4">
             {/* LEFT: Fundamental (60%) - Full height */}
             {(() => {
               const layer = analysisLayers[0];
@@ -293,15 +293,15 @@ export function AnalysisFrameworkSection() {
 
                     {/* Description */}
                     <p
-                      className={`text-base md:text-lg leading-relaxed mb-6 max-w-md transition-colors duration-300 ${
+                      className={`text-base md:text-lg leading-relaxed mb-4 max-w-md transition-colors duration-300 ${
                         theme === "light" ? "text-[#3d3d6b]" : "text-[#cccce0]"
                       }`}
                     >
                       {layer.description}
                     </p>
 
-                    {/* Tags - pushed to bottom */}
-                    <div className="mt-auto flex flex-wrap gap-2">
+                    {/* Tags */}
+                    <div className="flex flex-wrap gap-2">
                       {layer.tags.map((tag) => (
                         <span
                           key={tag}
@@ -321,7 +321,7 @@ export function AnalysisFrameworkSection() {
             })()}
 
             {/* RIGHT: Nested grid for Macro + On-Chain + Technical */}
-            <div className="grid grid-rows-2 gap-3 md:gap-4">
+            <div className="flex flex-col gap-3 md:gap-4">
               {/* TOP RIGHT: Macro (20%) */}
               {(() => {
                 const layer = analysisLayers[1];
@@ -371,7 +371,7 @@ export function AnalysisFrameworkSection() {
 
                       {/* Description */}
                       <p
-                        className={`text-sm leading-relaxed mb-4 transition-colors duration-300 ${
+                        className={`text-sm leading-relaxed mb-3 transition-colors duration-300 ${
                           theme === "light"
                             ? "text-[#3d3d6b]"
                             : "text-[#cccce0]/90"
@@ -381,7 +381,7 @@ export function AnalysisFrameworkSection() {
                       </p>
 
                       {/* Tags */}
-                      <div className="mt-auto flex flex-wrap gap-2">
+                      <div className="flex flex-wrap gap-2">
                         {layer.tags.map((tag) => (
                           <span
                             key={tag}
@@ -437,6 +437,17 @@ export function AnalysisFrameworkSection() {
                           </h4>
                         </div>
 
+                        {/* Description */}
+                        <p
+                          className={`text-xs leading-relaxed mb-3 transition-colors duration-300 ${
+                            theme === "light"
+                              ? "text-[#3d3d6b]"
+                              : "text-[#cccce0]/80"
+                          }`}
+                        >
+                          {layer.description}
+                        </p>
+
                         {/* Tags - compact */}
                         <div className="mt-auto flex flex-wrap gap-1.5">
                           {layer.tags.slice(0, 3).map((tag) => (
@@ -491,6 +502,17 @@ export function AnalysisFrameworkSection() {
                             {layer.title}
                           </h4>
                         </div>
+
+                        {/* Description */}
+                        <p
+                          className={`text-xs leading-relaxed mb-3 transition-colors duration-300 ${
+                            theme === "light"
+                              ? "text-[#3d3d6b]"
+                              : "text-[#cccce0]/80"
+                          }`}
+                        >
+                          {layer.description}
+                        </p>
 
                         {/* Subtitle as tag */}
                         <div className="mt-auto">
