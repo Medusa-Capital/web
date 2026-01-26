@@ -98,9 +98,11 @@
         '@': path.resolve(__dirname, './src'),
       },
     },
+    base: '/figma/',
     build: {
       target: 'esnext',
-      outDir: 'build',
+      outDir: '../public/figma',
+      emptyOutDir: true,
     },
     server: {
       port: 3000,

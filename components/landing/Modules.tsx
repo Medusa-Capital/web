@@ -125,7 +125,7 @@ export function Modules() {
         {/* Header */}
         <div className="text-center mb-10 md:mb-16">
           <h2 className="font-[family-name:var(--font-heading)] text-4xl md:text-6xl font-bold dark:text-white light:text-[#010052] leading-tight mb-4 transition-colors duration-300">
-            Tu Ruta de Aprendizaje
+            Tu ruta de aprendizaje
           </h2>
           <p className="dark:text-[#B9B8EB]/60 light:text-[#3d3d6b]/70 text-xl md:text-2xl transition-colors duration-300">
             9 módulos para dominar el ecosistema cripto

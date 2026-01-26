@@ -8,7 +8,7 @@ import ArticlePage from './ArticlePage';
 
 export default function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/figma">
       <Routes>
         <Route path="/" element={
           <div className="min-h-screen w-full bg-[#010052] relative">
