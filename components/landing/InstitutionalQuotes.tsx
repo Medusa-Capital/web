@@ -65,39 +65,64 @@ function QuoteCard({
 }) {
   return (
     <div
-      className="flex-shrink-0 w-[400px] rounded-2xl p-5 transition-all duration-300"
+      className="flex-shrink-0 w-[400px] rounded-[20px] p-6 transition-all duration-300 relative overflow-hidden"
       style={{
         background:
           theme === "light"
-            ? "rgba(255, 255, 255, 0.9)"
-            : "rgba(255, 255, 255, 0.03)",
-        backdropFilter: "blur(20px)",
+            ? "rgba(255, 255, 255, 0.95)"
+            : "rgba(27, 26, 100, 0.85)",
         border:
           theme === "light"
-            ? "1px solid rgba(1, 0, 82, 0.08)"
-            : "1px solid rgba(255, 255, 255, 0.06)",
+            ? "1px solid rgba(1, 0, 82, 0.1)"
+            : "1px solid rgba(185, 184, 235, 0.15)",
+        boxShadow:
+          theme === "light"
+            ? "0 4px 24px rgba(1, 0, 82, 0.08)"
+            : "0 8px 32px rgba(0, 0, 0, 0.3)",
       }}
     >
-      {/* Quote text */}
-      <p
-        className="text-base leading-relaxed mb-5 transition-colors duration-300"
+      {/* Quote icon */}
+      <div
+        className="mb-4 transition-colors duration-300"
         style={{
-          color: theme === "light" ? "#010052" : "rgba(255, 255, 255, 0.9)",
+          color: theme === "light" ? "rgba(58, 84, 248, 0.3)" : "rgba(185, 184, 235, 0.3)",
         }}
       >
-        &ldquo;{quote.text}&rdquo;
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M11.3 5.2C7.1 7.1 4.9 9.8 4.9 13.3c0 2.8 1.8 4.7 4.1 4.7 2 0 3.6-1.5 3.6-3.5 0-1.9-1.4-3.4-3.2-3.5.4-1.6 1.8-3.1 3.9-4.4L11.3 5.2zM19.8 5.2c-4.2 1.9-6.4 4.6-6.4 8.1 0 2.8 1.8 4.7 4.1 4.7 2 0 3.6-1.5 3.6-3.5 0-1.9-1.4-3.4-3.2-3.5.4-1.6 1.8-3.1 3.9-4.4L19.8 5.2z"/>
+        </svg>
+      </div>
+
+      {/* Quote text */}
+      <p
+        className="text-base leading-relaxed mb-5 transition-colors duration-300 relative z-10"
+        style={{
+          color: theme === "light" ? "#010052" : "rgba(255, 255, 255, 0.95)",
+        }}
+      >
+        {quote.text}
       </p>
 
       {/* Author */}
-      <div className="flex items-center gap-3">
-        <div className="relative w-12 h-12 rounded-full overflow-hidden flex-shrink-0">
-          <Image
-            src={quote.image}
-            alt={quote.author}
-            fill
-            className="object-cover"
-            unoptimized
-          />
+      <div className="flex items-center gap-3 relative z-10">
+        <div
+          className="relative w-12 h-12 rounded-full overflow-hidden flex-shrink-0 p-[2px]"
+          style={{
+            background:
+              theme === "light"
+                ? "linear-gradient(135deg, #3a54f8, #B9B8EB)"
+                : "linear-gradient(135deg, #4355d9, #B9B8EB)",
+          }}
+        >
+          <div className="w-full h-full rounded-full overflow-hidden">
+            <Image
+              src={quote.image}
+              alt={quote.author}
+              fill
+              className="object-cover"
+              unoptimized
+            />
+          </div>
         </div>
         <div className="min-w-0">
           <h4
@@ -113,8 +138,8 @@ function QuoteCard({
             style={{
               color:
                 theme === "light"
-                  ? "rgba(1, 0, 82, 0.7)"
-                  : "rgba(185, 184, 235, 0.7)",
+                  ? "rgba(58, 84, 248, 0.8)"
+                  : "rgba(185, 184, 235, 0.8)",
             }}
           >
             {quote.position}
@@ -149,7 +174,7 @@ export function InstitutionalQuotes() {
           Lo que dicen los líderes mundiales
         </p>
         <h2
-          className="font-[family-name:var(--font-heading)] text-3xl md:text-5xl font-bold leading-tight transition-colors duration-300"
+          className="font-[family-name:var(--font-heading)] text-[clamp(36px,6vw,72px)] font-bold leading-tight transition-colors duration-300"
           style={{
             color: theme === "light" ? "#010052" : "white",
           }}

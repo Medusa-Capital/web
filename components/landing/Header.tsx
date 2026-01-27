@@ -1,16 +1,36 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { trackEvent } from "@/lib/analytics";
+import { trackEvent, trackCTAClick, trackOutboundLink } from "@/lib/analytics";
 import { ThemeToggle } from "./ThemeToggle";
 import { useTheme } from "@/components/providers/ThemeProvider";
+import { Button } from "@/components/ui/button";
 
 export function Header() {
   const { theme } = useTheme();
-  
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
-    <header className="relative px-6 py-5 md:py-5">
+    <header
+      className={`sticky top-0 z-50 px-6 py-5 md:py-5 transition-all duration-300 ${
+        isScrolled
+          ? theme === "light"
+            ? "bg-white/95 backdrop-blur-md shadow-sm"
+            : "bg-[#010052]/95 backdrop-blur-md shadow-lg"
+          : "bg-transparent"
+      }`}
+    >
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         {/* Logo */}
         <Link href="/">
@@ -48,6 +68,24 @@ export function Header() {
             Blog
           </Link>
           <ThemeToggle />
+
+          {/* CTA Button - appears on scroll */}
+          <Button
+            variant="secondaryGlow"
+            size="lg"
+            className={`hidden sm:flex px-8 py-6 text-base font-semibold rounded-lg !bg-gradient-to-t !from-[#50d98a] !to-[#68fe9a] transition-all duration-300 ${
+              isScrolled
+                ? "opacity-100 translate-x-0"
+                : "opacity-0 translate-x-4 pointer-events-none"
+            }`}
+            onClick={() => {
+              trackCTAClick("header_cta", "calendly");
+              trackOutboundLink("https://calendly.com/contacto-medusacapital/sesion-estrategica-15-clon?month=2026-01", "Quiero reservar mi plaza");
+              window.open("https://calendly.com/contacto-medusacapital/sesion-estrategica-15-clon?month=2026-01", "_blank");
+            }}
+          >
+            Quiero reservar mi plaza
+          </Button>
         </nav>
       </div>
     </header>

@@ -26,7 +26,7 @@ export function FinalCTA() {
           >
             {/* Inner card with background image - matches legacy .cta-wrapper */}
             <div
-              className="relative rounded-[30px] py-[40px] md:py-[60px] px-5 text-center transition-all duration-300"
+              className="relative rounded-[30px] py-[40px] md:py-[60px] px-6 md:px-10 text-center transition-all duration-300"
               style={{
                 backgroundColor: theme === "light" ? "#f5f3f0" : "#010052",
                 backgroundImage: theme === "light" ? "none" : "url('/img/cta-bg.webp')",
@@ -35,11 +35,11 @@ export function FinalCTA() {
                 backgroundPosition: "center",
               }}
             >
-              <div className="flex flex-col items-center w-fit mx-auto">
-                <h2 className="font-[family-name:var(--font-heading)] text-3xl md:text-4xl lg:text-5xl font-bold dark:text-white light:text-[#010052] leading-tight mb-4 italic transition-colors duration-300 whitespace-nowrap">
+              <div className="flex flex-col items-center max-w-2xl mx-auto">
+                <h3 className="font-[family-name:var(--font-heading)] text-[clamp(28px,5vw,48px)] font-bold dark:text-white light:text-[#010052] leading-tight mb-4 italic transition-colors duration-300">
                   Comienza a invertir con confianza.
-                </h2>
-                <p className="dark:text-[#B9B8EB]/80 light:text-[#3d3d6b] text-base leading-relaxed mb-6 transition-colors duration-300 w-[75%]">
+                </h3>
+                <p className="dark:text-[#B9B8EB]/80 light:text-[#3d3d6b] text-base leading-relaxed mb-6 transition-colors duration-300">
                   El mundo cripto no es humo… si sabes interpretarlo. Aquí
                   aprenderás a analizar activos digitales como lo harías con cualquier
                   otra clase de activo: con fundamentos, contexto y gestión del

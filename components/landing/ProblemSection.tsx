@@ -18,32 +18,32 @@ export function ProblemSection() {
   const problems = [
     {
       icon: <FileX className="w-6 h-6 stroke-[1.5]" />,
-      title: "Sin tesis",
-      lead: "Compran narrativas, no inversiones.",
+      title: "Siguen señales sin criterio",
+      lead: "Compran por FOMO lo que dice un anónimo en Twitter.",
       bullets: [
-        "Entran por ruido de redes, no por criterios propios",
-        "No definen qué invalidaría su idea",
-        "Sin horizonte temporal ni escenarios definidos",
+        "No entienden QUÉ compraron ni POR QUÉ",
+        "Venden en pánico cuando cae -20% (justo antes de la subida)",
+        "Pierden 60-80% por no gestionar el riesgo",
       ],
     },
     {
       icon: <Scale className="w-6 h-6 stroke-[1.5]" />,
-      title: "Sin gestión de riesgo",
-      lead: "Un buen activo con mal sizing sigue perdiendo.",
+      title: "Saben pero ejecutan mal",
+      lead: "Están +457% arriba y acaban cerrando en negativo.",
       bullets: [
-        "Tamaños de posición arbitrarios o emocionales",
-        "Sin plan para drawdowns ni reservas de liquidez",
-        "Promedian a la baja o venden en pánico",
+        "Saben identificar oportunidades pero no cuándo salir",
+        "Holdean cadáveres esperando \"la vuelta\"",
+        "Saben de DeFi, métricas on-chain... pero no tienen SISTEMA",
       ],
     },
     {
       icon: <Brain className="w-6 h-6 stroke-[1.5]" />,
-      title: "Sin sistema",
-      lead: "Confunden invertir con trading impulsivo.",
+      title: "Dan su vida sin ver resultados",
+      lead: "Investigan 40h a la semana proyectos que nunca despegan.",
       bullets: [
-        "Persiguen el precio, ignoran los fundamentales",
-        "Cambian el plan ante cualquier volatilidad",
-        "No miden resultados, no iteran, no aprenden",
+        "Pagan 5 comunidades, 3 newsletters y leen a 20 analistas distintos",
+        "No tienen tiempo para familia, solo para cripto",
+        "Resultado: estrés y 0 resultados mientras otros SÍ ganan",
       ],
     },
   ];
@@ -90,26 +90,21 @@ export function ProblemSection() {
         }}
       />
 
-      <div className="max-w-6xl mx-auto relative z-10">
+      <div className="max-w-7xl mx-auto relative z-10">
         {/* Heading */}
         <div className="text-center mb-8 md:mb-10">
-          <h2 className="font-[family-name:var(--font-heading)] text-4xl md:text-5xl lg:text-[56px] font-bold dark:text-white light:text-[#010052] mb-3 md:mb-4 leading-[1.15] transition-colors duration-300 max-w-4xl mx-auto">
+          <h2 className="font-[family-name:var(--font-heading)] text-[clamp(36px,6vw,72px)] font-bold dark:text-white light:text-[#010052] mb-3 md:mb-4 leading-[1.15] transition-colors duration-300">
             Por qué la mayoría pierde dinero en cripto
             <br />
             <span className="dark:text-[#B9B8EB]/80 light:text-[#3a54f8]/90 text-[0.9em]">(y cómo evitarlo)</span>
           </h2>
           <p className="dark:text-[#cccce0] light:text-[#3d3d6b] text-base md:text-lg leading-relaxed max-w-2xl mx-auto mb-3 transition-colors duration-300">
-            No es el mercado, es el proceso. Estos son los 3 patrones más comunes.
+            No es el mercado, es el proceso. Estos son los 3 patrones más comunes que vemos en alumnos y carteras reales.
           </p>
-          {/* Proof line with icon */}
-          <div className="flex items-center justify-center gap-2 dark:text-[#B9B8EB]/80 light:text-[#3d3d6b]/85 text-sm transition-colors duration-300">
-            <Users className="w-4 h-4 shrink-0" />
-            <span>Basado en los errores más frecuentes que vemos en alumnos y carteras reales.</span>
-          </div>
         </div>
 
         {/* Grid de 3 Cards */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 mb-8 md:mb-10">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 my-12 md:my-16">
           {problems.map((problem, index) => {
             const accent = cardAccents[index];
             return (
@@ -123,7 +118,7 @@ export function ProblemSection() {
               >
                 {/* Card number badge */}
                 <div
-                  className="absolute top-6 right-6 w-7 h-7 rounded-lg flex items-center justify-center text-xs font-semibold opacity-60 group-hover:opacity-90 transition-opacity duration-300"
+                  className="absolute top-8 right-8 w-8 h-8 rounded-lg flex items-center justify-center text-sm font-semibold opacity-60 group-hover:opacity-90 transition-opacity duration-300"
                   style={{
                     background: theme === "light" ? accent.bg : accent.bgDark,
                     color: accent.color,
@@ -133,22 +128,22 @@ export function ProblemSection() {
                 </div>
 
                 {/* Header */}
-                <div className="p-6 pb-0 relative z-10">
+                <div className="p-8 pb-0 relative z-10">
                   {/* Icon wrapper */}
                   <div
-                    className="w-12 h-12 rounded-xl flex items-center justify-center mb-4 transition-transform duration-300 group-hover:scale-105"
+                    className="w-14 h-14 rounded-xl flex items-center justify-center mb-5 transition-transform duration-300 group-hover:scale-105"
                     style={{
                       background: theme === "light" ? accent.bg : accent.bgDark,
                     }}
                   >
-                    <div style={{ color: accent.color }}>
+                    <div className="scale-125" style={{ color: accent.color }}>
                       {problem.icon}
                     </div>
                   </div>
 
                   {/* Title */}
                   <h3
-                    className={`font-[family-name:var(--font-heading)] text-2xl md:text-[28px] font-bold leading-tight tracking-[-0.02em] transition-colors duration-300 ${
+                    className={`font-[family-name:var(--font-heading)] text-2xl md:text-3xl font-bold leading-tight tracking-[-0.02em] transition-colors duration-300 ${
                       theme === "light" ? "text-[#010052]" : "text-white"
                     }`}
                   >
@@ -157,30 +152,29 @@ export function ProblemSection() {
                 </div>
 
                 {/* Content */}
-                <div className="flex-1 flex flex-col p-6 pt-3 relative z-10">
+                <div className="flex-1 flex flex-col p-8 pt-4 relative z-10">
                   {/* Lead sentence / quote */}
                   <p
-                    className={`text-base leading-relaxed mb-4 pb-4 transition-colors duration-300 ${
+                    className={`text-lg leading-relaxed mb-5 pb-5 min-h-[60px] transition-colors duration-300 ${
                       theme === "light"
                         ? "text-[#3d3d6b] border-b border-[#010052]/20"
                         : "text-[#cccce0] border-b border-white/20"
                     }`}
                   >
                     {problem.lead}
-                    {(index === 0 || index === 2) && <br />}&nbsp;
                   </p>
 
                   {/* Bullets with colored dots */}
-                  <div className="space-y-3">
+                  <div className="space-y-4 flex-1">
                     {problem.bullets.map((bullet, bulletIndex) => (
-                      <div key={bulletIndex} className="flex items-start gap-3">
+                      <div key={bulletIndex} className="flex items-start gap-3 min-h-[56px]">
                         <span
-                          className="w-[5px] h-[5px] rounded-full mt-[7px] shrink-0"
+                          className="w-[6px] h-[6px] rounded-full mt-[9px] shrink-0"
                           style={{ background: accent.color }}
                         />
                         <p
-                          className={`text-[13px] leading-relaxed transition-colors duration-300 ${
-                            theme === "light" ? "text-[#3d3d6b]/80" : "text-[#cccce0]/80"
+                          className={`text-base leading-relaxed transition-colors duration-300 ${
+                            theme === "light" ? "text-[#3d3d6b]/85" : "text-[#cccce0]/85"
                           }`}
                         >
                           {bullet}

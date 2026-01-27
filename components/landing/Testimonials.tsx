@@ -163,7 +163,7 @@ export function Testimonials() {
       <div className="max-w-6xl mx-auto relative z-10">
         {/* Header */}
         <div className="text-center mb-8 md:mb-16">
-          <h2 className="font-[family-name:var(--font-heading)] text-4xl md:text-6xl font-bold dark:text-white light:text-[#010052] leading-tight mb-4 transition-colors duration-300">
+          <h2 className="font-[family-name:var(--font-heading)] text-[clamp(36px,6vw,72px)] font-bold dark:text-white light:text-[#010052] leading-tight mb-4 transition-colors duration-300">
             Qué dicen Nuestros Alumnos
           </h2>
           <p className="dark:text-[#B9B8EB]/50 light:text-[#3d3d6b]/70 text-xl md:text-2xl max-w-4xl mx-auto transition-colors duration-300">

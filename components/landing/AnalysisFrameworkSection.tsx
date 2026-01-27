@@ -159,7 +159,7 @@ export function AnalysisFrameworkSection() {
       <div className="max-w-6xl mx-auto relative z-10">
         {/* Section Header */}
         <div className="text-center mb-12 md:mb-16">
-          <h2 className="font-[family-name:var(--font-heading)] text-4xl md:text-5xl lg:text-[56px] font-bold dark:text-white light:text-[#010052] mb-4 leading-[1.1] transition-colors duration-300">
+          <h2 className="font-[family-name:var(--font-heading)] text-[clamp(36px,6vw,72px)] font-bold dark:text-white light:text-[#010052] mb-4 leading-[1.1] transition-colors duration-300">
             Sistema Medusa
           </h2>
           <p className="dark:text-[#cccce0] light:text-[#3d3d6b] text-base md:text-lg leading-relaxed max-w-3xl mx-auto transition-colors duration-300">
@@ -305,7 +305,7 @@ export function AnalysisFrameworkSection() {
                       {layer.tags.map((tag) => (
                         <span
                           key={tag}
-                          className={`px-3 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${
+                          className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-300 ${
                             theme === "light"
                               ? "bg-[#3a54f8]/10 text-[#3a54f8] border border-[#3a54f8]/20"
                               : "bg-[#3a54f8]/20 text-white/90 border border-[#3a54f8]/30"
@@ -385,7 +385,7 @@ export function AnalysisFrameworkSection() {
                         {layer.tags.map((tag) => (
                           <span
                             key={tag}
-                            className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors duration-300 ${
+                            className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors duration-300 ${
                               theme === "light"
                                 ? "bg-[#50d98a]/10 text-[#2d8a5a] border border-[#50d98a]/20"
                                 : "bg-[#50d98a]/15 text-white/90 border border-[#50d98a]/25"
@@ -415,26 +415,26 @@ export function AnalysisFrameworkSection() {
                       }`}
                     >
                       <div className="relative z-10 flex flex-col h-full">
-                        {/* Weight */}
-                        <span className="text-3xl md:text-4xl font-bold tracking-tight mb-2 text-[#fb923c]">
-                          {layer.weight}%
-                        </span>
-
-                        {/* Icon + Title */}
-                        <div className="flex items-center gap-2 mb-2">
-                          <Icon
-                            className="w-4 h-4 shrink-0 text-[#fb923c]"
-                            strokeWidth={1.5}
-                          />
-                          <h4
-                            className={`font-semibold text-sm md:text-base leading-tight transition-colors duration-300 ${
-                              theme === "light"
-                                ? "text-[#010052]"
-                                : "text-white/90"
-                            }`}
-                          >
-                            {layer.title}
-                          </h4>
+                        {/* Weight + Title */}
+                        <div className="flex items-baseline gap-2 mb-2 flex-wrap">
+                          <span className="text-3xl md:text-4xl font-bold tracking-tight text-[#fb923c]">
+                            {layer.weight}%
+                          </span>
+                          <div className="flex items-center gap-1.5">
+                            <Icon
+                              className="w-4 h-4 shrink-0 text-[#fb923c]"
+                              strokeWidth={1.5}
+                            />
+                            <h4
+                              className={`font-[family-name:var(--font-heading)] font-bold text-base md:text-lg leading-tight transition-colors duration-300 ${
+                                theme === "light"
+                                  ? "text-[#010052]"
+                                  : "text-white"
+                              }`}
+                            >
+                              {layer.title}
+                            </h4>
+                          </div>
                         </div>
 
                         {/* Description */}
@@ -449,11 +449,11 @@ export function AnalysisFrameworkSection() {
                         </p>
 
                         {/* Tags - compact */}
-                        <div className="mt-auto flex flex-wrap gap-1.5">
+                        <div className="mt-auto flex flex-wrap gap-2">
                           {layer.tags.slice(0, 3).map((tag) => (
                             <span
                               key={tag}
-                              className={`px-2.5 py-1 rounded-lg text-[11px] font-medium transition-colors duration-300 ${
+                              className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors duration-300 ${
                                 theme === "light"
                                   ? "bg-[#fb923c]/10 text-[#c26a1a] border border-[#fb923c]/20"
                                   : "bg-[#fb923c]/15 text-white/90 border border-[#fb923c]/25"
@@ -481,26 +481,26 @@ export function AnalysisFrameworkSection() {
                       }`}
                     >
                       <div className="relative z-10 flex flex-col h-full">
-                        {/* Weight */}
-                        <span className="text-3xl md:text-4xl font-bold tracking-tight mb-2 text-[#fbbf24]">
-                          {layer.weight}%
-                        </span>
-
-                        {/* Icon + Title */}
-                        <div className="flex items-center gap-2 mb-2">
-                          <Icon
-                            className="w-4 h-4 shrink-0 text-[#fbbf24]"
-                            strokeWidth={1.5}
-                          />
-                          <h4
-                            className={`font-semibold text-sm md:text-base leading-tight transition-colors duration-300 ${
-                              theme === "light"
-                                ? "text-[#010052]"
-                                : "text-white/90"
-                            }`}
-                          >
-                            {layer.title}
-                          </h4>
+                        {/* Weight + Title */}
+                        <div className="flex items-baseline gap-2 mb-2 flex-wrap">
+                          <span className="text-3xl md:text-4xl font-bold tracking-tight text-[#fbbf24]">
+                            {layer.weight}%
+                          </span>
+                          <div className="flex items-center gap-1.5">
+                            <Icon
+                              className="w-4 h-4 shrink-0 text-[#fbbf24]"
+                              strokeWidth={1.5}
+                            />
+                            <h4
+                              className={`font-[family-name:var(--font-heading)] font-bold text-base md:text-lg leading-tight transition-colors duration-300 ${
+                                theme === "light"
+                                  ? "text-[#010052]"
+                                  : "text-white"
+                              }`}
+                            >
+                              {layer.title}
+                            </h4>
+                          </div>
                         </div>
 
                         {/* Description */}
@@ -515,9 +515,9 @@ export function AnalysisFrameworkSection() {
                         </p>
 
                         {/* Subtitle as tag */}
-                        <div className="mt-auto">
+                        <div className="mt-auto flex flex-wrap gap-2">
                           <span
-                            className={`px-2.5 py-1 rounded-lg text-[11px] font-medium ${
+                            className={`px-3 py-1.5 rounded-full text-xs font-medium ${
                               theme === "light"
                                 ? "bg-[#fbbf24]/10 text-[#a16207] border border-[#fbbf24]/20"
                                 : "bg-[#fbbf24]/15 text-white/90 border border-[#fbbf24]/25"

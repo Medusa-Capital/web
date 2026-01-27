@@ -67,7 +67,7 @@ export function Team() {
           className="text-center mb-16 md:mb-20"
         >
           <h2
-            className="font-[family-name:var(--font-heading)] text-4xl md:text-[60px] font-bold leading-tight mb-6 transition-colors duration-300"
+            className="font-[family-name:var(--font-heading)] text-[clamp(36px,6vw,72px)] font-bold leading-tight mb-6 transition-colors duration-300"
             style={{
               color: theme === "light" ? "#010052" : "#ffffff",
             }}

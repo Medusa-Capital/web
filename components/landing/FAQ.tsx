@@ -98,7 +98,7 @@ export function FAQ() {
             <Badge variant="section" className="mb-3 md:mb-4">
               FAQs
             </Badge>
-            <h2 className="font-[family-name:var(--font-heading)] text-2xl md:text-4xl lg:text-5xl font-bold dark:text-white light:text-[#010052] leading-tight transition-colors duration-300">
+            <h2 className="font-[family-name:var(--font-heading)] text-[clamp(36px,6vw,72px)] font-bold dark:text-white light:text-[#010052] leading-tight transition-colors duration-300">
               Preguntas que consideramos relevantes
             </h2>
           </div>

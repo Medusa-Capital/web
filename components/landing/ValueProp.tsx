@@ -31,7 +31,7 @@ export function ValueProp() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Left content */}
           <div>
-            <h2 className="font-[family-name:var(--font-heading)] text-[clamp(30px,4vw,50px)] font-bold dark:text-white light:text-[#010052] leading-tight mb-6 transition-colors duration-300">
+            <h2 className="font-[family-name:var(--font-heading)] text-[clamp(36px,6vw,72px)] font-bold dark:text-white light:text-[#010052] leading-tight mb-6 transition-colors duration-300">
               Conviértete en un Inversor Experto en Bitcoin y otros Activos
               Digitales
             </h2>
