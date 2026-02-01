@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
 const AIRTABLE_WEBHOOK_URL =
-  "https://hooks.airtable.com/workflows/v1/genericWebhook/appOy27N5Wx2OdFX3/wflRiDLbj1jjOabcs/wtr0vVMTBQHF662Cf";
+  "https://hooks.airtable.com/workflows/v1/genericWebhook/appOy27N5Wx2OdFX3/wflIzSnlqhrpPnT5Q/wtrRMao3I6PL7jKvD";
 
 export async function POST(request: NextRequest) {
   try {
