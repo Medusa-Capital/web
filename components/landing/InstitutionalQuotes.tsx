@@ -70,7 +70,7 @@ function QuoteCard({
         background:
           theme === "light"
             ? "rgba(255, 255, 255, 0.95)"
-            : "rgba(27, 26, 100, 0.85)",
+            : "#1b1a64",
         border:
           theme === "light"
             ? "1px solid rgba(1, 0, 82, 0.1)"
@@ -78,7 +78,7 @@ function QuoteCard({
         boxShadow:
           theme === "light"
             ? "0 4px 24px rgba(1, 0, 82, 0.08)"
-            : "0 8px 32px rgba(0, 0, 0, 0.3)",
+            : "none",
       }}
     >
       {/* Quote icon */}
@@ -159,7 +159,7 @@ export function InstitutionalQuotes() {
   const duplicatedQuotes = [...quotes, ...quotes, ...quotes];
 
   return (
-    <section className="relative py-12 md:py-16 overflow-hidden">
+    <section className="relative py-12 md:py-16 overflow-hidden" style={{ background: "transparent" }}>
       {/* Header */}
       <div className="text-center mb-8 md:mb-10 px-4">
         <p
@@ -186,11 +186,12 @@ export function InstitutionalQuotes() {
       {/* Carousel container */}
       <div
         className="relative"
+        style={{ background: "transparent" }}
         onMouseEnter={() => setIsPaused(true)}
         onMouseLeave={() => setIsPaused(false)}
       >
         {/* Scrolling track */}
-        <div ref={containerRef} className="overflow-hidden">
+        <div ref={containerRef} className="overflow-hidden" style={{ background: "transparent" }}>
           <motion.div
             className="flex gap-6 py-2"
             animate={{
@@ -205,6 +206,7 @@ export function InstitutionalQuotes() {
             }}
             style={{
               width: "fit-content",
+              background: "transparent",
             }}
           >
             {duplicatedQuotes.map((quote, index) => (

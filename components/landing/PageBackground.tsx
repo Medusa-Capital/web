@@ -8,12 +8,13 @@ export function PageBackground() {
   const { theme } = useTheme();
   
   return (
-    <div className="absolute inset-0 pointer-events-none overflow-hidden" style={{ zIndex: 0 }}>
-      {/* Base background color - fixed to always cover viewport */}
-      <div 
+    <>
+      {/* Base background color - fixed to always cover viewport, at root stacking level */}
+      <div
         className="fixed inset-0 transition-colors duration-500"
-        style={{ backgroundColor: theme === "light" ? "#faf8f5" : "#010052" }}
+        style={{ backgroundColor: theme === "light" ? "#faf8f5" : "#010052", zIndex: -1 }}
       />
+      <div className="absolute inset-0 pointer-events-none overflow-hidden" style={{ zIndex: 0 }}>
 
       {/* Top center glow - near hero */}
       <div
@@ -56,6 +57,7 @@ export function PageBackground() {
           opacity: theme === "light" ? 0.2 : 0.3,
         }}
       />
-    </div>
+      </div>
+    </>
   );
 }
