@@ -15,3 +15,4 @@ export { PageBackground } from "./PageBackground";
 export { LeadCaptureModal } from "./LeadCaptureModal";
 export { ThemeToggle } from "./ThemeToggle";
 export { AnalysisFrameworkSection } from "./AnalysisFrameworkSection";
+export { FeaturedTestimonials } from "./FeaturedTestimonials";

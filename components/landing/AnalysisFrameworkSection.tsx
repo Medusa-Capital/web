@@ -163,64 +163,11 @@ export function AnalysisFrameworkSection() {
             Sistema Medusa
           </h2>
           <p className="dark:text-[#cccce0] light:text-[#3d3d6b] text-base md:text-lg leading-relaxed max-w-3xl mx-auto transition-colors duration-300">
-            Un framework de inversión a largo plazo con gestión activa táctica,
-            diseñado para identificar los pocos activos de calidad que realmente
-            merecen tu capital.
+            La estrategia consiste en identificar proyectos con Product-Market Fit,
+            generación real de ingresos y mecanismos sólidos de captura de valor
+            para el token. Esa es la base que marcará la diferencia en los próximos
+            meses (y años).
           </p>
-        </div>
-
-        {/* Weight Distribution Bar */}
-        <div className="mb-12 md:mb-16">
-          <div className="flex items-center justify-center gap-2 mb-4">
-            <span className="text-sm dark:text-[#B9B8EB] light:text-[#3d3d6b] font-medium transition-colors duration-300">
-              Distribución del peso en el análisis
-            </span>
-          </div>
-          <div className="flex h-3 rounded-full overflow-hidden max-w-2xl mx-auto shadow-inner dark:bg-[#1b1a64]/50 light:bg-[#010052]/5">
-            {analysisLayers.map((layer, index) => (
-              <div
-                key={layer.id}
-                className="relative group cursor-pointer transition-all duration-300 hover:brightness-110"
-                style={{
-                  width: `${layer.weight}%`,
-                  background:
-                    theme === "light"
-                      ? layer.accent.color
-                      : `linear-gradient(90deg, ${layer.accent.color}dd, ${layer.accent.color})`,
-                }}
-              >
-                {/* Tooltip on hover */}
-                <div className="absolute -top-10 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap">
-                  <span
-                    className="text-xs font-semibold px-2 py-1 rounded-md"
-                    style={{
-                      background:
-                        theme === "light"
-                          ? layer.accent.bg
-                          : layer.accent.bgDark,
-                      color: layer.accent.color,
-                    }}
-                  >
-                    {layer.title}: {layer.weight}%
-                  </span>
-                </div>
-              </div>
-            ))}
-          </div>
-          {/* Legend */}
-          <div className="flex flex-wrap items-center justify-center gap-4 md:gap-6 mt-4">
-            {analysisLayers.map((layer) => (
-              <div key={layer.id} className="flex items-center gap-2">
-                <span
-                  className="w-3 h-3 rounded-full"
-                  style={{ background: layer.accent.color }}
-                />
-                <span className="text-xs dark:text-[#cccce0] light:text-[#3d3d6b] transition-colors duration-300">
-                  {layer.weight}% {layer.title.split(" ")[1]}
-                </span>
-              </div>
-            ))}
-          </div>
         </div>
 
         {/* Treemap-style Analysis Grid */}
@@ -549,60 +496,73 @@ export function AnalysisFrameworkSection() {
               return (
                 <div
                   key={index}
-                  className={`rounded-[16px] p-5 transition-all duration-[400ms] ease-[cubic-bezier(0.2,0,0,1)] group hover:-translate-y-1 ${
+                  className={`relative rounded-[20px] p-6 md:p-7 transition-all duration-[400ms] ease-[cubic-bezier(0.2,0,0,1)] group hover:-translate-y-1.5 overflow-hidden ${
                     theme === "light"
-                      ? "bg-white/80 border border-[#010052]/8 shadow-[0_2px_12px_rgba(1,0,82,0.04)] hover:shadow-[0_12px_32px_rgba(1,0,82,0.08)]"
-                      : "bg-[#1b1a64]/40 border border-white/8 hover:border-white/15 hover:bg-[#1b1a64]/60"
+                      ? "bg-white/90 border border-[#010052]/10 shadow-[0_4px_20px_rgba(1,0,82,0.06)] hover:shadow-[0_20px_40px_rgba(1,0,82,0.12)]"
+                      : "bg-gradient-to-br from-[#1b1a64]/70 to-[#1b1a64]/40 border border-[#B9B8EB]/12 hover:border-[#B9B8EB]/25"
                   }`}
                 >
-                  {/* Icon */}
+                  {/* Subtle corner glow on hover */}
                   <div
-                    className={`w-10 h-10 rounded-lg flex items-center justify-center mb-4 transition-transform duration-300 group-hover:scale-105 ${
-                      theme === "light"
-                        ? "bg-[#3a54f8]/8"
-                        : "bg-[#B9B8EB]/10"
-                    }`}
-                  >
-                    <Icon
-                      className={`w-5 h-5 ${
+                    className="absolute -top-12 -right-12 w-32 h-32 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+                    style={{
+                      background: theme === "light"
+                        ? "radial-gradient(circle, rgba(58, 84, 248, 0.12), transparent 70%)"
+                        : "radial-gradient(circle, rgba(185, 184, 235, 0.15), transparent 70%)",
+                      filter: "blur(20px)",
+                    }}
+                  />
+
+                  <div className="relative z-10">
+                    {/* Icon */}
+                    <div
+                      className={`w-12 h-12 rounded-xl flex items-center justify-center mb-5 transition-transform duration-300 group-hover:scale-110 ${
                         theme === "light"
-                          ? "text-[#3a54f8]"
-                          : "text-[#B9B8EB]"
+                          ? "bg-[#3a54f8]/10 ring-1 ring-[#3a54f8]/15"
+                          : "bg-[#B9B8EB]/10 ring-1 ring-[#B9B8EB]/15"
                       }`}
-                      strokeWidth={1.5}
-                    />
+                    >
+                      <Icon
+                        className={`w-5 h-5 ${
+                          theme === "light"
+                            ? "text-[#3a54f8]"
+                            : "text-[#B9B8EB]"
+                        }`}
+                        strokeWidth={1.5}
+                      />
+                    </div>
+
+                    {/* Title */}
+                    <h4
+                      className={`font-bold text-lg mb-3 transition-colors duration-300 ${
+                        theme === "light" ? "text-[#010052]" : "text-white"
+                      }`}
+                    >
+                      {principle.title}
+                    </h4>
+
+                    {/* Quote */}
+                    <p
+                      className={`text-[15px] leading-relaxed mb-4 transition-colors duration-300 ${
+                        theme === "light"
+                          ? "text-[#3d3d6b]"
+                          : "text-[#cccce0]"
+                      }`}
+                    >
+                      &ldquo;{principle.quote}&rdquo;
+                    </p>
+
+                    {/* Detail — as a subtle footnote */}
+                    <p
+                      className={`text-sm leading-relaxed pt-3 transition-colors duration-300 ${
+                        theme === "light"
+                          ? "text-[#3a54f8]/70 border-t border-[#010052]/8"
+                          : "text-[#B9B8EB]/60 border-t border-white/8"
+                      }`}
+                    >
+                      {principle.detail}
+                    </p>
                   </div>
-
-                  {/* Title */}
-                  <h4
-                    className={`font-semibold text-base mb-2 transition-colors duration-300 ${
-                      theme === "light" ? "text-[#010052]" : "text-white"
-                    }`}
-                  >
-                    {principle.title}
-                  </h4>
-
-                  {/* Quote */}
-                  <p
-                    className={`text-sm leading-relaxed mb-2 font-medium transition-colors duration-300 ${
-                      theme === "light"
-                        ? "text-[#3a54f8]/80"
-                        : "text-[#B9B8EB]/90"
-                    }`}
-                  >
-                    &ldquo;{principle.quote}&rdquo;
-                  </p>
-
-                  {/* Detail */}
-                  <p
-                    className={`text-xs leading-relaxed italic transition-colors duration-300 ${
-                      theme === "light"
-                        ? "text-[#3d3d6b]/70"
-                        : "text-[#cccce0]/60"
-                    }`}
-                  >
-                    {principle.detail}
-                  </p>
                 </div>
               );
             })}

@@ -9,6 +9,7 @@ import {
   Team,
   InstitutionalQuotes,
   Testimonials,
+  FeaturedTestimonials,
   FAQ,
   FinalCTA,
   Footer,
@@ -33,6 +34,7 @@ export default function Page() {
         <Modules />
         <Team />
         <Testimonials />
+        <FeaturedTestimonials />
         <FAQ />
         <FinalCTA />
         <Footer />

@@ -1,6 +1,6 @@
 "use client";
 
-import { FileX, Scale, Brain, Users, ChevronRight } from "lucide-react";
+import { Dices, TrendingDown, Hourglass, ChevronRight } from "lucide-react";
 import { useTheme } from "@/components/providers/ThemeProvider";
 import { Button } from "@/components/ui/button";
 import { trackCTAClick } from "@/lib/analytics";
@@ -17,30 +17,30 @@ export function ProblemSection() {
 
   const problems = [
     {
-      icon: <FileX className="w-6 h-6 stroke-[1.5]" />,
+      icon: <Dices className="w-6 h-6 stroke-[1.5]" />,
       title: "Siguen señales sin criterio",
-      lead: "Compran por FOMO lo que dice un anónimo en Twitter.",
       bullets: [
+        "Compran por FOMO lo que dice un anónimo en Twitter",
         "No entienden QUÉ compraron ni POR QUÉ",
         "Venden en pánico cuando cae -20% (justo antes de la subida)",
         "Pierden 60-80% por no gestionar el riesgo",
       ],
     },
     {
-      icon: <Scale className="w-6 h-6 stroke-[1.5]" />,
+      icon: <TrendingDown className="w-6 h-6 stroke-[1.5]" />,
       title: "Saben pero ejecutan mal",
-      lead: "Están +457% arriba y acaban cerrando en negativo.",
       bullets: [
+        "Están +457% arriba y acaban cerrando la posición en negativo",
         "Saben identificar oportunidades pero no cuándo salir",
         "Holdean cadáveres esperando \"la vuelta\"",
         "Saben de DeFi, métricas on-chain... pero no tienen SISTEMA",
       ],
     },
     {
-      icon: <Brain className="w-6 h-6 stroke-[1.5]" />,
+      icon: <Hourglass className="w-6 h-6 stroke-[1.5]" />,
       title: "Dan su vida sin ver resultados",
-      lead: "Investigan 40h a la semana proyectos que nunca despegan.",
       bullets: [
+        "Investigan 40h a la semana proyectos que nunca despegan",
         "Pagan 5 comunidades, 3 newsletters y leen a 20 analistas distintos",
         "No tienen tiempo para familia, solo para cripto",
         "Resultado: estrés y 0 resultados mientras otros SÍ ganan",
@@ -98,9 +98,6 @@ export function ProblemSection() {
             <br />
             <span className="dark:text-[#B9B8EB]/80 light:text-[#3a54f8]/90 text-[0.9em]">(y cómo evitarlo)</span>
           </h2>
-          <p className="dark:text-[#cccce0] light:text-[#3d3d6b] text-base md:text-lg leading-relaxed max-w-2xl mx-auto mb-3 transition-colors duration-300">
-            No es el mercado, es el proceso. Estos son los 3 patrones más comunes que vemos en alumnos y carteras reales.
-          </p>
         </div>
 
         {/* Grid de 3 Cards */}
@@ -153,17 +150,6 @@ export function ProblemSection() {
 
                 {/* Content */}
                 <div className="flex-1 flex flex-col p-8 pt-4 relative z-10">
-                  {/* Lead sentence / quote */}
-                  <p
-                    className={`text-lg leading-relaxed mb-5 pb-5 min-h-[60px] transition-colors duration-300 ${
-                      theme === "light"
-                        ? "text-[#3d3d6b] border-b border-[#010052]/20"
-                        : "text-[#cccce0] border-b border-white/20"
-                    }`}
-                  >
-                    {problem.lead}
-                  </p>
-
                   {/* Bullets with colored dots */}
                   <div className="space-y-4 flex-1">
                     {problem.bullets.map((bullet, bulletIndex) => (
