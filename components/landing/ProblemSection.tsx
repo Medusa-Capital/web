@@ -1,9 +1,7 @@
 "use client";
 
-import { Dices, TrendingDown, Hourglass, ChevronRight } from "lucide-react";
+import { Dices, TrendingDown, Hourglass } from "lucide-react";
 import { useTheme } from "@/components/providers/ThemeProvider";
-import { Button } from "@/components/ui/button";
-import { trackCTAClick } from "@/lib/analytics";
 
 // Accent colors for each card
 const cardAccents = [
@@ -48,15 +46,6 @@ export function ProblemSection() {
     },
   ];
 
-  const processSteps = ["Tesis", "Valoración", "Ejecución", "Revisión"];
-
-  const scrollToMethod = () => {
-    trackCTAClick("problem_section_cta", "scroll_to_method");
-    const methodSection = document.getElementById("method");
-    if (methodSection) {
-      methodSection.scrollIntoView({ behavior: "smooth" });
-    }
-  };
 
   return (
     <section className="relative py-12 md:py-16 px-4 md:px-6">
@@ -174,37 +163,6 @@ export function ProblemSection() {
           })}
         </div>
 
-        {/* Closing bridge + CTA */}
-        <div className="text-center">
-          <p className="dark:text-[#cccce0] light:text-[#3d3d6b] text-base md:text-lg leading-relaxed max-w-2xl mx-auto mb-3 transition-colors duration-300">
-            Nuestro método convierte esto en un proceso repetible:
-          </p>
-          <div className="flex flex-wrap items-center justify-center gap-2 md:gap-3 mb-6">
-            {processSteps.map((step, index) => (
-              <div key={step} className="flex items-center gap-2 md:gap-3">
-                <div className="flex items-center gap-2">
-                  <span className="flex items-center justify-center w-6 h-6 rounded-full dark:bg-emerald-500/30 dark:text-emerald-300 light:bg-emerald-500/25 light:text-emerald-700 text-xs font-semibold transition-colors duration-300">
-                    {index + 1}
-                  </span>
-                  <span className="text-sm font-medium dark:text-white/90 light:text-[#010052]/90 transition-colors duration-300">
-                    {step}
-                  </span>
-                </div>
-                {index < processSteps.length - 1 && (
-                  <ChevronRight className="w-4 h-4 dark:text-[#B9B8EB]/30 light:text-[#3d3d6b]/30 transition-colors duration-300" />
-                )}
-              </div>
-            ))}
-          </div>
-          <Button
-            variant="secondaryGlow"
-            size="lg"
-            onClick={scrollToMethod}
-            className="px-8 py-6 text-base font-semibold rounded-xl"
-          >
-            Ver el método
-          </Button>
-        </div>
       </div>
     </section>
   );
