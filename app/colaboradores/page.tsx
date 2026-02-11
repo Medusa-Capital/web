@@ -16,7 +16,7 @@ const collaborators: CollaboratorData[] = [
   {
     name: "Pablo Gil",
     role: "Trader Profesional & Formador",
-    imageUrl: "/img/avatar/pablogil.png",
+    imageUrl: "/img/avatar/pablogil.jpg",
     accentColor: "#f59e0b",
     collaboration: {
       tag: "Curso Exclusivo",
@@ -47,7 +47,7 @@ const collaborators: CollaboratorData[] = [
   },
   {
     name: "Javier del Valle",
-    role: "Experto DeFi & Blockchain",
+    role: "Inversor y Analista macroeconómico",
     imageUrl: "/img/avatar/javierdelvalle.jpg",
     accentColor: "#06b6d4",
     collaboration: {
@@ -129,12 +129,12 @@ export default function ColaboradoresPage() {
                   height={24}
                   className="w-5 h-5 md:w-6 md:h-6"
                 />
-                Expertos del Sector Tradicional Confían en Nosotros
+                Expertos del sector tradicional confían en nosotros
               </Badge>
               <h1 className="font-[family-name:var(--font-heading)] text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4">
-                Los Mayores Expertos del Sector
+                Los mayores expertos del sector
                 <br />
-                Tradicional Confían en Nosotros
+                tradicional confían en nosotros
               </h1>
               <p className="text-[#B9B8EB]/60 max-w-2xl mx-auto text-base md:text-lg">
                 Colaboramos con los mayores profesionales del sector tradicional para dar a conocer
