@@ -6,7 +6,7 @@ import { useRef } from "react";
 import {
   ExternalLink,
   ShieldCheck,
-  BadgeCheck,
+
   Linkedin,
   Twitter,
   Youtube,
@@ -98,7 +98,7 @@ export function CollaboratorCard({ data, index }: CollaboratorCardProps) {
               src={data.imageUrl}
               alt={data.name}
               fill
-              className="object-cover transition-transform duration-700 group-hover:scale-110 filter grayscale contrast-125 group-hover:grayscale-0"
+              className="object-cover"
             />
 
             {/* Mobile Overlay Name */}
@@ -121,18 +121,6 @@ export function CollaboratorCard({ data, index }: CollaboratorCardProps) {
                 : "bg-[#0a0a2e] border-[#B9B8EB]/5"
             }`}
           >
-            <div className="flex items-center gap-2 mb-2">
-              <BadgeCheck
-                className="w-5 h-5"
-                style={{ color: data.accentColor }}
-              />
-              <span
-                className="text-xs font-mono uppercase tracking-widest"
-                style={{ color: data.accentColor }}
-              >
-                Partner Verificado
-              </span>
-            </div>
             <h2
               className={`text-3xl font-[family-name:var(--font-heading)] font-bold leading-tight mb-1 ${
                 theme === "light" ? "text-[#010052]" : "text-white"
@@ -265,7 +253,7 @@ export function CollaboratorCard({ data, index }: CollaboratorCardProps) {
               }`}
             >
               <ShieldCheck className="w-4 h-4" />
-              Señales de Autoridad
+              Credenciales destacadas
             </h4>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
               {data.credentials.map((cred, idx) => (
