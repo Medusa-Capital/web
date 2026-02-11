@@ -3,6 +3,7 @@ title: "Microstrategy: ¿Modelo Sostenible o Colapso Asegurado?"
 date: "2025-11-26"
 description: "Durante estas últimas semanas hemos visto cómo, a raíz del retroceso en el precio de Bitcoin, vuelven a salir de debajo de las piedras hipótesis alarmistas s..."
 tags: ["bitcoin", "analisis", "mercado", "institucional", "macro", "defi"]
+type: "Análisis"
 author: "Axel"
 image: "/img/blog/microstrategy-modelo-sostenible-o-colapso-asegurado/G6vcpbVXYAACC_g.jpeg"
 featured: true

@@ -3,6 +3,7 @@ title: "¿EL PRINCIPIO DEL FIN? VIERNES NEGRO"
 date: "2025-10-12"
 description: "Los niveles de complacencia en el mercado eran extremos. Los índices daban la sensación de \"imparables\":"
 tags: ["mercado", "macro", "defi", "onchain", "analisis"]
+type: "Análisis"
 author: "Axel"
 image: "/img/blog/el-principio-del-fin-viernes-negro/G3FUBsAWQAA9Ejv.jpeg"
 featured: false

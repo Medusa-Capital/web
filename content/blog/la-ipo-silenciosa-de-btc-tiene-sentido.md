@@ -3,6 +3,7 @@ title: "La IPO Silenciosa de BTC: ¿Tiene sentido?"
 date: "2025-11-04"
 description: "La respuesta requiere abandonar la típica narrativa de \"bears vs bulls\" y entender qué está sucediendo realmente en los libros de ordenes. Vamos, como siempr..."
 tags: ["bitcoin", "ethereum", "solana", "mercado", "institucional", "macro"]
+type: "Análisis"
 author: "Axel"
 image: "/img/blog/la-ipo-silenciosa-de-btc-tiene-sentido/G42eLOLXkAE7eM6.png"
 featured: true

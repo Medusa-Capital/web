@@ -3,6 +3,7 @@ title: "Caso $ETHFI: El Protocolo Brillante con Tokenomics Tóxicos"
 date: "2025-10-30"
 description: "El resultado es un ecosistema donde la creación de valor ocurre a nivel protocolo (más TVL, más productos, más revenue), pero la captura de valor se desvanec..."
 tags: ["mercado", "defi", "analisis"]
+type: "DeFi"
 author: "Axel"
 image: "/img/blog/caso-ethfi-el-protocolo-brillante-con-tokenomics-toxicos/G4gNLtHWsAAcNU3.jpeg"
 featured: true

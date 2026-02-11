@@ -5,6 +5,12 @@ import matter from "gray-matter";
 const postsDirectory = path.join(process.cwd(), "content/blog");
 
 export type PostCategory = "article" | "market-analysis";
+export type PostType =
+  | "Análisis"
+  | "Educación"
+  | "Research"
+  | "DeFi"
+  | "Trading";
 
 export interface BlogPost {
   slug: string;
@@ -12,6 +18,7 @@ export interface BlogPost {
   date: string;
   description: string;
   tags: string[];
+  type?: PostType;
   author: string;
   image?: string;
   featured: boolean;
@@ -27,6 +34,7 @@ export interface BlogPostMeta {
   date: string;
   description: string;
   tags: string[];
+  type?: PostType;
   image?: string;
   featured: boolean;
   category: PostCategory;
@@ -65,6 +73,7 @@ export function getAllPosts(): BlogPostMeta[] {
       date: data.date || new Date().toISOString().split("T")[0],
       description: data.description || "",
       tags: data.tags || [],
+      type: data.type as PostType | undefined,
       image: data.image as string | undefined,
       featured: data.featured || false,
       category: (data.category as PostCategory) || "article",
@@ -93,6 +102,7 @@ export function getPostBySlug(slug: string): BlogPost | null {
       date: data.date || new Date().toISOString().split("T")[0],
       description: data.description || "",
       tags: data.tags || [],
+      type: data.type as PostType | undefined,
       author: data.author || "Medusa Capital",
       image: data.image,
       featured: data.featured || false,

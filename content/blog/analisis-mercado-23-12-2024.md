@@ -3,6 +3,7 @@ title: "Análisis de Mercado - 23/12/2024"
 date: "2024-12-23"
 description: "Bitcoin consolida cerca de máximos históricos mientras el mercado digiere la última decisión de la Fed. Análisis de niveles clave y perspectivas para fin de año."
 tags: ["bitcoin", "analisis", "mercado"]
+type: "Análisis"
 author: "Medusa Capital"
 image: "/img/blog/medusa_capital.jpeg"
 featured: false

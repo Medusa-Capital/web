@@ -1,11 +1,9 @@
 import {
   getAllTags,
-  getMarketAnalysisPosts,
   getFeaturedArticles,
   getRegularArticles,
 } from "@/lib/blog";
 import { BlogCard } from "@/components/blog/BlogCard";
-import { MarketAnalysisCard } from "@/components/blog/MarketAnalysisCard";
 import { NewsletterSection } from "@/components/blog/NewsletterSection";
 import { Header } from "@/components/landing/Header";
 import { Footer } from "@/components/landing/Footer";
@@ -22,7 +20,6 @@ export default function BlogPage() {
   const featuredArticles = getFeaturedArticles();
   const regularArticles = getRegularArticles();
   const tags = getAllTags();
-  const recentAnalyses = getMarketAnalysisPosts().slice(0, 3);
 
   return (
     <div className="relative min-h-screen">
@@ -42,62 +39,6 @@ export default function BlogPage() {
                 Todo lo que necesitas saber para invertir con criterio.
               </p>
             </div>
-
-            {/* Market Analysis Section */}
-            {recentAnalyses.length > 0 && (
-              <section className="mb-16">
-                <div className="flex items-center justify-between mb-6">
-                  <div className="flex items-center gap-3">
-                    <div className="w-9 h-9 rounded-lg bg-[#4355d9]/20 flex items-center justify-center">
-                      <svg
-                        className="w-4 h-4 text-[#657ef3]"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
-                        />
-                      </svg>
-                    </div>
-                    <h2 className="text-xl font-semibold text-white">
-                      Análisis de Mercado
-                    </h2>
-                  </div>
-                  <Link
-                    href="/blog/analisis-mercado"
-                    className="text-sm text-[#B9B8EB]/60 hover:text-white transition-colors flex items-center gap-1"
-                  >
-                    Ver archivo
-                    <svg
-                      className="w-4 h-4"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M9 5l7 7-7 7"
-                      />
-                    </svg>
-                  </Link>
-                </div>
-                <div className="space-y-2">
-                  {recentAnalyses.map((post, index) => (
-                    <MarketAnalysisCard
-                      key={post.slug}
-                      post={post}
-                      isLatest={index === 0}
-                    />
-                  ))}
-                </div>
-              </section>
-            )}
 
             {/* Featured Articles Section */}
             {featuredArticles.length > 0 && (

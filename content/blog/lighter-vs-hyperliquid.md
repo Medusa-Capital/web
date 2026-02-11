@@ -3,6 +3,7 @@ title: "¿Es Lighter el Fin de Hyperliquid?"
 date: "2025-12-11"
 description: "Análisis comparativo entre Hyperliquid y Lighter: modelos de negocio, sostenibilidad económica, calidad de volumen e incentivos. ¿Está justificada la caída del precio de HYPE?"
 tags: ["hyperliquid", "lighter", "defi", "dex", "analisis"]
+type: "DeFi"
 author: "Axel"
 image: "/img/blog/lighter-vs-hyperliquid/G7vYzWBWoAA4UvJ.jpeg"
 featured: true

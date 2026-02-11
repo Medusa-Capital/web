@@ -3,6 +3,7 @@ title: "BTC: Siguiente Parada por Debajo de $100.000"
 date: "2025-11-13"
 description: "Bitcoin cerró octubre rojo por primera vez en 7 años, pero instituciones compraron $3.4B en ETFs. Análisis de la purga de octubre, catalizadores de noviembre y por qué Bitcoin necesita existir."
 tags: ["bitcoin", "analisis", "mercado", "institucional", "etf"]
+type: "Análisis"
 author: "Axel"
 image: "/img/blog/btc-debajo-100k/G5n9vZ9XQAA7X6F.png"
 featured: false

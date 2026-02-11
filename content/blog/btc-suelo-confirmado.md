@@ -3,6 +3,7 @@ title: "BTC: ¿Suelo confirmado?"
 date: "2025-12-03"
 description: "Análisis completo del mercado cripto: liquidez global, tensiones en repos, carry trade japonés, y métricas onchain. ¿Hemos tocado suelo o viene más corrección?"
 tags: ["bitcoin", "analisis", "macro", "liquidez", "institucional"]
+type: "Análisis"
 author: "Axel"
 image: "/img/blog/btc-suelo-confirmado/G7QylE6XEAA-t3Z.png"
 featured: false

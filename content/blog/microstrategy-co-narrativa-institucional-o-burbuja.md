@@ -3,6 +3,7 @@ title: "MICROSTRATEGY & Co - ¿NARRATIVA INSTITUCIONAL O BURBUJA?"
 date: "2025-07-02"
 description: "Saylor no va al banco a pedir dinero. Lo que hace es emitir instrumentos financieros adaptados a cada tipo de inversor:"
 tags: ["bitcoin", "ethereum", "solana", "analisis", "mercado", "institucional"]
+type: "Análisis"
 author: "Axel"
 image: "/img/blog/medusa_capital.jpeg"
 featured: false
