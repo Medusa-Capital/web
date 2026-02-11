@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { Check, ChevronDown } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useTheme } from "@/components/providers/ThemeProvider";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 
@@ -48,7 +47,6 @@ const projects: Project[] = [
 ];
 
 export function ROICalculator() {
-  const { theme } = useTheme();
   const [amount, setAmount] = useState<number>(1000);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [showResults, setShowResults] = useState(false);
@@ -110,7 +108,7 @@ export function ROICalculator() {
           <div className="flex flex-col justify-start pt-4">
             <h2
               className="font-[family-name:var(--font-heading)] text-[clamp(36px,4vw,48px)] font-bold leading-[1.2] mb-4"
-              style={{ color: theme === "light" ? "#010052" : "#ffffff" }}
+              style={{ color: "#ffffff" }}
             >
               Calcula tu ROI real
             </h2>
@@ -118,10 +116,7 @@ export function ROICalculator() {
             <p
               className="text-lg leading-[1.6] mb-6 max-w-[480px]"
               style={{
-                color:
-                  theme === "light"
-                    ? "rgba(1, 0, 82, 0.7)"
-                    : "rgba(204, 204, 224, 0.7)",
+                color: "rgba(204, 204, 224, 0.7)",
               }}
             >
               Estas son rentabilidades reales de proyectos que identificamos,
@@ -141,10 +136,7 @@ export function ROICalculator() {
                   <span
                     className="font-medium text-[15px]"
                     style={{
-                      color:
-                        theme === "light"
-                          ? "rgba(1, 0, 82, 0.8)"
-                          : "rgba(204, 204, 224, 0.85)",
+                      color: "rgba(204, 204, 224, 0.85)",
                     }}
                   >
                     {point}
@@ -162,14 +154,8 @@ export function ROICalculator() {
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
             className="relative backdrop-blur-md rounded-3xl p-8 border"
             style={{
-              background:
-                theme === "light"
-                  ? "rgba(255, 255, 255, 0.9)"
-                  : "rgba(27, 26, 100, 0.4)",
-              borderColor:
-                theme === "light"
-                  ? "rgba(1, 0, 82, 0.12)"
-                  : "rgba(185, 184, 235, 0.2)",
+              background: "rgba(27, 26, 100, 0.4)",
+              borderColor: "rgba(185, 184, 235, 0.2)",
             }}
           >
             {/* Background gradient */}
@@ -177,9 +163,7 @@ export function ROICalculator() {
               className="absolute inset-0 rounded-3xl pointer-events-none"
               style={{
                 background:
-                  theme === "light"
-                    ? "linear-gradient(to bottom right, rgba(58, 84, 248, 0.05), transparent)"
-                    : "linear-gradient(to bottom right, rgba(99, 102, 241, 0.1), transparent)",
+                  "linear-gradient(to bottom right, rgba(99, 102, 241, 0.1), transparent)",
               }}
             />
 
@@ -189,10 +173,7 @@ export function ROICalculator() {
                 <label
                   className="block font-semibold text-sm mb-3 uppercase tracking-wider"
                   style={{
-                    color:
-                      theme === "light"
-                        ? "rgba(1, 0, 82, 0.6)"
-                        : "rgba(185, 184, 235, 0.8)",
+                    color: "rgba(185, 184, 235, 0.8)",
                   }}
                 >
                   ¿Cuánto habrías invertido?
@@ -202,10 +183,7 @@ export function ROICalculator() {
                   <span
                     className="absolute left-4 top-1/2 -translate-y-1/2 font-bold text-[22px] pointer-events-none"
                     style={{
-                      color:
-                        theme === "light"
-                          ? "rgba(1, 0, 82, 0.4)"
-                          : "rgba(185, 184, 235, 0.5)",
+                      color: "rgba(185, 184, 235, 0.5)",
                     }}
                   >
                     &euro;
@@ -217,15 +195,9 @@ export function ROICalculator() {
                     className="w-full pl-12 pr-4 py-3 rounded-xl border-2 font-semibold text-[22px] transition-all duration-200 outline-none"
                     placeholder="1000"
                     style={{
-                      background:
-                        theme === "light"
-                          ? "rgba(1, 0, 82, 0.03)"
-                          : "rgba(1, 0, 82, 0.5)",
-                      borderColor:
-                        theme === "light"
-                          ? "rgba(1, 0, 82, 0.15)"
-                          : "rgba(185, 184, 235, 0.2)",
-                      color: theme === "light" ? "#010052" : "#ffffff",
+                      background: "rgba(1, 0, 82, 0.5)",
+                      borderColor: "rgba(185, 184, 235, 0.2)",
+                      color: "#ffffff",
                     }}
                   />
                 </div>
@@ -236,10 +208,7 @@ export function ROICalculator() {
                 <label
                   className="block font-semibold text-sm mb-3 uppercase tracking-wider"
                   style={{
-                    color:
-                      theme === "light"
-                        ? "rgba(1, 0, 82, 0.6)"
-                        : "rgba(185, 184, 235, 0.8)",
+                    color: "rgba(185, 184, 235, 0.8)",
                   }}
                 >
                   Selecciona un proyecto
@@ -251,16 +220,11 @@ export function ROICalculator() {
                     onClick={() => setIsDropdownOpen(!isDropdownOpen)}
                     className="w-full px-4 py-3 rounded-xl border-2 font-semibold text-base transition-all duration-200 outline-none cursor-pointer flex items-center justify-between"
                     style={{
-                      background:
-                        theme === "light"
-                          ? "rgba(1, 0, 82, 0.03)"
-                          : "rgba(1, 0, 82, 0.5)",
+                      background: "rgba(1, 0, 82, 0.5)",
                       borderColor: selectedProject
                         ? "#6366f1"
-                        : theme === "light"
-                          ? "rgba(1, 0, 82, 0.15)"
-                          : "rgba(185, 184, 235, 0.2)",
-                      color: theme === "light" ? "#010052" : "#ffffff",
+                        : "rgba(185, 184, 235, 0.2)",
+                      color: "#ffffff",
                       boxShadow: selectedProject
                         ? "0 0 0 3px rgba(99, 102, 241, 0.15)"
                         : "none",
@@ -284,10 +248,7 @@ export function ROICalculator() {
                     ) : (
                       <span
                         style={{
-                          color:
-                            theme === "light"
-                              ? "rgba(1, 0, 82, 0.4)"
-                              : "rgba(185, 184, 235, 0.5)",
+                          color: "rgba(185, 184, 235, 0.5)",
                         }}
                       >
                         Selecciona un proyecto...
@@ -297,10 +258,7 @@ export function ROICalculator() {
                     <ChevronDown
                       className={`w-4 h-4 transition-transform duration-200 ${isDropdownOpen ? "rotate-180" : ""}`}
                       style={{
-                        color:
-                          theme === "light"
-                            ? "rgba(1, 0, 82, 0.4)"
-                            : "rgba(185, 184, 235, 0.5)",
+                        color: "rgba(185, 184, 235, 0.5)",
                       }}
                     />
                   </button>
@@ -315,14 +273,8 @@ export function ROICalculator() {
                         transition={{ duration: 0.15 }}
                         className="absolute top-full left-0 right-0 mt-2 rounded-xl border overflow-hidden z-50 backdrop-blur-md"
                         style={{
-                          background:
-                            theme === "light"
-                              ? "rgba(255, 255, 255, 0.98)"
-                              : "rgba(1, 0, 82, 0.95)",
-                          borderColor:
-                            theme === "light"
-                              ? "rgba(1, 0, 82, 0.15)"
-                              : "rgba(185, 184, 235, 0.2)",
+                          background: "rgba(1, 0, 82, 0.95)",
+                          borderColor: "rgba(185, 184, 235, 0.2)",
                           boxShadow: "0 8px 32px rgba(0, 0, 0, 0.2)",
                         }}
                       >
@@ -338,10 +290,8 @@ export function ROICalculator() {
                                   ? "rgba(99, 102, 241, 0.15)"
                                   : "transparent",
                               borderBottom:
-                                theme === "light"
-                                  ? "1px solid rgba(1, 0, 82, 0.08)"
-                                  : "1px solid rgba(185, 184, 235, 0.1)",
-                              color: theme === "light" ? "#010052" : "#ffffff",
+                                "1px solid rgba(185, 184, 235, 0.1)",
+                              color: "#ffffff",
                             }}
                           >
                             <Image
@@ -431,23 +381,14 @@ export function ROICalculator() {
               <div
                 className="rounded-xl p-5 border"
                 style={{
-                  background:
-                    theme === "light"
-                      ? "rgba(1, 0, 82, 0.03)"
-                      : "rgba(185, 184, 235, 0.05)",
-                  borderColor:
-                    theme === "light"
-                      ? "rgba(1, 0, 82, 0.08)"
-                      : "rgba(185, 184, 235, 0.1)",
+                  background: "rgba(185, 184, 235, 0.05)",
+                  borderColor: "rgba(185, 184, 235, 0.1)",
                 }}
               >
                 <p
                   className="text-[13px] leading-[1.6] text-center mb-4"
                   style={{
-                    color:
-                      theme === "light"
-                        ? "rgba(1, 0, 82, 0.6)"
-                        : "rgba(204, 204, 224, 0.7)",
+                    color: "rgba(204, 204, 224, 0.7)",
                   }}
                 >
                   Esto no es suerte. Es metodología replicable con tesis
@@ -467,10 +408,7 @@ export function ROICalculator() {
               <p
                 className="text-[11px] leading-[1.5] text-center mt-4"
                 style={{
-                  color:
-                    theme === "light"
-                      ? "rgba(1, 0, 82, 0.4)"
-                      : "rgba(185, 184, 235, 0.4)",
+                  color: "rgba(185, 184, 235, 0.4)",
                 }}
               >
                 Disclaimer: Rentabilidades pasadas no garantizan resultados

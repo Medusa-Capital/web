@@ -5,7 +5,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { trackEvent } from "@/lib/analytics";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { useTheme } from "@/components/providers/ThemeProvider";
 
 type ModuleIcon =
   | "bitcoin"
@@ -525,7 +524,6 @@ function ModuleIcon({ icon }: { icon: ModuleIcon }) {
 }
 
 export function Modules() {
-  const { theme } = useTheme();
   const [activeModule, setActiveModule] = useState(1);
   const [direction, setDirection] = useState(0);
   const currentModule = modules.find((m) => m.id === activeModule)!;
@@ -556,10 +554,10 @@ export function Modules() {
       <div className="max-w-5xl mx-auto">
         {/* Header */}
         <div className="text-center mb-10 md:mb-16">
-          <h2 className="font-[family-name:var(--font-heading)] text-[clamp(36px,6vw,72px)] font-bold dark:text-white light:text-[#010052] leading-tight mb-4 transition-colors duration-300">
+          <h2 className="font-[family-name:var(--font-heading)] text-[clamp(36px,6vw,72px)] font-bold text-white leading-tight mb-4">
             Tu ruta de aprendizaje
           </h2>
-          <p className="dark:text-[#B9B8EB]/60 light:text-[#3d3d6b]/70 text-xl md:text-2xl transition-colors duration-300">
+          <p className="text-[#B9B8EB]/60 text-xl md:text-2xl">
             9 módulos para dominar el ecosistema cripto
           </p>
         </div>
@@ -571,25 +569,25 @@ export function Modules() {
             onClick={goToPrev}
             disabled={activeModule === 1}
             className={cn(
-              "absolute left-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full dark:bg-[#1a1952] light:bg-white border dark:border-[#B9B8EB]/20 light:border-[#010052]/15 flex items-center justify-center transition-all",
+              "absolute left-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-[#1a1952] border border-[#B9B8EB]/20 flex items-center justify-center transition-all",
               activeModule === 1
                 ? "opacity-30 cursor-not-allowed"
                 : "hover:bg-[#4355d9] hover:border-[#4355d9]"
             )}
           >
-            <ChevronLeft className="w-5 h-5 dark:text-white light:text-[#010052]" />
+            <ChevronLeft className="w-5 h-5 text-white" />
           </button>
           <button
             onClick={goToNext}
             disabled={activeModule === modules.length}
             className={cn(
-              "absolute right-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full dark:bg-[#1a1952] light:bg-white border dark:border-[#B9B8EB]/20 light:border-[#010052]/15 flex items-center justify-center transition-all",
+              "absolute right-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-[#1a1952] border border-[#B9B8EB]/20 flex items-center justify-center transition-all",
               activeModule === modules.length
                 ? "opacity-30 cursor-not-allowed"
                 : "hover:bg-[#4355d9] hover:border-[#4355d9]"
             )}
           >
-            <ChevronRight className="w-5 h-5 dark:text-white light:text-[#010052]" />
+            <ChevronRight className="w-5 h-5 text-white" />
           </button>
 
           {/* Module pills */}
@@ -603,7 +601,7 @@ export function Modules() {
                     "relative px-4 md:px-5 py-2.5 md:py-3 rounded-full text-sm font-medium transition-all duration-300 whitespace-nowrap",
                     activeModule === module.id
                       ? "bg-[#4355d9] text-white shadow-lg shadow-[#4355d9]/30"
-                      : "dark:bg-[#1a1952] light:bg-white dark:text-[#B9B8EB]/50 light:text-[#3d3d6b]/60 dark:hover:text-[#B9B8EB] light:hover:text-[#010052] dark:hover:bg-[#252463] light:hover:bg-[#f5f3f0] border dark:border-[#B9B8EB]/10 light:border-[#010052]/10"
+                      : "bg-[#1a1952] text-[#B9B8EB]/50 hover:text-[#B9B8EB] hover:bg-[#252463] border border-[#B9B8EB]/10"
                   )}
                 >
                   <span className="relative z-10">{module.id}</span>
@@ -624,40 +622,34 @@ export function Modules() {
         <div className="relative">
           {/* Decorative glows */}
           <div
-            className="absolute pointer-events-none transition-opacity duration-300"
+            className="absolute pointer-events-none"
             style={{
               right: "-100px",
               top: "50%",
               transform: "translateY(-50%)",
               width: "400px",
               height: "400px",
-              background: theme === "light"
-                ? "radial-gradient(circle, rgba(58, 84, 248, 0.1) 0%, rgba(58, 84, 248, 0.03) 40%, transparent 70%)"
-                : "radial-gradient(circle, rgba(99, 102, 241, 0.3) 0%, rgba(99, 102, 241, 0.1) 40%, transparent 70%)",
+              background: "radial-gradient(circle, rgba(99, 102, 241, 0.3) 0%, rgba(99, 102, 241, 0.1) 40%, transparent 70%)",
               filter: "blur(60px)",
             }}
           />
           <div
-            className="absolute pointer-events-none transition-opacity duration-300"
+            className="absolute pointer-events-none"
             style={{
               left: "-100px",
               top: "30%",
               width: "300px",
               height: "300px",
-              background: theme === "light"
-                ? "radial-gradient(circle, rgba(1, 0, 82, 0.08) 0%, transparent 60%)"
-                : "radial-gradient(circle, rgba(67, 85, 217, 0.25) 0%, transparent 60%)",
+              background: "radial-gradient(circle, rgba(67, 85, 217, 0.25) 0%, transparent 60%)",
               filter: "blur(50px)",
             }}
           />
 
           {/* Card */}
           <div
-            className="relative rounded-2xl md:rounded-3xl border dark:border-[#B9B8EB]/15 light:border-[#010052]/10 overflow-hidden transition-all duration-300"
+            className="relative rounded-2xl md:rounded-3xl border border-[#B9B8EB]/15 overflow-hidden"
             style={{
-              background: theme === "light"
-                ? "linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(245, 243, 240, 0.9) 50%, rgba(255, 255, 255, 0.95) 100%)"
-                : "linear-gradient(135deg, rgba(67, 85, 217, 0.3) 0%, rgba(27, 26, 100, 0.5) 50%, rgba(1, 0, 82, 0.7) 100%)",
+              background: "linear-gradient(135deg, rgba(67, 85, 217, 0.3) 0%, rgba(27, 26, 100, 0.5) 50%, rgba(1, 0, 82, 0.7) 100%)",
             }}
           >
             <div className="relative p-6 md:p-12">
@@ -681,23 +673,20 @@ export function Modules() {
                             {String(activeModule).padStart(2, "0")}
                           </span>
                           <div
-                            className="absolute -inset-3 rounded-lg blur-xl -z-10 transition-colors duration-300"
+                            className="absolute -inset-3 rounded-lg blur-xl -z-10"
                             style={{
-                              background:
-                                theme === "light"
-                                  ? "linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(185, 184, 235, 0.1))"
-                                  : "linear-gradient(135deg, rgba(185, 184, 235, 0.2), rgba(99, 102, 241, 0.2))",
+                              background: "linear-gradient(135deg, rgba(185, 184, 235, 0.2), rgba(99, 102, 241, 0.2))",
                             }}
                           />
                         </div>
                         <div className="h-12 w-px bg-gradient-to-b from-transparent via-[#B9B8EB]/50 to-transparent" />
-                        <span className="text-xs font-medium uppercase tracking-wide dark:text-[#B9B8EB]/60 light:text-[#3d3d6b]/60 transition-colors duration-300">
+                        <span className="text-xs font-medium uppercase tracking-wide text-[#B9B8EB]/60">
                           Módulo
                         </span>
                       </div>
 
                       {/* Title */}
-                      <h3 className="font-[family-name:var(--font-heading)] text-xl md:text-[32px] font-bold dark:text-white light:text-[#010052] mb-3 leading-tight transition-colors duration-300">
+                      <h3 className="font-[family-name:var(--font-heading)] text-xl md:text-[32px] font-bold text-white mb-3 leading-tight">
                         {currentModule.title}
                       </h3>
 
@@ -712,18 +701,15 @@ export function Modules() {
                       <div className="relative w-[140px] h-[140px] md:w-[180px] md:h-[180px]">
                         {/* Glow effect */}
                         <div
-                          className="absolute inset-0 rounded-full blur-2xl transition-colors duration-300"
+                          className="absolute inset-0 rounded-full blur-2xl"
                           style={{
-                            background:
-                              theme === "light"
-                                ? "linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(185, 184, 235, 0.15))"
-                                : "linear-gradient(135deg, rgba(99, 102, 241, 0.4), rgba(185, 184, 235, 0.3))",
+                            background: "linear-gradient(135deg, rgba(99, 102, 241, 0.4), rgba(185, 184, 235, 0.3))",
                           }}
                         />
 
                         {/* Border gradient */}
                         <div className="absolute inset-0 rounded-full bg-gradient-to-br from-[#B9B8EB]/40 via-[#6366f1]/30 to-transparent p-[2px]">
-                          <div className="w-full h-full rounded-full dark:bg-[#010052]/80 light:bg-white/80 backdrop-blur-sm overflow-hidden transition-colors duration-300 flex items-center justify-center p-6 md:p-8">
+                          <div className="w-full h-full rounded-full bg-[#010052]/80 backdrop-blur-sm overflow-hidden flex items-center justify-center p-6 md:p-8">
                             <AnimatePresence mode="wait">
                               <motion.div
                                 key={activeModule}
@@ -743,20 +729,20 @@ export function Modules() {
                   </div>
 
                   {/* Description */}
-                  <p className="dark:text-[#B9B8EB]/70 light:text-[#3d3d6b] leading-relaxed text-sm md:text-base transition-colors duration-300 mb-6">
+                  <p className="text-[#B9B8EB]/70 leading-relaxed text-sm md:text-base mb-6">
                     {currentModule.description}
                   </p>
 
                   {/* Progress tags */}
                   <div className="flex items-center gap-2 flex-wrap">
                     <div className="px-3 py-1.5 rounded-full bg-[#6366f1]/15 border border-[#6366f1]/30">
-                      <span className="text-xs font-medium dark:text-[#B9B8EB] light:text-[#4355d9] transition-colors duration-300">
+                      <span className="text-xs font-medium text-[#B9B8EB]">
                         Módulo {activeModule}/{modules.length}
                       </span>
                     </div>
-                    <div className="w-1 h-1 rounded-full dark:bg-[#B9B8EB]/30 light:bg-[#010052]/20" />
+                    <div className="w-1 h-1 rounded-full bg-[#B9B8EB]/30" />
                     {/* Mini progress bar */}
-                    <div className="flex-1 min-w-[120px] h-2 dark:bg-[#B9B8EB]/10 light:bg-[#010052]/10 rounded-full overflow-hidden transition-colors duration-300">
+                    <div className="flex-1 min-w-[120px] h-2 bg-[#B9B8EB]/10 rounded-full overflow-hidden">
                       <motion.div
                         className="h-full bg-gradient-to-r from-[#B9B8EB] to-[#6366f1]"
                         initial={{ width: 0 }}
@@ -769,15 +755,15 @@ export function Modules() {
               </AnimatePresence>
 
               {/* Navigation */}
-              <div className="flex items-center justify-between mt-8 pt-6 border-t dark:border-[#B9B8EB]/10 light:border-[#010052]/10 transition-colors duration-300">
+              <div className="flex items-center justify-between mt-8 pt-6 border-t border-[#B9B8EB]/10">
                 <button
                   onClick={goToPrev}
                   disabled={activeModule === 1}
                   className={cn(
                     "flex items-center gap-2 text-sm transition-colors",
                     activeModule === 1
-                      ? "dark:text-[#B9B8EB]/20 light:text-[#010052]/20 cursor-not-allowed"
-                      : "dark:text-[#B9B8EB]/50 light:text-[#3d3d6b]/60 dark:hover:text-white light:hover:text-[#010052]"
+                      ? "text-[#B9B8EB]/20 cursor-not-allowed"
+                      : "text-[#B9B8EB]/50 hover:text-white"
                   )}
                 >
                   <ChevronLeft className="w-4 h-4" />
@@ -796,7 +782,7 @@ export function Modules() {
                           ? "bg-gradient-to-r from-[#B9B8EB] to-[#6366f1] shadow-[0_0_8px_rgba(99,102,241,0.6)]"
                           : module.id < activeModule
                             ? "bg-[#6366f1]/40"
-                            : "dark:bg-[#B9B8EB]/15 light:bg-[#010052]/15"
+                            : "bg-[#B9B8EB]/15"
                       )}
                       animate={{
                         width: activeModule === module.id ? 32 : 8,
@@ -812,8 +798,8 @@ export function Modules() {
                   className={cn(
                     "flex items-center gap-2 text-sm transition-colors",
                     activeModule === modules.length
-                      ? "dark:text-[#B9B8EB]/20 light:text-[#010052]/20 cursor-not-allowed"
-                      : "dark:text-[#B9B8EB]/50 light:text-[#3d3d6b]/60 dark:hover:text-white light:hover:text-[#010052]"
+                      ? "text-[#B9B8EB]/20 cursor-not-allowed"
+                      : "text-[#B9B8EB]/50 hover:text-white"
                   )}
                 >
                   <span className="hidden md:inline">Siguiente</span>

@@ -1,8 +1,5 @@
-"use client";
-
 import Image from "next/image";
 import { MessageSquare, Star } from "lucide-react";
-import { useTheme } from "@/components/providers/ThemeProvider";
 
 const miniQuotes = [
   "Ahora las inversiones hacen lo suyo mientras duermo tranquilo",
@@ -40,28 +37,20 @@ const featured: FeaturedTestimonial = {
   ],
 };
 
-function MiniQuoteCard({ quote, theme }: { quote: string; theme: "dark" | "light" }) {
+function MiniQuoteCard({ quote }: { quote: string }) {
   return (
     <div
-      className="rounded-[16px] p-5 transition-all duration-300"
+      className="rounded-[16px] p-5"
       style={{
-        background:
-          theme === "light"
-            ? "rgba(255, 255, 255, 0.9)"
-            : "rgba(27, 26, 100, 0.6)",
-        border:
-          theme === "light"
-            ? "1px solid rgba(1, 0, 82, 0.1)"
-            : "1px solid rgba(255, 255, 255, 0.1)",
-        boxShadow:
-          theme === "light" ? "0 2px 12px rgba(1, 0, 82, 0.05)" : "none",
+        background: "rgba(27, 26, 100, 0.6)",
+        border: "1px solid rgba(255, 255, 255, 0.1)",
       }}
     >
       <MessageSquare
-        className="mb-3 dark:text-[#B9B8EB]/60 light:text-[#3a54f8]/60 transition-colors duration-300"
+        className="mb-3 text-[#B9B8EB]/60"
         size={20}
       />
-      <p className="dark:text-[#cccce0] light:text-[#3d3d6b] text-sm leading-relaxed transition-colors duration-300">
+      <p className="text-[#cccce0] text-sm leading-relaxed">
         &ldquo;{quote}&rdquo;
       </p>
     </div>
@@ -87,7 +76,7 @@ function renderParagraph(paragraph: { text: string; bold?: boolean }, index: num
     return (
       <p
         key={index}
-        className="dark:text-[#cccce0]/80 light:text-[#3d3d6b] text-sm md:text-base leading-relaxed transition-colors duration-300"
+        className="text-[#cccce0]/80 text-sm md:text-base leading-relaxed"
       >
         {paragraph.text}
       </p>
@@ -99,12 +88,12 @@ function renderParagraph(paragraph: { text: string; bold?: boolean }, index: num
   return (
     <p
       key={index}
-      className="dark:text-[#cccce0]/80 light:text-[#3d3d6b] text-sm md:text-base leading-relaxed transition-colors duration-300"
+      className="text-[#cccce0]/80 text-sm md:text-base leading-relaxed"
     >
       {parts.map((part, i) => {
         if (part.startsWith("**") && part.endsWith("**")) {
           return (
-            <strong key={i} className="dark:text-white light:text-[#010052] font-bold">
+            <strong key={i} className="text-white font-bold">
               {part.slice(2, -2)}
             </strong>
           );
@@ -116,23 +105,18 @@ function renderParagraph(paragraph: { text: string; bold?: boolean }, index: num
 }
 
 export function FeaturedTestimonials() {
-  const { theme } = useTheme();
-
   return (
     <section className="relative py-16 md:py-[100px] px-4 md:px-6 overflow-hidden">
       <div className="max-w-5xl mx-auto relative z-10">
         {/* Section Header */}
         <div className="text-center mb-10 md:mb-14">
-          <h2 className="font-[family-name:var(--font-heading)] text-[clamp(28px,5vw,56px)] font-bold dark:text-white light:text-[#010052] uppercase tracking-wide leading-tight transition-colors duration-300">
+          <h2 className="font-[family-name:var(--font-heading)] text-[clamp(28px,5vw,56px)] font-bold text-white uppercase tracking-wide leading-tight">
             Lo que dicen nuestros alumnos
           </h2>
           <div
-            className="mx-auto mt-3 h-[3px] w-24 rounded-full transition-colors duration-300"
+            className="mx-auto mt-3 h-[3px] w-24 rounded-full"
             style={{
-              background:
-                theme === "light"
-                  ? "linear-gradient(90deg, #3a54f8, #010052)"
-                  : "linear-gradient(90deg, #B9B8EB, #3a54f8)",
+              background: "linear-gradient(90deg, #B9B8EB, #3a54f8)",
             }}
           />
         </div>
@@ -140,26 +124,16 @@ export function FeaturedTestimonials() {
         {/* Mini Quote Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
           {miniQuotes.map((quote, i) => (
-            <MiniQuoteCard key={i} quote={quote} theme={theme} />
+            <MiniQuoteCard key={i} quote={quote} />
           ))}
         </div>
 
         {/* Featured Testimonial */}
         <div
-          className="rounded-[20px] p-6 md:p-8 transition-all duration-300"
+          className="rounded-[20px] p-6 md:p-8"
           style={{
-            background:
-              theme === "light"
-                ? "rgba(255, 255, 255, 0.95)"
-                : "rgba(27, 26, 100, 0.5)",
-            border:
-              theme === "light"
-                ? "1px solid rgba(1, 0, 82, 0.1)"
-                : "1px solid rgba(255, 255, 255, 0.1)",
-            boxShadow:
-              theme === "light"
-                ? "0 4px 24px rgba(1, 0, 82, 0.06)"
-                : "none",
+            background: "rgba(27, 26, 100, 0.5)",
+            border: "1px solid rgba(255, 255, 255, 0.1)",
           }}
         >
           {/* Author header */}
@@ -172,7 +146,7 @@ export function FeaturedTestimonials() {
               className="w-14 h-14 rounded-full object-cover"
             />
             <div>
-              <h4 className="dark:text-white light:text-[#010052] font-semibold text-lg italic transition-colors duration-300">
+              <h4 className="text-white font-semibold text-lg italic">
                 {featured.name}, {featured.age} años
               </h4>
               <StarRating count={featured.rating} />
@@ -181,12 +155,9 @@ export function FeaturedTestimonials() {
 
           {/* Testimonial paragraphs with left accent border */}
           <div
-            className="pl-5 flex flex-col gap-4 transition-colors duration-300"
+            className="pl-5 flex flex-col gap-4"
             style={{
-              borderLeft:
-                theme === "light"
-                  ? "3px solid rgba(58, 84, 248, 0.3)"
-                  : "3px solid rgba(185, 184, 235, 0.25)",
+              borderLeft: "3px solid rgba(185, 184, 235, 0.25)",
             }}
           >
             {featured.paragraphs.map((p, i) => renderParagraph(p, i))}

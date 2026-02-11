@@ -9,7 +9,6 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { trackEvent } from "@/lib/analytics";
-import { useTheme } from "@/components/providers/ThemeProvider";
 
 const faqs = [
   {
@@ -54,7 +53,7 @@ const faqs = [
   },
 ];
 
-function CustomArrowIcon({ className, theme }: { className?: string; theme: "dark" | "light" }) {
+function CustomArrowIcon({ className }: { className?: string }) {
   return (
     <svg
       width="22"
@@ -66,7 +65,7 @@ function CustomArrowIcon({ className, theme }: { className?: string; theme: "dar
     >
       <path
         d="M20.3871 14.3825L18.785 5.71902M20.3871 14.3825L11.5591 15.9547M20.3871 14.3825L1.61295 1.61824"
-        stroke={theme === "light" ? "#010052" : "white"}
+        stroke="white"
         strokeWidth="2.5"
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -76,8 +75,6 @@ function CustomArrowIcon({ className, theme }: { className?: string; theme: "dar
 }
 
 export function FAQ() {
-  const { theme } = useTheme();
-  
   const handleAccordionChange = (value: string) => {
     if (value) {
       const index = parseInt(value.replace("item-", ""));
@@ -98,7 +95,7 @@ export function FAQ() {
             <Badge variant="section" className="mb-3 md:mb-4">
               FAQs
             </Badge>
-            <h2 className="font-[family-name:var(--font-heading)] text-[clamp(36px,6vw,72px)] font-bold dark:text-white light:text-[#010052] leading-tight transition-colors duration-300">
+            <h2 className="font-[family-name:var(--font-heading)] text-[clamp(36px,6vw,72px)] font-bold text-white leading-tight transition-colors duration-300">
               Preguntas que consideramos relevantes
             </h2>
           </div>
@@ -116,7 +113,7 @@ export function FAQ() {
                 key={i}
                 value={`item-${i}`}
                 className={cn(
-                  "dark:border-white/50 light:border-[#010052]/20 border-b transition-colors duration-300",
+                  "border-white/50 border-b transition-colors duration-300",
                   i === faqs.length - 1 && "border-b-0"
                 )}
               >
@@ -128,8 +125,8 @@ export function FAQ() {
                 >
                   <span
                     className={cn(
-                      "dark:text-white light:text-[#010052] font-bold text-base md:text-lg transition-colors duration-300",
-                      "dark:group-hover:text-[#B9B8EB] light:group-hover:text-[#3a54f8]"
+                      "text-white font-bold text-base md:text-lg transition-colors duration-300",
+                      "group-hover:text-[#B9B8EB]"
                     )}
                   >
                     {faq.question}
@@ -141,11 +138,11 @@ export function FAQ() {
                       "group-data-[state=open]:-rotate-[70deg]"
                     )}
                   >
-                    <CustomArrowIcon theme={theme} />
+                    <CustomArrowIcon />
                   </div>
                 </AccordionTrigger>
                 <AccordionContent className="pb-7">
-                  <p className="dark:text-[#B9B8EB]/80 light:text-[#3d3d6b] text-sm md:text-base leading-relaxed pr-10 transition-colors duration-300">
+                  <p className="text-[#B9B8EB]/80 text-sm md:text-base leading-relaxed pr-10 transition-colors duration-300">
                     {faq.answer}
                   </p>
                 </AccordionContent>

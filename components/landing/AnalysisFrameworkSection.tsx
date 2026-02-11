@@ -1,6 +1,3 @@
-"use client";
-
-import { useTheme } from "@/components/providers/ThemeProvider";
 import {
   BarChart3,
   Globe,
@@ -28,7 +25,6 @@ const analysisLayers = [
     tags: ["Product-Market Fit", "Revenue Real", "Captura de Valor"],
     accent: {
       color: "#3a54f8",
-      bg: "rgba(58, 84, 248, 0.1)",
       bgDark: "rgba(58, 84, 248, 0.2)",
       gradient: "from-[#3a54f8] to-[#657ef3]",
     },
@@ -43,7 +39,6 @@ const analysisLayers = [
     tags: ["Liquidez M2", "Flujos ETF", "Tipos Fed", "Déficit Fiscal"],
     accent: {
       color: "#50d98a",
-      bg: "rgba(80, 217, 138, 0.1)",
       bgDark: "rgba(80, 217, 138, 0.15)",
       gradient: "from-[#50d98a] to-[#68fe9a]",
     },
@@ -58,7 +53,6 @@ const analysisLayers = [
     tags: ["Exchange Reserves", "NUPL", "Netflows", "Whale Activity"],
     accent: {
       color: "#fb923c",
-      bg: "rgba(251, 146, 60, 0.1)",
       bgDark: "rgba(251, 146, 60, 0.15)",
       gradient: "from-[#fb923c] to-[#fdba74]",
     },
@@ -74,7 +68,6 @@ const analysisLayers = [
     tags: [],
     accent: {
       color: "#fbbf24",
-      bg: "rgba(251, 191, 36, 0.1)",
       bgDark: "rgba(251, 191, 36, 0.15)",
       gradient: "from-[#fbbf24] to-[#fcd34d]",
     },
@@ -122,8 +115,6 @@ const principles = [
 ];
 
 export function AnalysisFrameworkSection() {
-  const { theme } = useTheme();
-
   return (
     <section className="relative py-16 md:py-24 px-4 md:px-6">
       {/* Background decorative elements */}
@@ -134,10 +125,7 @@ export function AnalysisFrameworkSection() {
           left: "5%",
           width: "500px",
           height: "500px",
-          background:
-            theme === "light"
-              ? "radial-gradient(circle, rgba(58, 84, 248, 0.08) 0%, transparent 70%)"
-              : "radial-gradient(circle, rgba(58, 84, 248, 0.15) 0%, transparent 70%)",
+          background: "radial-gradient(circle, rgba(58, 84, 248, 0.15) 0%, transparent 70%)",
           filter: "blur(80px)",
         }}
       />
@@ -148,10 +136,7 @@ export function AnalysisFrameworkSection() {
           right: "10%",
           width: "400px",
           height: "400px",
-          background:
-            theme === "light"
-              ? "radial-gradient(circle, rgba(80, 217, 138, 0.06) 0%, transparent 70%)"
-              : "radial-gradient(circle, rgba(80, 217, 138, 0.1) 0%, transparent 70%)",
+          background: "radial-gradient(circle, rgba(80, 217, 138, 0.1) 0%, transparent 70%)",
           filter: "blur(60px)",
         }}
       />
@@ -159,10 +144,10 @@ export function AnalysisFrameworkSection() {
       <div className="max-w-6xl mx-auto relative z-10">
         {/* Section Header */}
         <div className="text-center mb-12 md:mb-16">
-          <h2 className="font-[family-name:var(--font-heading)] text-[clamp(36px,6vw,72px)] font-bold dark:text-white light:text-[#010052] mb-4 leading-[1.1] transition-colors duration-300">
+          <h2 className="font-[family-name:var(--font-heading)] text-[clamp(36px,6vw,72px)] font-bold text-white mb-4 leading-[1.1] transition-colors duration-300">
             Sistema Medusa
           </h2>
-          <p className="dark:text-[#cccce0] light:text-[#3d3d6b] text-base md:text-lg leading-relaxed max-w-3xl mx-auto transition-colors duration-300">
+          <p className="text-[#cccce0] text-base md:text-lg leading-relaxed max-w-3xl mx-auto transition-colors duration-300">
             La estrategia consiste en identificar proyectos con Product-Market Fit,
             generación real de ingresos y mecanismos sólidos de captura de valor
             para el token. Esa es la base que marcará la diferencia en los próximos
@@ -186,11 +171,7 @@ export function AnalysisFrameworkSection() {
               const Icon = layer.icon;
               return (
                 <div
-                  className={`relative rounded-[20px] p-6 md:p-8 flex flex-col transition-all duration-300 overflow-hidden group ${
-                    theme === "light"
-                      ? "bg-gradient-to-br from-[#3a54f8]/[0.08] to-[#3a54f8]/[0.03] border border-[#3a54f8]/20"
-                      : "bg-gradient-to-br from-[#3a54f8]/20 to-[#1b1a64]/80 border border-[#3a54f8]/25"
-                  }`}
+                  className="relative rounded-[20px] p-6 md:p-8 flex flex-col transition-all duration-300 overflow-hidden group bg-gradient-to-br from-[#3a54f8]/20 to-[#1b1a64]/80 border border-[#3a54f8]/25"
                 >
                   {/* Subtle glow */}
                   <div
@@ -217,10 +198,7 @@ export function AnalysisFrameworkSection() {
                       <div
                         className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
                         style={{
-                          background:
-                            theme === "light"
-                              ? layer.accent.bg
-                              : layer.accent.bgDark,
+                          background: layer.accent.bgDark,
                         }}
                       >
                         <Icon
@@ -230,9 +208,7 @@ export function AnalysisFrameworkSection() {
                         />
                       </div>
                       <h3
-                        className={`font-[family-name:var(--font-heading)] text-2xl md:text-3xl font-bold leading-tight transition-colors duration-300 ${
-                          theme === "light" ? "text-[#010052]" : "text-white"
-                        }`}
+                        className="font-[family-name:var(--font-heading)] text-2xl md:text-3xl font-bold leading-tight transition-colors duration-300 text-white"
                       >
                         {layer.title}
                       </h3>
@@ -240,9 +216,7 @@ export function AnalysisFrameworkSection() {
 
                     {/* Description */}
                     <p
-                      className={`text-base md:text-lg leading-relaxed mb-4 max-w-md transition-colors duration-300 ${
-                        theme === "light" ? "text-[#3d3d6b]" : "text-[#cccce0]"
-                      }`}
+                      className="text-base md:text-lg leading-relaxed mb-4 max-w-md transition-colors duration-300 text-[#cccce0]"
                     >
                       {layer.description}
                     </p>
@@ -252,11 +226,7 @@ export function AnalysisFrameworkSection() {
                       {layer.tags.map((tag) => (
                         <span
                           key={tag}
-                          className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-300 ${
-                            theme === "light"
-                              ? "bg-[#3a54f8]/10 text-[#3a54f8] border border-[#3a54f8]/20"
-                              : "bg-[#3a54f8]/20 text-white/90 border border-[#3a54f8]/30"
-                          }`}
+                          className="px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-300 bg-[#3a54f8]/20 text-white/90 border border-[#3a54f8]/30"
                         >
                           {tag}
                         </span>
@@ -275,11 +245,7 @@ export function AnalysisFrameworkSection() {
                 const Icon = layer.icon;
                 return (
                   <div
-                    className={`relative rounded-[20px] p-5 md:p-6 flex flex-col transition-all duration-300 overflow-hidden group ${
-                      theme === "light"
-                        ? "bg-gradient-to-br from-[#50d98a]/[0.08] to-[#50d98a]/[0.02] border border-[#50d98a]/20"
-                        : "bg-gradient-to-br from-[#50d98a]/15 to-[#1b1a64]/60 border border-[#50d98a]/20"
-                    }`}
+                    className="relative rounded-[20px] p-5 md:p-6 flex flex-col transition-all duration-300 overflow-hidden group bg-gradient-to-br from-[#50d98a]/15 to-[#1b1a64]/60 border border-[#50d98a]/20"
                   >
                     <div className="relative z-10 flex flex-col h-full">
                       {/* Weight */}
@@ -294,10 +260,7 @@ export function AnalysisFrameworkSection() {
                           <div
                             className="w-8 h-8 rounded-lg flex items-center justify-center"
                             style={{
-                              background:
-                                theme === "light"
-                                  ? layer.accent.bg
-                                  : layer.accent.bgDark,
+                              background: layer.accent.bgDark,
                             }}
                           >
                             <Icon
@@ -307,9 +270,7 @@ export function AnalysisFrameworkSection() {
                             />
                           </div>
                           <h3
-                            className={`font-[family-name:var(--font-heading)] text-xl md:text-2xl font-bold leading-tight transition-colors duration-300 ${
-                              theme === "light" ? "text-[#010052]" : "text-white"
-                            }`}
+                            className="font-[family-name:var(--font-heading)] text-xl md:text-2xl font-bold leading-tight transition-colors duration-300 text-white"
                           >
                             {layer.title}
                           </h3>
@@ -318,11 +279,7 @@ export function AnalysisFrameworkSection() {
 
                       {/* Description */}
                       <p
-                        className={`text-sm leading-relaxed mb-3 transition-colors duration-300 ${
-                          theme === "light"
-                            ? "text-[#3d3d6b]"
-                            : "text-[#cccce0]/90"
-                        }`}
+                        className="text-sm leading-relaxed mb-3 transition-colors duration-300 text-[#cccce0]/90"
                       >
                         {layer.description}
                       </p>
@@ -332,11 +289,7 @@ export function AnalysisFrameworkSection() {
                         {layer.tags.map((tag) => (
                           <span
                             key={tag}
-                            className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors duration-300 ${
-                              theme === "light"
-                                ? "bg-[#50d98a]/10 text-[#2d8a5a] border border-[#50d98a]/20"
-                                : "bg-[#50d98a]/15 text-white/90 border border-[#50d98a]/25"
-                            }`}
+                            className="px-3 py-1.5 rounded-full text-xs font-medium transition-colors duration-300 bg-[#50d98a]/15 text-white/90 border border-[#50d98a]/25"
                           >
                             {tag}
                           </span>
@@ -355,11 +308,7 @@ export function AnalysisFrameworkSection() {
                   const Icon = layer.icon;
                   return (
                     <div
-                      className={`relative rounded-[16px] p-4 md:p-5 flex flex-col transition-all duration-300 overflow-hidden ${
-                        theme === "light"
-                          ? "bg-gradient-to-br from-[#fb923c]/[0.08] to-[#fb923c]/[0.02] border border-[#fb923c]/20"
-                          : "bg-gradient-to-br from-[#fb923c]/10 to-[#1b1a64]/40 border border-[#fb923c]/15"
-                      }`}
+                      className="relative rounded-[16px] p-4 md:p-5 flex flex-col transition-all duration-300 overflow-hidden bg-gradient-to-br from-[#fb923c]/10 to-[#1b1a64]/40 border border-[#fb923c]/15"
                     >
                       <div className="relative z-10 flex flex-col h-full">
                         {/* Weight + Title */}
@@ -373,11 +322,7 @@ export function AnalysisFrameworkSection() {
                               strokeWidth={1.5}
                             />
                             <h4
-                              className={`font-[family-name:var(--font-heading)] font-bold text-base md:text-lg leading-tight transition-colors duration-300 ${
-                                theme === "light"
-                                  ? "text-[#010052]"
-                                  : "text-white"
-                              }`}
+                              className="font-[family-name:var(--font-heading)] font-bold text-base md:text-lg leading-tight transition-colors duration-300 text-white"
                             >
                               {layer.title}
                             </h4>
@@ -386,11 +331,7 @@ export function AnalysisFrameworkSection() {
 
                         {/* Description */}
                         <p
-                          className={`text-xs leading-relaxed mb-3 transition-colors duration-300 ${
-                            theme === "light"
-                              ? "text-[#3d3d6b]"
-                              : "text-[#cccce0]/80"
-                          }`}
+                          className="text-xs leading-relaxed mb-3 transition-colors duration-300 text-[#cccce0]/80"
                         >
                           {layer.description}
                         </p>
@@ -400,11 +341,7 @@ export function AnalysisFrameworkSection() {
                           {layer.tags.slice(0, 3).map((tag) => (
                             <span
                               key={tag}
-                              className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors duration-300 ${
-                                theme === "light"
-                                  ? "bg-[#fb923c]/10 text-[#c26a1a] border border-[#fb923c]/20"
-                                  : "bg-[#fb923c]/15 text-white/90 border border-[#fb923c]/25"
-                              }`}
+                              className="px-3 py-1.5 rounded-full text-xs font-medium transition-colors duration-300 bg-[#fb923c]/15 text-white/90 border border-[#fb923c]/25"
                             >
                               {tag}
                             </span>
@@ -421,11 +358,7 @@ export function AnalysisFrameworkSection() {
                   const Icon = layer.icon;
                   return (
                     <div
-                      className={`relative rounded-[16px] p-4 md:p-5 flex flex-col transition-all duration-300 overflow-hidden ${
-                        theme === "light"
-                          ? "bg-gradient-to-br from-[#fbbf24]/[0.08] to-[#fbbf24]/[0.02] border border-[#fbbf24]/20"
-                          : "bg-gradient-to-br from-[#fbbf24]/10 to-[#1b1a64]/40 border border-[#fbbf24]/15"
-                      }`}
+                      className="relative rounded-[16px] p-4 md:p-5 flex flex-col transition-all duration-300 overflow-hidden bg-gradient-to-br from-[#fbbf24]/10 to-[#1b1a64]/40 border border-[#fbbf24]/15"
                     >
                       <div className="relative z-10 flex flex-col h-full">
                         {/* Weight + Title */}
@@ -439,11 +372,7 @@ export function AnalysisFrameworkSection() {
                               strokeWidth={1.5}
                             />
                             <h4
-                              className={`font-[family-name:var(--font-heading)] font-bold text-base md:text-lg leading-tight transition-colors duration-300 ${
-                                theme === "light"
-                                  ? "text-[#010052]"
-                                  : "text-white"
-                              }`}
+                              className="font-[family-name:var(--font-heading)] font-bold text-base md:text-lg leading-tight transition-colors duration-300 text-white"
                             >
                               {layer.title}
                             </h4>
@@ -452,11 +381,7 @@ export function AnalysisFrameworkSection() {
 
                         {/* Description */}
                         <p
-                          className={`text-xs leading-relaxed mb-3 transition-colors duration-300 ${
-                            theme === "light"
-                              ? "text-[#3d3d6b]"
-                              : "text-[#cccce0]/80"
-                          }`}
+                          className="text-xs leading-relaxed mb-3 transition-colors duration-300 text-[#cccce0]/80"
                         >
                           {layer.description}
                         </p>
@@ -464,11 +389,7 @@ export function AnalysisFrameworkSection() {
                         {/* Subtitle as tag */}
                         <div className="mt-auto flex flex-wrap gap-2">
                           <span
-                            className={`px-3 py-1.5 rounded-full text-xs font-medium ${
-                              theme === "light"
-                                ? "bg-[#fbbf24]/10 text-[#a16207] border border-[#fbbf24]/20"
-                                : "bg-[#fbbf24]/15 text-white/90 border border-[#fbbf24]/25"
-                            }`}
+                            className="px-3 py-1.5 rounded-full text-xs font-medium bg-[#fbbf24]/15 text-white/90 border border-[#fbbf24]/25"
                           >
                             Complementario
                           </span>
@@ -485,7 +406,7 @@ export function AnalysisFrameworkSection() {
         {/* Principles Section */}
         <div>
           <div className="text-center mb-8 md:mb-10">
-            <h3 className="font-[family-name:var(--font-heading)] text-3xl md:text-4xl font-bold dark:text-white light:text-[#010052] mb-3 leading-tight transition-colors duration-300">
+            <h3 className="font-[family-name:var(--font-heading)] text-3xl md:text-4xl font-bold text-white mb-3 leading-tight transition-colors duration-300">
               Los principios que guían cada decisión
             </h3>
           </div>
@@ -496,19 +417,13 @@ export function AnalysisFrameworkSection() {
               return (
                 <div
                   key={index}
-                  className={`relative rounded-[20px] p-6 md:p-7 transition-all duration-[400ms] ease-[cubic-bezier(0.2,0,0,1)] group hover:-translate-y-1.5 overflow-hidden ${
-                    theme === "light"
-                      ? "bg-white/90 border border-[#010052]/10 shadow-[0_4px_20px_rgba(1,0,82,0.06)] hover:shadow-[0_20px_40px_rgba(1,0,82,0.12)]"
-                      : "bg-gradient-to-br from-[#1b1a64]/70 to-[#1b1a64]/40 border border-[#B9B8EB]/12 hover:border-[#B9B8EB]/25"
-                  }`}
+                  className="relative rounded-[20px] p-6 md:p-7 transition-all duration-[400ms] ease-[cubic-bezier(0.2,0,0,1)] group hover:-translate-y-1.5 overflow-hidden bg-gradient-to-br from-[#1b1a64]/70 to-[#1b1a64]/40 border border-[#B9B8EB]/12 hover:border-[#B9B8EB]/25"
                 >
                   {/* Subtle corner glow on hover */}
                   <div
                     className="absolute -top-12 -right-12 w-32 h-32 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
                     style={{
-                      background: theme === "light"
-                        ? "radial-gradient(circle, rgba(58, 84, 248, 0.12), transparent 70%)"
-                        : "radial-gradient(circle, rgba(185, 184, 235, 0.15), transparent 70%)",
+                      background: "radial-gradient(circle, rgba(185, 184, 235, 0.15), transparent 70%)",
                       filter: "blur(20px)",
                     }}
                   />
@@ -516,49 +431,31 @@ export function AnalysisFrameworkSection() {
                   <div className="relative z-10">
                     {/* Icon */}
                     <div
-                      className={`w-12 h-12 rounded-xl flex items-center justify-center mb-5 transition-transform duration-300 group-hover:scale-110 ${
-                        theme === "light"
-                          ? "bg-[#3a54f8]/10 ring-1 ring-[#3a54f8]/15"
-                          : "bg-[#B9B8EB]/10 ring-1 ring-[#B9B8EB]/15"
-                      }`}
+                      className="w-12 h-12 rounded-xl flex items-center justify-center mb-5 transition-transform duration-300 group-hover:scale-110 bg-[#B9B8EB]/10 ring-1 ring-[#B9B8EB]/15"
                     >
                       <Icon
-                        className={`w-5 h-5 ${
-                          theme === "light"
-                            ? "text-[#3a54f8]"
-                            : "text-[#B9B8EB]"
-                        }`}
+                        className="w-5 h-5 text-[#B9B8EB]"
                         strokeWidth={1.5}
                       />
                     </div>
 
                     {/* Title */}
                     <h4
-                      className={`font-bold text-lg mb-3 transition-colors duration-300 ${
-                        theme === "light" ? "text-[#010052]" : "text-white"
-                      }`}
+                      className="font-bold text-lg mb-3 transition-colors duration-300 text-white"
                     >
                       {principle.title}
                     </h4>
 
                     {/* Quote */}
                     <p
-                      className={`text-[15px] leading-relaxed mb-4 transition-colors duration-300 ${
-                        theme === "light"
-                          ? "text-[#3d3d6b]"
-                          : "text-[#cccce0]"
-                      }`}
+                      className="text-[15px] leading-relaxed mb-4 transition-colors duration-300 text-[#cccce0]"
                     >
                       &ldquo;{principle.quote}&rdquo;
                     </p>
 
                     {/* Detail — as a subtle footnote */}
                     <p
-                      className={`text-sm leading-relaxed pt-3 transition-colors duration-300 ${
-                        theme === "light"
-                          ? "text-[#3a54f8]/70 border-t border-[#010052]/8"
-                          : "text-[#B9B8EB]/60 border-t border-white/8"
-                      }`}
+                      className="text-sm leading-relaxed pt-3 transition-colors duration-300 text-[#B9B8EB]/60 border-t border-white/8"
                     >
                       {principle.detail}
                     </p>
@@ -580,11 +477,9 @@ export function AnalysisFrameworkSection() {
             Descargar framework completo (PDF gratis)
           </Button>
           <p
-            className={`text-sm mt-4 transition-colors duration-300 ${
-              theme === "light" ? "text-[#6b6b9e]" : "text-[#B9B8EB]/60"
-            }`}
+            className="text-sm mt-4 transition-colors duration-300 text-[#B9B8EB]/60"
           >
-            54 páginas • Casos de estudio • Checklists • Templates
+            54 páginas - Casos de estudio - Checklists - Templates
           </p>
         </div>
       </div>

@@ -8,7 +8,6 @@ import { Footer } from "@/components/landing/Footer";
 import { PageBackground } from "@/components/landing/PageBackground";
 import { PageCTA } from "@/components/landing/PageCTA";
 import { Badge } from "@/components/ui/badge";
-import { useTheme } from "@/components/providers/ThemeProvider";
 import {
   TrackRecordCarousel,
   ROICalculator,
@@ -16,7 +15,6 @@ import {
 } from "@/components/landing/track-record";
 
 export default function TrackRecordPage() {
-  const { theme } = useTheme();
   const [visibleStats, setVisibleStats] = useState(false);
 
   useEffect(() => {
@@ -78,13 +76,13 @@ export default function TrackRecordPage() {
             >
               <h1
                 className="font-[family-name:var(--font-heading)] text-[clamp(40px,6vw,72px)] font-bold leading-[1.1] mb-4"
-                style={{ color: theme === "light" ? "#010052" : "#ffffff" }}
+                style={{ color: "#ffffff" }}
               >
                 No vendemos humo.
                 <br />
                 <span
                   style={{
-                    color: theme === "light" ? "#3a54f8" : "#b9b8eb",
+                    color: "#b9b8eb",
                   }}
                 >
                   Mostramos resultados
@@ -93,10 +91,7 @@ export default function TrackRecordPage() {
               <p
                 className="text-lg md:text-xl leading-relaxed max-w-[700px] mx-auto"
                 style={{
-                  color:
-                    theme === "light"
-                      ? "rgba(1, 0, 82, 0.7)"
-                      : "rgba(204, 204, 224, 0.7)",
+                  color: "rgba(204, 204, 224, 0.7)",
                 }}
               >
                 Cada tesis de inversión está documentada con capturas, fechas y
@@ -121,14 +116,8 @@ export default function TrackRecordPage() {
                   }}
                   className="relative backdrop-blur-md rounded-3xl p-8 border transition-all duration-300 hover:scale-[1.02]"
                   style={{
-                    background:
-                      theme === "light"
-                        ? "rgba(255, 255, 255, 0.9)"
-                        : "rgba(27, 26, 100, 0.4)",
-                    borderColor:
-                      theme === "light"
-                        ? "rgba(1, 0, 82, 0.12)"
-                        : "rgba(185, 184, 235, 0.2)",
+                    background: "rgba(27, 26, 100, 0.4)",
+                    borderColor: "rgba(185, 184, 235, 0.2)",
                   }}
                 >
                   {/* Gradient overlay */}
@@ -136,19 +125,14 @@ export default function TrackRecordPage() {
                     className="absolute inset-0 rounded-3xl pointer-events-none"
                     style={{
                       background:
-                        theme === "light"
-                          ? "linear-gradient(to bottom right, rgba(58, 84, 248, 0.05), transparent)"
-                          : "linear-gradient(to bottom right, rgba(99, 102, 241, 0.1), transparent)",
+                        "linear-gradient(to bottom right, rgba(99, 102, 241, 0.1), transparent)",
                     }}
                   />
                   <div className="relative z-10">
                     <p
                       className="text-sm mb-2 uppercase tracking-wider"
                       style={{
-                        color:
-                          theme === "light"
-                            ? "rgba(1, 0, 82, 0.5)"
-                            : "rgba(185, 184, 235, 0.6)",
+                        color: "rgba(185, 184, 235, 0.6)",
                       }}
                     >
                       {stat.label}
@@ -156,7 +140,7 @@ export default function TrackRecordPage() {
                     <p
                       className="font-[family-name:var(--font-heading)] text-[48px] leading-[56px] font-bold mb-1"
                       style={{
-                        color: theme === "light" ? "#010052" : "#ffffff",
+                        color: "#ffffff",
                       }}
                     >
                       {stat.value}
@@ -164,10 +148,7 @@ export default function TrackRecordPage() {
                     <p
                       className="text-sm"
                       style={{
-                        color:
-                          theme === "light"
-                            ? "rgba(1, 0, 82, 0.5)"
-                            : "rgba(185, 184, 235, 0.5)",
+                        color: "rgba(185, 184, 235, 0.5)",
                       }}
                     >
                       {stat.subtext}
@@ -185,9 +166,7 @@ export default function TrackRecordPage() {
               className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] rounded-full pointer-events-none"
               style={{
                 background:
-                  theme === "light"
-                    ? "radial-gradient(circle, rgba(58, 84, 248, 0.06) 0%, transparent 70%)"
-                    : "radial-gradient(circle, rgba(99, 102, 241, 0.08) 0%, transparent 70%)",
+                  "radial-gradient(circle, rgba(99, 102, 241, 0.08) 0%, transparent 70%)",
                 filter: "blur(60px)",
               }}
             />
@@ -203,17 +182,14 @@ export default function TrackRecordPage() {
               >
                 <h2
                   className="font-[family-name:var(--font-heading)] text-[clamp(36px,4.5vw,56px)] font-bold leading-[1.2] mb-4"
-                  style={{ color: theme === "light" ? "#010052" : "#ffffff" }}
+                  style={{ color: "#ffffff" }}
                 >
                   Tesis documentadas
                 </h2>
                 <p
                   className="text-lg leading-relaxed"
                   style={{
-                    color:
-                      theme === "light"
-                        ? "rgba(1, 0, 82, 0.7)"
-                        : "rgba(204, 204, 224, 0.7)",
+                    color: "rgba(204, 204, 224, 0.7)",
                   }}
                 >
                   Cada proyecto incluye capturas de Discord con timestamp,
@@ -232,9 +208,7 @@ export default function TrackRecordPage() {
               className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full pointer-events-none"
               style={{
                 background:
-                  theme === "light"
-                    ? "radial-gradient(circle, rgba(58, 84, 248, 0.04) 0%, transparent 70%)"
-                    : "radial-gradient(circle, rgba(185, 184, 235, 0.06) 0%, transparent 70%)",
+                  "radial-gradient(circle, rgba(185, 184, 235, 0.06) 0%, transparent 70%)",
                 filter: "blur(80px)",
               }}
             />
@@ -250,17 +224,14 @@ export default function TrackRecordPage() {
               >
                 <h2
                   className="font-[family-name:var(--font-heading)] text-[clamp(36px,4.5vw,56px)] font-bold leading-[1.2] mb-4"
-                  style={{ color: theme === "light" ? "#010052" : "#ffffff" }}
+                  style={{ color: "#ffffff" }}
                 >
                   ¿Cuánto habrías ganado?
                 </h2>
                 <p
                   className="text-lg leading-relaxed"
                   style={{
-                    color:
-                      theme === "light"
-                        ? "rgba(1, 0, 82, 0.7)"
-                        : "rgba(204, 204, 224, 0.7)",
+                    color: "rgba(204, 204, 224, 0.7)",
                   }}
                 >
                   Calcula cuanto habrías multiplicado tu inversión siguiendo
@@ -279,9 +250,7 @@ export default function TrackRecordPage() {
               className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] rounded-full pointer-events-none"
               style={{
                 background:
-                  theme === "light"
-                    ? "radial-gradient(circle, rgba(58, 84, 248, 0.06) 0%, transparent 70%)"
-                    : "radial-gradient(circle, rgba(99, 102, 241, 0.08) 0%, transparent 70%)",
+                  "radial-gradient(circle, rgba(99, 102, 241, 0.08) 0%, transparent 70%)",
                 filter: "blur(60px)",
               }}
             />
@@ -297,17 +266,14 @@ export default function TrackRecordPage() {
               >
                 <h2
                   className="font-[family-name:var(--font-heading)] text-[clamp(36px,4.5vw,56px)] font-bold leading-[1.2] mb-4"
-                  style={{ color: theme === "light" ? "#010052" : "#ffffff" }}
+                  style={{ color: "#ffffff" }}
                 >
                   Rendimiento histórico
                 </h2>
                 <p
                   className="text-lg leading-relaxed"
                   style={{
-                    color:
-                      theme === "light"
-                        ? "rgba(1, 0, 82, 0.7)"
-                        : "rgba(204, 204, 224, 0.7)",
+                    color: "rgba(204, 204, 224, 0.7)",
                   }}
                 >
                   Visualiza el rendimiento de nuestras tesis de inversión a lo

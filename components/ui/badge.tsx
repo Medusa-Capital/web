@@ -15,9 +15,9 @@ const badgeVariants = cva(
         outline: "h-5 gap-1 rounded-4xl border border-border px-2 py-0.5 text-xs font-medium text-foreground [a]:hover:bg-muted [a]:hover:text-muted-foreground has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&>svg]:size-3!",
         ghost: "h-5 gap-1 rounded-4xl border border-transparent px-2 py-0.5 text-xs font-medium hover:bg-muted hover:text-muted-foreground dark:hover:bg-muted/50 has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&>svg]:size-3!",
         link: "h-5 gap-1 rounded-4xl border border-transparent px-2 py-0.5 text-xs font-medium text-primary underline-offset-4 hover:underline has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&>svg]:size-3!",
-        hero: "gap-3 px-3 py-[6px] rounded-full border dark:border-[#535296] light:border-[#010052]/20 dark:bg-white/[0.14] light:bg-[#010052]/5 dark:text-white light:text-[#010052] text-sm md:text-base transition-colors duration-300",
-        section: "px-5 py-3 rounded-[30px] dark:bg-[#B9B8EB]/30 light:bg-[#3a54f8]/10 dark:text-white light:text-[#3a54f8] text-sm font-medium transition-colors duration-300",
-        pill: "px-6 py-3 rounded-full border dark:border-[#B9B8EB]/40 light:border-[#010052]/20 dark:text-white light:text-[#010052] transition-colors duration-300",
+        hero: "gap-3 px-3 py-[6px] rounded-full border border-[#535296] bg-white/[0.14] text-white text-sm md:text-base transition-colors duration-300",
+        section: "px-5 py-3 rounded-[30px] bg-[#B9B8EB]/30 text-white text-sm font-medium transition-colors duration-300",
+        pill: "px-6 py-3 rounded-full border border-[#B9B8EB]/40 text-white transition-colors duration-300",
       },
     },
     defaultVariants: {

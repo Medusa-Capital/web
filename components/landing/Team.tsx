@@ -5,7 +5,6 @@ import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { Linkedin } from "lucide-react";
 import { trackOutboundLink } from "@/lib/analytics";
-import { useTheme } from "@/components/providers/ThemeProvider";
 
 const team = [
   {
@@ -51,7 +50,6 @@ const team = [
 ];
 
 export function Team() {
-  const { theme } = useTheme();
   const [selectedIndex, setSelectedIndex] = useState(0);
   const selectedMember = team[selectedIndex];
 
@@ -66,23 +64,10 @@ export function Team() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16 md:mb-20"
         >
-          <h2
-            className="font-[family-name:var(--font-heading)] text-[clamp(36px,6vw,72px)] font-bold leading-tight mb-6 transition-colors duration-300"
-            style={{
-              color: theme === "light" ? "#010052" : "#ffffff",
-            }}
-          >
+          <h2 className="font-[family-name:var(--font-heading)] text-[clamp(36px,6vw,72px)] font-bold leading-tight mb-6 text-white">
             Conoce al Equipo
           </h2>
-          <p
-            className="text-lg md:text-xl max-w-3xl mx-auto transition-colors duration-300"
-            style={{
-              color:
-                theme === "light"
-                  ? "rgba(61, 61, 107, 0.7)"
-                  : "rgba(185, 184, 235, 0.5)",
-            }}
-          >
+          <p className="text-lg md:text-xl max-w-3xl mx-auto text-[rgba(185,184,235,0.5)]">
             El elenco de profesores, a diferencia del resto de escuelas, no está
             compuesto por &quot;apasionados de las criptomonedas&quot;. Llevamos en el
             sector de las criptomonedas desde 2017 y sumamos más de 30 años de
@@ -138,14 +123,8 @@ export function Team() {
             <div
               className="relative rounded-[22px] overflow-hidden backdrop-blur-xl border transition-all duration-300"
               style={{
-                background:
-                  theme === "light"
-                    ? "linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(245, 243, 240, 0.9) 100%)"
-                    : "rgba(1, 0, 82, 0.6)",
-                borderColor:
-                  theme === "light"
-                    ? "rgba(1, 0, 82, 0.1)"
-                    : "rgba(185, 184, 235, 0.1)",
+                background: "rgba(1, 0, 82, 0.6)",
+                borderColor: "rgba(185, 184, 235, 0.1)",
               }}
             >
               {/* Background glow effects */}
@@ -153,19 +132,13 @@ export function Team() {
                 <div
                   className="absolute top-0 right-0 w-[200px] h-[200px] rounded-full blur-[60px] opacity-0 group-hover:opacity-100 transition-opacity duration-500"
                   style={{
-                    background:
-                      theme === "light"
-                        ? "rgba(99, 102, 241, 0.08)"
-                        : "rgba(99, 102, 241, 0.1)",
+                    background: "rgba(99, 102, 241, 0.1)",
                   }}
                 />
                 <div
                   className="absolute bottom-0 left-0 w-[150px] h-[150px] rounded-full blur-[40px]"
                   style={{
-                    background:
-                      theme === "light"
-                        ? "rgba(185, 184, 235, 0.05)"
-                        : "rgba(185, 184, 235, 0.08)",
+                    background: "rgba(185, 184, 235, 0.08)",
                   }}
                 />
               </div>
@@ -201,24 +174,13 @@ export function Team() {
                     {/* Role badge */}
                     <div className="absolute top-4 left-4 z-20">
                       <div
-                        className="px-3 py-1.5 rounded-full backdrop-blur-sm border transition-colors duration-300"
+                        className="px-3 py-1.5 rounded-full backdrop-blur-sm border"
                         style={{
-                          background:
-                            theme === "light"
-                              ? "rgba(67, 85, 217, 0.15)"
-                              : "rgba(67, 85, 217, 0.3)",
-                          borderColor:
-                            theme === "light"
-                              ? "rgba(99, 102, 241, 0.3)"
-                              : "rgba(99, 102, 241, 0.3)",
+                          background: "rgba(67, 85, 217, 0.3)",
+                          borderColor: "rgba(99, 102, 241, 0.3)",
                         }}
                       >
-                        <span
-                          className="text-xs font-semibold uppercase tracking-wider transition-colors duration-300"
-                          style={{
-                            color: theme === "light" ? "#4355d9" : "#ffffff",
-                          }}
-                        >
+                        <span className="text-xs font-semibold uppercase tracking-wider text-white">
                           {selectedMember.role}
                         </span>
                       </div>
@@ -227,24 +189,11 @@ export function Team() {
 
                   {/* Info - right side */}
                   <div className="flex flex-col justify-center space-y-4 md:space-y-5 flex-1">
-                    <h3
-                      className="font-[family-name:var(--font-heading)] text-2xl md:text-3xl lg:text-4xl font-bold leading-tight transition-colors duration-300"
-                      style={{
-                        color: theme === "light" ? "#010052" : "#ffffff",
-                      }}
-                    >
+                    <h3 className="font-[family-name:var(--font-heading)] text-2xl md:text-3xl lg:text-4xl font-bold leading-tight text-white">
                       {selectedMember.name}
                     </h3>
 
-                    <p
-                      className="text-sm md:text-base leading-relaxed transition-colors duration-300"
-                      style={{
-                        color:
-                          theme === "light"
-                            ? "rgba(61, 61, 107, 0.8)"
-                            : "rgba(185, 184, 235, 0.7)",
-                      }}
-                    >
+                    <p className="text-sm md:text-base leading-relaxed text-[rgba(185,184,235,0.7)]">
                       {selectedMember.description}
                     </p>
 
@@ -261,28 +210,12 @@ export function Team() {
                       }
                       className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border transition-all duration-300 hover:scale-105 w-fit"
                       style={{
-                        background:
-                          theme === "light"
-                            ? "transparent"
-                            : "rgba(67, 85, 217, 0.1)",
-                        borderColor:
-                          theme === "light"
-                            ? "rgba(1, 0, 82, 0.2)"
-                            : "rgba(185, 184, 235, 0.2)",
+                        background: "rgba(67, 85, 217, 0.1)",
+                        borderColor: "rgba(185, 184, 235, 0.2)",
                       }}
                     >
-                      <Linkedin
-                        className="w-4 h-4"
-                        style={{
-                          color: theme === "light" ? "#010052" : "#ffffff",
-                        }}
-                      />
-                      <span
-                        className="text-sm font-medium transition-colors duration-300"
-                        style={{
-                          color: theme === "light" ? "#010052" : "#ffffff",
-                        }}
-                      >
+                      <Linkedin className="w-4 h-4 text-white" />
+                      <span className="text-sm font-medium text-white">
                         LinkedIn
                       </span>
                     </a>

@@ -8,7 +8,6 @@ import {
   DialogDescription,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { useTheme } from "@/components/providers/ThemeProvider";
 import { Lock } from "lucide-react";
 
 type ThesisPrivateModalProps = {
@@ -17,8 +16,6 @@ type ThesisPrivateModalProps = {
 };
 
 export function ThesisPrivateModal({ isOpen, onClose }: ThesisPrivateModalProps) {
-  const { theme } = useTheme();
-
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent
@@ -26,13 +23,8 @@ export function ThesisPrivateModal({ isOpen, onClose }: ThesisPrivateModalProps)
         className="max-w-[500px] p-0 overflow-hidden border-2"
         style={{
           background:
-            theme === "light"
-              ? "linear-gradient(to bottom right, rgba(255, 255, 255, 0.98), rgba(250, 248, 245, 0.98))"
-              : "linear-gradient(to bottom right, rgba(27, 26, 100, 0.95), rgba(1, 0, 82, 0.95))",
-          borderColor:
-            theme === "light"
-              ? "rgba(58, 84, 248, 0.2)"
-              : "rgba(185, 184, 235, 0.3)",
+            "linear-gradient(to bottom right, rgba(27, 26, 100, 0.95), rgba(1, 0, 82, 0.95))",
+          borderColor: "rgba(185, 184, 235, 0.3)",
           backdropFilter: "blur(20px)",
         }}
       >
@@ -41,18 +33,13 @@ export function ThesisPrivateModal({ isOpen, onClose }: ThesisPrivateModalProps)
           className="absolute inset-0 pointer-events-none"
           style={{
             background:
-              theme === "light"
-                ? "linear-gradient(to bottom right, rgba(58, 84, 248, 0.05), transparent, rgba(139, 92, 246, 0.05))"
-                : "linear-gradient(to bottom right, rgba(99, 102, 241, 0.1), transparent, rgba(139, 92, 246, 0.1))",
+              "linear-gradient(to bottom right, rgba(99, 102, 241, 0.1), transparent, rgba(139, 92, 246, 0.1))",
           }}
         />
         <div
           className="absolute top-0 left-1/2 -translate-x-1/2 w-[200px] h-[200px] rounded-full blur-[100px] pointer-events-none"
           style={{
-            background:
-              theme === "light"
-                ? "rgba(58, 84, 248, 0.15)"
-                : "rgba(99, 102, 241, 0.2)",
+            background: "rgba(99, 102, 241, 0.2)",
           }}
         />
 
@@ -64,19 +51,14 @@ export function ThesisPrivateModal({ isOpen, onClose }: ThesisPrivateModalProps)
               className="w-20 h-20 rounded-full border-2 flex items-center justify-center"
               style={{
                 background:
-                  theme === "light"
-                    ? "linear-gradient(to bottom right, rgba(58, 84, 248, 0.15), rgba(139, 92, 246, 0.15))"
-                    : "linear-gradient(to bottom right, rgba(99, 102, 241, 0.3), rgba(139, 92, 246, 0.3))",
-                borderColor:
-                  theme === "light"
-                    ? "rgba(58, 84, 248, 0.3)"
-                    : "rgba(185, 184, 235, 0.3)",
+                  "linear-gradient(to bottom right, rgba(99, 102, 241, 0.3), rgba(139, 92, 246, 0.3))",
+                borderColor: "rgba(185, 184, 235, 0.3)",
               }}
             >
               <Lock
                 className="w-10 h-10"
                 style={{
-                  color: theme === "light" ? "#3a54f8" : "#B9B8EB",
+                  color: "#B9B8EB",
                 }}
               />
             </div>
@@ -86,7 +68,7 @@ export function ThesisPrivateModal({ isOpen, onClose }: ThesisPrivateModalProps)
             <DialogTitle
               className="font-[family-name:var(--font-heading)] text-3xl md:text-4xl font-bold text-center"
               style={{
-                color: theme === "light" ? "#010052" : "#ffffff",
+                color: "#ffffff",
               }}
             >
               Tesis privadas
@@ -94,17 +76,14 @@ export function ThesisPrivateModal({ isOpen, onClose }: ThesisPrivateModalProps)
             <DialogDescription
               className="text-base text-center leading-relaxed"
               style={{
-                color:
-                  theme === "light"
-                    ? "rgba(1, 0, 82, 0.7)"
-                    : "rgba(204, 204, 224, 0.8)",
+                color: "rgba(204, 204, 224, 0.8)",
               }}
             >
               Las tesis de inversión completas son{" "}
               <span
                 className="font-semibold"
                 style={{
-                  color: theme === "light" ? "#010052" : "#ffffff",
+                  color: "#ffffff",
                 }}
               >
                 contenido exclusivo
@@ -117,23 +96,14 @@ export function ThesisPrivateModal({ isOpen, onClose }: ThesisPrivateModalProps)
           <div
             className="rounded-2xl p-4 border"
             style={{
-              background:
-                theme === "light"
-                  ? "rgba(58, 84, 248, 0.05)"
-                  : "rgba(99, 102, 241, 0.1)",
-              borderColor:
-                theme === "light"
-                  ? "rgba(58, 84, 248, 0.15)"
-                  : "rgba(185, 184, 235, 0.2)",
+              background: "rgba(99, 102, 241, 0.1)",
+              borderColor: "rgba(185, 184, 235, 0.2)",
             }}
           >
             <p
               className="text-sm text-center leading-relaxed"
               style={{
-                color:
-                  theme === "light"
-                    ? "rgba(1, 0, 82, 0.6)"
-                    : "rgba(185, 184, 235, 0.7)",
+                color: "rgba(185, 184, 235, 0.7)",
               }}
             >
               Incluyen análisis detallado, contexto de mercado, métricas clave y

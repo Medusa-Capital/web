@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useTheme } from "@/components/providers/ThemeProvider";
 
 const performanceData = [
   { month: "Ene", btc: 100, medusa: 100 },
@@ -64,8 +63,6 @@ const generateAreaPath = (data: number[]) => {
 const medusaAreaPath = generateAreaPath(performanceData.map((d) => d.medusa));
 
 export function PerformanceChart() {
-  const { theme } = useTheme();
-
   const gridLines = [0, 200, 400, 600, 800];
 
   return (
@@ -76,14 +73,8 @@ export function PerformanceChart() {
       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
       className="relative backdrop-blur-md rounded-3xl p-6 md:p-8 border overflow-hidden"
       style={{
-        background:
-          theme === "light"
-            ? "rgba(255, 255, 255, 0.9)"
-            : "rgba(27, 26, 100, 0.5)",
-        borderColor:
-          theme === "light"
-            ? "rgba(1, 0, 82, 0.12)"
-            : "rgba(185, 184, 235, 0.2)",
+        background: "rgba(27, 26, 100, 0.5)",
+        borderColor: "rgba(185, 184, 235, 0.2)",
       }}
     >
       {/* Background gradient */}
@@ -91,9 +82,7 @@ export function PerformanceChart() {
         className="absolute inset-0 rounded-3xl pointer-events-none"
         style={{
           background:
-            theme === "light"
-              ? "linear-gradient(to bottom right, rgba(58, 84, 248, 0.03), transparent)"
-              : "linear-gradient(to bottom right, rgba(99, 102, 241, 0.08), transparent)",
+            "linear-gradient(to bottom right, rgba(99, 102, 241, 0.08), transparent)",
         }}
       />
 
@@ -102,17 +91,14 @@ export function PerformanceChart() {
         <div className="mb-8">
           <h3
             className="font-[family-name:var(--font-heading)] text-[clamp(28px,3vw,36px)] font-bold mb-2"
-            style={{ color: theme === "light" ? "#010052" : "#ffffff" }}
+            style={{ color: "#ffffff" }}
           >
             Comparativa de rentabilidad desde 2024
           </h3>
           <p
             className="text-base"
             style={{
-              color:
-                theme === "light"
-                  ? "rgba(1, 0, 82, 0.6)"
-                  : "rgba(204, 204, 224, 0.7)",
+              color: "rgba(204, 204, 224, 0.7)",
             }}
           >
             Inversión inicial de 100% normalizada a Enero de 2024
@@ -132,7 +118,7 @@ export function PerformanceChart() {
                 <stop
                   offset="0%"
                   stopColor="#6366f1"
-                  stopOpacity={theme === "light" ? "0.3" : "0.4"}
+                  stopOpacity="0.4"
                 />
                 <stop
                   offset="100%"
@@ -150,11 +136,7 @@ export function PerformanceChart() {
                   y1={yScale(value)}
                   x2={chartWidth - padding.right}
                   y2={yScale(value)}
-                  stroke={
-                    theme === "light"
-                      ? "rgba(1, 0, 82, 0.08)"
-                      : "rgba(185, 184, 235, 0.1)"
-                  }
+                  stroke="rgba(185, 184, 235, 0.1)"
                   strokeDasharray="4 4"
                 />
                 <text
@@ -163,11 +145,7 @@ export function PerformanceChart() {
                   textAnchor="end"
                   dominantBaseline="middle"
                   fontSize="12"
-                  fill={
-                    theme === "light"
-                      ? "rgba(1, 0, 82, 0.5)"
-                      : "rgba(185, 184, 235, 0.7)"
-                  }
+                  fill="rgba(185, 184, 235, 0.7)"
                   fontFamily="Inter, sans-serif"
                 >
                   {value}%
@@ -183,11 +161,7 @@ export function PerformanceChart() {
                 y={chartHeight - padding.bottom + 25}
                 textAnchor="middle"
                 fontSize="12"
-                fill={
-                  theme === "light"
-                    ? "rgba(1, 0, 82, 0.5)"
-                    : "rgba(185, 184, 235, 0.7)"
-                }
+                fill="rgba(185, 184, 235, 0.7)"
                 fontFamily="Inter, sans-serif"
               >
                 {d.month}
@@ -271,10 +245,7 @@ export function PerformanceChart() {
             <span
               className="text-sm"
               style={{
-                color:
-                  theme === "light"
-                    ? "rgba(1, 0, 82, 0.7)"
-                    : "rgba(204, 204, 224, 0.8)",
+                color: "rgba(204, 204, 224, 0.8)",
               }}
             >
               Bitcoin
@@ -285,10 +256,7 @@ export function PerformanceChart() {
             <span
               className="text-sm"
               style={{
-                color:
-                  theme === "light"
-                    ? "rgba(1, 0, 82, 0.7)"
-                    : "rgba(204, 204, 224, 0.8)",
+                color: "rgba(204, 204, 224, 0.8)",
               }}
             >
               Medusa Capital
@@ -300,20 +268,14 @@ export function PerformanceChart() {
         <div
           className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8 pt-8 border-t"
           style={{
-            borderColor:
-              theme === "light"
-                ? "rgba(1, 0, 82, 0.1)"
-                : "rgba(185, 184, 235, 0.15)",
+            borderColor: "rgba(185, 184, 235, 0.15)",
           }}
         >
           <div className="text-center">
             <p
               className="text-sm mb-1 uppercase tracking-wider"
               style={{
-                color:
-                  theme === "light"
-                    ? "rgba(1, 0, 82, 0.5)"
-                    : "rgba(185, 184, 235, 0.6)",
+                color: "rgba(185, 184, 235, 0.6)",
               }}
             >
               Rentabilidad de Bitcoin
@@ -326,10 +288,7 @@ export function PerformanceChart() {
             <p
               className="text-sm mb-1 uppercase tracking-wider"
               style={{
-                color:
-                  theme === "light"
-                    ? "rgba(1, 0, 82, 0.5)"
-                    : "rgba(185, 184, 235, 0.6)",
+                color: "rgba(185, 184, 235, 0.6)",
               }}
             >
               Rentabilidad de Medusa Capital
@@ -342,10 +301,7 @@ export function PerformanceChart() {
             <p
               className="text-sm mb-1 uppercase tracking-wider"
               style={{
-                color:
-                  theme === "light"
-                    ? "rgba(1, 0, 82, 0.5)"
-                    : "rgba(185, 184, 235, 0.6)",
+                color: "rgba(185, 184, 235, 0.6)",
               }}
             >
               Outperformance (vs Bitcoin)

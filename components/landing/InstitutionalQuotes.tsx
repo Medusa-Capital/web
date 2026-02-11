@@ -1,9 +1,8 @@
 "use client";
 
-import { useRef, useEffect, useState } from "react";
+import { useRef, useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { useTheme } from "@/components/providers/ThemeProvider";
 
 const quotes = [
   {
@@ -58,34 +57,22 @@ const quotes = [
 
 function QuoteCard({
   quote,
-  theme,
 }: {
   quote: (typeof quotes)[0];
-  theme: "dark" | "light";
 }) {
   return (
     <div
       className="flex-shrink-0 w-[400px] rounded-[20px] p-6 transition-all duration-300 relative overflow-hidden"
       style={{
-        background:
-          theme === "light"
-            ? "rgba(255, 255, 255, 0.95)"
-            : "#1b1a64",
-        border:
-          theme === "light"
-            ? "1px solid rgba(1, 0, 82, 0.1)"
-            : "1px solid rgba(185, 184, 235, 0.15)",
-        boxShadow:
-          theme === "light"
-            ? "0 4px 24px rgba(1, 0, 82, 0.08)"
-            : "none",
+        background: "#1b1a64",
+        border: "1px solid rgba(185, 184, 235, 0.15)",
       }}
     >
       {/* Quote icon */}
       <div
         className="mb-4 transition-colors duration-300"
         style={{
-          color: theme === "light" ? "rgba(58, 84, 248, 0.3)" : "rgba(185, 184, 235, 0.3)",
+          color: "rgba(185, 184, 235, 0.3)",
         }}
       >
         <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
@@ -97,7 +84,7 @@ function QuoteCard({
       <p
         className="text-base leading-relaxed mb-5 transition-colors duration-300 relative z-10"
         style={{
-          color: theme === "light" ? "#010052" : "rgba(255, 255, 255, 0.95)",
+          color: "rgba(255, 255, 255, 0.95)",
         }}
       >
         {quote.text}
@@ -108,10 +95,7 @@ function QuoteCard({
         <div
           className="relative w-12 h-12 rounded-full overflow-hidden flex-shrink-0 p-[2px]"
           style={{
-            background:
-              theme === "light"
-                ? "linear-gradient(135deg, #3a54f8, #B9B8EB)"
-                : "linear-gradient(135deg, #4355d9, #B9B8EB)",
+            background: "linear-gradient(135deg, #4355d9, #B9B8EB)",
           }}
         >
           <div className="w-full h-full rounded-full overflow-hidden">
@@ -128,7 +112,7 @@ function QuoteCard({
           <h4
             className="font-semibold text-sm transition-colors duration-300"
             style={{
-              color: theme === "light" ? "#010052" : "white",
+              color: "white",
             }}
           >
             {quote.author}
@@ -136,10 +120,7 @@ function QuoteCard({
           <p
             className="text-xs transition-colors duration-300"
             style={{
-              color:
-                theme === "light"
-                  ? "rgba(58, 84, 248, 0.8)"
-                  : "rgba(185, 184, 235, 0.8)",
+              color: "rgba(185, 184, 235, 0.8)",
             }}
           >
             {quote.position}
@@ -151,7 +132,6 @@ function QuoteCard({
 }
 
 export function InstitutionalQuotes() {
-  const { theme } = useTheme();
   const [isPaused, setIsPaused] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -165,10 +145,7 @@ export function InstitutionalQuotes() {
         <p
           className="text-sm uppercase tracking-widest mb-3 transition-colors duration-300"
           style={{
-            color:
-              theme === "light"
-                ? "rgba(1, 0, 82, 0.5)"
-                : "rgba(185, 184, 235, 0.5)",
+            color: "rgba(185, 184, 235, 0.5)",
           }}
         >
           Lo que dicen los líderes mundiales
@@ -176,7 +153,7 @@ export function InstitutionalQuotes() {
         <h2
           className="font-[family-name:var(--font-heading)] text-[clamp(36px,6vw,72px)] font-bold leading-tight transition-colors duration-300"
           style={{
-            color: theme === "light" ? "#010052" : "white",
+            color: "white",
           }}
         >
           El consenso institucional es claro
@@ -210,7 +187,7 @@ export function InstitutionalQuotes() {
             }}
           >
             {duplicatedQuotes.map((quote, index) => (
-              <QuoteCard key={index} quote={quote} theme={theme} />
+              <QuoteCard key={index} quote={quote} />
             ))}
           </motion.div>
         </div>

@@ -3,7 +3,6 @@
 import { useRef, useState } from "react";
 import { TrackRecordCard } from "./TrackRecordCard";
 import { ThesisPrivateModal } from "./ThesisPrivateModal";
-import { useTheme } from "@/components/providers/ThemeProvider";
 
 const trackRecordProjects = [
   {
@@ -57,7 +56,6 @@ const trackRecordProjects = [
 ];
 
 export function TrackRecordCarousel() {
-  const { theme } = useTheme();
   const scrollRef = useRef<HTMLDivElement>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -93,10 +91,7 @@ export function TrackRecordCarousel() {
               key={index}
               className="w-2 h-2 rounded-full transition-all"
               style={{
-                background:
-                  theme === "light"
-                    ? "rgba(1, 0, 82, 0.3)"
-                    : "rgba(185, 184, 235, 0.4)",
+                background: "rgba(185, 184, 235, 0.4)",
               }}
               onClick={() => {
                 if (scrollRef.current) {

@@ -2,7 +2,6 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { useTheme } from "@/components/providers/ThemeProvider";
 import { Button } from "@/components/ui/button";
 
 interface PageCTAProps {
@@ -22,8 +21,6 @@ export function PageCTA({
   buttonEmail,
   buttonExternalUrl,
 }: PageCTAProps) {
-  const { theme } = useTheme();
-
   const buttonContent = (
     <Button
       variant="secondaryGlow"
@@ -46,14 +43,8 @@ export function PageCTA({
         <div
           className="relative backdrop-blur-md rounded-[32px] p-12 border overflow-hidden"
           style={{
-            background:
-              theme === "light"
-                ? "rgba(255, 255, 255, 0.9)"
-                : "rgba(27, 26, 100, 0.5)",
-            borderColor:
-              theme === "light"
-                ? "rgba(1, 0, 82, 0.12)"
-                : "rgba(185, 184, 235, 0.2)",
+            background: "rgba(27, 26, 100, 0.5)",
+            borderColor: "rgba(185, 184, 235, 0.2)",
           }}
         >
           {/* Background gradient */}
@@ -61,9 +52,7 @@ export function PageCTA({
             className="absolute inset-0 pointer-events-none"
             style={{
               background:
-                theme === "light"
-                  ? "radial-gradient(circle at top right, rgba(58, 84, 248, 0.08), transparent 60%)"
-                  : "radial-gradient(circle at top right, rgba(99, 102, 241, 0.15), transparent 60%)",
+                "radial-gradient(circle at top right, rgba(99, 102, 241, 0.15), transparent 60%)",
             }}
           />
 
@@ -71,7 +60,7 @@ export function PageCTA({
             <h2
               className="font-[family-name:var(--font-heading)] text-[clamp(32px,4vw,48px)] font-bold leading-[1.2] mb-4"
               style={{
-                color: theme === "light" ? "#010052" : "#ffffff",
+                color: "#ffffff",
               }}
             >
               {title}
@@ -79,10 +68,7 @@ export function PageCTA({
             <p
               className="text-lg leading-relaxed max-w-[600px] mx-auto mb-8"
               style={{
-                color:
-                  theme === "light"
-                    ? "rgba(1, 0, 82, 0.7)"
-                    : "rgba(204, 204, 224, 0.7)",
+                color: "rgba(204, 204, 224, 0.7)",
               }}
             >
               {description}

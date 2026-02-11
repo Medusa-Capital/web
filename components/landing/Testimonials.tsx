@@ -1,7 +1,4 @@
-"use client";
-
 import Image from "next/image";
-import { useTheme } from "@/components/providers/ThemeProvider";
 
 const testimonials = [
   {
@@ -47,16 +44,15 @@ const column1 = [testimonials[0], testimonials[3], testimonials[1], testimonials
 const column2 = [testimonials[1], testimonials[4], testimonials[2], testimonials[5]];
 const column3 = [testimonials[2], testimonials[5], testimonials[0], testimonials[3]];
 
-function TestimonialCard({ testimonial, theme }: { testimonial: typeof testimonials[0]; theme: "dark" | "light" }) {
+function TestimonialCard({ testimonial }: { testimonial: typeof testimonials[0] }) {
   return (
     <div
       className="gap-6 overflow-hidden text-sm group/card flex flex-col relative rounded-[20px] p-6 pb-[50px] mb-4 transition-all duration-300"
       style={{
-        background: theme === "light" ? 'rgba(255, 255, 255, 0.9)' : 'rgba(0, 0, 0, 0.1)',
+        background: 'rgba(0, 0, 0, 0.1)',
         backdropFilter: 'blur(40px) saturate(150%)',
         WebkitBackdropFilter: 'blur(40px) saturate(150%)',
-        border: theme === "light" ? '1px solid rgba(1, 0, 82, 0.1)' : '1px solid rgba(255, 255, 255, 0.08)',
-        boxShadow: theme === "light" ? '0 4px 20px rgba(1, 0, 82, 0.05)' : 'none',
+        border: '1px solid rgba(255, 255, 255, 0.08)',
       }}
     >
       {/* Header with avatar */}
@@ -70,14 +66,14 @@ function TestimonialCard({ testimonial, theme }: { testimonial: typeof testimoni
           className="w-12 h-12 rounded-full object-cover"
         />
         <div>
-          <h4 className="dark:text-cyan-400 light:text-[#3a54f8] font-medium transition-colors duration-300">
+          <h4 className="text-cyan-400 font-medium transition-colors duration-300">
             {testimonial.name}
           </h4>
-          <span className="dark:text-[#cccce0]/50 light:text-[#3d3d6b]/60 text-xs transition-colors duration-300">{testimonial.role}</span>
+          <span className="text-[#cccce0]/50 text-xs transition-colors duration-300">{testimonial.role}</span>
         </div>
       </div>
       {/* Content */}
-      <p className="dark:text-[#cccce0]/70 light:text-[#3d3d6b] text-sm leading-relaxed relative z-10 transition-colors duration-300">
+      <p className="text-[#cccce0]/70 text-sm leading-relaxed relative z-10 transition-colors duration-300">
         {testimonial.text}
       </p>
     </div>
@@ -87,11 +83,9 @@ function TestimonialCard({ testimonial, theme }: { testimonial: typeof testimoni
 function ScrollingColumn({
   testimonials,
   direction,
-  theme
 }: {
   testimonials: typeof column1;
   direction: "up" | "down";
-  theme: "dark" | "light";
 }) {
   // Duplicate testimonials multiple times for seamless infinite scroll
   const duplicated = [...testimonials, ...testimonials, ...testimonials, ...testimonials];
@@ -106,7 +100,7 @@ function ScrollingColumn({
         }}
       >
         {duplicated.map((testimonial, i) => (
-          <TestimonialCard key={i} testimonial={testimonial} theme={theme} />
+          <TestimonialCard key={i} testimonial={testimonial} />
         ))}
       </div>
     </div>
@@ -114,12 +108,10 @@ function ScrollingColumn({
 }
 
 export function Testimonials() {
-  const { theme } = useTheme();
-  
   return (
     <section className="relative py-16 md:py-[100px] px-4 md:px-6 overflow-hidden">
       {/* Background gradient orbs - positioned behind the cards */}
-      <div 
+      <div
         className="absolute pointer-events-none transition-opacity duration-300"
         style={{
           top: '35%',
@@ -127,35 +119,29 @@ export function Testimonials() {
           transform: 'translateX(-50%)',
           width: '600px',
           height: '600px',
-          background: theme === "light" 
-            ? 'radial-gradient(circle, rgba(58, 84, 248, 0.15) 0%, rgba(58, 84, 248, 0.05) 35%, transparent 65%)'
-            : 'radial-gradient(circle, rgba(67, 85, 217, 0.5) 0%, rgba(67, 85, 217, 0.2) 35%, transparent 65%)',
+          background: 'radial-gradient(circle, rgba(67, 85, 217, 0.5) 0%, rgba(67, 85, 217, 0.2) 35%, transparent 65%)',
           filter: 'blur(40px)',
         }}
       />
-      <div 
+      <div
         className="absolute pointer-events-none transition-opacity duration-300"
         style={{
           top: '25%',
           left: '20%',
           width: '400px',
           height: '400px',
-          background: theme === "light"
-            ? 'radial-gradient(circle, rgba(1, 0, 82, 0.1) 0%, rgba(1, 0, 82, 0.03) 40%, transparent 70%)'
-            : 'radial-gradient(circle, rgba(99, 102, 241, 0.45) 0%, rgba(99, 102, 241, 0.15) 40%, transparent 70%)',
+          background: 'radial-gradient(circle, rgba(99, 102, 241, 0.45) 0%, rgba(99, 102, 241, 0.15) 40%, transparent 70%)',
           filter: 'blur(50px)',
         }}
       />
-      <div 
+      <div
         className="absolute pointer-events-none transition-opacity duration-300"
         style={{
           top: '50%',
           right: '15%',
           width: '450px',
           height: '450px',
-          background: theme === "light"
-            ? 'radial-gradient(circle, rgba(58, 84, 248, 0.1) 0%, rgba(58, 84, 248, 0.02) 45%, transparent 70%)'
-            : 'radial-gradient(circle, rgba(67, 85, 217, 0.4) 0%, rgba(99, 102, 241, 0.1) 45%, transparent 70%)',
+          background: 'radial-gradient(circle, rgba(67, 85, 217, 0.4) 0%, rgba(99, 102, 241, 0.1) 45%, transparent 70%)',
           filter: 'blur(45px)',
         }}
       />
@@ -163,10 +149,10 @@ export function Testimonials() {
       <div className="max-w-6xl mx-auto relative z-10">
         {/* Header */}
         <div className="text-center mb-8 md:mb-16">
-          <h2 className="font-[family-name:var(--font-heading)] text-[clamp(36px,6vw,72px)] font-bold dark:text-white light:text-[#010052] leading-tight mb-4 transition-colors duration-300">
+          <h2 className="font-[family-name:var(--font-heading)] text-[clamp(36px,6vw,72px)] font-bold text-white leading-tight mb-4 transition-colors duration-300">
             Qué dicen Nuestros Alumnos
           </h2>
-          <p className="dark:text-[#B9B8EB]/50 light:text-[#3d3d6b]/70 text-xl md:text-2xl max-w-4xl mx-auto transition-colors duration-300">
+          <p className="text-[#B9B8EB]/50 text-xl md:text-2xl max-w-4xl mx-auto transition-colors duration-300">
             Nuestra formación ha cambiado la manera en la que nuestros alumnos
             perciben el sistema monetario. Ahora conocen el sistema y tienen las
             herramientas para rentabilizar su dinero. Aquí tienes algunos testimonios sobre su aprendizaje.
@@ -177,17 +163,17 @@ export function Testimonials() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {/* Column 1 - scrolls down */}
           <div className="hidden lg:block">
-            <ScrollingColumn testimonials={column1} direction="down" theme={theme} />
+            <ScrollingColumn testimonials={column1} direction="down" />
           </div>
 
           {/* Column 2 - scrolls up */}
           <div className="hidden md:block">
-            <ScrollingColumn testimonials={column2} direction="up" theme={theme} />
+            <ScrollingColumn testimonials={column2} direction="up" />
           </div>
 
           {/* Column 3 - scrolls down */}
           <div>
-            <ScrollingColumn testimonials={column3} direction="down" theme={theme} />
+            <ScrollingColumn testimonials={column3} direction="down" />
           </div>
         </div>
       </div>
