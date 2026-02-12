@@ -38,7 +38,7 @@ export function Stats() {
           </div>
 
           {/* Headline - matching legacy styling */}
-          <h2 className="font-[family-name:var(--font-heading)] text-[clamp(36px,6vw,72px)] font-bold text-white leading-tight mb-16 max-w-4xl mx-auto transition-colors duration-300">
+          <h2 className="font-[family-name:var(--font-heading)] text-[clamp(28px,4vw,48px)] font-bold text-white leading-tight mb-16 max-w-4xl mx-auto transition-colors duration-300">
             Te ayudamos a entender el mercado de activos digitales con el mismo rigor con el que analizan empresas tradicionales.
           </h2>
 

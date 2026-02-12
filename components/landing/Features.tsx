@@ -3,7 +3,7 @@ import Image from "next/image";
 const features = [
   {
     number: 1,
-    title: "Formación estructurada en 7 módulos clave",
+    title: "Formación estructurada en 10 módulos clave (+30h)",
     description:
       "Del funcionamiento de Bitcoin y la blockchain hasta estrategias de inversión, DeFi y gestión del riesgo. Todo explicado paso a paso, con ejemplos y sin tecnicismos innecesarios.",
     icon: "/img/step-1.webp",
@@ -13,7 +13,7 @@ const features = [
     number: 2,
     title: "Comunidad de Discord",
     description:
-      "Aprende de aquellos que han recorrido el camino que tú estás emprendiendo. A través de Discord compartimos análisis diarios del mercado, informes de proyectos y recursos académicos para que te mantengas informado.",
+      "Obtén gratis 1 año de comunidad. Aprende de aquellos que han obtenido los resultados que tú estás buscando. A través de Discord compartimos análisis semanales y diarios del mercado, tesis de inversión y recursos académicos para que te mantengas informado.",
     icon: "/img/step-2.webp",
     countIcon: "/img/step-count-2.webp",
   },
@@ -37,8 +37,8 @@ const features = [
     number: 5,
     title: "Análisis macroeconómico de la mano de expertos",
     description:
-      "Contamos con la colaboración de Diego Puertas, analista reconocido en el sector, que aporta su visión macroeconómica para ayudarte a entender cómo los eventos globales impactan en los mercados cripto y tomar decisiones más fundamentadas.",
-    icon: "/img/step-5.webp",
+      "Contamos con la colaboración de Diego Puertas, analista reconocido en el sector, que aporta su visión macroeconómica para ayudarte a entender cómo los eventos globales decisiones más fundamentadas.",
+    icon: "/img/step-5.svg",
     countIcon: "/img/step-count-5.webp",
   },
 ];
@@ -73,10 +73,11 @@ export function Features() {
                 Un método claro para entender, evaluar e invertir en cripto con criterio
               </h2>
               <p className="text-[#cccce0] text-base md:text-lg leading-relaxed">
-                Desde Bitcoin hasta DeFi, pasando por tokenomics, ciclos de
-                mercado y gestión del riesgo. Una formación paso a paso diseñada
-                para ayudarte a interpretar este nuevo ecosistema con el mismo
-                rigor con el que analizas cualquier otro activo financiero.
+                Desde Bitcoin hasta Finanzas Descentralizadas, pasando por el
+                análisis fundamental, ciclos de mercado y gestión del riesgo.
+                Una formación paso a paso diseñada para ayudarte a ser rentable
+                este nuevo ecosistema con el mismo rigor con el que analizas
+                cualquier otro activo financiero.
               </p>
             </div>
           </div>

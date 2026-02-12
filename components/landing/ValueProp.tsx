@@ -29,17 +29,17 @@ export function ValueProp() {
           {/* Left content */}
           <div>
             <h2 className="font-[family-name:var(--font-heading)] text-[clamp(36px,6vw,72px)] font-bold text-white leading-tight mb-6 transition-colors duration-300">
-              Conviértete en un Inversor Experto en Bitcoin y otros Activos
-              Digitales
+              Conviértete en un inversor experto en Bitcoin y otros activos
+              digitales
             </h2>
             <p className="text-[#cccce0] text-lg leading-relaxed mb-8 transition-colors duration-300">
               En Medusa Capital aprenderás a navegar por el mercado de las
-              criptomonedas, aprenderás estrategias de inversión probadas, y
-              sabrás cómo moverte por el universo DeFi de manera segura. No te
-              prometemos rentabilidad inmediata. Obtendrás{" "}
+              criptomonedas, estrategias de inversión rentables, y sabrás
+              cómo moverte por el universo DeFi de manera segura. Obtendrás{" "}
               <span className="text-white font-medium">conocimiento</span>,{" "}
               <span className="text-white font-medium">criterio propio</span> y{" "}
-              <span className="text-white font-medium">herramientas para ser rentable</span>.
+              <span className="text-white font-medium">herramientas para ser encontrar
+              las mejores oportunidades del mercado</span>.
             </p>
             {/* Orange CTA button */}
             <Button
@@ -48,7 +48,7 @@ export function ValueProp() {
               className="px-8 py-6 text-base font-semibold rounded-lg"
               onClick={() => window.open("https://calendly.com/contacto-medusacapital/sesion-estrategica-15-clon?month=2026-01", "_blank")}
             >
-              Empezar Ahora
+              Empezar ahora
             </Button>
           </div>
 
