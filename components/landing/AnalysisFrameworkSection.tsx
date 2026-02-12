@@ -1,7 +1,6 @@
 import {
   BarChart3,
   Globe,
-  Link as LinkIcon,
   TrendingUp,
   Target,
   Droplets,
@@ -10,67 +9,61 @@ import {
   RefreshCcw,
   Shield,
   Download,
+  Filter,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-// Analysis layers with their weights and accent colors
-const analysisLayers = [
+const analysisSteps = [
   {
-    id: "fundamental",
-    weight: 60,
-    title: "Análisis fundamental",
+    number: 1,
+    title: "Filtros de Descarte",
+    subtitle: "El 85% no pasa este filtro",
     description:
-      "El análisis que más impacta en la cartera. Si veo un buen proyecto con descuento, compro al menos el 50% de la posición total.",
+      "Antes de analizar, descartamos. Si un activo tiene cualquiera de estos factores de riesgo estructural, no entra en cartera. De esta manera, nos ahorramos cientos de horas de estudio de proyectos.",
+    icon: Filter,
+    tags: [
+      "Dilución excesiva",
+      "Desalineación equity/token",
+      "Activo ilíquido",
+      "Valoración injustificada",
+      "Modelo de negocio incomprensible",
+    ],
+  },
+  {
+    number: 2,
+    title: "Análisis Fundamental",
+    subtitle: "La base de cada decisión de inversión",
+    description:
+      "¿Tiene demanda real, genera ingresos verificables y el inversor captura ese valor?",
     icon: BarChart3,
-    tags: ["Product-Market Fit", "Revenue Real", "Captura de Valor"],
-    accent: {
-      color: "#3a54f8",
-      bgDark: "rgba(58, 84, 248, 0.2)",
-      gradient: "from-[#3a54f8] to-[#657ef3]",
-    },
+    tags: [
+      "Product-Market Fit",
+      "Revenue Real",
+      "Captura de Valor",
+      "Alineación de Incentivos",
+    ],
   },
   {
-    id: "macro",
-    weight: 20,
-    title: "Análisis macro",
+    number: 3,
+    title: "Contexto Macroeconómico",
+    subtitle: "El marco que confirma, no que anticipa",
     description:
-      "Monitoreo de variables macroeconómicas que impactan el ciclo de mercado.",
+      "¿Favorece el entorno macro la entrada de capital en activos de riesgo?",
     icon: Globe,
-    tags: ["Liquidez M2", "Flujos ETF", "Tipos Fed", "Déficit Fiscal"],
-    accent: {
-      color: "#50d98a",
-      bgDark: "rgba(80, 217, 138, 0.15)",
-      gradient: "from-[#50d98a] to-[#68fe9a]",
-    },
+    tags: [
+      "Liquidez Global",
+      "Ciclo Risk-On / Risk-Off",
+      "Flujos Institucionales",
+    ],
   },
   {
-    id: "onchain",
-    weight: 10,
-    title: "Análisis on-chain",
+    number: 4,
+    title: "Análisis Técnico",
+    subtitle: "Validación de timing",
     description:
-      "Datos de blockchain para validar tendencias y comportamiento del mercado.",
-    icon: LinkIcon,
-    tags: ["Exchange Reserves", "NUPL", "Netflows", "Whale Activity"],
-    accent: {
-      color: "#fb923c",
-      bgDark: "rgba(251, 146, 60, 0.15)",
-      gradient: "from-[#fb923c] to-[#fdba74]",
-    },
-  },
-  {
-    id: "technical",
-    weight: 10,
-    title: "Análisis técnico",
-    subtitle: "Complementario",
-    description:
-      "Uso tomas de liquidez como eje principal. Nunca compro solo por técnico si los fundamentales son débiles.",
+      "Si los fundamentales dicen SÍ pero el técnico dice NO, no se opera",
     icon: TrendingUp,
-    tags: [],
-    accent: {
-      color: "#fbbf24",
-      bgDark: "rgba(251, 191, 36, 0.15)",
-      gradient: "from-[#fbbf24] to-[#fcd34d]",
-    },
+    tags: ["Estructura de mercado", "Zonas de liquidez"],
   },
 ];
 
@@ -155,78 +148,50 @@ export function AnalysisFrameworkSection() {
           </p>
         </div>
 
-        {/* Treemap-style Analysis Grid */}
+        {/* Analysis Steps Grid */}
         <div className="mb-16 md:mb-20">
-          {/*
-            Treemap Layout:
-            - Left half (60%): Fundamental
-            - Right top (20%): Macro
-            - Right bottom left (10%): On-Chain
-            - Right bottom right (10%): Technical
-          */}
-          <div className="grid grid-cols-1 lg:grid-cols-[2fr_3fr] gap-3 md:gap-4">
-            {/* LEFT: Fundamental (60%) - Full height */}
+          <div className="flex flex-col gap-4">
+            {/* Step 1: Filtros de Descarte — full width featured card */}
             {(() => {
-              const layer = analysisLayers[0];
-              const Icon = layer.icon;
+              const step = analysisSteps[0];
+              const Icon = step.icon;
               return (
-                <div
-                  className="relative rounded-[20px] p-6 md:p-8 flex flex-col transition-all duration-300 overflow-hidden group bg-gradient-to-br from-[#3a54f8]/20 to-[#1b1a64]/80 border border-[#3a54f8]/25"
-                >
-                  {/* Subtle glow */}
-                  <div
-                    className="absolute -top-20 -right-20 w-64 h-64 opacity-40 pointer-events-none"
-                    style={{
-                      background: `radial-gradient(circle, ${layer.accent.color}30, transparent 70%)`,
-                      filter: "blur(40px)",
-                    }}
-                  />
+                <div className="relative rounded-[20px] p-6 md:p-8 overflow-hidden border border-[#B9B8EB]/12 bg-gradient-to-br from-[#1b1a64]/70 to-[#151450]/90">
+                  {/* Watermark number */}
+                  <span
+                    className="absolute top-4 right-6 md:right-10 text-[120px] md:text-[160px] font-bold leading-none pointer-events-none select-none"
+                    style={{ color: "rgba(185, 184, 235, 0.06)" }}
+                  >
+                    {step.number}
+                  </span>
 
-                  <div className="relative z-10 flex flex-col h-full">
-                    {/* Weight prominently displayed */}
-                    <div className="mb-4">
-                      <span
-                        className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight"
-                        style={{ color: layer.accent.color }}
-                      >
-                        {layer.weight}%
-                      </span>
+                  <div className="relative z-10">
+                    {/* Icon */}
+                    <div className="w-12 h-12 rounded-full flex items-center justify-center mb-5 bg-[#B9B8EB]/10 ring-1 ring-[#B9B8EB]/15">
+                      <Icon className="w-5 h-5 text-[#B9B8EB]" strokeWidth={1.5} />
                     </div>
 
-                    {/* Icon + Title */}
-                    <div className="flex items-center gap-3 mb-4">
-                      <div
-                        className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
-                        style={{
-                          background: layer.accent.bgDark,
-                        }}
-                      >
-                        <Icon
-                          className="w-5 h-5"
-                          style={{ color: layer.accent.color }}
-                          strokeWidth={1.5}
-                        />
-                      </div>
-                      <h3
-                        className="font-[family-name:var(--font-heading)] text-2xl md:text-3xl font-bold leading-tight transition-colors duration-300 text-white"
-                      >
-                        {layer.title}
-                      </h3>
-                    </div>
+                    {/* Title */}
+                    <h3 className="font-[family-name:var(--font-heading)] text-2xl md:text-3xl font-bold italic text-white mb-2 leading-tight">
+                      {step.title}
+                    </h3>
+
+                    {/* Subtitle */}
+                    <p className="font-semibold text-sm md:text-base text-white mb-3">
+                      {step.subtitle}
+                    </p>
 
                     {/* Description */}
-                    <p
-                      className="text-base md:text-lg leading-relaxed mb-4 max-w-md transition-colors duration-300 text-[#cccce0]"
-                    >
-                      {layer.description}
+                    <p className="text-sm md:text-base leading-relaxed text-[#cccce0] mb-5 max-w-3xl">
+                      {step.description}
                     </p>
 
                     {/* Tags */}
                     <div className="flex flex-wrap gap-2">
-                      {layer.tags.map((tag) => (
+                      {step.tags.map((tag) => (
                         <span
                           key={tag}
-                          className="px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-300 bg-[#3a54f8]/20 text-white/90 border border-[#3a54f8]/30"
+                          className="px-3.5 py-1.5 rounded-full text-xs font-medium text-[#e8a0a0] border border-[#e8a0a0]/30 bg-[#e8a0a0]/8"
                         >
                           {tag}
                         </span>
@@ -237,59 +202,50 @@ export function AnalysisFrameworkSection() {
               );
             })()}
 
-            {/* RIGHT: Nested grid for Macro + On-Chain + Technical */}
-            <div className="flex flex-col gap-3 md:gap-4">
-              {/* TOP RIGHT: Macro (20%) */}
-              {(() => {
-                const layer = analysisLayers[1];
-                const Icon = layer.icon;
+            {/* Steps 2-4: Three equal columns */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              {analysisSteps.slice(1).map((step) => {
+                const Icon = step.icon;
                 return (
                   <div
-                    className="relative rounded-[20px] p-5 md:p-6 flex flex-col transition-all duration-300 overflow-hidden group bg-gradient-to-br from-[#50d98a]/15 to-[#1b1a64]/60 border border-[#50d98a]/20"
+                    key={step.number}
+                    className="relative rounded-[20px] p-6 md:p-7 overflow-hidden border border-[#B9B8EB]/12 bg-gradient-to-br from-[#1b1a64]/70 to-[#151450]/90 flex flex-col"
                   >
+                    {/* Watermark number */}
+                    <span
+                      className="absolute top-2 right-4 md:right-6 text-[120px] md:text-[140px] font-bold leading-none pointer-events-none select-none"
+                      style={{ color: "rgba(185, 184, 235, 0.06)" }}
+                    >
+                      {step.number}
+                    </span>
+
                     <div className="relative z-10 flex flex-col h-full">
-                      {/* Weight */}
-                      <div className="flex items-baseline gap-3 mb-3">
-                        <span
-                          className="text-4xl md:text-5xl font-bold tracking-tight"
-                          style={{ color: layer.accent.color }}
-                        >
-                          {layer.weight}%
-                        </span>
-                        <div className="flex items-center gap-2">
-                          <div
-                            className="w-8 h-8 rounded-lg flex items-center justify-center"
-                            style={{
-                              background: layer.accent.bgDark,
-                            }}
-                          >
-                            <Icon
-                              className="w-4 h-4"
-                              style={{ color: layer.accent.color }}
-                              strokeWidth={1.5}
-                            />
-                          </div>
-                          <h3
-                            className="font-[family-name:var(--font-heading)] text-xl md:text-2xl font-bold leading-tight transition-colors duration-300 text-white"
-                          >
-                            {layer.title}
-                          </h3>
-                        </div>
+                      {/* Icon */}
+                      <div className="w-12 h-12 rounded-full flex items-center justify-center mb-5 bg-[#B9B8EB]/10 ring-1 ring-[#B9B8EB]/15">
+                        <Icon className="w-5 h-5 text-[#B9B8EB]" strokeWidth={1.5} />
                       </div>
 
+                      {/* Title */}
+                      <h3 className="font-[family-name:var(--font-heading)] text-xl md:text-2xl font-bold italic text-white mb-1 leading-tight">
+                        {step.title}
+                      </h3>
+
+                      {/* Subtitle */}
+                      <p className="font-semibold text-sm text-white mb-3">
+                        {step.subtitle}
+                      </p>
+
                       {/* Description */}
-                      <p
-                        className="text-sm leading-relaxed mb-3 transition-colors duration-300 text-[#cccce0]/90"
-                      >
-                        {layer.description}
+                      <p className="text-sm leading-relaxed text-[#cccce0]/80 mb-5">
+                        {step.description}
                       </p>
 
                       {/* Tags */}
-                      <div className="flex flex-wrap gap-2">
-                        {layer.tags.map((tag) => (
+                      <div className="mt-auto flex flex-wrap gap-2">
+                        {step.tags.map((tag) => (
                           <span
                             key={tag}
-                            className="px-3 py-1.5 rounded-full text-xs font-medium transition-colors duration-300 bg-[#50d98a]/15 text-white/90 border border-[#50d98a]/25"
+                            className="px-3 py-1.5 rounded-full text-xs font-medium text-[#B9B8EB]/80 border border-[#B9B8EB]/20 bg-[#B9B8EB]/8"
                           >
                             {tag}
                           </span>
@@ -298,107 +254,7 @@ export function AnalysisFrameworkSection() {
                     </div>
                   </div>
                 );
-              })()}
-
-              {/* BOTTOM RIGHT: Two 10% cards side by side */}
-              <div className="grid grid-cols-2 gap-3 md:gap-4">
-                {/* On-Chain (10%) - Orange */}
-                {(() => {
-                  const layer = analysisLayers[2];
-                  const Icon = layer.icon;
-                  return (
-                    <div
-                      className="relative rounded-[16px] p-4 md:p-5 flex flex-col transition-all duration-300 overflow-hidden bg-gradient-to-br from-[#fb923c]/10 to-[#1b1a64]/40 border border-[#fb923c]/15"
-                    >
-                      <div className="relative z-10 flex flex-col h-full">
-                        {/* Weight + Title */}
-                        <div className="flex items-baseline gap-2 mb-2 flex-wrap">
-                          <span className="text-3xl md:text-4xl font-bold tracking-tight text-[#fb923c]">
-                            {layer.weight}%
-                          </span>
-                          <div className="flex items-center gap-1.5">
-                            <Icon
-                              className="w-4 h-4 shrink-0 text-[#fb923c]"
-                              strokeWidth={1.5}
-                            />
-                            <h4
-                              className="font-[family-name:var(--font-heading)] font-bold text-base md:text-lg leading-tight transition-colors duration-300 text-white"
-                            >
-                              {layer.title}
-                            </h4>
-                          </div>
-                        </div>
-
-                        {/* Description */}
-                        <p
-                          className="text-xs leading-relaxed mb-3 transition-colors duration-300 text-[#cccce0]/80"
-                        >
-                          {layer.description}
-                        </p>
-
-                        {/* Tags - compact */}
-                        <div className="mt-auto flex flex-wrap gap-2">
-                          {layer.tags.slice(0, 3).map((tag) => (
-                            <span
-                              key={tag}
-                              className="px-3 py-1.5 rounded-full text-xs font-medium transition-colors duration-300 bg-[#fb923c]/15 text-white/90 border border-[#fb923c]/25"
-                            >
-                              {tag}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                  );
-                })()}
-
-                {/* Technical (10%) - Yellow/Amber */}
-                {(() => {
-                  const layer = analysisLayers[3];
-                  const Icon = layer.icon;
-                  return (
-                    <div
-                      className="relative rounded-[16px] p-4 md:p-5 flex flex-col transition-all duration-300 overflow-hidden bg-gradient-to-br from-[#fbbf24]/10 to-[#1b1a64]/40 border border-[#fbbf24]/15"
-                    >
-                      <div className="relative z-10 flex flex-col h-full">
-                        {/* Weight + Title */}
-                        <div className="flex items-baseline gap-2 mb-2 flex-wrap">
-                          <span className="text-3xl md:text-4xl font-bold tracking-tight text-[#fbbf24]">
-                            {layer.weight}%
-                          </span>
-                          <div className="flex items-center gap-1.5">
-                            <Icon
-                              className="w-4 h-4 shrink-0 text-[#fbbf24]"
-                              strokeWidth={1.5}
-                            />
-                            <h4
-                              className="font-[family-name:var(--font-heading)] font-bold text-base md:text-lg leading-tight transition-colors duration-300 text-white"
-                            >
-                              {layer.title}
-                            </h4>
-                          </div>
-                        </div>
-
-                        {/* Description */}
-                        <p
-                          className="text-xs leading-relaxed mb-3 transition-colors duration-300 text-[#cccce0]/80"
-                        >
-                          {layer.description}
-                        </p>
-
-                        {/* Subtitle as tag */}
-                        <div className="mt-auto flex flex-wrap gap-2">
-                          <span
-                            className="px-3 py-1.5 rounded-full text-xs font-medium bg-[#fbbf24]/15 text-white/90 border border-[#fbbf24]/25"
-                          >
-                            Complementario
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  );
-                })()}
-              </div>
+              })}
             </div>
           </div>
         </div>
