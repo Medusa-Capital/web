@@ -34,6 +34,7 @@ export interface CollaboratorStat {
   label: string;
   value: string;
   subValue?: string;
+  icon?: React.ReactNode;
 }
 
 export interface CollaboratorData {
@@ -47,7 +48,7 @@ export interface CollaboratorData {
     linkText: string;
     linkUrl: string;
   };
-  credentials: string[];
+  credentials: React.ReactNode[];
   stats: CollaboratorStat[];
   socials: CollaboratorSocial[];
   accentColor: string;
@@ -178,26 +179,39 @@ export function CollaboratorCard({ data, index }: CollaboratorCardProps) {
               >
                 {data.collaboration.description}
               </p>
-
-              <div className="pt-2">
-                <a
-                  href={data.collaboration.linkUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={() =>
-                    trackOutboundLink(data.collaboration.linkUrl, data.name)
-                  }
-                >
-                  <Button
-                    variant="secondaryGlow"
-                    size="lg"
-                    className="gap-2 px-6 py-3 rounded-lg transition-transform group-hover:translate-x-1"
-                  >
-                    {data.collaboration.linkText}
-                    <ExternalLink className="w-4 h-4" />
-                  </Button>
-                </a>
-              </div>
+              {data.collaboration.linkText && (
+                <div className="flex items-center gap-3 pt-2">
+                  <div
+                    className="h-px w-5"
+                    style={{ background: `${data.accentColor}60` }}
+                  />
+                  {data.collaboration.linkUrl !== "#" ? (
+                    <a
+                      href={data.collaboration.linkUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() =>
+                        trackOutboundLink(
+                          data.collaboration.linkUrl,
+                          `${data.name} - collaboration`
+                        )
+                      }
+                      className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest hover:opacity-100 transition-opacity duration-300"
+                      style={{ color: `${data.accentColor}cc` }}
+                    >
+                      {data.collaboration.linkText}
+                      <ExternalLink className="w-3 h-3" />
+                    </a>
+                  ) : (
+                    <span
+                      className="text-xs font-mono uppercase tracking-widest"
+                      style={{ color: `${data.accentColor}cc` }}
+                    >
+                      {data.collaboration.linkText}
+                    </span>
+                  )}
+                </div>
+              )}
             </div>
           </div>
 
@@ -238,8 +252,9 @@ export function CollaboratorCard({ data, index }: CollaboratorCardProps) {
               {data.stats.map((stat, idx) => (
                 <div key={idx} className="flex flex-col">
                   <span
-                    className="text-[10px] font-mono uppercase tracking-wider mb-1 text-[#B9B8EB]/40"
+                    className="text-[10px] font-mono uppercase tracking-wider mb-1 text-[#B9B8EB]/40 flex items-center gap-1.5"
                   >
+                    {stat.icon && <span className="text-[#B9B8EB]/30">{stat.icon}</span>}
                     {stat.label}
                   </span>
                   <div className="flex items-baseline gap-1">

@@ -8,50 +8,35 @@ const quotes = [
   {
     text: "Bitcoin es oro digital. Es una clase de activo legítima.",
     author: "Larry Fink",
-    position: "CEO de BlackRock",
-    company: "$10 trillones bajo gestión",
+    position: "CEO, BlackRock",
     image:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGiyZdHxk5nxZmTQgx9-eF_hCQFrvXybrEuw&s",
   },
   {
+    text: "Si optimizas tu cartera, tendrías un 15% en Bitcoin.",
+    author: "Ray Dalio",
+    position: "Fundador, Bridgewater Associates",
+    image: "/img/avatar/raydalio.jpg",
+  },
+  {
     text: "Creemos que Bitcoin alcanzará los $1.5 millones para 2030.",
     author: "Cathie Wood",
-    position: "CEO de ARK Invest",
-    company: "Gestora institucional",
+    position: "CEO, ARK Invest",
     image:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT8yuorO7LkTCEiE6ukb2swyDOwAt6vyrh6Kw&s",
   },
   {
-    text: "Bitcoin es la salida de emergencia de un sistema monetario fallido.",
+    text: "Tener efectivo es como sostener un cubo de hielo. Se derrite un 7% cada año. BTC es la solución.",
     author: "Michael Saylor",
-    position: "CEO de MicroStrategy",
-    company: "$5.9B invertidos en BTC",
+    position: "CEO y fundador, Strategy",
     image:
       "https://www.strategy.com/_next/image?url=https%3A%2F%2Fimages.contentstack.io%2Fv3%2Fassets%2Fbltf8d808d9b8cebd37%2Fblta9597547a826a86f%2F6889293550671cc10fc38564%2Fexecutive-team_michael-saylor.jpg&w=3840&q=100",
   },
   {
-    text: "Las monedas digitales están aquí para quedarse.",
-    author: "Christine Lagarde",
-    position: "Presidenta del BCE",
-    company: "Banco Central Europeo",
-    image:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLwnNHhXspAs8joJlsTBG3R2LeBgaWEQA3OA&s",
-  },
-  {
-    text: "Adoptar Bitcoin fue la mejor decisión económica de El Salvador.",
-    author: "Nayib Bukele",
-    position: "Presidente de El Salvador",
-    company: "Primer país en adoptar BTC",
-    image:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Nayib_Bukele_in_the_White_House%2C_2025_%28cropped%29.jpg/330px-Nayib_Bukele_in_the_White_House%2C_2025_%28cropped%29.jpg",
-  },
-  {
-    text: "Los bancos deben evolucionar hacia blockchain o desaparecer.",
-    author: "Jamie Dimon",
-    position: "CEO de JP Morgan",
-    company: "Banco más grande de EEUU",
-    image:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSkDyGkGgaBE4JqiO2EYiXMedDKLXQ5ua9HpA&s",
+    text: "Bitcoin está basado en energía: puedes emitir dinero fiat falso, pero es imposible falsificar la energía",
+    author: "Elon Musk",
+    position: "CEO y fundador, Tesla & SpaceX",
+    image: "/img/avatar/elonmusk.jpg",
   },
 ];
 
@@ -62,70 +47,57 @@ function QuoteCard({
 }) {
   return (
     <div
-      className="flex-shrink-0 w-[400px] rounded-[20px] p-6 transition-all duration-300 relative overflow-hidden"
+      className="flex-shrink-0 w-[420px] h-[200px] rounded-[20px] px-7 py-5 transition-all duration-300 relative overflow-hidden flex flex-col"
       style={{
-        background: "#1b1a64",
-        border: "1px solid rgba(185, 184, 235, 0.15)",
+        background: "linear-gradient(145deg, #1e1d6b, #151450)",
+        border: "1px solid rgba(185, 184, 235, 0.12)",
       }}
     >
-      {/* Quote icon */}
-      <div
-        className="mb-4 transition-colors duration-300"
-        style={{
-          color: "rgba(185, 184, 235, 0.3)",
-        }}
-      >
-        <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M11.3 5.2C7.1 7.1 4.9 9.8 4.9 13.3c0 2.8 1.8 4.7 4.1 4.7 2 0 3.6-1.5 3.6-3.5 0-1.9-1.4-3.4-3.2-3.5.4-1.6 1.8-3.1 3.9-4.4L11.3 5.2zM19.8 5.2c-4.2 1.9-6.4 4.6-6.4 8.1 0 2.8 1.8 4.7 4.1 4.7 2 0 3.6-1.5 3.6-3.5 0-1.9-1.4-3.4-3.2-3.5.4-1.6 1.8-3.1 3.9-4.4L19.8 5.2z"/>
-        </svg>
-      </div>
-
-      {/* Quote text */}
+      {/* Quote text with inline quote mark */}
       <p
-        className="text-base leading-relaxed mb-5 transition-colors duration-300 relative z-10"
+        className="text-[15px] leading-[1.7] flex-1 relative z-10"
         style={{
-          color: "rgba(255, 255, 255, 0.95)",
+          color: "rgba(255, 255, 255, 0.9)",
         }}
       >
+        <span
+          className="text-2xl font-serif leading-none mr-1 -ml-0.5 align-text-top"
+          style={{ color: "rgba(185, 184, 235, 0.35)" }}
+        >
+          &ldquo;
+        </span>
         {quote.text}
       </p>
 
       {/* Author */}
-      <div className="flex items-center gap-3 relative z-10">
-        <div
-          className="relative w-12 h-12 rounded-full overflow-hidden flex-shrink-0 p-[2px]"
-          style={{
-            background: "linear-gradient(135deg, #4355d9, #B9B8EB)",
-          }}
-        >
-          <div className="w-full h-full rounded-full overflow-hidden">
-            <Image
-              src={quote.image}
-              alt={quote.author}
-              fill
-              className="object-cover"
-              unoptimized
-            />
+      <div className="flex items-center gap-3 relative z-10 mt-auto pt-3 shrink-0 border-t border-white/5">
+          <div
+            className="relative w-10 h-10 rounded-full overflow-hidden flex-shrink-0 p-[1.5px]"
+            style={{
+              background: "linear-gradient(135deg, #4355d9, #B9B8EB)",
+            }}
+          >
+            <div className="w-full h-full rounded-full overflow-hidden">
+              <Image
+                src={quote.image}
+                alt={quote.author}
+                fill
+                className="object-cover"
+                unoptimized
+              />
+            </div>
           </div>
-        </div>
-        <div className="min-w-0">
-          <h4
-            className="font-semibold text-sm transition-colors duration-300"
-            style={{
-              color: "white",
-            }}
-          >
-            {quote.author}
-          </h4>
-          <p
-            className="text-xs transition-colors duration-300"
-            style={{
-              color: "rgba(185, 184, 235, 0.8)",
-            }}
-          >
-            {quote.position}
-          </p>
-        </div>
+          <div className="min-w-0">
+            <h4 className="font-semibold text-sm text-white">
+              {quote.author}
+            </h4>
+            <p
+              className="text-[11px]"
+              style={{ color: "rgba(185, 184, 235, 0.6)" }}
+            >
+              {quote.position}
+            </p>
+          </div>
       </div>
     </div>
   );
@@ -172,7 +144,7 @@ export function InstitutionalQuotes() {
           <motion.div
             className="flex gap-6 py-2"
             animate={{
-              x: isPaused ? undefined : [0, -((400 + 24) * quotes.length)],
+              x: isPaused ? undefined : [0, -((420 + 24) * quotes.length)],
             }}
             transition={{
               x: {

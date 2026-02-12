@@ -71,11 +71,12 @@ export function ProblemSection() {
       <div className="max-w-7xl mx-auto relative z-10">
         {/* Heading */}
         <div className="text-center mb-8 md:mb-10">
-          <h2 className="font-[family-name:var(--font-heading)] text-[clamp(36px,6vw,72px)] font-bold text-white mb-3 md:mb-4 leading-[1.15] transition-colors duration-300">
-            Por qué la mayoría pierde dinero en cripto
-            <br />
-            <span className="text-[#B9B8EB]/80 text-[0.9em]">(y cómo evitarlo)</span>
+          <h2 className="font-[family-name:var(--font-heading)] text-[clamp(36px,6vw,72px)] font-bold text-white mb-3 md:mb-4 leading-[1.15]">
+            ¿Por Qué el 90% de los Inversores en Cripto Pierden Dinero?
           </h2>
+          <p className="text-[#cccce0]/70 text-base md:text-lg max-w-2xl mx-auto">
+            No es el mercado, es el proceso. Estos son los 3 patrones más comunes que vemos en alumnos y carteras reales.
+          </p>
         </div>
 
         {/* Grid de 3 Cards */}

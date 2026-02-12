@@ -8,6 +8,15 @@ import { PageBackground } from "@/components/landing/PageBackground";
 import { PageCTA } from "@/components/landing/PageCTA";
 import { Badge } from "@/components/ui/badge";
 import {
+  Award,
+  Clock,
+  TrendingUp,
+  Users,
+  Building2,
+  Mic,
+  Calendar,
+} from "lucide-react";
+import {
   CollaboratorCard,
   CollaboratorData,
 } from "@/components/landing/CollaboratorCard";
@@ -15,7 +24,7 @@ import {
 const collaborators: CollaboratorData[] = [
   {
     name: "Pablo Gil",
-    role: "Trader Profesional & Formador",
+    role: "Trader Profesional (+$500 Millones Gestionados) & Divulgador Financiero",
     imageUrl: "/img/avatar/pablogil.jpg",
     accentColor: "#f59e0b",
     collaboration: {
@@ -23,21 +32,21 @@ const collaborators: CollaboratorData[] = [
       title: "Criptomonedas: Fundamentos y Estrategias Avanzadas",
       description:
         "Curso exclusivo de 3 horas donde Pablo comparte su visión sobre el mercado de criptomonedas, combinando su experiencia de más de 37 años en mercados tradicionales con las oportunidades del ecosistema cripto.",
-      linkText: "Ver en Pablo Gil Trader",
+      linkText: "Publicado en Pablo Gil Trader",
       linkUrl: "https://pablogiltrader.com/",
     },
     credentials: [
-      "Top Líder Forbes 2025 en industria financiera",
-      "Mejor Divulgador Financiero 2023-2025 (Rankia)",
-      "Ex-Director Análisis Técnico en Santander y BBVA",
-      "Fundador Hedge Fund Market Neutral (2000-2013)",
-      "Embajador y estratega en IG y XTB",
+      <>Top 100 <strong><em>Forbes España</em></strong> en negocios e industria financiera</>,
+      <>Mejor Divulgador Financiero 2023, 2024 y 2025 — Premios <strong><em>Rankia</em></strong></>,
+      <>Ex-Director de Análisis Técnico en <strong><em>Banco Santander</em></strong></>,
+      "Fundador del primer hedge fund market-neutral con +$500M gestionados",
+      <>Estratega jefe en <strong><em>XTB</em></strong> y embajador de <strong><em>IG Markets</em></strong></>,
     ],
     stats: [
-      { label: "Forbes", value: "Top Líder" },
-      { label: "Experiencia", value: "+37 años" },
-      { label: "Rankia", value: "Mejor 23-25" },
-      { label: "Alumnos", value: "15K+" },
+      { label: "Forbes", value: "Top 100 España", icon: <Award className="w-3.5 h-3.5" /> },
+      { label: "Experiencia", value: "+37 años", icon: <Clock className="w-3.5 h-3.5" /> },
+      { label: "Rankia", value: "Mejor 2023, 24 y 25", icon: <TrendingUp className="w-3.5 h-3.5" /> },
+      { label: "Alumnos", value: "250K+", icon: <Users className="w-3.5 h-3.5" /> },
     ],
     socials: [
       { platform: "youtube", url: "https://www.youtube.com/@PabloGilTrader" },
@@ -55,19 +64,21 @@ const collaborators: CollaboratorData[] = [
       title: "Bitcoin: Análisis Fundamental y Perspectivas",
       description:
         "Curso exclusivo de 3 horas donde Javier profundiza en el análisis fundamental de Bitcoin y el ecosistema DeFi, compartiendo su experiencia como pionero del sector en España.",
-      linkText: "Ver curso exclusivo",
+      linkText: "Publicado en su plataforma educativa",
       linkUrl: "https://jfpartners.net/",
     },
     credentials: [
-      "Pionero en DeFi y ecosistema Bitcoin en España",
-      "Conferenciante internacional en eventos blockchain",
-      "Asesor estratégico en proyectos descentralizados",
+      <>Asesor financiero certificado <strong><em>EFA</em></strong> (European Financial Advisor)</>,
+      <>Fundador de <strong><em>JFPartners Capital</em></strong> — educación financiera para inversores</>,
+      "+68K seguidores en redes como referente en inversión",
+      <>Host del podcast <strong><em>Aprende a Invertir con Javier del Valle</em></strong></>,
+      <>Creador de la comunidad <strong><em>Domina la Bolsa</em></strong></>,
     ],
     stats: [
-      { label: "Comunidad", value: "30K+" },
-      { label: "Experiencia", value: "+10 años" },
-      { label: "Ponencias", value: "100+" },
-      { label: "Proyectos DeFi", value: "50+" },
+      { label: "Comunidad", value: "+100K", icon: <Users className="w-3.5 h-3.5" /> },
+      { label: "Certificación", value: "Asesor EFA", icon: <Award className="w-3.5 h-3.5" /> },
+      { label: "Fundador", value: "JFPartners Capital", icon: <Building2 className="w-3.5 h-3.5" /> },
+      { label: "Podcast", value: "Aprende a Invertir", icon: <Mic className="w-3.5 h-3.5" /> },
     ],
     socials: [
       { platform: "linkedin", url: "https://www.linkedin.com/in/javierdelvalle/" },
@@ -85,19 +96,21 @@ const collaborators: CollaboratorData[] = [
       title: "Reportes semanales de análisis macroeconómico y flujos de capital",
       description:
         "Análisis macro exclusivo para la comunidad Medusa Capital, donde Diego comparte su visión sobre los flujos de capital, tendencias macroeconómicas y su impacto en el mercado cripto.",
-      linkText: "Exclusivo Comunidad Medusa",
+      linkText: "Exclusivo para Comunidad Medusa Capital",
       linkUrl: "#",
     },
     credentials: [
-      "Analista macroeconómico especializado en cripto",
-      "Host del podcast de economía y mercados",
-      "Colaborador habitual en medios financieros",
+      <>Analista de inversiones en <strong><em>Serenity Markets</em></strong></>,
+      <>Certificado por el <strong><em>CISI</em></strong> (Chartered Institute for Securities &amp; Investment)</>,
+      <>Creador de <strong><em>The Markets Eye</em></strong> — guía diaria de mercados con miles de suscriptores</>,
+      "+800 episodios publicados de análisis económico diario",
+      <>Colaborador en <strong><em>Rankia</em></strong> y medios financieros especializados</>,
     ],
     stats: [
-      { label: "Oyentes", value: "40K+" },
-      { label: "Experiencia", value: "+7 años" },
-      { label: "Episodios", value: "200+" },
-      { label: "Rating", value: "4.9/5" },
+      { label: "Episodios", value: "800+", icon: <Mic className="w-3.5 h-3.5" /> },
+      { label: "Certificación", value: "CISI", icon: <Award className="w-3.5 h-3.5" /> },
+      { label: "Experiencia", value: "+8 años", icon: <Clock className="w-3.5 h-3.5" /> },
+      { label: "Publicación", value: "Diaria", icon: <Calendar className="w-3.5 h-3.5" /> },
     ],
     socials: [
       { platform: "twitter", url: "https://twitter.com/daborsjr" },
@@ -129,16 +142,15 @@ export default function ColaboradoresPage() {
                   height={24}
                   className="w-5 h-5 md:w-6 md:h-6"
                 />
-                Expertos del sector tradicional confían en nosotros
+                Expertos del sector financiero tradicional respaldan a Medusa Capital
               </Badge>
               <h1 className="font-[family-name:var(--font-heading)] text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4">
-                Los mayores expertos del sector
+                Los mayores expertos del sector financiero
                 <br />
-                tradicional confían en nosotros
+                tradicional respaldan a Medusa Capital
               </h1>
               <p className="text-[#B9B8EB]/60 max-w-2xl mx-auto text-base md:text-lg">
-                Colaboramos con los mayores profesionales del sector tradicional para dar a conocer
-                las enormes posibilidades que existen en el mercado de activos digitales
+                Profesionales con décadas de experiencia en banca de inversión, gestión de fondos y análisis macro han colaborado con nosotros para acercar el rigor del sector tradicional al mercado de activos digitales.
               </p>
             </motion.div>
           </div>
