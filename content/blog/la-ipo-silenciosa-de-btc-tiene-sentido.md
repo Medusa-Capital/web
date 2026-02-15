@@ -85,6 +85,8 @@ A pesar de que el precio ha subido desde hace meses, el MVRV está formando **m
 
 ![image.png](/img/blog/la-ipo-silenciosa-de-btc-tiene-sentido/image-4.png)
 
+<!-- newsletter -->
+
 **3.4 NUPL (Net Unrealized Profit/Loss):**
 
 **La divergencia clave.** Este gráfico ya es habitual en la comunidad. El NUPL muestra una divergencia que lo dice todo. A pesar de que el precio sube, el NUPL forma **máximos menores**. Esto significa:

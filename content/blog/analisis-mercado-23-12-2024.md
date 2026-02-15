@@ -40,6 +40,8 @@ El RSI diario se encuentra en 58, zona neutral con ligero sesgo alcista. El MACD
 
 **Escenario bajista**: Pérdida de $95,000 abriría camino hacia $88,000.
 
+<!-- newsletter -->
+
 ## Ethereum (ETH)
 
 El ratio ETH/BTC continúa en mínimos de varios años (0.034). Ethereum necesita recuperar el nivel de 0.04 para confirmar rotación hacia altcoins.

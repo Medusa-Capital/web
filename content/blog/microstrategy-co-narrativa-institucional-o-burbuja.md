@@ -128,6 +128,8 @@ En ese contexto, el precio de BTC sí podría verse afectado de forma indirecta.
 
 Pero a día de hoy, **ninguna de las empresas nuevas tiene tamaño ni estructura de deuda suficiente para representar un riesgo sistémico**. Y las que sí lo tienen (como MSTR), han demostrado capacidad de gestión de riesgos financieros y acceso estable a los mercados de capitales para mitigar riesgos.
 
+<!-- newsletter -->
+
 ## 7. Caso Vanadi Coffee: cuando una empresa sin modelo escalable se une a la narrativa Bitcoin
 
 ## 7.1. Estados financieros de $VANA

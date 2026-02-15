@@ -49,7 +49,7 @@ En cifras:
 - M2 Money Supply: de 15.4T$ a 21.7T$ (+41%)
 - Crecimiento de M2: 26% anual (el mayor desde 1943)
 
-![Balance de la FED](/img/blog/articulo-microstrategy-modelo-sostenible-o-colapso-asegurado/image.png)
+![Balance de la FED](/img/blog/microstrategy-modelo-sostenible-o-colapso-asegurado/image.png)
 
 Balance de la FED
 
@@ -73,7 +73,7 @@ En palabras de Saylor:
 
 En datos oficiales la inflación (CPI) llegó en su máximo a niveles casi de doble dígito (9,1%).
 
-![image.png](/img/blog/articulo-microstrategy-modelo-sostenible-o-colapso-asegurado/image-1.png)
+![image.png](/img/blog/microstrategy-modelo-sostenible-o-colapso-asegurado/image-1.png)
 
 ### Anuncio que lo Cambiaría todo
 
@@ -97,7 +97,7 @@ Antes de convertirse en la mayor tesorería corporativa de Bitcoin del mundo, Mi
 
 **el software no puede sostener la estructura financiera que Saylor ha construido.**
 
-![image.png](/img/blog/articulo-microstrategy-modelo-sostenible-o-colapso-asegurado/image-2.png)
+![image.png](/img/blog/microstrategy-modelo-sostenible-o-colapso-asegurado/image-2.png)
 
 ### Qué Hace MicroStrategy Software
 
@@ -111,7 +111,7 @@ Los ingresos de software llevan estancados desde 2014. En una década, el negoci
 
 Por tanto, Saylor puede vender que vio, en un primer momento, en BTC una salida para su efectivo ocioso, pero la realidad es que su empresa estaba claramente estancada.
 
-![$MSTR Financials](/img/blog/articulo-microstrategy-modelo-sostenible-o-colapso-asegurado/image-3.png)
+![$MSTR Financials](/img/blog/microstrategy-modelo-sostenible-o-colapso-asegurado/image-3.png)
 
 $MSTR Financials
 
@@ -138,7 +138,7 @@ En febrero de 2025, MicroStrategy cambió su nombre a "Strategy" y se autodefini
 
 El software, el negocio que generó la empresa durante 35 años, quedó relegado a un sitio web separado ([https://strategysoftware.com/](https://strategysoftware.com/)). Los earnings calls ahora dedican 90% del tiempo a hablar de Bitcoin y métricas como "BTC Yield".
 
-![Rebrand Strategy](/img/blog/articulo-microstrategy-modelo-sostenible-o-colapso-asegurado/image-4.png)
+![Rebrand Strategy](/img/blog/microstrategy-modelo-sostenible-o-colapso-asegurado/image-4.png)
 
 Rebrand Strategy
 
@@ -167,6 +167,8 @@ Su objetivo principal ya no es crecer con licencias o suscripciones de software,
 Para ello, utiliza mecanismos como deuda convertible, acciones preferentes y emisiones ATM, diseñando productos con distintos perfiles de riesgo/retorno. No te preocupes si te suenan a chino estos nombres, en el siguiente bloque los desglosaremos y explicaremos de una manera muy sencilla.
 
 Strategy ha evolucionado en algo cercano a una "Compañía Operativa de BTC": accede a todos los tramos del mercado de capitales global, capta fondos a través de sofisticadas estructuras de capital, y emplea el capital obtenido para comprar más y más Bitcoin. El software, aunque no desaparece, ha pasado a ser un "vehículo legal", mientras la función central de la empresa es servir de puente entre los mercados financieros tradicionales y el ecosistema BTC.
+
+<!-- newsletter -->
 
 ---
 
@@ -217,7 +219,7 @@ Es como si comprases un bono, pero llamándolo "acción". Tienes derecho a cobra
 
 Strategy utiliza tres mecanismos para levantar capital. Cada uno atrae a un tipo distinto de inversor:
 
-![Infografía Máquina de Financiamiento Multicapa](/img/blog/articulo-microstrategy-modelo-sostenible-o-colapso-asegurado/image-5.png)
+![Infografía Máquina de Financiamiento Multicapa](/img/blog/microstrategy-modelo-sostenible-o-colapso-asegurado/image-5.png)
 
 Infografía Máquina de Financiamiento Multicapa
 
@@ -295,7 +297,7 @@ En octubre 2024, Strategy anunció el ambicioso **Plan 21/21:** levantar **42.00
 - **21B$ en equity** (acciones ordinarias y preferentes)
 - **21B$ en fixed-income** (deuda convertible y bonos)
 
-![image.png](/img/blog/articulo-microstrategy-modelo-sostenible-o-colapso-asegurado/image-6.png)
+![image.png](/img/blog/microstrategy-modelo-sostenible-o-colapso-asegurado/image-6.png)
 
 Esto representa aproximadamente **el PIB de Croacia** en financiamiento corporativo. Para ponerlo en perspectiva, Tesla levantó entorno a 15B$ en toda su historia hasta 2024.
 
@@ -314,7 +316,7 @@ El modelo de Strategy funciona como un **flywheel:**
 
 BTC sube → mNAV se mantiene alto → Strategy emite acciones accretivamente → Compra más BTC → BTC por acción aumenta → Inversores ven valor → Demanda de MSTR aumenta → mNAV se mantiene alto → Repetir
 
-![Flywheel positivo](/img/blog/articulo-microstrategy-modelo-sostenible-o-colapso-asegurado/image-7.png)
+![Flywheel positivo](/img/blog/microstrategy-modelo-sostenible-o-colapso-asegurado/image-7.png)
 
 Flywheel positivo
 
@@ -322,7 +324,7 @@ Flywheel positivo
 
 BTC cae → mNAV colapsa hacia 1.0x → Strategy no puede emitir accretivamente → Solo puede emitir preferentes (caro) → Obligaciones aumentan → Presión sobre modelo → Inversores huyen → mNAV cae más → Difícil emitir
 
-![Flywheel negativo](/img/blog/articulo-microstrategy-modelo-sostenible-o-colapso-asegurado/image-8.png)
+![Flywheel negativo](/img/blog/microstrategy-modelo-sostenible-o-colapso-asegurado/image-8.png)
 
 Flywheel negativo
 
@@ -350,7 +352,7 @@ El mNAV (market-to-NAV) es el número que le importa a Saylor y al mercado. Mide
 
 ¿Qué significa esto? Que hace un año, los inversores pagaban 340% del valor del Bitcoin subyacente. Ahora pagan aproximadamente el valor justo. Sin premium, a Saylor se le complica levantar capital para comprar más BTC.
 
-![mNAV colapsando](/img/blog/articulo-microstrategy-modelo-sostenible-o-colapso-asegurado/image-9.png)
+![mNAV colapsando](/img/blog/microstrategy-modelo-sostenible-o-colapso-asegurado/image-9.png)
 
 mNAV colapsando
 
@@ -360,7 +362,7 @@ Entender esto es crítico. Es **la palanca central del modelo.** Cuando mNAV > 1
 
 MSCI, el proveedor de índices más importante del mundo, está considerando excluir a Strategy de sus índices.
 
-![MSCI riesgo exclusión](/img/blog/articulo-microstrategy-modelo-sostenible-o-colapso-asegurado/image-10.png)
+![MSCI riesgo exclusión](/img/blog/microstrategy-modelo-sostenible-o-colapso-asegurado/image-10.png)
 
 MSCI riesgo exclusión
 
@@ -421,6 +423,6 @@ Espero que os haya gustado,
 
 **Axel.**
 
-![image.png](/img/blog/articulo-microstrategy-modelo-sostenible-o-colapso-asegurado/image-11.png)
+![image.png](/img/blog/microstrategy-modelo-sostenible-o-colapso-asegurado/image-11.png)
 
 [https://x.com/Axel_Mnvn/status/1993762493395562917](https://x.com/Axel_Mnvn/status/1993762493395562917)

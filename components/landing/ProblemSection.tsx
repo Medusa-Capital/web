@@ -1,4 +1,4 @@
-import { Dices, TrendingDown, Hourglass } from "lucide-react";
+import { Dices, TrendingDown, Hourglass, X } from "lucide-react";
 
 // Accent colors for each card
 const cardAccents = [
@@ -72,7 +72,7 @@ export function ProblemSection() {
         {/* Heading */}
         <div className="text-center mb-8 md:mb-10">
           <h2 className="font-[family-name:var(--font-heading)] text-[clamp(36px,6vw,72px)] font-bold text-white mb-3 md:mb-4 leading-[1.15]">
-            ¿Por Qué el 90% de los Inversores en Cripto Pierden Dinero?
+            ¿Por qué el 90% de los inversores en cripto pierden dinero?
           </h2>
           <p className="text-[#cccce0]/70 text-base md:text-lg max-w-2xl mx-auto">
             No es el mercado, es el proceso. Estos son los 3 patrones más comunes que vemos en alumnos y carteras reales.
@@ -127,9 +127,10 @@ export function ProblemSection() {
                   <div className="space-y-4 flex-1">
                     {problem.bullets.map((bullet, bulletIndex) => (
                       <div key={bulletIndex} className="flex items-start gap-3 min-h-[56px]">
-                        <span
-                          className="w-[6px] h-[6px] rounded-full mt-[9px] shrink-0"
-                          style={{ background: accent.color }}
+                        <X
+                          className="w-4 h-4 mt-[3px] shrink-0"
+                          style={{ color: accent.color }}
+                          strokeWidth={3}
                         />
                         <p
                           className="text-base leading-relaxed transition-colors duration-300 text-[#cccce0]/85"

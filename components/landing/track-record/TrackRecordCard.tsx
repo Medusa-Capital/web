@@ -36,7 +36,7 @@ export function TrackRecordCard({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-      className="relative rounded-3xl border overflow-hidden w-full max-w-[400px] mx-auto transition-all duration-300 group"
+      className="relative rounded-3xl border overflow-hidden w-full max-w-[400px] h-full mx-auto transition-all duration-300 group flex flex-col"
       style={{
         background: "rgba(27, 26, 100, 0.5)",
         borderColor: "rgba(185, 184, 235, 0.2)",
@@ -88,7 +88,7 @@ export function TrackRecordCard({
       </div>
 
       {/* Card content */}
-      <div className="relative p-6 space-y-4">
+      <div className="relative p-6 space-y-4 flex flex-col flex-1">
           {/* Title and ROI */}
           <div className="space-y-2">
             <h3
@@ -218,7 +218,7 @@ export function TrackRecordCard({
         <Button
           onClick={onThesisClick}
           variant="secondaryGlow"
-          className="w-full mt-4 rounded-xl px-6 py-3 h-auto text-sm font-semibold"
+          className="w-full mt-auto pt-4 rounded-xl px-6 py-3 h-auto text-sm font-semibold"
         >
           <span>Ver tesis completa</span>
           <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />

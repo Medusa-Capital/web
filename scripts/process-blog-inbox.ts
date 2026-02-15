@@ -127,6 +127,10 @@ function generateSlug(title: string): string {
 }
 
 function cleanupContent(content: string, slug: string): string {
+  // Strip Notion metadata fields that leak into content
+  const notionMetaPattern = /^(Canales|Documento Link|Día \(auto\)|Estado|Fecha Publicación|Publicado en web|Semana \(auto\)|Responsable|Tipo|Pilar):.*$/gm;
+  content = content.replace(notionMetaPattern, "");
+
   // Convert # **Title** to ## Title (normalize heading format)
   content = content.replace(/^#\s*\*\*(.+?)\*\*$/gm, "## $1");
 
@@ -135,10 +139,11 @@ function cleanupContent(content: string, slug: string): string {
   content = content.replace(
     /!\[([^\]]*)\]\(([^)]+)\)/g,
     (match, alt, src) => {
-      // Extract just the filename
-      const filename = basename(src);
-      // Clean the filename (remove spaces, url encoding)
-      const cleanFilename = decodeURIComponent(filename).replace(/\s+/g, "-").toLowerCase();
+      // Decode the full path first, then extract just the filename
+      const decoded = decodeURIComponent(src);
+      const filename = basename(decoded);
+      // Clean the filename (remove spaces, special chars)
+      const cleanFilename = filename.replace(/\s+/g, "-").toLowerCase();
       return `![${alt}](/img/blog/${slug}/${cleanFilename})`;
     }
   );
@@ -241,6 +246,52 @@ function getImagesFromFolder(folderPath: string): string[] {
   }
 }
 
+/**
+ * Insert a <!-- newsletter --> marker at a natural break point in the article.
+ * Finds the H2 heading closest to the 40-60% midpoint of the content.
+ * Skips articles shorter than 40 lines (too short for a mid-article CTA).
+ */
+function insertNewsletterMarker(content: string): string {
+  const lines = content.split("\n");
+
+  // Skip short articles
+  if (lines.length < 40) return content;
+
+  // Find all ## heading line indices
+  const headingIndices: number[] = [];
+  for (let i = 0; i < lines.length; i++) {
+    if (/^##\s/.test(lines[i])) {
+      headingIndices.push(i);
+    }
+  }
+
+  // Need at least 3 headings to have a meaningful split
+  if (headingIndices.length < 3) return content;
+
+  // Find the heading closest to the 40-60% midpoint
+  const targetLine = Math.round(lines.length * 0.45);
+  let bestIndex = headingIndices[0];
+  let bestDistance = Math.abs(headingIndices[0] - targetLine);
+
+  for (const idx of headingIndices) {
+    const distance = Math.abs(idx - targetLine);
+    if (distance < bestDistance) {
+      bestDistance = distance;
+      bestIndex = idx;
+    }
+  }
+
+  // Don't place too close to the start or end (at least 20% from either edge)
+  const minLine = Math.round(lines.length * 0.2);
+  const maxLine = Math.round(lines.length * 0.8);
+  if (bestIndex < minLine || bestIndex > maxLine) return content;
+
+  // Insert marker before the chosen heading
+  lines.splice(bestIndex, 0, "", "<!-- newsletter -->", "");
+
+  return lines.join("\n");
+}
+
 function processArticle(article: ProcessedArticle, dryRun: boolean): boolean {
   const { metadata, content, images } = article;
   const { slug, title, date, author, description, tags, imageFolderPath } = metadata;
@@ -305,9 +356,12 @@ published: true
 category: "article"
 ---`;
 
+  // Insert newsletter CTA marker at a natural break point
+  const contentWithMarker = insertNewsletterMarker(content);
+
   // Write blog post
   const blogPath = join(BLOG_DIR, `${slug}.md`);
-  const fullContent = `${frontmatter}\n\n${content}\n`;
+  const fullContent = `${frontmatter}\n\n${contentWithMarker}\n`;
 
   try {
     writeFileSync(blogPath, fullContent);

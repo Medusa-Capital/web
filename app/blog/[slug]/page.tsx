@@ -4,8 +4,25 @@ import { MarkdownRenderer } from "@/components/blog/MarkdownRenderer";
 import { Header } from "@/components/landing/Header";
 import { Footer } from "@/components/landing/Footer";
 import { PageBackground } from "@/components/landing/PageBackground";
+import { NewsletterSection } from "@/components/blog/NewsletterSection";
+import { PageCTA } from "@/components/landing/PageCTA";
 import Link from "next/link";
 import Image from "next/image";
+
+const NEWSLETTER_MARKER = "<!-- newsletter -->";
+
+/**
+ * Split content at the <!-- newsletter --> marker placed during article processing.
+ * If no marker exists, returns the full content with no split.
+ */
+function splitContentAtNewsletter(content: string): [string, string] {
+  const idx = content.indexOf(NEWSLETTER_MARKER);
+  if (idx === -1) return [content, ""];
+  return [
+    content.slice(0, idx).trimEnd(),
+    content.slice(idx + NEWSLETTER_MARKER.length).trimStart(),
+  ];
+}
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -121,12 +138,34 @@ export default async function BlogPostPage({ params }: Props) {
               )}
             </header>
 
-            {/* Article content */}
-            <div className="prose-content">
-              <MarkdownRenderer content={post.content} />
-            </div>
+            {/* Article content — first half */}
+            {(() => {
+              const [firstHalf, secondHalf] = splitContentAtNewsletter(post.content);
+              return (
+                <>
+                  <div className="prose-content">
+                    <MarkdownRenderer content={firstHalf} />
+                  </div>
 
-            {/* Footer */}
+                  {secondHalf && (
+                    <>
+                      {/* Mid-article newsletter CTA */}
+                      <NewsletterSection
+                        title="¿Te está gustando este análisis?"
+                        description="Publicamos contenido como este cada semana. Suscríbete y recíbelo directamente en tu email."
+                      />
+
+                      {/* Article content — second half */}
+                      <div className="prose-content">
+                        <MarkdownRenderer content={secondHalf} />
+                      </div>
+                    </>
+                  )}
+                </>
+              );
+            })()}
+
+            {/* Back to blog */}
             <footer className="mt-16 pt-8 border-t border-[#B9B8EB]/20">
               <Link
                 href="/blog"
@@ -136,6 +175,14 @@ export default async function BlogPostPage({ params }: Props) {
               </Link>
             </footer>
           </div>
+
+          {/* Final CTA — Calendly */}
+          <PageCTA
+            title="¿Listo para dar el siguiente paso?"
+            description="Reserva una sesión estratégica gratuita de 15 minutos donde analizamos tu situación y te ayudamos a construir tu plan de inversión en cripto."
+            buttonText="Reservar mi sesión gratuita"
+            buttonExternalUrl="https://calendly.com/contacto-medusacapital/sesion-estrategica-15-clon?month=2026-01"
+          />
         </article>
         <Footer />
       </div>

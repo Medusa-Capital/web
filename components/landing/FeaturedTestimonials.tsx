@@ -1,11 +1,5 @@
 import Image from "next/image";
-import { MessageSquare, Star } from "lucide-react";
-
-const miniQuotes = [
-  "Ahora las inversiones hacen lo suyo mientras duermo tranquilo",
-  "Aprendí a filtrar el ruido y a medir riesgos de verdad",
-  "Estáis en el lugar adecuado para desarrollaros como inversores",
-];
+import { Star } from "lucide-react";
 
 interface FeaturedTestimonial {
   name: string;
@@ -36,26 +30,6 @@ const featured: FeaturedTestimonial = {
     },
   ],
 };
-
-function MiniQuoteCard({ quote }: { quote: string }) {
-  return (
-    <div
-      className="rounded-[16px] p-5"
-      style={{
-        background: "rgba(27, 26, 100, 0.6)",
-        border: "1px solid rgba(255, 255, 255, 0.1)",
-      }}
-    >
-      <MessageSquare
-        className="mb-3 text-[#B9B8EB]/60"
-        size={20}
-      />
-      <p className="text-[#cccce0] text-sm leading-relaxed">
-        &ldquo;{quote}&rdquo;
-      </p>
-    </div>
-  );
-}
 
 function StarRating({ count }: { count: number }) {
   return (
@@ -108,25 +82,6 @@ export function FeaturedTestimonials() {
   return (
     <section className="relative py-16 md:py-[100px] px-4 md:px-6 overflow-hidden">
       <div className="max-w-5xl mx-auto relative z-10">
-        {/* Section Header */}
-        <div className="text-center mb-10 md:mb-14">
-          <h2 className="font-[family-name:var(--font-heading)] text-[clamp(28px,5vw,56px)] font-bold text-white uppercase tracking-wide leading-tight">
-            Lo que dicen nuestros alumnos
-          </h2>
-          <div
-            className="mx-auto mt-3 h-[3px] w-24 rounded-full"
-            style={{
-              background: "linear-gradient(90deg, #B9B8EB, #3a54f8)",
-            }}
-          />
-        </div>
-
-        {/* Mini Quote Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
-          {miniQuotes.map((quote, i) => (
-            <MiniQuoteCard key={i} quote={quote} />
-          ))}
-        </div>
 
         {/* Featured Testimonial */}
         <div

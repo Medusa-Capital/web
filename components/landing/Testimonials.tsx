@@ -1,4 +1,96 @@
 import Image from "next/image";
+import { MessageSquare, Star } from "lucide-react";
+
+const miniQuotes = [
+  "Ahora las inversiones hacen lo suyo mientras duermo tranquilo",
+  "Aprendí a filtrar el ruido y a medir riesgos de verdad",
+  "Estáis en el lugar adecuado para desarrollaros como inversores",
+];
+
+function MiniQuoteCard({ quote }: { quote: string }) {
+  return (
+    <div
+      className="rounded-[16px] p-5"
+      style={{
+        background: "rgba(27, 26, 100, 0.6)",
+        border: "1px solid rgba(255, 255, 255, 0.1)",
+      }}
+    >
+      <MessageSquare
+        className="mb-3 text-[#B9B8EB]/60"
+        size={20}
+      />
+      <p className="text-[#cccce0] text-sm leading-relaxed">
+        &ldquo;{quote}&rdquo;
+      </p>
+    </div>
+  );
+}
+
+const featured = {
+  name: "Bruno",
+  age: 51,
+  avatar: "/img/avatar/testi-1.webp",
+  rating: 5,
+  paragraphs: [
+    {
+      text: '"Siendo muy sincero, he dejado de ganar mucho dinero por hacer el TONTO durante 3 ciclos de BTC. Perdiendo con ICOs, altcoins, con memes... Doy las gracias por haber encontrado este equipo que me facilita la vida y me da tiempo para otras cosas más importantes, las inversiones siguen haciendo lo suyo mientras duermo plácidamente, cosas que antes ni podía hacer tranquilo por jugármela directamente en el casino día tras día.',
+    },
+    {
+      text: "GRACIAS DE VERDAD, aquí nada de peloteo, el trabajo que hace no vale lo que cuesta. (Que por cierto ya está más que rentabilizado)",
+    },
+    {
+      text: 'Seguramente entren muchos en fomo, pero **el momento de hacer patrimonio es AHORA**"',
+      bold: true,
+    },
+  ] as Array<{ text: string; bold?: boolean }>,
+};
+
+function StarRating({ count }: { count: number }) {
+  return (
+    <div className="flex gap-0.5">
+      {Array.from({ length: count }).map((_, i) => (
+        <Star
+          key={i}
+          size={16}
+          className="fill-amber-400 text-amber-400"
+        />
+      ))}
+    </div>
+  );
+}
+
+function renderParagraph(paragraph: { text: string; bold?: boolean }, index: number) {
+  if (!paragraph.bold) {
+    return (
+      <p
+        key={index}
+        className="text-[#cccce0]/80 text-sm md:text-base leading-relaxed"
+      >
+        {paragraph.text}
+      </p>
+    );
+  }
+
+  const parts = paragraph.text.split(/(\*\*[^*]+\*\*)/g);
+  return (
+    <p
+      key={index}
+      className="text-[#cccce0]/80 text-sm md:text-base leading-relaxed"
+    >
+      {parts.map((part, i) => {
+        if (part.startsWith("**") && part.endsWith("**")) {
+          return (
+            <strong key={i} className="text-white font-bold">
+              {part.slice(2, -2)}
+            </strong>
+          );
+        }
+        return part;
+      })}
+    </p>
+  );
+}
 
 const testimonials = [
   {
@@ -159,6 +251,13 @@ export function Testimonials() {
           </p>
         </div>
 
+        {/* Mini Quote Cards */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10 md:mb-16">
+          {miniQuotes.map((quote, i) => (
+            <MiniQuoteCard key={i} quote={quote} />
+          ))}
+        </div>
+
         {/* 3 Column scrolling testimonials */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {/* Column 1 - scrolls down */}
@@ -174,6 +273,39 @@ export function Testimonials() {
           {/* Column 3 - scrolls down */}
           <div>
             <ScrollingColumn testimonials={column3} direction="down" />
+          </div>
+        </div>
+
+        {/* Featured Testimonial */}
+        <div
+          className="rounded-[20px] p-6 md:p-8 mt-10 md:mt-16"
+          style={{
+            background: "rgba(27, 26, 100, 0.5)",
+            border: "1px solid rgba(255, 255, 255, 0.1)",
+          }}
+        >
+          <div className="flex items-center gap-4 mb-5">
+            <Image
+              src={featured.avatar}
+              alt={featured.name}
+              width={56}
+              height={56}
+              className="w-14 h-14 rounded-full object-cover"
+            />
+            <div>
+              <h4 className="text-white font-semibold text-lg italic">
+                {featured.name}, {featured.age} años
+              </h4>
+              <StarRating count={featured.rating} />
+            </div>
+          </div>
+          <div
+            className="pl-5 flex flex-col gap-4"
+            style={{
+              borderLeft: "3px solid rgba(185, 184, 235, 0.25)",
+            }}
+          >
+            {featured.paragraphs.map((p, i) => renderParagraph(p, i))}
           </div>
         </div>
       </div>

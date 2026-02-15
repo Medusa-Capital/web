@@ -142,18 +142,71 @@ export function CollaboratorCard({ data, index }: CollaboratorCardProps) {
 
         {/* COLUMN 2: Value & Authority */}
         <div className="flex-1 flex flex-col relative">
-          {/* Subtle texture overlay */}
+          {/* SECTION A: Stats Ticker */}
           <div
-            className="absolute inset-0 pointer-events-none opacity-20"
-            style={{
-              backgroundImage: `radial-gradient(circle at 1px 1px, white 1px, transparent 0)`,
-              backgroundSize: "40px 40px",
-            }}
-          />
+            className="border-b p-4 md:px-8 border-[#B9B8EB]/5 bg-[#0a0a2e]/50"
+          >
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              {data.stats.map((stat, idx) => (
+                <div key={idx} className="flex flex-col items-center text-center">
+                  <span
+                    className="text-[10px] font-mono uppercase tracking-wider mb-1 text-[#B9B8EB]/40 flex items-center gap-1.5"
+                  >
+                    {stat.icon && <span className="text-[#B9B8EB]/30">{stat.icon}</span>}
+                    {stat.label}
+                  </span>
+                  <div className="flex items-baseline gap-1">
+                    <span
+                      className="text-base font-bold font-mono text-white/90"
+                    >
+                      {stat.value}
+                    </span>
+                    {stat.subValue && (
+                      <span
+                        className="text-[10px] font-mono"
+                        style={{ color: data.accentColor }}
+                      >
+                        {stat.subValue}
+                      </span>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
 
-          {/* SECTION A: The Collaboration */}
+          {/* SECTION B: Authority Signals */}
           <div
-            className="p-6 md:p-8 lg:p-10 border-b bg-[#1b1a64]/50 border-[#B9B8EB]/5"
+            className="flex-1 p-6 md:p-8 lg:p-10 flex flex-col justify-center border-b bg-[#1b1a64] border-[#B9B8EB]/5"
+          >
+            <h4
+              className="text-xs font-mono uppercase tracking-widest mb-6 flex items-center gap-2 text-[#B9B8EB]/50"
+            >
+              <ShieldCheck className="w-4 h-4" />
+              Credenciales destacadas
+            </h4>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
+              {data.credentials.map((cred, idx) => (
+                <div key={idx} className="flex items-start gap-3 group/item">
+                  <div
+                    className="w-1.5 h-1.5 rounded-full mt-2 transition-colors duration-300"
+                    style={{
+                      background: `${data.accentColor}80`,
+                    }}
+                  />
+                  <span
+                    className="text-sm transition-colors duration-300 text-[#B9B8EB]/80 group-hover/item:text-white"
+                  >
+                    {cred}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* SECTION C: The Collaboration */}
+          <div
+            className="mt-auto p-6 md:p-8 lg:p-10 bg-[#1b1a64]/50"
           >
             <div className="flex items-center gap-3 mb-4">
               <div
@@ -212,68 +265,6 @@ export function CollaboratorCard({ data, index }: CollaboratorCardProps) {
                   )}
                 </div>
               )}
-            </div>
-          </div>
-
-          {/* SECTION B: Authority Signals */}
-          <div
-            className="flex-1 p-6 md:p-8 lg:p-10 flex flex-col justify-center bg-[#1b1a64]"
-          >
-            <h4
-              className="text-xs font-mono uppercase tracking-widest mb-6 flex items-center gap-2 text-[#B9B8EB]/50"
-            >
-              <ShieldCheck className="w-4 h-4" />
-              Credenciales destacadas
-            </h4>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
-              {data.credentials.map((cred, idx) => (
-                <div key={idx} className="flex items-start gap-3 group/item">
-                  <div
-                    className="w-1.5 h-1.5 rounded-full mt-2 transition-colors duration-300"
-                    style={{
-                      background: `${data.accentColor}80`,
-                    }}
-                  />
-                  <span
-                    className="text-sm transition-colors duration-300 text-[#B9B8EB]/80 group-hover/item:text-white"
-                  >
-                    {cred}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* SECTION C: Stats Ticker */}
-          <div
-            className="mt-auto border-t p-4 md:px-8 border-[#B9B8EB]/5 bg-[#0a0a2e]/50"
-          >
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              {data.stats.map((stat, idx) => (
-                <div key={idx} className="flex flex-col">
-                  <span
-                    className="text-[10px] font-mono uppercase tracking-wider mb-1 text-[#B9B8EB]/40 flex items-center gap-1.5"
-                  >
-                    {stat.icon && <span className="text-[#B9B8EB]/30">{stat.icon}</span>}
-                    {stat.label}
-                  </span>
-                  <div className="flex items-baseline gap-1">
-                    <span
-                      className="text-lg font-bold font-mono text-white/90"
-                    >
-                      {stat.value}
-                    </span>
-                    {stat.subValue && (
-                      <span
-                        className="text-[10px] font-mono"
-                        style={{ color: data.accentColor }}
-                      >
-                        {stat.subValue}
-                      </span>
-                    )}
-                  </div>
-                </div>
-              ))}
             </div>
           </div>
         </div>

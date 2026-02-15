@@ -45,8 +45,8 @@ const collaborators: CollaboratorData[] = [
     stats: [
       { label: "Forbes", value: "Top 100 España", icon: <Award className="w-3.5 h-3.5" /> },
       { label: "Experiencia", value: "+37 años", icon: <Clock className="w-3.5 h-3.5" /> },
-      { label: "Rankia", value: "Mejor 2023, 24 y 25", icon: <TrendingUp className="w-3.5 h-3.5" /> },
       { label: "Alumnos", value: "250K+", icon: <Users className="w-3.5 h-3.5" /> },
+      { label: "Rankia", value: "Mejor 2023, 24 y 25", icon: <TrendingUp className="w-3.5 h-3.5" /> },
     ],
     socials: [
       { platform: "youtube", url: "https://www.youtube.com/@PabloGilTrader" },
@@ -75,9 +75,9 @@ const collaborators: CollaboratorData[] = [
       <>Creador de la comunidad <strong><em>Domina la Bolsa</em></strong></>,
     ],
     stats: [
-      { label: "Comunidad", value: "+100K", icon: <Users className="w-3.5 h-3.5" /> },
       { label: "Certificación", value: "Asesor EFA", icon: <Award className="w-3.5 h-3.5" /> },
       { label: "Fundador", value: "JFPartners Capital", icon: <Building2 className="w-3.5 h-3.5" /> },
+      { label: "Comunidad", value: "+100K", icon: <Users className="w-3.5 h-3.5" /> },
       { label: "Podcast", value: "Aprende a Invertir", icon: <Mic className="w-3.5 h-3.5" /> },
     ],
     socials: [
@@ -107,9 +107,9 @@ const collaborators: CollaboratorData[] = [
       <>Colaborador en <strong><em>Rankia</em></strong> y medios financieros especializados</>,
     ],
     stats: [
-      { label: "Episodios", value: "800+", icon: <Mic className="w-3.5 h-3.5" /> },
       { label: "Certificación", value: "CISI", icon: <Award className="w-3.5 h-3.5" /> },
       { label: "Experiencia", value: "+8 años", icon: <Clock className="w-3.5 h-3.5" /> },
+      { label: "Episodios", value: "800+", icon: <Mic className="w-3.5 h-3.5" /> },
       { label: "Publicación", value: "Diaria", icon: <Calendar className="w-3.5 h-3.5" /> },
     ],
     socials: [

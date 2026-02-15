@@ -49,6 +49,8 @@ Esto destruye un narrativa que circula constantemente en X: "Bitcoin es dinero d
 
 La realidad es diferente y mucho más interesante. **Bitcoin está actuando como un activo de riesgo de alta beta.** Se mueve al ritmo del sentimiento de mercado general, no como un refugio seguro contra volatilidad sistémica.
 
+<!-- newsletter -->
+
 ## IV. El Posible Catalizador: Reapertura del Gobierno y Liberación de Liquidez
 
 Esta semana, el gobierno de Estados Unidos reabre. Parece un evento político. Pero sus implicaciones financieras son profundas para cualquiera que entienda flujos de capital.

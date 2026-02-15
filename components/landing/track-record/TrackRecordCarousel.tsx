@@ -8,7 +8,7 @@ const trackRecordProjects = [
   {
     screenshotUrl:
       "https://s2.coinmarketcap.com/static/img/coins/200x200/38146.png",
-    timestamp: "14/01/24 09:32",
+    timestamp: "14/01/24",
     projectName: "MetaDAO",
     ticker: "$META",
     roi: "+1.100%",
@@ -24,7 +24,7 @@ const trackRecordProjects = [
   {
     screenshotUrl:
       "https://s2.coinmarketcap.com/static/img/coins/200x200/32196.png",
-    timestamp: "08/03/24 14:15",
+    timestamp: "08/03/24",
     projectName: "Hyperliquid",
     ticker: "$HYPE",
     roi: "+500%",
@@ -40,7 +40,7 @@ const trackRecordProjects = [
   {
     screenshotUrl:
       "https://s2.coinmarketcap.com/static/img/coins/200x200/33824.png",
-    timestamp: "22/05/24 11:48",
+    timestamp: "22/05/24",
     projectName: "Syrup",
     ticker: "$SYRUP",
     roi: "+250%",
@@ -51,6 +51,22 @@ const trackRecordProjects = [
       "Nicho desatendido en DeFi",
       "Community building excepcional",
       "Tokenomics favorables a largo plazo",
+    ],
+  },
+  {
+    screenshotUrl:
+      "https://s2.coinmarketcap.com/static/img/coins/200x200/32196.png",
+    timestamp: "08/03/24",
+    projectName: "Hyperliquid",
+    ticker: "$HYPE",
+    roi: "+500%",
+    duration: "8 meses",
+    entryPrice: "$10",
+    exitPrice: "$60",
+    reasons: [
+      "Tesis sólida (DEX sin VCs)",
+      "Tracción real ($2B TVL)",
+      "Plan de salida disciplinado",
     ],
   },
 ];
@@ -74,7 +90,7 @@ export function TrackRecordCarousel() {
           {trackRecordProjects.map((project, index) => (
             <div
               key={index}
-              className="snap-center flex-none w-[320px] md:w-[calc((100%-3rem)/3)]"
+              className="snap-center flex-none w-[280px] md:w-[calc((100%-4.5rem)/4)]"
             >
               <TrackRecordCard
                 {...project}

@@ -108,6 +108,8 @@ La tasa de rotación (turnover) es de **42x en Lighter** **(vs. 7.9x en HL)** re
 
 ![OI/VOL Ratio](/img/blog/lighter-vs-hyperliquid/image-5.png)
 
+<!-- newsletter -->
+
 ### 4. Sostenibilidad Económica (Monetización)
 
 El análisis de ingresos (Revenue) revela dos modelos de negocio opuestos.

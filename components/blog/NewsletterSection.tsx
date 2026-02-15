@@ -4,7 +4,15 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
-export function NewsletterSection() {
+interface NewsletterSectionProps {
+  title?: string;
+  description?: string;
+}
+
+export function NewsletterSection({
+  title = "Suscríbete a nuestra newsletter",
+  description = "Recibe análisis exclusivos, alertas de proyectos prometedores y contenido educativo directamente en tu email.",
+}: NewsletterSectionProps) {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<"idle" | "success">("idle");
 
@@ -51,11 +59,10 @@ export function NewsletterSection() {
 
             <div className="relative z-10 text-center">
               <h2 className="font-[family-name:var(--font-heading)] text-3xl md:text-[42px] md:leading-[52px] font-bold text-white mb-4 transition-colors duration-300">
-                Suscríbete a nuestra newsletter
+                {title}
               </h2>
               <p className="text-[#cccce0]/70 text-base leading-relaxed max-w-[500px] mx-auto mb-8 transition-colors duration-300">
-                Recibe análisis exclusivos, alertas de proyectos prometedores y
-                contenido educativo directamente en tu email.
+                {description}
               </p>
 
               {status === "success" ? (

@@ -117,6 +117,8 @@ Durante los años 2-4, los **cliffs del equipo terminan** (típicamente 24 meses
 
 El precio típicamente colapsa a **$0.8 (-73% desde TGE)**. El retail ha sido completamente liquidado, habiendo servido como **exit liquidity** para VCs, equipo e insiders
 
+<!-- newsletter -->
+
 ## 2. Hinchándose a ganar pasta en TradFi
 
 En este punto poco tenemos que decir. Los rendimientos en mercados tradicionales están siendo espectaculares. Las commodities están teniendo.

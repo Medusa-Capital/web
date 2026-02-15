@@ -69,7 +69,7 @@ export function Features() {
           {/* Left content - sticky */}
           <div>
             <div className="lg:sticky lg:top-[clamp(140px,4vw,162px)] mb-12 lg:mb-0 text-center lg:text-left">
-              <h2 className="font-[family-name:var(--font-heading)] text-[clamp(36px,6vw,72px)] font-bold text-white leading-tight mb-6">
+              <h2 className="font-[family-name:var(--font-heading)] text-[clamp(28px,4vw,48px)] font-bold text-white leading-tight mb-6">
                 Un método claro para entender, evaluar e invertir en cripto con criterio
               </h2>
               <p className="text-[#cccce0] text-base md:text-lg leading-relaxed">

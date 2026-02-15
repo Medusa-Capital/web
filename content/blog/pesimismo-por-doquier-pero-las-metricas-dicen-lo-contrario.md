@@ -37,6 +37,8 @@ Por el lado de los índices americanos, hemos abierto con un GAP extraordinario 
 
 ![image.png](/img/blog/pesimismo-por-doquier-pero-las-metricas-dicen-lo-contrario/image-4.png)
 
+<!-- newsletter -->
+
 ## Análisis Mercado de Activos Digitales
 
 Buena semana para el mercado que recupera parte del terreno perdido y deja unas velas semanales bastante positivas. Aún falta por ver como se quedan en temporalidad mensual ya que, al igual que en el IWM, tenemos que medir los indicadores del riesgo.  La semana cerró con varias subidas a tener en cuenta:

@@ -64,6 +64,8 @@ Según Howell:
 
 > Esto es bueno para Main Street (economía real), menos bueno para Wall Street (mercados financieros), y potencialmente inflacionario.
 
+<!-- newsletter -->
+
 ## Panorama Macro de la Semana
 
 Wall Street sigue mostrando fortaleza. De hecho, el apetito por el riesgo parece haber vuelto a asomar con el $IWM subiendo desde los mínimos de hace dos semanas un +8,21% y situándose a un +1,7% de ATH. Es cierto que seguimos laterales, pero los principales indice americanos se mantienen cerca de ATH

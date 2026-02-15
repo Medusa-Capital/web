@@ -1,8 +1,7 @@
 export { Header } from "./Header";
 export { Hero } from "./Hero";
 export { ProblemSection } from "./ProblemSection";
-export { Stats } from "./Stats";
-export { ValueProp } from "./ValueProp";
+export { MissionSection } from "./Stats";
 export { Features } from "./Features";
 export { Modules } from "./Modules";
 export { Team } from "./Team";

@@ -317,7 +317,7 @@ export function AnalysisFrameworkSection() {
         {/* CTA Section */}
         <div className="text-center mt-12 md:mt-16">
           <Button
-            variant="secondaryGlow"
+            variant="primaryGlow"
             size="lg"
             className="px-8 py-6 text-base font-semibold rounded-xl gap-2"
           >

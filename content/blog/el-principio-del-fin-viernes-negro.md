@@ -96,6 +96,8 @@ A diferencia de TradFi, aquí no había salvavidas al que agarrarse.
 
 Una vez que la financiación desaparece y el mercado pasa a ser ilíquido, comienza la fiesta (ironía) en los CEX.
 
+<!-- newsletter -->
+
 Aquí tenemos los niveles de protección que fallaron:
 
 ## 1. Mark Price vs Last Price

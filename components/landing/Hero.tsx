@@ -31,12 +31,12 @@ export function Hero() {
 
         {/* Main headline */}
         <h1
-          className="font-[family-name:var(--font-heading)] font-bold leading-tight mb-6 capitalize text-white"
+          className="font-[family-name:var(--font-heading)] font-bold leading-tight mb-6 text-white"
           style={{ fontSize: 'clamp(1.5rem, 6vw, 4.5rem)' }}
         >
           Nuestras tesis de inversión han
           <br />
-          <span className="text-[#B9B8EB]"> batido a BTC un +500%</span>
+          batido a BTC un <span className="text-[#B9B8EB]">+106%</span> en 2025
         </h1>
 
         {/* Subheadline */}

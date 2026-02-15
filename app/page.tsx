@@ -2,14 +2,12 @@ import {
   Header,
   Hero,
   ProblemSection,
-  Stats,
-  ValueProp,
+  MissionSection,
   Features,
   Modules,
   Team,
   InstitutionalQuotes,
   Testimonials,
-  FeaturedTestimonials,
   FAQ,
   FinalCTA,
   Footer,
@@ -28,13 +26,11 @@ export default function Page() {
         <ProblemSection />
         <AnalysisFrameworkSection />
         <InstitutionalQuotes />
-        <ValueProp />
         <Features />
-        <Stats />
+        <MissionSection />
         <Modules />
         <Team />
         <Testimonials />
-        <FeaturedTestimonials />
         <FAQ />
         <FinalCTA />
         <Footer />
