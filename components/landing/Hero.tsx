@@ -1,14 +1,21 @@
 "use client";
 
+import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import Image from "next/image";
 import { trackCTAClick, trackOutboundLink } from "@/lib/analytics";
 
+const fadeUp = {
+  initial: { opacity: 0, y: 30 },
+  animate: { opacity: 1, y: 0 },
+};
+const ease = [0.22, 1, 0.36, 1] as const;
+
 export function Hero() {
   return (
     <section
-      className="relative min-h-screen flex flex-col items-center justify-center px-4 md:px-6 pt-0 pb-0 mt-0"
+      className="relative flex flex-col items-center px-4 md:px-6 pt-8 pb-16"
       style={{
         backgroundImage: 'url("/img/hero-strokes.webp")',
         backgroundSize: 'contain',
@@ -18,36 +25,50 @@ export function Hero() {
     >
       <div className="relative z-10 w-full max-w-[946px] mx-auto text-center">
         {/* Welcome badge */}
-        <Badge variant="hero" className="mb-5">
-          <Image
-            src="/img/icons/logo-icon.svg"
-            alt=""
-            width={24}
-            height={24}
-            className="w-5 h-5 md:w-6 md:h-6"
-          />
-          +250 inversores formados con un track record documentado
-        </Badge>
+        <motion.div
+          {...fadeUp}
+          transition={{ duration: 0.6, ease, delay: 0 }}
+        >
+          <Badge variant="hero" className="mb-5">
+            <Image
+              src="/img/icons/logo-icon.svg"
+              alt=""
+              width={24}
+              height={24}
+              className="w-5 h-5 md:w-6 md:h-6"
+            />
+            +250 inversores formados con un track record documentado
+          </Badge>
+        </motion.div>
 
         {/* Main headline */}
-        <h1
-          className="font-[family-name:var(--font-heading)] font-bold leading-tight mb-6 text-white"
-          style={{ fontSize: 'clamp(1.5rem, 6vw, 4.5rem)' }}
+        <motion.h1
+          {...fadeUp}
+          transition={{ duration: 0.6, ease, delay: 0.1 }}
+          className="font-[family-name:var(--font-heading)] text-[clamp(40px,6vw,72px)] font-bold leading-[1.1] mb-4 text-white"
         >
           Nuestras tesis de inversión han
           <br />
           batido a BTC un <span className="text-[#B9B8EB]">+106%</span> en 2025
-        </h1>
+        </motion.h1>
 
         {/* Subheadline */}
-        <p className="text-[#cccce0] text-[clamp(16px,2vw,20px)] w-[90%] mx-auto mb-8">
+        <motion.p
+          {...fadeUp}
+          transition={{ duration: 0.6, ease, delay: 0.2 }}
+          className="text-lg md:text-xl leading-relaxed text-[#B9B8EB]/60 w-[90%] mx-auto mb-8"
+        >
           Deja de improvisar. Aprende a invertir en criptomonedas con el mismo
           rigor que usarías en acciones o fondos: análisis fundamental, gestión
           de riesgo, y plan de salida desde día 1.
-        </p>
+        </motion.p>
 
         {/* Social proof - people group image */}
-        <div className="mt-10 flex flex-col items-center gap-3 pb-[35px]">
+        <motion.div
+          {...fadeUp}
+          transition={{ duration: 0.6, ease, delay: 0.3 }}
+          className="mt-10 flex flex-col items-center gap-3 pb-[35px]"
+        >
           <Image
             src="/img/people-group.webp"
             alt="Inversores"
@@ -60,10 +81,12 @@ export function Hero() {
             <span className="text-[#3a54f8] font-semibold">250 inversores</span> ya están aplicando el Sistema Medusa para batir
             a Bitcoin sin estar 24/7 pegados al gráfico
           </p>
-        </div>
+        </motion.div>
 
         {/* Video Container */}
-        <div
+        <motion.div
+          {...fadeUp}
+          transition={{ duration: 0.6, ease, delay: 0.4 }}
           className="relative w-full mx-auto mb-8 rounded-[30px] overflow-hidden"
         >
           <div className="aspect-video overflow-hidden">
@@ -79,21 +102,26 @@ export function Hero() {
               className="w-full h-full"
             />
           </div>
-        </div>
+        </motion.div>
 
         {/* CTA Button */}
-        <Button
-          variant="secondaryGlow"
-          size="lg"
-          className="px-8 py-6 text-base font-semibold rounded-lg !bg-gradient-to-t !from-[#50d98a] !to-[#68fe9a]"
-          onClick={() => {
-            trackCTAClick("hero_cta", "calendly");
-            trackOutboundLink("https://calendly.com/contacto-medusacapital/sesion-estrategica-15-clon?month=2026-01", "Quiero Reservar Mi Plaza");
-            window.open("https://calendly.com/contacto-medusacapital/sesion-estrategica-15-clon?month=2026-01", "_blank");
-          }}
+        <motion.div
+          {...fadeUp}
+          transition={{ duration: 0.6, ease, delay: 0.5 }}
         >
-          Quiero reservar mi plaza
-        </Button>
+          <Button
+            variant="secondaryGlow"
+            size="lg"
+            className="px-8 py-6 text-base font-semibold rounded-lg !bg-gradient-to-t !from-[#50d98a] !to-[#68fe9a]"
+            onClick={() => {
+              trackCTAClick("hero_cta", "calendly");
+              trackOutboundLink("https://calendly.com/contacto-medusacapital/sesion-estrategica-15-clon?month=2026-01", "Quiero Reservar Mi Plaza");
+              window.open("https://calendly.com/contacto-medusacapital/sesion-estrategica-15-clon?month=2026-01", "_blank");
+            }}
+          >
+            Quiero reservar mi plaza
+          </Button>
+        </motion.div>
 
       </div>
     </section>

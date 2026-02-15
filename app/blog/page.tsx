@@ -8,6 +8,7 @@ import { NewsletterSection } from "@/components/blog/NewsletterSection";
 import { Header } from "@/components/landing/Header";
 import { Footer } from "@/components/landing/Footer";
 import { PageBackground } from "@/components/landing/PageBackground";
+import { FadeIn } from "@/components/ui/FadeIn";
 import Link from "next/link";
 
 export const metadata = {
@@ -29,20 +30,20 @@ export default function BlogPage() {
         <main className="pt-8 pb-16">
           <div className="max-w-6xl mx-auto px-6">
             {/* Header */}
-            <div className="text-center mb-12">
-              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-4 font-heading">
+            <FadeIn className="text-center mb-12">
+              <h1 className="font-[family-name:var(--font-heading)] text-[clamp(40px,6vw,72px)] font-bold leading-[1.1] text-white mb-4">
                 Blog
               </h1>
-              <p className="text-[#B9B8EB]/60 max-w-2xl mx-auto">
+              <p className="text-lg md:text-xl leading-relaxed text-[#B9B8EB]/60 max-w-2xl mx-auto">
                 Análisis profundo, estrategias probadas y educación cripto de calidad.
                 <br />
                 Todo lo que necesitas saber para invertir con criterio.
               </p>
-            </div>
+            </FadeIn>
 
             {/* Featured Articles Section */}
             {featuredArticles.length > 0 && (
-              <section className="mb-16">
+              <FadeIn delay={0.1} className="mb-16">
                 <div className="flex items-center gap-3 mb-6">
                   <div className="w-9 h-9 rounded-lg bg-[#50d98a]/20 flex items-center justify-center">
                     <svg
@@ -68,11 +69,11 @@ export default function BlogPage() {
                     <BlogCard key={post.slug} post={post} />
                   ))}
                 </div>
-              </section>
+              </FadeIn>
             )}
 
             {/* More Articles Section */}
-            <section>
+            <FadeIn delay={0.2}>
               <div className="flex items-center justify-between mb-6">
                 <h2 className="text-xl font-semibold text-white">Más Artículos</h2>
                 {/* Tags filter */}
@@ -108,7 +109,7 @@ export default function BlogPage() {
                   ))}
                 </div>
               )}
-            </section>
+            </FadeIn>
           </div>
         </main>
         <NewsletterSection />

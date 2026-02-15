@@ -4,6 +4,8 @@ import matter from "gray-matter";
 
 const postsDirectory = path.join(process.cwd(), "content/blog");
 
+export const DEFAULT_BLOG_IMAGE = "/img/blog/los-tokens-son-una-mierda/image.png";
+
 export type PostCategory = "article" | "market-analysis";
 export type PostType =
   | "Análisis"
@@ -74,7 +76,7 @@ export function getAllPosts(): BlogPostMeta[] {
       description: data.description || "",
       tags: data.tags || [],
       type: data.type as PostType | undefined,
-      image: data.image as string | undefined,
+      image: (data.image as string | undefined) || DEFAULT_BLOG_IMAGE,
       featured: data.featured || false,
       category: (data.category as PostCategory) || "article",
       readingTime: calculateReadingTime(content),
@@ -104,7 +106,7 @@ export function getPostBySlug(slug: string): BlogPost | null {
       tags: data.tags || [],
       type: data.type as PostType | undefined,
       author: data.author || "Medusa Capital",
-      image: data.image,
+      image: data.image || DEFAULT_BLOG_IMAGE,
       featured: data.featured || false,
       published: isPublished,
       category: (data.category as PostCategory) || "article",

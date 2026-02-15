@@ -5,7 +5,7 @@ description: "Saylor no va al banco a pedir dinero. Lo que hace es emitir instru
 tags: ["bitcoin", "ethereum", "solana", "analisis", "mercado", "institucional"]
 type: "Análisis"
 author: "Axel"
-image: "/img/blog/medusa_capital.jpeg"
+image: ""
 featured: false
 published: true
 category: "article"

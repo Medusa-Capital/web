@@ -89,10 +89,7 @@ export default function TrackRecordPage() {
                 </span>
               </h1>
               <p
-                className="text-lg md:text-xl leading-relaxed max-w-[700px] mx-auto"
-                style={{
-                  color: "rgba(204, 204, 224, 0.7)",
-                }}
+                className="text-lg md:text-xl leading-relaxed text-[#B9B8EB]/60 max-w-[700px] mx-auto"
               >
                 Cada tesis de inversión está documentada con capturas, fechas y
                 análisis completo. Transparencia total, sin trucos.

@@ -144,12 +144,12 @@ export default function ColaboradoresPage() {
                 />
                 Expertos del sector financiero tradicional respaldan a Medusa Capital
               </Badge>
-              <h1 className="font-[family-name:var(--font-heading)] text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4">
-                Los mayores expertos del sector financiero
+              <h1 className="font-[family-name:var(--font-heading)] text-[clamp(40px,6vw,72px)] font-bold leading-[1.1] text-white mb-4">
+                Los mayores expertos del sector
                 <br />
-                tradicional respaldan a Medusa Capital
+                financiero tradicional respaldan a Medusa Capital
               </h1>
-              <p className="text-[#B9B8EB]/60 max-w-2xl mx-auto text-base md:text-lg">
+              <p className="text-lg md:text-xl leading-relaxed text-[#B9B8EB]/60 max-w-2xl mx-auto">
                 Profesionales con décadas de experiencia en banca de inversión, gestión de fondos y análisis macro han colaborado con nosotros para acercar el rigor del sector tradicional al mercado de activos digitales.
               </p>
             </motion.div>

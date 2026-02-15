@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { getAllPostSlugs, getPostBySlug } from "@/lib/blog";
+import { getAllPostSlugs, getPostBySlug, DEFAULT_BLOG_IMAGE } from "@/lib/blog";
 import { MarkdownRenderer } from "@/components/blog/MarkdownRenderer";
 import { Header } from "@/components/landing/Header";
 import { Footer } from "@/components/landing/Footer";
@@ -50,7 +50,7 @@ export async function generateMetadata({ params }: Props) {
       type: "article",
       publishedTime: post.date,
       authors: [post.author],
-      images: post.image ? [post.image] : [],
+      images: [post.image || DEFAULT_BLOG_IMAGE],
     },
   };
 }
