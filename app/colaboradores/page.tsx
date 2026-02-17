@@ -24,7 +24,7 @@ import {
 const collaborators: CollaboratorData[] = [
   {
     name: "Pablo Gil",
-    role: "Trader Profesional (+$500 Millones Gestionados) & Divulgador Financiero",
+    role: "Trader profesional (+$500 Millones Gestionados) & divulgador financiero",
     imageUrl: "/img/avatar/collaborators/pablogil.jpg",
     accentColor: "#f59e0b",
     collaboration: {
@@ -45,8 +45,8 @@ const collaborators: CollaboratorData[] = [
     stats: [
       { label: "Forbes", value: "Top 100 España", icon: <Award className="w-3.5 h-3.5" /> },
       { label: "Experiencia", value: "+37 años", icon: <Clock className="w-3.5 h-3.5" /> },
-      { label: "Alumnos", value: "250K+", icon: <Users className="w-3.5 h-3.5" /> },
-      { label: "Rankia", value: "Mejor 2023, 24 y 25", icon: <TrendingUp className="w-3.5 h-3.5" /> },
+      { label: "YouTube", value: "381K", icon: <Users className="w-3.5 h-3.5" /> },
+      { label: "Rankia", value: "Mejor Divulgador", icon: <TrendingUp className="w-3.5 h-3.5" /> },
     ],
     socials: [
       { platform: "youtube", url: "https://www.youtube.com/@PabloGilTrader" },
@@ -69,21 +69,21 @@ const collaborators: CollaboratorData[] = [
     },
     credentials: [
       <>Asesor financiero certificado <strong><em>EFA</em></strong> (European Financial Advisor)</>,
-      <>Fundador de <strong><em>JFPartners Capital</em></strong> — educación financiera para inversores</>,
-      "+68K seguidores en redes como referente en inversión",
+      <>Fundador de <strong><em>JFPartners</em></strong> — educación financiera para inversores</>,
+      "+188K seguidores en redes como referente en inversión",
       <>Host del podcast <strong><em>Aprende a Invertir con Javier del Valle</em></strong></>,
       <>Creador de la comunidad <strong><em>Domina la Bolsa</em></strong></>,
     ],
     stats: [
       { label: "Certificación", value: "Asesor EFA", icon: <Award className="w-3.5 h-3.5" /> },
-      { label: "Fundador", value: "JFPartners Capital", icon: <Building2 className="w-3.5 h-3.5" /> },
-      { label: "Comunidad", value: "+100K", icon: <Users className="w-3.5 h-3.5" /> },
+      { label: "Fundador", value: "JFPartners", icon: <Building2 className="w-3.5 h-3.5" /> },
+      { label: "YouTube", value: "188K", icon: <Users className="w-3.5 h-3.5" /> },
       { label: "Podcast", value: "Aprende a Invertir", icon: <Mic className="w-3.5 h-3.5" /> },
     ],
     socials: [
       { platform: "linkedin", url: "https://www.linkedin.com/in/javierdelvalle/" },
       { platform: "twitter", url: "https://twitter.com/JFPartners_" },
-      { platform: "website", url: "https://jfpartners.net/" },
+      { platform: "website", url: "https://dominalabolsa.com/" },
     ],
   },
   {
@@ -168,7 +168,7 @@ export default function ColaboradoresPage() {
 
           {/* Collaboration CTA */}
           <PageCTA
-            title="¿Quieres Colaborar con Medusa Capital?"
+            title="¿Quieres colaborar con Medusa Capital?"
             description="Estamos siempre buscando talento excepcional para crear contenido educativo de máxima calidad."
             buttonText="Contáctanos"
             buttonEmail="contacto@medusacapital.xyz"
