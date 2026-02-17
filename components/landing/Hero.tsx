@@ -112,15 +112,18 @@ export function Hero() {
           <Button
             variant="secondaryGlow"
             size="lg"
-            className="px-8 py-6 text-base font-semibold rounded-lg !bg-gradient-to-t !from-[#50d98a] !to-[#68fe9a]"
+            className="px-8 py-6 text-base font-semibold rounded-lg"
             onClick={() => {
               trackCTAClick("hero_cta", "calendly");
-              trackOutboundLink("https://calendly.com/contacto-medusacapital/sesion-estrategica-15-clon?month=2026-01", "Quiero Reservar Mi Plaza");
+              trackOutboundLink("https://calendly.com/contacto-medusacapital/sesion-estrategica-15-clon?month=2026-01", "Reserva tu sesión estratégica");
               window.open("https://calendly.com/contacto-medusacapital/sesion-estrategica-15-clon?month=2026-01", "_blank");
             }}
           >
-            Quiero reservar mi plaza
+            Reserva tu sesión estratégica
           </Button>
+          <p className="mt-3 text-sm text-[#B9B8EB]/50">
+            Sin compromiso · 30 min · Personalizada según tu perfil
+          </p>
         </motion.div>
 
       </div>

@@ -16,7 +16,7 @@ const quotes = [
     text: "Si optimizas tu cartera, tendrías un 15% en Bitcoin.",
     author: "Ray Dalio",
     position: "Fundador, Bridgewater Associates",
-    image: "/img/avatar/raydalio.jpg",
+    image: "/img/avatar/collaborators/raydalio.jpg",
   },
   {
     text: "Creemos que Bitcoin alcanzará los $1.5 millones para 2030.",
@@ -36,7 +36,7 @@ const quotes = [
     text: "Bitcoin está basado en energía: puedes emitir dinero fiat falso, pero es imposible falsificar la energía",
     author: "Elon Musk",
     position: "CEO y fundador, Tesla & SpaceX",
-    image: "/img/avatar/elonmusk.jpg",
+    image: "/img/avatar/collaborators/elonmusk.jpg",
   },
 ];
 

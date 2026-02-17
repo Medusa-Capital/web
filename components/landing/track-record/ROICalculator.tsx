@@ -12,6 +12,8 @@ interface Project {
   ticker: string;
   roi: number;
   roiDisplay: string;
+  athRoi: number;
+  athRoiDisplay: string;
   description: string;
   logoUrl: string;
 }
@@ -21,28 +23,45 @@ const projects: Project[] = [
     id: "metadao",
     name: "MetaDAO",
     ticker: "META",
-    roi: 10.23,
-    roiDisplay: "+1.023%",
+    roi: 6.47,
+    roiDisplay: "+647%",
+    athRoi: 10.58,
+    athRoiDisplay: "+1.058%",
     description: "Entrada temprana con producto probado + plan de salida escalonado.",
     logoUrl: "https://s2.coinmarketcap.com/static/img/coins/200x200/38146.png",
-  },
-  {
-    id: "hyperliquid",
-    name: "Hyperliquid",
-    ticker: "HYPE",
-    roi: 5.01,
-    roiDisplay: "+501%",
-    description: "DEX de perpetuals sin VCs extractivos. Tesis sólida + producto funcionando.",
-    logoUrl: "https://s2.coinmarketcap.com/static/img/coins/200x200/32196.png",
   },
   {
     id: "syrup",
     name: "Maple Finance",
     ticker: "SYRUP",
-    roi: 2.3,
-    roiDisplay: "+230%",
+    roi: 0.56,
+    roiDisplay: "+56%",
+    athRoi: 2.15,
+    athRoiDisplay: "+215%",
     description: "Tokenomics innovadores + equipo con track record + timing correcto.",
     logoUrl: "https://s2.coinmarketcap.com/static/img/coins/200x200/33824.png",
+  },
+  {
+    id: "hyperliquid",
+    name: "Hyperliquid",
+    ticker: "HYPE",
+    roi: 1.38,
+    roiDisplay: "+138%",
+    athRoi: 4.55,
+    athRoiDisplay: "+455%",
+    description: "DEX de perpetuals sin VCs extractivos. Tesis sólida + producto funcionando.",
+    logoUrl: "/img/hyperliquid.png",
+  },
+  {
+    id: "pumpfun",
+    name: "Pump.fun",
+    ticker: "PUMP",
+    roi: -0.53,
+    roiDisplay: "-53%",
+    athRoi: 1.24,
+    athRoiDisplay: "+124%",
+    description: "Modelo de negocio cíclico con bajas expectativas de crecimiento.",
+    logoUrl: "/img/projects/pumpfun.avif",
   },
 ];
 
@@ -83,12 +102,17 @@ export function ROICalculator() {
   const calculateResults = () => {
     if (!selectedProject || amount < 100) return null;
 
-    const finalAmount = amount * (1 + selectedProject.roi);
-    const profit = finalAmount - amount;
+    const closeFinalAmount = amount * (1 + selectedProject.roi);
+    const closeProfit = closeFinalAmount - amount;
+
+    const athFinalAmount = amount * (1 + selectedProject.athRoi);
+    const athProfit = athFinalAmount - amount;
 
     return {
-      finalAmount,
-      profit,
+      closeFinalAmount,
+      closeProfit,
+      athFinalAmount,
+      athProfit,
     };
   };
 
@@ -110,7 +134,7 @@ export function ROICalculator() {
               className="font-[family-name:var(--font-heading)] text-[clamp(36px,4vw,48px)] font-bold leading-[1.2] mb-4"
               style={{ color: "#ffffff" }}
             >
-              Calcula tu ROI real
+              Rendimiento histórico por proyecto
             </h2>
 
             <p
@@ -119,8 +143,7 @@ export function ROICalculator() {
                 color: "rgba(204, 204, 224, 0.7)",
               }}
             >
-              Estas son rentabilidades reales de proyectos que identificamos,
-              analizamos y compartimos con nuestra comunidad desde 2024.
+              Consulta el rendimiento documentado de cada tesis publicada desde 2024.
             </p>
 
             {/* Bullet Points */}
@@ -176,7 +199,7 @@ export function ROICalculator() {
                     color: "rgba(185, 184, 235, 0.8)",
                   }}
                 >
-                  ¿Cuánto habrías invertido?
+                  ¿Con cuánto quieres simular?
                 </label>
 
                 <div className="relative">
@@ -241,7 +264,7 @@ export function ROICalculator() {
                           unoptimized
                         />
                         <span>{selectedProject.name}</span>
-                        <span className="text-[#22c55e]">
+                        <span className={selectedProject.roi >= 0 ? "text-[#4DFF88]" : "text-[#FF6B6B]"}>
                           {selectedProject.roiDisplay}
                         </span>
                       </div>
@@ -305,7 +328,7 @@ export function ROICalculator() {
                             <div className="flex-1">
                               <div className="flex items-center gap-2">
                                 <span>{project.name}</span>
-                                <span className="font-bold text-sm text-[#22c55e]">
+                                <span className={`font-bold text-sm ${project.roi >= 0 ? "text-[#4DFF88]" : "text-[#FF6B6B]"}`}>
                                   {project.roiDisplay}
                                 </span>
                               </div>
@@ -326,51 +349,103 @@ export function ROICalculator() {
                     animate={{ opacity: showResults ? 1 : 0, y: showResults ? 0 : 20 }}
                     exit={{ opacity: 0, y: 20 }}
                     transition={{ duration: 0.4 }}
-                    className="rounded-2xl p-6 mb-5 relative overflow-hidden"
-                    style={{
-                      background: "linear-gradient(to bottom right, #6366f1, #8b5cf6)",
-                      boxShadow: "0 8px 24px rgba(99, 102, 241, 0.4)",
-                    }}
+                    className="flex flex-col gap-4 mb-5"
                   >
-                    {/* Project logo as background */}
-                    {selectedProject && (
-                      <div className="absolute top-0 right-0 w-[180px] h-[180px] pointer-events-none opacity-10 translate-x-[20%] -translate-y-[20%]">
-                        <Image
-                          src={selectedProject.logoUrl}
-                          alt=""
-                          fill
-                          className="object-contain brightness-125 saturate-50"
-                          unoptimized
-                        />
+                    {/* CIERRE 2025 Card */}
+                    <div
+                      className="rounded-2xl p-6 relative overflow-hidden"
+                      style={{
+                        background: "linear-gradient(to bottom right, #6366f1, #8b5cf6)",
+                        boxShadow: "0 8px 24px rgba(99, 102, 241, 0.4)",
+                      }}
+                    >
+                      {selectedProject && (
+                        <div className="absolute top-0 right-0 w-[140px] h-[140px] pointer-events-none opacity-10 translate-x-[20%] -translate-y-[20%]">
+                          <Image
+                            src={selectedProject.logoUrl}
+                            alt=""
+                            fill
+                            className="object-contain brightness-125 saturate-50"
+                            unoptimized
+                          />
+                        </div>
+                      )}
+
+                      <div className="flex items-center justify-between mb-2 relative z-10">
+                        <p className="font-medium text-xs text-white/70 uppercase tracking-wider">
+                          CIERRE 2025
+                        </p>
+                        <span className="text-sm font-bold text-white/90 bg-white/15 rounded-full px-3 py-1">
+                          {selectedProject?.roiDisplay}
+                        </span>
                       </div>
-                    )}
 
-                    <p className="font-medium text-sm text-white/90 mb-2 relative z-10">
-                      Habrías convertido
-                    </p>
+                      <div className="font-[family-name:var(--font-heading)] font-bold text-[36px] leading-none text-white mb-4 relative z-10">
+                        {formatCurrency(results.closeFinalAmount)}
+                      </div>
 
-                    <div className="font-[family-name:var(--font-heading)] font-bold text-[42px] leading-none text-white mb-4 relative z-10">
-                      {formatCurrency(results.finalAmount)}
+                      <div className="grid grid-cols-2 gap-4 pt-4 border-t border-white/20 relative z-10">
+                        <div>
+                          <p className="text-xs text-white/70 mb-1">Inversión inicial</p>
+                          <p className="font-semibold text-base text-white">
+                            {formatCurrency(amount)}
+                          </p>
+                        </div>
+                        <div>
+                          <p className="text-xs text-white/70 mb-1">Ganancia neta</p>
+                          <p className="font-semibold text-base text-white">
+                            {formatCurrency(results.closeProfit)}
+                          </p>
+                        </div>
+                      </div>
                     </div>
 
-                    {/* Results Breakdown */}
-                    <div className="grid grid-cols-2 gap-4 pt-4 border-t border-white/20 relative z-10">
-                      <div>
-                        <p className="text-xs text-white/80 mb-1">
-                          Inversión inicial
+                    {/* ALL-TIME HIGH Card */}
+                    <div
+                      className="rounded-2xl p-6 relative overflow-hidden"
+                      style={{
+                        background: "linear-gradient(to bottom right, #7c3aed, #a855f7)",
+                        boxShadow: "0 8px 24px rgba(124, 58, 237, 0.4)",
+                      }}
+                    >
+                      {selectedProject && (
+                        <div className="absolute top-0 right-0 w-[140px] h-[140px] pointer-events-none opacity-10 translate-x-[20%] -translate-y-[20%]">
+                          <Image
+                            src={selectedProject.logoUrl}
+                            alt=""
+                            fill
+                            className="object-contain brightness-125 saturate-50"
+                            unoptimized
+                          />
+                        </div>
+                      )}
+
+                      <div className="flex items-center justify-between mb-2 relative z-10">
+                        <p className="font-medium text-xs text-white/70 uppercase tracking-wider">
+                          ALL-TIME HIGH (ATH)
                         </p>
-                        <p className="font-semibold text-lg text-white">
-                          {formatCurrency(amount)}
-                        </p>
+                        <span className="text-sm font-bold text-white/90 bg-white/15 rounded-full px-3 py-1">
+                          {selectedProject?.athRoiDisplay}
+                        </span>
                       </div>
 
-                      <div>
-                        <p className="text-xs text-white/80 mb-1">
-                          Ganancia neta
-                        </p>
-                        <p className="font-semibold text-lg text-white">
-                          {formatCurrency(results.profit)}
-                        </p>
+                      <div className="font-[family-name:var(--font-heading)] font-bold text-[36px] leading-none text-white mb-4 relative z-10">
+                        {formatCurrency(results.athFinalAmount)}
+                      </div>
+
+                      <div className="grid grid-cols-2 gap-4 pt-4 border-t border-white/20 relative z-10">
+                        <div>
+                          <p className="text-xs text-white/70 mb-1">Inversión inicial</p>
+                          <p className="font-semibold text-base text-white">
+                            {formatCurrency(amount)}
+                          </p>
+                        </div>
+                        <div>
+                          <p className="text-xs text-white/70 mb-1">Ganancia máxima</p>
+                          <p className="font-semibold text-base text-white">
+                            {formatCurrency(results.athProfit)}
+                          </p>
+                        </div>
                       </div>
                     </div>
                   </motion.div>
@@ -391,8 +466,7 @@ export function ROICalculator() {
                     color: "rgba(204, 204, 224, 0.7)",
                   }}
                 >
-                  Esto no es suerte. Es metodología replicable con tesis
-                  documentada, gestión de riesgo y plan de salida desde el día 1.
+                  Metodología basada en tesis documentada, gestión de riesgo y plan de salida desde día 1.
                 </p>
 
                 <Button
@@ -400,7 +474,7 @@ export function ROICalculator() {
                   className="w-full rounded-xl px-6 py-3 h-auto text-[15px] font-semibold"
                   onClick={() => window.open("https://calendly.com/contacto-medusacapital/sesion-estrategica-15-clon?month=2026-01", "_blank")}
                 >
-                  Quiero aprender el Sistema Medusa
+                  Reserva tu sesión estratégica
                 </Button>
               </div>
 

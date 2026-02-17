@@ -2,20 +2,24 @@
 
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import { Users, Star, TrendingUp } from "lucide-react";
 
 export function MissionSection() {
   const stats = [
     {
       value: "+250",
-      label: "Alumnos formados",
+      label: "Inversores formados",
+      icon: Users,
     },
     {
       value: "+50",
-      label: "Reseñas positivas",
+      label: "Reseñas de 5 estrellas",
+      icon: Star,
     },
     {
       value: "+20.000",
-      label: "Seguidores",
+      label: "Seguidores en redes",
+      icon: TrendingUp,
     },
   ];
 
@@ -52,7 +56,7 @@ export function MissionSection() {
                 className="px-8 py-6 text-base font-semibold rounded-lg"
                 onClick={() => window.open("https://calendly.com/contacto-medusacapital/sesion-estrategica-15-clon?month=2026-01", "_blank")}
               >
-                Empezar ahora
+                Reserva tu sesión estratégica
               </Button>
             </div>
 
@@ -94,16 +98,22 @@ export function MissionSection() {
 
           {/* Stats grid */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-            {stats.map((stat, i) => (
-              <div key={i} className="text-center">
-                <div className="font-[family-name:var(--font-heading)] text-[clamp(40px,5vw,60px)] font-bold text-[#B9B8EB] mb-4 transition-colors duration-300">
-                  {stat.value}
+            {stats.map((stat, i) => {
+              const Icon = stat.icon;
+              return (
+                <div key={i} className="flex flex-col items-center text-center">
+                  <div className="w-14 h-14 rounded-full border border-[#B9B8EB]/25 flex items-center justify-center mb-5">
+                    <Icon className="w-6 h-6 text-[#B9B8EB]/60" strokeWidth={1.5} />
+                  </div>
+                  <div className="font-[family-name:var(--font-heading)] text-[clamp(40px,5vw,60px)] font-bold text-[#B9B8EB] mb-2 transition-colors duration-300">
+                    {stat.value}
+                  </div>
+                  <p className="text-[#cccce0]/60 text-sm leading-relaxed max-w-[200px] mx-auto transition-colors duration-300">
+                    {stat.label}
+                  </p>
                 </div>
-                <p className="text-[#cccce0]/60 text-sm leading-relaxed max-w-[200px] mx-auto transition-colors duration-300">
-                  {stat.label}
-                </p>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </div>

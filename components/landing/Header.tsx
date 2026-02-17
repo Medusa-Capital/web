@@ -42,13 +42,6 @@ export function Header() {
         {/* Navigation */}
         <nav className="flex items-center gap-4 md:gap-8">
           <Link
-            href="/track-record"
-            className="hidden sm:block text-[#B9B8EB]/70 hover:text-white transition-colors font-semibold text-lg md:text-xl"
-            onClick={() => trackEvent("navigation_click", { destination: "track-record", category: "navigation" })}
-          >
-            Track record
-          </Link>
-          <Link
             href="/colaboradores"
             className="hidden sm:block text-[#B9B8EB]/70 hover:text-white transition-colors font-semibold text-lg md:text-xl"
             onClick={() => trackEvent("navigation_click", { destination: "colaboradores", category: "navigation" })}
@@ -62,23 +55,30 @@ export function Header() {
           >
             Blog
           </Link>
+          <Link
+            href="/track-record"
+            className="hidden sm:block text-[#B9B8EB]/70 hover:text-white transition-colors font-semibold text-lg md:text-xl"
+            onClick={() => trackEvent("navigation_click", { destination: "track-record", category: "navigation" })}
+          >
+            Track record
+          </Link>
 
           {/* CTA Button - appears on scroll */}
           <Button
             variant="secondaryGlow"
             size="lg"
-            className={`hidden sm:flex px-8 py-6 text-base font-semibold rounded-lg !bg-gradient-to-t !from-[#50d98a] !to-[#68fe9a] transition-all duration-300 ${
+            className={`hidden sm:flex px-8 py-6 text-base font-semibold rounded-lg transition-all duration-300 ${
               isScrolled
                 ? "opacity-100 translate-x-0"
                 : "opacity-0 translate-x-4 pointer-events-none"
             }`}
             onClick={() => {
               trackCTAClick("header_cta", "calendly");
-              trackOutboundLink("https://calendly.com/contacto-medusacapital/sesion-estrategica-15-clon?month=2026-01", "Quiero reservar mi plaza");
+              trackOutboundLink("https://calendly.com/contacto-medusacapital/sesion-estrategica-15-clon?month=2026-01", "Reserva tu sesión estratégica");
               window.open("https://calendly.com/contacto-medusacapital/sesion-estrategica-15-clon?month=2026-01", "_blank");
             }}
           >
-            Quiero reservar mi plaza
+            Reserva tu sesión estratégica
           </Button>
         </nav>
       </div>

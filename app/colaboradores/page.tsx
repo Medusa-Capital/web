@@ -25,7 +25,7 @@ const collaborators: CollaboratorData[] = [
   {
     name: "Pablo Gil",
     role: "Trader Profesional (+$500 Millones Gestionados) & Divulgador Financiero",
-    imageUrl: "/img/avatar/pablogil.jpg",
+    imageUrl: "/img/avatar/collaborators/pablogil.jpg",
     accentColor: "#f59e0b",
     collaboration: {
       tag: "Curso Exclusivo",
@@ -57,7 +57,7 @@ const collaborators: CollaboratorData[] = [
   {
     name: "Javier del Valle",
     role: "Inversor y Analista macroeconómico",
-    imageUrl: "/img/avatar/javierdelvalle.jpg",
+    imageUrl: "/img/avatar/collaborators/javierdelvalle.jpg",
     accentColor: "#06b6d4",
     collaboration: {
       tag: "Curso Exclusivo",
@@ -89,7 +89,7 @@ const collaborators: CollaboratorData[] = [
   {
     name: "Diego Puertas",
     role: "Analista Macro & Podcaster",
-    imageUrl: "/img/avatar/diegopuertas.jpeg",
+    imageUrl: "/img/avatar/collaborators/diegopuertas.jpeg",
     accentColor: "#8b5cf6",
     collaboration: {
       tag: "Análisis Exclusivo",

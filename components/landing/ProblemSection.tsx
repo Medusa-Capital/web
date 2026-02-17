@@ -115,7 +115,7 @@ export function ProblemSection() {
 
                   {/* Title */}
                   <h3
-                    className="font-[family-name:var(--font-heading)] text-2xl md:text-3xl font-bold leading-tight tracking-[-0.02em] transition-colors duration-300 text-white"
+                    className="font-[family-name:var(--font-heading)] text-[26px] md:text-[32px] font-bold leading-tight tracking-[-0.02em] transition-colors duration-300 text-white mb-1"
                   >
                     {problem.title}
                   </h3>
@@ -124,7 +124,7 @@ export function ProblemSection() {
                 {/* Content */}
                 <div className="flex-1 flex flex-col p-8 pt-4 relative z-10">
                   {/* Bullets with colored dots */}
-                  <div className="space-y-4 flex-1">
+                  <div className="space-y-2.5 flex-1">
                     {problem.bullets.map((bullet, bulletIndex) => (
                       <div key={bulletIndex} className="flex items-start gap-3 min-h-[56px]">
                         <X
@@ -133,7 +133,7 @@ export function ProblemSection() {
                           strokeWidth={3}
                         />
                         <p
-                          className="text-base leading-relaxed transition-colors duration-300 text-[#cccce0]/85"
+                          className="text-[15px] leading-snug transition-colors duration-300 text-[#cccce0]/70"
                         >
                           {bullet}
                         </p>

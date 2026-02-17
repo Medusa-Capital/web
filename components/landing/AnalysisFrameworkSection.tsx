@@ -13,6 +13,16 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
+const BLURRED_TAGS = new Set([
+  "Dilución excesiva",
+  "Desalineación equity/token",
+  "Revenue real",
+  "Alineación de incentivos",
+  "Ciclo risk-on / risk-off",
+  "Flujos institucionales",
+  "Zonas de liquidez",
+]);
+
 const analysisSteps = [
   {
     number: 1,
@@ -207,7 +217,7 @@ export function AnalysisFrameworkSection() {
                       {step.tags.map((tag) => (
                         <span
                           key={tag}
-                          className="px-3.5 py-1.5 rounded-full text-xs font-medium"
+                          className={`px-3.5 py-1.5 rounded-full text-xs font-medium${BLURRED_TAGS.has(tag) ? " blur-[5px] select-none" : ""}`}
                           style={{
                             color: step.accent,
                             borderWidth: 1,
@@ -281,7 +291,7 @@ export function AnalysisFrameworkSection() {
                         {step.tags.map((tag) => (
                           <span
                             key={tag}
-                            className="px-3 py-1.5 rounded-full text-xs font-medium"
+                            className={`px-3 py-1.5 rounded-full text-xs font-medium${BLURRED_TAGS.has(tag) ? " blur-[5px] select-none" : ""}`}
                             style={{
                               color: `${step.accent}CC`,
                               borderWidth: 1,
@@ -319,15 +329,15 @@ export function AnalysisFrameworkSection() {
           <Button
             variant="primaryGlow"
             size="lg"
-            className="px-8 py-6 text-base font-semibold rounded-xl gap-2"
+            className="px-8 py-6 text-base font-semibold rounded-xl gap-2 !bg-gradient-to-r !from-[#6B4CE6] !via-[#9074F6] !to-[#6B4CE6] shadow-[0_0_32px_rgba(144,116,246,0.45)] hover:shadow-[0_0_40px_rgba(144,116,246,0.6)]"
           >
             <Download className="w-5 h-5" />
-            Descargar framework completo (PDF gratis)
+            Descargar Sistema Medusa (PDF Gratis)
           </Button>
           <p
             className="text-sm mt-4 transition-colors duration-300 text-[#B9B8EB]/60"
           >
-            54 páginas - Casos de estudio - Checklists - Templates
+            20 páginas • Casos de estudio • Checklists • Templates
           </p>
         </div>
       </div>

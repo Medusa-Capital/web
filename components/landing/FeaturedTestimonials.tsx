@@ -15,7 +15,7 @@ interface FeaturedTestimonial {
 const featured: FeaturedTestimonial = {
   name: "Bruno",
   age: 51,
-  avatar: "/img/avatar/testi-1.webp",
+  avatar: "/img/avatar/testimonials/testi-1.webp",
   rating: 5,
   paragraphs: [
     {

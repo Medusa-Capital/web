@@ -4,11 +4,13 @@ import {
   getRegularArticles,
 } from "@/lib/blog";
 import { BlogCard } from "@/components/blog/BlogCard";
-import { NewsletterSection } from "@/components/blog/NewsletterSection";
+import { BlogCTA } from "@/components/blog/BlogCTA";
 import { Header } from "@/components/landing/Header";
 import { Footer } from "@/components/landing/Footer";
 import { PageBackground } from "@/components/landing/PageBackground";
+import { Badge } from "@/components/ui/badge";
 import { FadeIn } from "@/components/ui/FadeIn";
+import Image from "next/image";
 import Link from "next/link";
 
 export const metadata = {
@@ -31,8 +33,18 @@ export default function BlogPage() {
           <div className="max-w-6xl mx-auto px-6">
             {/* Header */}
             <FadeIn className="text-center mb-12">
+              <Badge variant="hero" className="mb-5">
+                <Image
+                  src="/img/icons/logo-icon.svg"
+                  alt=""
+                  width={24}
+                  height={24}
+                  className="w-5 h-5 md:w-6 md:h-6"
+                />
+                Contenido educativo de calidad
+              </Badge>
               <h1 className="font-[family-name:var(--font-heading)] text-[clamp(40px,6vw,72px)] font-bold leading-[1.1] text-white mb-4">
-                Blog
+                Blog de <span className="text-[#B9B8EB]">Medusa Capital</span>
               </h1>
               <p className="text-lg md:text-xl leading-relaxed text-[#B9B8EB]/60 max-w-2xl mx-auto">
                 Análisis profundo, estrategias probadas y educación cripto de calidad.
@@ -112,7 +124,7 @@ export default function BlogPage() {
             </FadeIn>
           </div>
         </main>
-        <NewsletterSection />
+        <BlogCTA />
         <Footer />
       </div>
     </div>

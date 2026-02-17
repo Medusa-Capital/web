@@ -11,7 +11,7 @@ const team = [
     name: 'Alex "Axel" Cuesta',
     role: "FUNDADOR",
     description:
-      "Más de 7 años de experiencia analizando mercados financieros, he desarrollado un enfoque propio que combina fundamentos macroeconómicos, lectura institucional y análisis fundamental para entender las claves para que un activo digital triunfe.",
+      "Fundador de Medusa Capital. +7 años analizando mercados financieros y +250 inversores formados. Track record documentado de +106% vs BTC en 2025. Creador del Sistema Medusa de análisis fundamental aplicado a activos digitales. Colabora con Pablo Gil, Javier del Valle y Diego Puertas.",
     linkedin: "https://www.linkedin.com/in/alejandro-cuesta/",
     photo: "/img/team-alex-new.png?v=2",
   },

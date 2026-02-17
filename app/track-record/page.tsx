@@ -23,19 +23,22 @@ export default function TrackRecordPage() {
 
   const stats = [
     {
-      label: "ROI promedio",
-      value: "+620%",
-      subtext: "En 2024",
+      label: "Performance",
+      value: "+106%",
+      subtext: "ROI 2025",
+      description: "Mientras BTC cayó -6%",
     },
     {
-      label: "Tesis documentadas",
-      value: "12+",
-      subtext: "Con pruebas verificables",
+      label: "Alpha",
+      value: "+89.62%",
+      subtext: "VS S&P 500",
+      description: "+106% vs +16.38%",
     },
     {
-      label: "vs BTC",
-      value: "+500%",
-      subtext: "Outperformance",
+      label: "Accuracy",
+      value: "75%",
+      subtext: "WIN RATE",
+      description: "3/4 tesis de inversión rentables",
     },
   ];
 
@@ -91,8 +94,7 @@ export default function TrackRecordPage() {
               <p
                 className="text-lg md:text-xl leading-relaxed text-[#B9B8EB]/60 max-w-[700px] mx-auto"
               >
-                Cada tesis de inversión está documentada con capturas, fechas y
-                análisis completo. Transparencia total, sin trucos.
+                Deja de improvisar. Aprende a invertir en criptomonedas con el mismo rigor que usarías en acciones o fondos: análisis fundamental, gestión de riesgo, y plan de salida desde día 1.
               </p>
             </motion.div>
 
@@ -126,14 +128,16 @@ export default function TrackRecordPage() {
                     }}
                   />
                   <div className="relative z-10">
-                    <p
-                      className="text-sm mb-2 uppercase tracking-wider"
+                    <span
+                      className="inline-block text-xs uppercase tracking-wider px-3 py-1 rounded-full border mb-4"
                       style={{
-                        color: "rgba(185, 184, 235, 0.6)",
+                        color: "rgba(185, 184, 235, 0.8)",
+                        borderColor: "rgba(185, 184, 235, 0.3)",
+                        backgroundColor: "rgba(185, 184, 235, 0.1)",
                       }}
                     >
                       {stat.label}
-                    </p>
+                    </span>
                     <p
                       className="font-[family-name:var(--font-heading)] text-[48px] leading-[56px] font-bold mb-1"
                       style={{
@@ -143,17 +147,37 @@ export default function TrackRecordPage() {
                       {stat.value}
                     </p>
                     <p
-                      className="text-sm"
+                      className="text-sm uppercase tracking-wider mb-4"
                       style={{
                         color: "rgba(185, 184, 235, 0.5)",
                       }}
                     >
                       {stat.subtext}
                     </p>
+                    <div
+                      className="mb-4"
+                      style={{
+                        borderTop: "1px solid rgba(185, 184, 235, 0.15)",
+                      }}
+                    />
+                    <p
+                      className="text-sm"
+                      style={{
+                        color: "rgba(185, 184, 235, 0.4)",
+                      }}
+                    >
+                      {stat.description}
+                    </p>
                   </div>
                 </motion.div>
               ))}
             </div>
+            <p
+              className="text-xs text-center mt-6 max-w-3xl mx-auto leading-relaxed"
+              style={{ color: "rgba(185, 184, 235, 0.35)" }}
+            >
+              ROI 2025 calculado sobre cartera ponderada por peso de posición. Entrada documentada con timestamp. Cierre valorado a 31/12/2025. Rentabilidades pasadas no garantizan resultados futuros.
+            </p>
           </section>
 
           {/* Track Record Carousel Section */}
@@ -189,8 +213,7 @@ export default function TrackRecordPage() {
                     color: "rgba(204, 204, 224, 0.7)",
                   }}
                 >
-                  Cada proyecto incluye capturas de Discord con timestamp,
-                  análisis completo y resultados verificables.
+                  4 tesis publicadas con fecha y precio exacto de entrada. 3 de 4 rentables. Resultados verificables.
                 </p>
               </motion.div>
 
@@ -284,9 +307,9 @@ export default function TrackRecordPage() {
 
           {/* CTA Section */}
           <PageCTA
-            title="¿Listo para replicar estos resultados?"
-            description="Únete a Medusa Capital y aprende la metodología exacta que usamos para identificar estas oportunidades."
-            buttonText="Quiero reservar mi plaza"
+            title="¿Listo para invertir con criterio?"
+            description="La misma metodología detrás del +106%. Reserva tu sesión y te la explicamos."
+            buttonText="Reserva tu sesión estratégica"
             buttonExternalUrl="https://calendly.com/contacto-medusacapital/sesion-estrategica-15-clon?month=2026-01"
           />
         </main>

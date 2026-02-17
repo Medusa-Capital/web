@@ -3,7 +3,7 @@ import Image from "next/image";
 const features = [
   {
     number: 1,
-    title: "Formación estructurada en 10 módulos clave (+30h)",
+    title: "Formación estructurada en 9 módulos clave (+30h)",
     description:
       "Del funcionamiento de Bitcoin y la blockchain hasta estrategias de inversión, DeFi y gestión del riesgo. Todo explicado paso a paso, con ejemplos y sin tecnicismos innecesarios.",
     icon: "/img/step-1.webp",

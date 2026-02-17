@@ -1,36 +1,10 @@
 import Image from "next/image";
-import { MessageSquare, Star } from "lucide-react";
-
-const miniQuotes = [
-  "Ahora las inversiones hacen lo suyo mientras duermo tranquilo",
-  "Aprendí a filtrar el ruido y a medir riesgos de verdad",
-  "Estáis en el lugar adecuado para desarrollaros como inversores",
-];
-
-function MiniQuoteCard({ quote }: { quote: string }) {
-  return (
-    <div
-      className="rounded-[16px] p-5"
-      style={{
-        background: "rgba(27, 26, 100, 0.6)",
-        border: "1px solid rgba(255, 255, 255, 0.1)",
-      }}
-    >
-      <MessageSquare
-        className="mb-3 text-[#B9B8EB]/60"
-        size={20}
-      />
-      <p className="text-[#cccce0] text-sm leading-relaxed">
-        &ldquo;{quote}&rdquo;
-      </p>
-    </div>
-  );
-}
+import { Star } from "lucide-react";
 
 const featured = {
   name: "Bruno",
   age: 51,
-  avatar: "/img/avatar/testi-1.webp",
+  avatar: "/img/avatar/testimonials/testi-1.webp",
   rating: 5,
   paragraphs: [
     {
@@ -94,47 +68,65 @@ function renderParagraph(paragraph: { text: string; bold?: boolean }, index: num
 
 const testimonials = [
   {
-    name: "Sharkmodaw",
+    name: "MadLex",
     role: "Alumno",
-    text: "La cantidad de valor que aporta Axel, ya sea en el aspecto macroeconómico con las mejores personas, análisis de mercado semanales, defi, airdrops y prácticamente cualquier sector relacionado con este mundo, es muy, muy grande. Si alguien está dudando si entrar, mi recomendación es que lo prueben sin duda.",
-    avatar: "/img/avatar/testi-1.webp",
+    text: "En el bullrun anterior estuve en grupos que eran puro humo. Llegué hecho un lío, más emocional que un novato en una montaña rusa. Gracias a las tesis y el material de Axel, aprendí a filtrar el ruido, a medir riesgos de verdad y a decidir con la cabeza fría. Cuando el mercado se fue al carajo y la gente salió corriendo, ahí seguía Axel investigando y explicando todo. Es lo mejor que hay en la comunidad hispana.",
+    avatar: "/img/avatar/testimonials/testi-1.webp",
   },
   {
-    name: "Doni",
+    name: "isaac81.",
     role: "Alumno",
-    text: "Fue gracias a la trinchera que encontré el segundo token que mas he estado acumulando y que mejores ganancias espero de él, creo que no es un spoiler pues Axel lo comparte bastante en sus redes, pero sin la trinchera no hubiera podido pillar HYPE a tiempo.",
-    avatar: "/img/avatar/testi-2.webp",
+    text: "Ya tenía conocimientos y portafolio, me he formado en otras academias y tenía algo de experiencia. Lo que he encontrado aquí es muy top, la formación no la había visto de esta calidad ni de cerca. Hay gente con conocimientos brutales y con ganas de ayudarte a las 1000 dudas que puedas tener.",
+    avatar: "/img/avatar/testimonials/testi-2.webp",
   },
   {
-    name: "Sergio",
+    name: "Sharkmode9",
     role: "Alumno",
-    text: "Es increíble todo el contenido e información que nos brindan tanto los responsables como el resto de integrantes. A mi me gusta estar al día de todo, es un alivio saber que no me pierdo ni uno. Cuando entré no esperaba tanto conocimiento, análisis y debates sobre macroeconomía o análisis técnico.",
-    avatar: "/img/avatar/testi-3.webp",
+    text: "La cantidad de valor que da Axel, ya sea en el aspecto macroeconómico con gente top, análisis semanales del mercado, DeFi, airdrops y prácticamente cualquier sector relacionado con este mundo, es muy muy grande. Si invierte el tiempo necesario, va a aprender el triple de rápido que si lo hiciese por su cuenta.",
+    avatar: "/img/avatar/testimonials/testi-3.webp",
   },
   {
-    name: "0xPerezz",
+    name: "kaver",
     role: "Alumno",
-    text: "Gracias a todo el equipo y familia que hemos logrado en este pedazo de comunidad, y todo muy sano, no lo he podido seguir tan de cerca como quisiera por el tiempo, pero me ha ayudado mucho a la hora de mentalizarme y no caer en mentalidades equivocadas. Muchas gracias y sigue haciendo entradas carajo.",
-    avatar: "/img/avatar/testi-4.webp",
+    text: "Llevo en la comunidad desde el día 1. He pasado por varias comunidades de pago donde solo se enviaban señales y se usaba a la comunidad de exit liquidity. Aquí se hace todo lo contrario: se intenta que cada persona aprenda cómo funciona el mercado y sea capaz de tomar sus propias decisiones. Si buscáis un sitio donde desarrollaros como inversores, estáis en el lugar adecuado.",
+    avatar: "/img/avatar/testimonials/testi-4.webp",
   },
   {
-    name: "FXfeno",
+    name: "battanik",
     role: "Alumno",
-    text: "Hay trabajo, información confiable, aportes de todos, mucha interacción entre los directivos y la comunidad. Los 'jefes' se reúnen como uno más, llaman directamente para preguntar sobre el funcionamiento de la comunidad, mejoras, pero también para sugerir y recibir información de la comunidad sobre sus intereses y necesidades.",
-    avatar: "/img/avatar/testi-5.webp",
+    text: "Después de más de un año puedo afirmar totalmente convencido de que merece la pena. Lo que más he valorado respecto a otras comunidades es la filosofía de conocernos a nosotros mismos como inversores y operar según nuestras necesidades personales. Su objetivo no es lucrarse a corto plazo, sino construir algo mucho más grande con personas que busquen ser rentables a largo plazo.",
+    avatar: "/img/avatar/testimonials/testi-5.webp",
   },
   {
-    name: "csadiafrans",
+    name: "Jordi77",
     role: "Alumno",
-    text: "Todo muy sano, no lo he podido seguir tan de cerca como quisiera por el tiempo, pero me ha ayudado mucho a la hora de mentalizarme y no caer en mentalidades equivocadas. Muchas gracias y sigue haciendo entradas carajo.",
-    avatar: "/img/avatar/testi-6.webp",
+    text: "Material de primera y comunidad muy activa. Una de las cosas que me gustan de la blockchain es que todo queda registrado y se puede demostrar si alguien es rentable o no. Se hizo pública una wallet con muchas ganancias y se explicó con detalle cómo se operó. Ese contenido no es nada frecuente en las redes.",
+    avatar: "/img/avatar/testimonials/testi-6.webp",
+  },
+  {
+    name: "AleChain",
+    role: "Alumno",
+    text: "He pasado por muchas comunidades, pero ninguna me había aportado tanto valor como esta. Las explicaciones son claras, profundas y con un enfoque práctico que marca la diferencia. Las tesis de inversión me parecen brillantes, un verdadero plus para quienes buscamos un enfoque más arriesgado pero con base sólida.",
+    avatar: "/img/avatar/testimonials/testi-7.webp",
+  },
+  {
+    name: "Casual Red",
+    role: "Alumno",
+    text: "Tras un año y pocos meses dentro de Medusa Capital solo puedo decir que la decisión fue más que acertada. La implicación de Axel es total, tanto en sus análisis y tesis de inversión como a la hora de resolver cualquier duda. En cuanto a los miembros, es lo más parecido a una gran familia. Recomendable 100%.",
+    avatar: "/img/avatar/testimonials/testi-8.webp",
+  },
+  {
+    name: "Oppenheimer(AI)",
+    role: "Alumno",
+    text: "Integrante desde los inicios. He vivido toda la evolución de esta comunidad. Desde ser trader de meme coins con las emociones a flor de piel hasta la inversión más a largo plazo e inteligente. Axel ha sabido adaptarse a este mercado tan loco y su dedicación es excepcional. Si alguien quiere formarse en este mundo, esta comunidad es la bomba.",
+    avatar: "/img/avatar/testimonials/testi-9.webp",
   },
 ];
 
 // Split into 3 columns for scroll effect
-const column1 = [testimonials[0], testimonials[3], testimonials[1], testimonials[4]];
-const column2 = [testimonials[1], testimonials[4], testimonials[2], testimonials[5]];
-const column3 = [testimonials[2], testimonials[5], testimonials[0], testimonials[3]];
+const column1 = [testimonials[0], testimonials[3], testimonials[6], testimonials[1], testimonials[4], testimonials[7]];
+const column2 = [testimonials[1], testimonials[4], testimonials[7], testimonials[2], testimonials[5], testimonials[8]];
+const column3 = [testimonials[2], testimonials[5], testimonials[8], testimonials[0], testimonials[3], testimonials[6]];
 
 function TestimonialCard({ testimonial }: { testimonial: typeof testimonials[0] }) {
   return (
@@ -188,7 +180,7 @@ function ScrollingColumn({
       <div
         className={`flex flex-col ${direction === "down" ? "animate-scroll-down" : "animate-scroll-up"}`}
         style={{
-          animationDuration: "60s",
+          animationDuration: "75s",
         }}
       >
         {duplicated.map((testimonial, i) => (
@@ -242,20 +234,13 @@ export function Testimonials() {
         {/* Header */}
         <div className="text-center mb-8 md:mb-16">
           <h2 className="font-[family-name:var(--font-heading)] text-[clamp(36px,6vw,72px)] font-bold text-white leading-tight mb-4 transition-colors duration-300">
-            Qué dicen Nuestros Alumnos
+            Lo Que Dicen Nuestros Inversores
           </h2>
           <p className="text-[#B9B8EB]/50 text-xl md:text-2xl max-w-4xl mx-auto transition-colors duration-300">
             Nuestra formación ha cambiado la manera en la que nuestros alumnos
             perciben el sistema monetario. Ahora conocen el sistema y tienen las
             herramientas para rentabilizar su dinero. Aquí tienes algunos testimonios sobre su aprendizaje.
           </p>
-        </div>
-
-        {/* Mini Quote Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10 md:mb-16">
-          {miniQuotes.map((quote, i) => (
-            <MiniQuoteCard key={i} quote={quote} />
-          ))}
         </div>
 
         {/* 3 Column scrolling testimonials */}
