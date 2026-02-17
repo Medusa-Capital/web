@@ -49,7 +49,7 @@ export function Hero() {
         >
           Nuestras tesis de inversión han
           <br />
-          batido a BTC un <span className="text-[#B9B8EB]">+106%</span> en 2025
+          batido a BTC un <span className="text-[#B9B8EB]">+86%</span> en 2025
         </motion.h1>
 
         {/* Subheadline */}
