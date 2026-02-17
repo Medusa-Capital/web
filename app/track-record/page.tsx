@@ -1,6 +1,5 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { Header } from "@/components/landing/Header";
@@ -15,24 +14,19 @@ import {
 } from "@/components/landing/track-record";
 
 export default function TrackRecordPage() {
-  const [visibleStats, setVisibleStats] = useState(false);
-
-  useEffect(() => {
-    setVisibleStats(true);
-  }, []);
 
   const stats = [
     {
       label: "Performance",
-      value: "+106%",
+      value: "+80%",
       subtext: "ROI 2025",
       description: "Mientras BTC cayó -6%",
     },
     {
       label: "Alpha",
-      value: "+89.62%",
+      value: "+64%",
       subtext: "VS S&P 500",
-      description: "+106% vs +16.38%",
+      description: "+80% vs +16%",
     },
     {
       label: "Accuracy",
@@ -104,16 +98,14 @@ export default function TrackRecordPage() {
                 <motion.div
                   key={stat.label}
                   initial={{ opacity: 0, y: 20 }}
-                  animate={{
-                    opacity: visibleStats ? 1 : 0,
-                    y: visibleStats ? 0 : 20,
-                  }}
+                  animate={{ opacity: 1, y: 0 }}
                   transition={{
                     duration: 0.6,
                     ease: [0.22, 1, 0.36, 1],
                     delay: index * 0.1,
                   }}
-                  className="relative backdrop-blur-md rounded-3xl p-8 border transition-all duration-300 hover:scale-[1.02]"
+                  whileHover={{ scale: 1.02 }}
+                  className="relative backdrop-blur-md rounded-3xl p-8 border"
                   style={{
                     background: "rgba(27, 26, 100, 0.4)",
                     borderColor: "rgba(185, 184, 235, 0.2)",
@@ -308,7 +300,7 @@ export default function TrackRecordPage() {
           {/* CTA Section */}
           <PageCTA
             title="¿Listo para invertir con criterio?"
-            description="La misma metodología detrás del +106%. Reserva tu sesión y te la explicamos."
+            description="La misma metodología detrás del +80%. Reserva tu sesión y te la explicamos."
             buttonText="Reserva tu sesión estratégica"
             buttonExternalUrl="https://calendly.com/contacto-medusacapital/sesion-estrategica-15-clon?month=2026-01"
           />

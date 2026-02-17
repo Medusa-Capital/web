@@ -7,16 +7,33 @@ import { ThesisPrivateModal } from "./ThesisPrivateModal";
 
 const VISIBLE_COUNT = 3;
 
+function calculateDuration(entryDate: string): string {
+  const entry = new Date(entryDate);
+  const now = new Date();
+  const monthDiff =
+    (now.getFullYear() - entry.getFullYear()) * 12 +
+    (now.getMonth() - entry.getMonth());
+  let months: number;
+  if (now.getDate() < entry.getDate()) {
+    months = monthDiff;
+  } else if (now.getDate() > entry.getDate()) {
+    months = monthDiff + 1;
+  } else {
+    months = monthDiff;
+  }
+  return `${Math.max(1, months)} meses`;
+}
+
 const trackRecordProjects = [
   {
     screenshotUrl: "/img/projects/metadao.avif",
     glowColor: "#ff4444",
-    timestamp: "12/8/25",
+    timestamp: "23/08/25",
     projectName: "MetaDAO",
     ticker: "$META",
     allTimeHigh: "+1.058%",
     closingReturn: "+647%",
-    duration: "3 meses",
+    entryDate: "2025-08-23",
     entryPrice: "$0.96",
     reasons: [
       "Solución real a varios problemas estructurales del mercado",
@@ -32,7 +49,7 @@ const trackRecordProjects = [
     ticker: "$SYRUP",
     allTimeHigh: "+215%",
     closingReturn: "+56%",
-    duration: "6 meses",
+    entryDate: "2024-05-22",
     entryPrice: "$0.213",
     reasons: [
       "Ventaja competitiva clara frente a compañías tradicionales",
@@ -48,7 +65,7 @@ const trackRecordProjects = [
     ticker: "$HYPE",
     allTimeHigh: "+455%",
     closingReturn: "+138%",
-    duration: "11 meses",
+    entryDate: "2024-09-15",
     entryPrice: "$10.7",
     reasons: [
       "DEX con mejor UX y velocidad que exchanges centralizados",
@@ -63,7 +80,7 @@ const trackRecordProjects = [
     projectName: "Pump.fun",
     ticker: "$PUMP",
     allTimeHigh: "+124%",
-    closingReturn: "-53%",
+    closingReturn: "-10%",
     duration: "2 meses",
     entryPrice: "$0.004",
     reasonsLabel: "Factores clave",
@@ -129,18 +146,23 @@ export function TrackRecordCarousel() {
                 transform: `translateX(calc(-${page} * (100% / ${VISIBLE_COUNT} + 24px * ${VISIBLE_COUNT - 1} / ${VISIBLE_COUNT})))`,
               }}
             >
-              {trackRecordProjects.map((project, index) => (
-                <div
-                  key={index}
-                  className="flex-none"
-                  style={{ width: `calc((100% - ${(VISIBLE_COUNT - 1) * 24}px) / ${VISIBLE_COUNT})` }}
-                >
-                  <TrackRecordCard
-                    {...project}
-                    onThesisClick={() => setIsModalOpen(true)}
-                  />
-                </div>
-              ))}
+              {trackRecordProjects.map((project, index) => {
+                const { entryDate, ...rest } = project;
+                const duration = entryDate ? calculateDuration(entryDate) : rest.duration!;
+                return (
+                  <div
+                    key={index}
+                    className="flex-none"
+                    style={{ width: `calc((100% - ${(VISIBLE_COUNT - 1) * 24}px) / ${VISIBLE_COUNT})` }}
+                  >
+                    <TrackRecordCard
+                      {...rest}
+                      duration={duration}
+                      onThesisClick={() => setIsModalOpen(true)}
+                    />
+                  </div>
+                );
+              })}
             </div>
           </div>
 
@@ -173,14 +195,19 @@ export function TrackRecordCarousel() {
             msOverflowStyle: "none",
           }}
         >
-          {trackRecordProjects.map((project, index) => (
-            <div key={index} className="snap-center flex-none w-[280px]">
-              <TrackRecordCard
-                {...project}
-                onThesisClick={() => setIsModalOpen(true)}
-              />
-            </div>
-          ))}
+          {trackRecordProjects.map((project, index) => {
+            const { entryDate, ...rest } = project;
+            const duration = entryDate ? calculateDuration(entryDate) : rest.duration!;
+            return (
+              <div key={index} className="snap-center flex-none w-[280px]">
+                <TrackRecordCard
+                  {...rest}
+                  duration={duration}
+                  onThesisClick={() => setIsModalOpen(true)}
+                />
+              </div>
+            );
+          })}
         </div>
 
         {/* Dots indicator for mobile */}

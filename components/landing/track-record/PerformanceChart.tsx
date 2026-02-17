@@ -2,22 +2,22 @@
 
 import { motion } from "framer-motion";
 
-// Source: unified_summary_month_end.csv
+// Source: unified_summary_month_end_v2_weights.csv
 // Normalized to 100 at 2024-12-31 (value_norm * 100)
 const performanceData = [
   { month: "Inicio", btc: 100, sp500: 100, medusa: 100 },
-  { month: "Ene", btc: 109.59, sp500: 102.7, medusa: 112.6 },
-  { month: "Feb", btc: 90.26, sp500: 101.24, medusa: 83.78 },
-  { month: "Mar", btc: 88.35, sp500: 95.41, medusa: 54.34 },
-  { month: "Abr", btc: 100.81, sp500: 94.69, medusa: 83.6 },
-  { month: "May", btc: 112.02, sp500: 100.51, medusa: 137.39 },
-  { month: "Jun", btc: 114.64, sp500: 105.5, medusa: 181.18 },
-  { month: "Jul", btc: 123.81, sp500: 107.78, medusa: 160.74 },
-  { month: "Ago", btc: 115.81, sp500: 109.84, medusa: 236.71 },
-  { month: "Sep", btc: 122.03, sp500: 113.72, medusa: 252.71 },
-  { month: "Oct", btc: 117.24, sp500: 116.3, medusa: 592.96 },
-  { month: "Nov", btc: 96.73, sp500: 116.45, medusa: 502.7 },
-  { month: "Dic", btc: 93.65, sp500: 116.39, medusa: 455.47 },
+  { month: "Ene", btc: 109.59, sp500: 102.7, medusa: 103.78 },
+  { month: "Feb", btc: 90.26, sp500: 101.24, medusa: 95.14 },
+  { month: "Mar", btc: 88.35, sp500: 95.41, medusa: 86.3 },
+  { month: "Abr", btc: 100.81, sp500: 94.69, medusa: 95.08 },
+  { month: "May", btc: 112.02, sp500: 100.51, medusa: 123.04 },
+  { month: "Jun", btc: 114.64, sp500: 105.5, medusa: 149.23 },
+  { month: "Jul", btc: 123.81, sp500: 107.78, medusa: 139.39 },
+  { month: "Ago", btc: 115.81, sp500: 109.84, medusa: 154.79 },
+  { month: "Sep", btc: 122.03, sp500: 113.72, medusa: 153.19 },
+  { month: "Oct", btc: 117.24, sp500: 116.3, medusa: 207.76 },
+  { month: "Nov", btc: 96.73, sp500: 116.45, medusa: 181.0 },
+  { month: "Dic", btc: 93.65, sp500: 116.39, medusa: 180.1 },
 ];
 
 // Chart dimensions
@@ -30,8 +30,8 @@ const allValues = performanceData.flatMap((d) => [d.btc, d.sp500, d.medusa]);
 const maxValue = Math.max(...allValues);
 const minValue = Math.min(...allValues);
 
-const yMin = Math.floor(minValue / 100) * 100;
-const yMax = Math.ceil(maxValue / 100) * 100;
+const yMin = Math.floor(minValue / 50) * 50;
+const yMax = Math.ceil(maxValue / 50) * 50;
 
 const xScale = (index: number) =>
   padding.left +
@@ -71,7 +71,7 @@ const medusaAreaPath = generateAreaPath(performanceData.map((d) => d.medusa));
 
 export function PerformanceChart() {
   const gridLines: number[] = [];
-  for (let v = yMin; v <= yMax; v += 100) {
+  for (let v = yMin; v <= yMax; v += 50) {
     gridLines.push(v);
   }
 
@@ -352,7 +352,7 @@ export function PerformanceChart() {
               Medusa Capital
             </p>
             <p className="font-[family-name:var(--font-heading)] text-[32px] font-bold text-[#6366f1]">
-              +106%
+              +80%
             </p>
           </div>
           <div className="text-center">
