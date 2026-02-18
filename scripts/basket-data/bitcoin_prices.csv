@@ -1,0 +1,14 @@
+Date,BTC_series_name,BTC_price_usd,BTC_value_norm,BTC_cum_return_pct,defillama_url
+2024-12-31,coingecko:bitcoin,93450.00,1.000000,0.00,https://coins.llama.fi/prices/historical/1735689599/coingecko:bitcoin
+2025-01-31,coingecko:bitcoin,102412.00,1.095902,9.59,https://coins.llama.fi/prices/historical/1738367999/coingecko:bitcoin
+2025-02-28,coingecko:bitcoin,84346.00,0.902579,-9.74,https://coins.llama.fi/prices/historical/1740787199/coingecko:bitcoin
+2025-03-31,coingecko:bitcoin,82564.00,0.883510,-11.65,https://coins.llama.fi/prices/historical/1743465599/coingecko:bitcoin
+2025-04-30,coingecko:bitcoin,94206.00,1.008090,0.81,https://coins.llama.fi/prices/historical/1746057599/coingecko:bitcoin
+2025-05-31,coingecko:bitcoin,104682.00,1.120578,12.06,https://coins.llama.fi/prices/historical/1748735999/coingecko:bitcoin
+2025-06-30,coingecko:bitcoin,107128.00,1.146748,14.67,https://coins.llama.fi/prices/historical/1751327999/coingecko:bitcoin
+2025-07-31,coingecko:bitcoin,115702.00,1.238716,23.87,https://coins.llama.fi/prices/historical/1754006399/coingecko:bitcoin
+2025-08-31,coingecko:bitcoin,108224.00,1.158095,15.81,https://coins.llama.fi/prices/historical/1756684799/coingecko:bitcoin
+2025-09-30,coingecko:bitcoin,114041.00,1.220342,22.03,https://coins.llama.fi/prices/historical/1759276799/coingecko:bitcoin
+2025-10-31,coingecko:bitcoin,109561.48,1.172408,17.24,https://coins.llama.fi/prices/historical/1761955199/coingecko:bitcoin
+2025-11-30,coingecko:bitcoin,90391.74,0.967274,-3.27,https://coins.llama.fi/prices/historical/1764547199/coingecko:bitcoin
+2025-12-31,coingecko:bitcoin,87515.22,0.936493,-6.35,https://coins.llama.fi/prices/historical/1767225599/coingecko:bitcoin

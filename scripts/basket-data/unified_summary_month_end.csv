@@ -1,0 +1,14 @@
+Date,SP500_series_name,SP500_level,SP500_value_norm,SP500_cum_return_pct,BTC_series_name,BTC_price_usd,BTC_value_norm,BTC_cum_return_pct,Basket_value_norm,Basket_cum_return_pct
+2024-12-31,Stooq ^SPX (S&P 500 price index; monthly close),5881.63,1.0,0.0,DefiLlama coingecko:bitcoin (EOD UTC),93450.0,1.0,0.0,1.0,0.0
+2025-01-31,Stooq ^SPX (S&P 500 price index; monthly close),6040.53,1.027016,2.7,DefiLlama coingecko:bitcoin (EOD UTC),102412.0,1.095902,9.59,1.125964,12.6
+2025-02-28,Stooq ^SPX (S&P 500 price index; monthly close),5954.5,1.012389,1.24,DefiLlama coingecko:bitcoin (EOD UTC),84346.0,0.902579,-9.74,0.837842,-16.22
+2025-03-31,Stooq ^SPX (S&P 500 price index; monthly close),5611.85,0.954132,-4.59,DefiLlama coingecko:bitcoin (EOD UTC),82564.0,0.88351,-11.65,0.54335,-45.67
+2025-04-30,Stooq ^SPX (S&P 500 price index; monthly close),5569.06,0.946857,-5.31,DefiLlama coingecko:bitcoin (EOD UTC),94206.0,1.00809,0.81,0.836049,-16.4
+2025-05-31,Stooq ^SPX (S&P 500 price index; monthly close),5911.69,1.005111,0.51,DefiLlama coingecko:bitcoin (EOD UTC),104682.0,1.120193,12.02,1.373883,37.39
+2025-06-30,Stooq ^SPX (S&P 500 price index; monthly close),6204.95,1.054971,5.5,DefiLlama coingecko:bitcoin (EOD UTC),107128.0,1.146367,14.64,1.811822,81.18
+2025-07-31,Stooq ^SPX (S&P 500 price index; monthly close),6339.39,1.077829,7.78,DefiLlama coingecko:bitcoin (EOD UTC),115702.0,1.238117,23.81,1.607425,60.74
+2025-08-31,Stooq ^SPX (S&P 500 price index; monthly close),6460.26,1.098379,9.84,DefiLlama coingecko:bitcoin (EOD UTC),108224.0,1.158095,15.81,2.367114,136.71
+2025-09-30,Stooq ^SPX (S&P 500 price index; monthly close),6688.46,1.137178,13.72,DefiLlama coingecko:bitcoin (EOD UTC),114041.0,1.220342,22.03,2.527091,152.71
+2025-10-31,Stooq ^SPX (S&P 500 price index; monthly close),6840.2,1.162977,16.3,DefiLlama coingecko:bitcoin (EOD UTC),109561.48280505,1.172408,17.24,5.929581,492.96
+2025-11-30,Stooq ^SPX (S&P 500 price index; monthly close),6849.09,1.164488,16.45,DefiLlama coingecko:bitcoin (EOD UTC),90391.73507016,0.967274,-3.27,5.02703,402.7
+2025-12-31,Stooq ^SPX (S&P 500 price index; monthly close),6845.5,1.163878,16.39,DefiLlama coingecko:bitcoin (EOD UTC),87515.22432298,0.936493,-6.35,4.55472,355.47

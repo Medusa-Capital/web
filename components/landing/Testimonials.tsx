@@ -4,7 +4,7 @@ import { Star } from "lucide-react";
 const featured = {
   name: "Bruno",
   age: 51,
-  avatar: "/img/avatar/testimonials/testi-1.webp",
+  avatar: "/img/avatar/bruno.png",
   rating: 5,
   paragraphs: [
     {
@@ -71,55 +71,55 @@ const testimonials = [
     name: "MadLex",
     role: "Alumno",
     text: "En el bullrun anterior estuve en grupos que eran puro humo. Llegué hecho un lío, más emocional que un novato en una montaña rusa. Gracias a las tesis y el material de Axel, aprendí a filtrar el ruido, a medir riesgos de verdad y a decidir con la cabeza fría. Cuando el mercado se fue al carajo y la gente salió corriendo, ahí seguía Axel investigando y explicando todo. Es lo mejor que hay en la comunidad hispana.",
-    avatar: "/img/avatar/testimonials/testi-1.webp",
+    avatar: "/img/avatar/madlex.jpeg",
   },
   {
     name: "isaac81.",
     role: "Alumno",
     text: "Ya tenía conocimientos y portafolio, me he formado en otras academias y tenía algo de experiencia. Lo que he encontrado aquí es muy top, la formación no la había visto de esta calidad ni de cerca. Hay gente con conocimientos brutales y con ganas de ayudarte a las 1000 dudas que puedas tener.",
-    avatar: "/img/avatar/testimonials/testi-2.webp",
+    avatar: "/img/avatar/isaac81.jpeg",
   },
   {
     name: "Sharkmode9",
     role: "Alumno",
     text: "La cantidad de valor que da Axel, ya sea en el aspecto macroeconómico con gente top, análisis semanales del mercado, DeFi, airdrops y prácticamente cualquier sector relacionado con este mundo, es muy muy grande. Si invierte el tiempo necesario, va a aprender el triple de rápido que si lo hiciese por su cuenta.",
-    avatar: "/img/avatar/testimonials/testi-3.webp",
+    avatar: "/img/avatar/sharkmode9.jpeg",
   },
   {
     name: "kaver",
     role: "Alumno",
     text: "Llevo en la comunidad desde el día 1. He pasado por varias comunidades de pago donde solo se enviaban señales y se usaba a la comunidad de exit liquidity. Aquí se hace todo lo contrario: se intenta que cada persona aprenda cómo funciona el mercado y sea capaz de tomar sus propias decisiones. Si buscáis un sitio donde desarrollaros como inversores, estáis en el lugar adecuado.",
-    avatar: "/img/avatar/testimonials/testi-4.webp",
+    avatar: "/img/avatar/kaver.jpeg",
   },
   {
     name: "battanik",
     role: "Alumno",
     text: "Después de más de un año puedo afirmar totalmente convencido de que merece la pena. Lo que más he valorado respecto a otras comunidades es la filosofía de conocernos a nosotros mismos como inversores y operar según nuestras necesidades personales. Su objetivo no es lucrarse a corto plazo, sino construir algo mucho más grande con personas que busquen ser rentables a largo plazo.",
-    avatar: "/img/avatar/testimonials/testi-5.webp",
+    avatar: "/img/avatar/battanik.jpeg",
   },
   {
     name: "Jordi77",
     role: "Alumno",
     text: "Material de primera y comunidad muy activa. Una de las cosas que me gustan de la blockchain es que todo queda registrado y se puede demostrar si alguien es rentable o no. Se hizo pública una wallet con muchas ganancias y se explicó con detalle cómo se operó. Ese contenido no es nada frecuente en las redes.",
-    avatar: "/img/avatar/testimonials/testi-6.webp",
+    avatar: "/img/avatar/jordi77.jpeg",
   },
   {
     name: "AleChain",
     role: "Alumno",
     text: "He pasado por muchas comunidades, pero ninguna me había aportado tanto valor como esta. Las explicaciones son claras, profundas y con un enfoque práctico que marca la diferencia. Las tesis de inversión me parecen brillantes, un verdadero plus para quienes buscamos un enfoque más arriesgado pero con base sólida.",
-    avatar: "/img/avatar/testimonials/testi-7.webp",
+    avatar: "/img/avatar/alechain.jpeg",
   },
   {
     name: "Casual Red",
     role: "Alumno",
     text: "Tras un año y pocos meses dentro de Medusa Capital solo puedo decir que la decisión fue más que acertada. La implicación de Axel es total, tanto en sus análisis y tesis de inversión como a la hora de resolver cualquier duda. En cuanto a los miembros, es lo más parecido a una gran familia. Recomendable 100%.",
-    avatar: "/img/avatar/testimonials/testi-8.webp",
+    avatar: "/img/avatar/casual_red.jpeg",
   },
   {
     name: "Oppenheimer(AI)",
     role: "Alumno",
     text: "Integrante desde los inicios. He vivido toda la evolución de esta comunidad. Desde ser trader de meme coins con las emociones a flor de piel hasta la inversión más a largo plazo e inteligente. Axel ha sabido adaptarse a este mercado tan loco y su dedicación es excepcional. Si alguien quiere formarse en este mundo, esta comunidad es la bomba.",
-    avatar: "/img/avatar/testimonials/testi-9.webp",
+    avatar: "/img/avatar/oppenheimer_ai.jpeg",
   },
 ];
 
