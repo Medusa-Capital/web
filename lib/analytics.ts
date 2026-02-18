@@ -98,3 +98,15 @@ export function trackSectionView(sectionName: string) {
     category: EventCategory.ENGAGEMENT,
   });
 }
+
+// Track PDF lead magnet funnel events
+export function trackPdfFunnelEvent(
+  action: "cta_click" | "form_start" | "form_submit" | "form_success" | "form_error",
+  params?: Record<string, string | number | boolean>
+) {
+  trackEvent(`pdf_${action}`, {
+    funnel: "pdf_sistema_medusa",
+    category: EventCategory.FORM,
+    ...params,
+  });
+}

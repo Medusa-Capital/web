@@ -8,10 +8,9 @@ import {
   DoorOpen,
   RefreshCcw,
   Shield,
-  Download,
   Filter,
 } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { PdfLeadCaptureForm } from "./PdfLeadCaptureForm";
 
 const BLURRED_TAGS = new Set([
   "Dilución excesiva",
@@ -326,19 +325,7 @@ export function AnalysisFrameworkSection() {
 
         {/* CTA Section */}
         <div className="text-center mt-12 md:mt-16">
-          <Button
-            variant="primaryGlow"
-            size="lg"
-            className="px-8 py-6 text-base font-semibold rounded-xl gap-2 !bg-gradient-to-r !from-[#6B4CE6] !via-[#9074F6] !to-[#6B4CE6] shadow-[0_0_32px_rgba(144,116,246,0.45)] hover:shadow-[0_0_40px_rgba(144,116,246,0.6)]"
-          >
-            <Download className="w-5 h-5" />
-            Descargar Sistema Medusa (PDF Gratis)
-          </Button>
-          <p
-            className="text-sm mt-4 transition-colors duration-300 text-[#B9B8EB]/60"
-          >
-            20 páginas • Casos de estudio • Checklists • Templates
-          </p>
+          <PdfLeadCaptureForm />
         </div>
       </div>
     </section>
