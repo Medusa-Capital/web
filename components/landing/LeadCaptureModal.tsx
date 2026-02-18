@@ -12,61 +12,19 @@ import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
-import {
-  parsePhoneNumberFromString,
-  CountryCode,
-  getCountryCallingCode,
-} from "libphonenumber-js";
+import { getCountryCallingCode } from "libphonenumber-js";
 import { trackModalEvent, trackFormEvent, trackVideoEvent } from "@/lib/analytics";
 import { getUTMParamsForSubmission } from "@/lib/utm";
-
-// Supported countries with their codes and flags
-const COUNTRIES = [
-  { code: "ES" as CountryCode, flag: "🇪🇸", name: "España" },
-  { code: "US" as CountryCode, flag: "🇺🇸", name: "Estados Unidos" },
-  { code: "MX" as CountryCode, flag: "🇲🇽", name: "México" },
-  { code: "AR" as CountryCode, flag: "🇦🇷", name: "Argentina" },
-  { code: "CO" as CountryCode, flag: "🇨🇴", name: "Colombia" },
-  { code: "CL" as CountryCode, flag: "🇨🇱", name: "Chile" },
-  { code: "PE" as CountryCode, flag: "🇵🇪", name: "Perú" },
-  { code: "GB" as CountryCode, flag: "🇬🇧", name: "Reino Unido" },
-  { code: "DE" as CountryCode, flag: "🇩🇪", name: "Alemania" },
-  { code: "FR" as CountryCode, flag: "🇫🇷", name: "Francia" },
-];
+import {
+  COUNTRIES,
+  isValidName,
+  isValidEmail,
+  isValidPhone,
+  formatPhoneForSubmission,
+} from "@/lib/validation";
 
 // Unlisted YouTube video URL (shown after successful submission)
 const MASTERCLASS_VIDEO_ID = "9rNDE3FMWlo";
-
-// Validation helpers
-const isValidName = (name: string): boolean => {
-  // Must contain only letters (including accented), spaces, hyphens, and apostrophes
-  // Must have at least 1 letter
-  const trimmed = name.trim();
-  if (!trimmed) return false;
-  // Allow letters from any language, spaces, hyphens, apostrophes
-  const nameRegex = /^[\p{L}\s\-']+$/u;
-  return nameRegex.test(trimmed) && /\p{L}/u.test(trimmed);
-};
-
-const isValidEmail = (email: string): boolean => {
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return emailRegex.test(email.trim());
-};
-
-const isValidPhone = (phone: string, countryCode: CountryCode): boolean => {
-  if (!phone.trim()) return true; // Phone is optional
-  const phoneNumber = parsePhoneNumberFromString(phone, countryCode);
-  return phoneNumber?.isValid() ?? false;
-};
-
-const formatPhoneForSubmission = (
-  phone: string,
-  countryCode: CountryCode
-): string => {
-  if (!phone.trim()) return "";
-  const phoneNumber = parsePhoneNumberFromString(phone, countryCode);
-  return phoneNumber?.format("E.164") ?? "";
-};
 
 export function LeadCaptureModal() {
   const [isOpen, setIsOpen] = useState(false);
