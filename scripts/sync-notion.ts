@@ -315,7 +315,7 @@ async function downloadCoverImage(
     const buffer = Buffer.from(await response.arrayBuffer());
 
     await sharp(buffer)
-      .resize(1200, 675, { fit: "cover" })
+      .resize(1200, undefined, { fit: "inside", withoutEnlargement: true })
       .jpeg({ quality: 85 })
       .toFile(localPath);
 
