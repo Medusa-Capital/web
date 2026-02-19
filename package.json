@@ -4,9 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build:figma": "cd figma && bun install && bun run build",
-    "build": "bun run build:figma && next build",
-    "build:notion": "bun run sync-notion && bun run build:figma && next build",
+    "build": "next build",
+    "build:notion": "bun run sync-notion && next build",
     "start": "next start",
     "lint": "eslint",
     "sync-notion": "bun scripts/sync-notion.ts",
