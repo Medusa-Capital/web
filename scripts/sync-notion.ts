@@ -390,6 +390,11 @@ async function syncArticle(
   // Clean up Notion formatting artifacts
   content = cleanupContent(content, article.slug);
 
+  // Strip first inline image if article has a cover (Notion duplicates cover as first content block)
+  if (article.coverImage) {
+    content = content.replace(/^\s*!\[[^\]]*\]\([^)]+\)\s*\n*/, "");
+  }
+
   // Auto-generate description if not set in Notion
   if (!article.description) {
     article.description = generateDescription(content);

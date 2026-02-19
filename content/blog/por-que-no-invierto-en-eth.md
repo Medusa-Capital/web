@@ -11,9 +11,6 @@ published: true
 category: "article"
 ---
 
-![](/img/blog/por-que-no-invierto-en-eth/image-0.png)
-
-
 Mis últimos posts sobre ETH han generado bastantes comentarios y dudas. Respondiendo a todos y unificándolo en una publicación, voy a explicar por qué la moneda ETH no pasa mis filtros para poder invertir en ella.
 
 
