@@ -1,3 +1,0 @@
-function Section6() {
-  return <TestimonialsOption3 />;
-}

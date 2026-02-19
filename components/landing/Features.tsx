@@ -33,14 +33,6 @@ const features = [
     icon: "/img/step-4.webp",
     countIcon: "/img/step-count-4.webp",
   },
-  {
-    number: 5,
-    title: "Análisis macroeconómico de la mano de expertos",
-    description:
-      "Contamos con la colaboración de Diego Puertas, analista reconocido en el sector, que aporta su visión macroeconómica para ayudarte a entender cómo los eventos globales decisiones más fundamentadas.",
-    icon: "/img/step-5.svg",
-    countIcon: "/img/step-count-5.webp",
-  },
 ];
 
 export function Features() {
