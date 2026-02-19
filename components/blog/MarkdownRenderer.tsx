@@ -82,12 +82,19 @@ export function MarkdownRenderer({ content }: Props) {
           </pre>
         ),
         img: ({ src, alt }) => (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            src={src}
-            alt={alt || ""}
-            className="rounded-xl my-6 max-w-full h-auto"
-          />
+          <figure className="my-6">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={src}
+              alt={alt || ""}
+              className="rounded-xl max-w-full h-auto"
+            />
+            {alt && (
+              <figcaption className="text-center text-sm text-[#B9B8EB]/50 mt-2">
+                {alt}
+              </figcaption>
+            )}
+          </figure>
         ),
         hr: () => <hr className="my-8 border-[#B9B8EB]/20" />,
         table: ({ children }) => (
