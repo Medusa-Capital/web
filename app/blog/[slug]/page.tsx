@@ -7,7 +7,7 @@ import { PageBackground } from "@/components/landing/PageBackground";
 import { NewsletterSection } from "@/components/blog/NewsletterSection";
 import { PageCTA } from "@/components/landing/PageCTA";
 import Link from "next/link";
-import Image from "next/image";
+
 
 const NEWSLETTER_MARKER = "<!-- newsletter -->";
 
@@ -94,13 +94,12 @@ export default async function BlogPostPage({ params }: Props) {
             {/* Article header */}
             <header className="mb-12">
               {post.image && (
-                <div className="aspect-video relative overflow-hidden rounded-2xl mb-8">
-                  <Image
+                <div className="overflow-hidden rounded-2xl mb-8">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
                     src={post.image}
                     alt={post.title}
-                    fill
-                    className="object-cover"
-                    priority
+                    className="w-full h-auto"
                   />
                 </div>
               )}
