@@ -16,6 +16,7 @@ import {
 } from "../lib/blog-processing";
 import { existsSync, mkdirSync, writeFileSync, readFileSync, unlinkSync, rmSync, readdirSync } from "fs";
 import { join, extname } from "path";
+import sharp from "sharp";
 import type {
   PageObjectResponse,
   RichTextItemResponse,
@@ -293,7 +294,7 @@ async function fetchPublishedArticles(
 // -------------------------------------------------------------------
 
 /**
- * Download cover image and return local public path.
+ * Download cover image, resize to 16:9 (1200x675) for blog header, and return local public path.
  */
 async function downloadCoverImage(
   url: string,
@@ -304,13 +305,25 @@ async function downloadCoverImage(
     mkdirSync(imageDir, { recursive: true });
   }
 
-  const ext = guessImageExt(url);
-  const filename = `cover${ext}`;
+  const filename = "cover.jpg";
   const localPath = join(imageDir, filename);
   const publicPath = `/img/blog/${slug}/${filename}`;
 
-  const success = await downloadImage(url, localPath);
-  return success ? publicPath : null;
+  try {
+    const response = await fetch(url);
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const buffer = Buffer.from(await response.arrayBuffer());
+
+    await sharp(buffer)
+      .resize(1200, 675, { fit: "cover" })
+      .jpeg({ quality: 85 })
+      .toFile(localPath);
+
+    return publicPath;
+  } catch (err) {
+    console.error(`  Failed to download/resize cover image: ${err}`);
+    return null;
+  }
 }
 
 /**

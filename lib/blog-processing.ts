@@ -140,6 +140,12 @@ export function cleanupContent(content: string, slug: string): string {
     }
   );
 
+  // Strip filename alt text that notion-to-md uses when no caption exists
+  content = content.replace(
+    /!\[([^\]]*\.(?:png|jpe?g|gif|webp|svg))\]/gi,
+    "![]"
+  );
+
   // Remove Twitter/X cashtag links but keep the text
   content = content.replace(
     /\[\$([A-Z]+)\]\(https:\/\/x\.com\/search[^)]+\)/g,
