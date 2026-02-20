@@ -1,0 +1,37 @@
+name: Sync GA4 Analytics
+
+on:
+  schedule:
+    - cron: '0 6 * * *' # 6 AM UTC daily (7 AM CET)
+  workflow_dispatch: # manual trigger
+
+concurrency:
+  group: sync-analytics
+  cancel-in-progress: false
+
+permissions:
+  id-token: write # Required for Workload Identity Federation
+  contents: read
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Authenticate to Google Cloud (WIF)
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+
+      - uses: oven-sh/setup-bun@v2
+
+      - run: bun install --frozen-lockfile
+
+      - name: Sync yesterday's analytics
+        run: bun scripts/sync-analytics.ts
+        env:
+          GA4_PROPERTY_ID: ${{ secrets.GA4_PROPERTY_ID }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}

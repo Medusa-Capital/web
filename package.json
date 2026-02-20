@@ -17,9 +17,11 @@
   },
   "dependencies": {
     "@base-ui/react": "^1.0.0",
+    "@google-analytics/data": "^5.2.1",
     "@next/third-parties": "^16.1.1",
     "@notionhq/client": "2",
     "@studio-freight/lenis": "^1.0.42",
+    "@supabase/supabase-js": "^2.95.3",
     "@vercel/speed-insights": "^1.3.1",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
