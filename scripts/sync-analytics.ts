@@ -182,6 +182,47 @@ async function fetchDailySources(date: string) {
   return response;
 }
 
+async function fetchDailyEvents(date: string) {
+  const [response] = await analytics.runReport({
+    property: `properties/${GA4_PROPERTY_ID}`,
+    dateRanges: [{ startDate: date, endDate: date }],
+    dimensions: [{ name: "date" }, { name: "eventName" }],
+    metrics: [{ name: "eventCount" }, { name: "totalUsers" }],
+    orderBys: [{ metric: { metricName: "eventCount" }, desc: true }],
+    limit: 100,
+  });
+  return response;
+}
+
+async function fetchDailyDevices(date: string) {
+  const [response] = await analytics.runReport({
+    property: `properties/${GA4_PROPERTY_ID}`,
+    dateRanges: [{ startDate: date, endDate: date }],
+    dimensions: [
+      { name: "date" },
+      { name: "deviceCategory" },
+      { name: "browser" },
+      { name: "operatingSystem" },
+    ],
+    metrics: [{ name: "totalUsers" }, { name: "sessions" }],
+    orderBys: [{ metric: { metricName: "totalUsers" }, desc: true }],
+    limit: 50,
+  });
+  return response;
+}
+
+async function fetchDailyGeo(date: string) {
+  const [response] = await analytics.runReport({
+    property: `properties/${GA4_PROPERTY_ID}`,
+    dateRanges: [{ startDate: date, endDate: date }],
+    dimensions: [{ name: "date" }, { name: "country" }, { name: "city" }],
+    metrics: [{ name: "totalUsers" }, { name: "sessions" }],
+    orderBys: [{ metric: { metricName: "totalUsers" }, desc: true }],
+    limit: 100,
+  });
+  return response;
+}
+
 // ---------------------------------------------------------------------------
 // Transform + Upsert
 // ---------------------------------------------------------------------------
@@ -197,12 +238,16 @@ function dimVal(row: any, index: number): string {
 async function syncDate(date: string) {
   console.log(`\n--- Syncing ${date} ---`);
 
-  // Fetch all 3 reports in parallel
-  const [summaryRes, pagesRes, sourcesRes] = await Promise.all([
-    fetchDailySummary(date),
-    fetchDailyPages(date),
-    fetchDailySources(date),
-  ]);
+  // Fetch all 6 reports in parallel
+  const [summaryRes, pagesRes, sourcesRes, eventsRes, devicesRes, geoRes] =
+    await Promise.all([
+      fetchDailySummary(date),
+      fetchDailyPages(date),
+      fetchDailySources(date),
+      fetchDailyEvents(date),
+      fetchDailyDevices(date),
+      fetchDailyGeo(date),
+    ]);
 
   // --- Summary ---
   const summaryRows = summaryRes.rows ?? [];
@@ -280,6 +325,81 @@ async function syncDate(date: string) {
     }
   } else {
     console.log("  Sources: no data for this date");
+  }
+
+  // --- Events ---
+  // Dimensions: [date, eventName] / Metrics: [eventCount, totalUsers]
+  const eventRows = eventsRes.rows ?? [];
+  if (eventRows.length > 0) {
+    const events = eventRows.map((row: any) => ({
+      date,
+      event_name: dimVal(row, 1),
+      event_count: metricVal(row, 0),
+      unique_users: metricVal(row, 1),
+    }));
+
+    const { error } = await supabase
+      .from("daily_events")
+      .upsert(events, { onConflict: "date,event_name" });
+
+    if (error) {
+      console.error("  Events upsert error:", error.message);
+    } else {
+      console.log(`  Events: ${events.length} rows`);
+    }
+  } else {
+    console.log("  Events: no data for this date");
+  }
+
+  // --- Devices ---
+  // Dimensions: [date, deviceCategory, browser, operatingSystem] / Metrics: [totalUsers, sessions]
+  const deviceRows = devicesRes.rows ?? [];
+  if (deviceRows.length > 0) {
+    const devices = deviceRows.map((row: any) => ({
+      date,
+      device_category: dimVal(row, 1),
+      browser: dimVal(row, 2),
+      os: dimVal(row, 3),
+      users: metricVal(row, 0),
+      sessions: metricVal(row, 1),
+    }));
+
+    const { error } = await supabase
+      .from("daily_devices")
+      .upsert(devices, { onConflict: "date,device_category,browser,os" });
+
+    if (error) {
+      console.error("  Devices upsert error:", error.message);
+    } else {
+      console.log(`  Devices: ${devices.length} rows`);
+    }
+  } else {
+    console.log("  Devices: no data for this date");
+  }
+
+  // --- Geo ---
+  // Dimensions: [date, country, city] / Metrics: [totalUsers, sessions]
+  const geoRows = geoRes.rows ?? [];
+  if (geoRows.length > 0) {
+    const geo = geoRows.map((row: any) => ({
+      date,
+      country: dimVal(row, 1) || "(not set)",
+      city: dimVal(row, 2) || "(not set)",
+      users: metricVal(row, 0),
+      sessions: metricVal(row, 1),
+    }));
+
+    const { error } = await supabase
+      .from("daily_geo")
+      .upsert(geo, { onConflict: "date,country,city" });
+
+    if (error) {
+      console.error("  Geo upsert error:", error.message);
+    } else {
+      console.log(`  Geo: ${geo.length} rows`);
+    }
+  } else {
+    console.log("  Geo: no data for this date");
   }
 }
 
