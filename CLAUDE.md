@@ -8,7 +8,7 @@ Spanish-language marketing site for a thesis-driven crypto investing platform. D
 - **Styling:** Tailwind CSS v4, framer-motion, Lenis smooth scroll
 - **Components:** shadcn (radix-ui primitives), lucide-react icons
 - **Content:** Markdown blog with gray-matter frontmatter, synced from Notion
-- **Analytics:** GA4 via @next/third-parties, custom event tracking in `lib/analytics.ts`
+- **Analytics:** GA4 via @next/third-parties, custom event tracking in `lib/analytics.ts`, daily GA4 → Supabase sync pipeline
 - **Package Manager:** Bun (never npm/yarn/pnpm)
 - **Deploy:** Vercel (build command overridden in `vercel.json` to run Notion sync before build)
 - **Testing:** Playwright for e2e tests (`bun run test:e2e`)
@@ -46,10 +46,16 @@ content/blog/                   # Markdown articles (Spanish) — synced from No
 content/inbox/                  # Staging area for manual blog posts (processed by inbox script)
 
 scripts/
+├── sync-analytics.ts           # GA4 → Supabase daily analytics sync (6 reports → 6 tables)
 ├── sync-notion.ts              # Notion DB → markdown sync (runs at build time)
 ├── process-blog-inbox.ts       # Process manual blog posts from content/inbox/
 ├── basket-data/                # Track record data & Python analysis (gitignored)
 └── ...                         # Other utility scripts (logos, UTM links)
+
+docs/
+├── analytics-pipeline-reference.md  # What we track, table schemas, useful SQL queries
+├── analytics-pipeline-setup-guide.md # Step-by-step replication guide (GCP, WIF, Supabase, etc.)
+└── ...                              # Other docs (analytics-setup.md, PRDs)
 
 figma/                          # Embedded Vite SPA for design reference (built separately)
 public/fonts/                   # Cormorant-Bold (headings), Inter (body)
@@ -102,6 +108,7 @@ Articles can come from two sources:
 - **Blog images** use `<figure>/<figcaption>` — alt text renders as caption below the image
 - **Blog article page** splits content at `<!-- newsletter -->` marker for mid-article CTA
 - **Analytics** tracked via `lib/analytics.ts` helpers (`trackCTAClick`, `trackOutboundLink`, etc.)
+- **Analytics pipeline** syncs GA4 data daily into Supabase `analytics` schema (6 tables: daily_summary, daily_pages, daily_sources, daily_events, daily_devices, daily_geo). See `docs/analytics-pipeline-reference.md`
 
 ## Commands
 
@@ -113,6 +120,11 @@ bun run sync-notion  # Sync articles from Notion DB (requires env vars)
 bun run inbox        # Process manual blog posts from content/inbox/
 bun run lint         # ESLint
 bun run test:e2e     # Playwright e2e tests
+
+# Analytics pipeline (manual runs / backfill)
+bun scripts/sync-analytics.ts                    # sync yesterday
+bun scripts/sync-analytics.ts --date 2026-02-14  # sync specific date
+bun scripts/sync-analytics.ts --days 30          # backfill last 30 days
 ```
 
 ## Known Issues

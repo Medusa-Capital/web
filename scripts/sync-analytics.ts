@@ -63,6 +63,39 @@
 //     created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
 //     UNIQUE (date, source, medium)
 //   );
+//
+//   CREATE TABLE analytics.daily_events (
+//     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+//     date DATE NOT NULL,
+//     event_name TEXT NOT NULL,
+//     event_count INT NOT NULL DEFAULT 0,
+//     unique_users INT NOT NULL DEFAULT 0,
+//     created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+//     UNIQUE (date, event_name)
+//   );
+//
+//   CREATE TABLE analytics.daily_devices (
+//     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+//     date DATE NOT NULL,
+//     device_category TEXT NOT NULL,
+//     browser TEXT NOT NULL,
+//     os TEXT NOT NULL,
+//     users INT NOT NULL DEFAULT 0,
+//     sessions INT NOT NULL DEFAULT 0,
+//     created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+//     UNIQUE (date, device_category, browser, os)
+//   );
+//
+//   CREATE TABLE analytics.daily_geo (
+//     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+//     date DATE NOT NULL,
+//     country TEXT NOT NULL,
+//     city TEXT NOT NULL,
+//     users INT NOT NULL DEFAULT 0,
+//     sessions INT NOT NULL DEFAULT 0,
+//     created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+//     UNIQUE (date, country, city)
+//   );
 
 import { BetaAnalyticsDataClient } from "@google-analytics/data";
 import { createClient } from "@supabase/supabase-js";
