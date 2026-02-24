@@ -9,7 +9,6 @@ import { PageCTA } from "@/components/landing/PageCTA";
 import { Badge } from "@/components/ui/badge";
 import {
   TrackRecordCarousel,
-  ROICalculator,
   PerformanceChart,
 } from "@/components/landing/track-record";
 
@@ -210,48 +209,6 @@ export default function TrackRecordPage() {
               </motion.div>
 
               <TrackRecordCarousel />
-            </div>
-          </section>
-
-          {/* ROI Calculator Section */}
-          <section className="py-24 px-6 relative">
-            {/* Background glow */}
-            <div
-              className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full pointer-events-none"
-              style={{
-                background:
-                  "radial-gradient(circle, rgba(185, 184, 235, 0.06) 0%, transparent 70%)",
-                filter: "blur(80px)",
-              }}
-            />
-
-            <div className="relative z-10">
-              {/* Section header */}
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                className="max-w-[800px] mx-auto text-center mb-16"
-              >
-                <h2
-                  className="font-[family-name:var(--font-heading)] text-[clamp(36px,4.5vw,56px)] font-bold leading-[1.2] mb-4"
-                  style={{ color: "#ffffff" }}
-                >
-                  ¿Cuánto habrías ganado?
-                </h2>
-                <p
-                  className="text-lg leading-relaxed"
-                  style={{
-                    color: "rgba(204, 204, 224, 0.7)",
-                  }}
-                >
-                  Calcula cuanto habrías multiplicado tu inversión siguiendo
-                  nuestras tesis desde 2024.
-                </p>
-              </motion.div>
-
-              <ROICalculator />
             </div>
           </section>
 
