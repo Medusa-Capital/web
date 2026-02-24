@@ -9,8 +9,7 @@ import {
   Target,
   TrendingUp,
 } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
+import { CalendlyEmbed } from "@/components/landing/CalendlyEmbed";
 
 export default function GraciasSistemaMedusaPage() {
   return (
@@ -56,7 +55,7 @@ export default function GraciasSistemaMedusaPage() {
                   <p className="text-[#B9B8EB]/60 text-sm">
                     Añade{" "}
                     <span className="text-[#B9B8EB]/80 font-medium">
-                      hola@medusacapital.xyz
+                      contacto@medusacapital.xyz
                     </span>{" "}
                     a tus contactos
                   </p>
@@ -108,7 +107,7 @@ export default function GraciasSistemaMedusaPage() {
                 ))}
               </div>
 
-              <p className="text-center text-[#B9B8EB]/50 text-sm">
+              <p className="text-center text-white text-sm">
                 El 85% de nuestros miembros reporta mayor confianza en sus
                 decisiones de inversión
               </p>
@@ -139,7 +138,7 @@ export default function GraciasSistemaMedusaPage() {
                   },
                   {
                     icon: CheckCircle2,
-                    text: "Claridad sobre si Medusa Pro es adecuado para ti (sin presión)",
+                    text: "Claridad sobre si Medusa Capital es adecuado para ti (sin presión)",
                   },
                 ].map(({ icon: Icon, text }, i) => (
                   <div key={i} className="flex items-start gap-3">
@@ -153,14 +152,9 @@ export default function GraciasSistemaMedusaPage() {
                 ))}
               </div>
 
-              {/* TODO: Confirm Calendly URL with Javier */}
-              <iframe
-                src="https://calendly.com/medusacapital/sesion-estrategica"
-                width="100%"
-                height="700"
-                frameBorder="0"
+              <CalendlyEmbed
+                url="https://calendly.com/contacto-medusacapital/sesion-estrategica-15-clon?month=2026-01"
                 className="rounded-xl"
-                title="Agendar sesión estratégica"
               />
             </div>
 
@@ -172,9 +166,11 @@ export default function GraciasSistemaMedusaPage() {
               </h2>
               <ul className="space-y-4">
                 {[
-                  "Hoy: Recibirás el PDF del Sistema Medusa por email",
-                  "En 4 días: Contenido educativo personalizado sobre tu mayor desafío",
-                  "En 2 semanas: Invitación a una sesión estratégica gratuita",
+                  "Hoy: recibirás el PDF del Sistema Medusa en tu bandeja de entrada",
+                  "Mañana: te contamos cómo perdimos 19.878€ en el primer año y los 3 pilares que lo cambiaron todo",
+                  "En 3 días: el esquema completo del Sistema Medusa en vídeo + el checklist que usamos antes de mover un euro",
+                  "En 5 días: caso real de un miembro que pasó de mirar el precio cada 10 minutos a una vez al día",
+                  "En 7 días: si todo resuena contigo, una invitación para trabajar juntos",
                 ].map((step, index) => (
                   <li key={index} className="flex items-start gap-3">
                     <span className="flex-shrink-0 w-6 h-6 rounded-full bg-[#68fe9a]/10 text-[#68fe9a] text-xs font-semibold flex items-center justify-center mt-0.5">
@@ -186,19 +182,6 @@ export default function GraciasSistemaMedusaPage() {
                   </li>
                 ))}
               </ul>
-            </div>
-
-            {/* Section 5: Secondary CTA */}
-            <div className="text-center">
-              <p className="text-[#B9B8EB]/50 text-sm mb-6">
-                Mientras tanto, explora más contenido
-              </p>
-              <Link href="/">
-                <Button variant="secondaryGlow" size="lg" className="px-8">
-                  Visitar Medusa Capital
-                  <ArrowRight className="w-4 h-4 ml-2" />
-                </Button>
-              </Link>
             </div>
           </div>
         </main>

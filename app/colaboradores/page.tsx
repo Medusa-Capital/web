@@ -33,7 +33,7 @@ const collaborators: CollaboratorData[] = [
       description:
         "Curso exclusivo de 3 horas donde Pablo comparte su visión sobre el mercado de criptomonedas, combinando su experiencia de más de 37 años en mercados tradicionales con las oportunidades del ecosistema cripto.",
       linkText: "Publicado en Pablo Gil Trader",
-      linkUrl: "https://pablogiltrader.com/",
+      linkUrl: "#",
     },
     credentials: [
       <>Top 100 <strong><em>Forbes España</em></strong> en negocios e industria financiera</>,
@@ -65,7 +65,7 @@ const collaborators: CollaboratorData[] = [
       description:
         "Curso exclusivo de 3 horas donde Javier profundiza en el análisis fundamental de Bitcoin y el ecosistema DeFi, compartiendo su experiencia como pionero del sector en España.",
       linkText: "Publicado en su plataforma educativa",
-      linkUrl: "https://jfpartners.net/",
+      linkUrl: "#",
     },
     credentials: [
       <>Asesor financiero certificado <strong><em>EFA</em></strong> (European Financial Advisor)</>,
