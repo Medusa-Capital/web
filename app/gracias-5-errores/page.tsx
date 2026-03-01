@@ -112,6 +112,10 @@ export default function GraciasSistemaMedusaPage() {
                 El 85% de nuestros miembros reporta mayor confianza en sus
                 decisiones de inversión
               </p>
+              <p className="text-center text-[#B9B8EB]/30 text-xs mt-4">
+                Nombres modificados por privacidad. Testimonios reales de
+                miembros de la comunidad.
+              </p>
             </div>
 
             {/* Section 3: Calendly CTA */}
