@@ -117,7 +117,7 @@ export default function GraciasSistemaMedusaPage() {
             {/* Section 3: Calendly CTA */}
             <div className="rounded-2xl p-8 md:p-10 border border-[#6B4CE6]/30 bg-gradient-to-br from-[#1b1a64]/70 to-[#151450]/90 mb-16">
               <p className="text-[#9074F6] text-sm font-semibold uppercase tracking-wider mb-2">
-                Cuando hayas leído el PDF, si quieres que revisemos los errores que te están costando dinero juntos:
+                ¿QUIERES QUE REVISEMOS TU SITUACIÓN JUNTOS?
               </p>
               <h2 className="font-heading text-2xl md:text-3xl font-bold text-white mb-6">
                 Reserva tu Diagnóstico Gratuito (30 min)
@@ -127,7 +127,7 @@ export default function GraciasSistemaMedusaPage() {
                 {[
                   {
                     icon: Shield,
-                    text: "Revisión personalizada de tu estrategia actual",
+                    text: "Revisión de tu cartera y proceso actual",
                   },
                   {
                     icon: Target,
@@ -157,6 +157,13 @@ export default function GraciasSistemaMedusaPage() {
                 url="https://calendly.com/contacto-medusacapital/sesion-estrategica-15-clon?month=2026-01"
                 className="rounded-xl"
               />
+
+              <p className="text-[#B9B8EB]/40 text-xs mt-6 leading-relaxed">
+                Esta llamada es un diagnóstico educativo, no asesoramiento
+                financiero personalizado. No realizamos recomendaciones de
+                compra o venta de activos específicos. Cada inversor es
+                responsable de sus propias decisiones.
+              </p>
             </div>
 
             {/* Section 4: What to Expect */}
