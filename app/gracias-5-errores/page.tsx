@@ -117,10 +117,10 @@ export default function GraciasSistemaMedusaPage() {
             {/* Section 3: Calendly CTA */}
             <div className="rounded-2xl p-8 md:p-10 border border-[#6B4CE6]/30 bg-gradient-to-br from-[#1b1a64]/70 to-[#151450]/90 mb-16">
               <p className="text-[#9074F6] text-sm font-semibold uppercase tracking-wider mb-2">
-                ¿Quieres acelerar tu progreso?
+                Cuando hayas leído el PDF, si quieres que revisemos los errores que te están costando dinero juntos:
               </p>
               <h2 className="font-heading text-2xl md:text-3xl font-bold text-white mb-6">
-                Agenda Tu Diagnóstico Gratuito de Cartera (30 min)
+                Reserva tu Diagnóstico Gratuito (30 min)
               </h2>
 
               <div className="grid sm:grid-cols-2 gap-4 mb-8">
@@ -168,10 +168,10 @@ export default function GraciasSistemaMedusaPage() {
               <ul className="space-y-4">
                 {[
                   "Hoy: recibirás la guía de los 5 errores que cuestan 5 cifras en tu bandeja de entrada",
-                  "Mañana: te contamos cómo perdimos 19.878€ en el primer año y los 3 pilares que lo cambiaron todo",
-                  "En 3 días: cómo funciona el Sistema Medusa por dentro (los 3 pilares que lo cambiaron todo)",
-                  "En 5 días: caso real de un miembro que pasó de mirar el precio cada 10 minutos a una vez al día",
-                  "En 7 días: si todo resuena contigo, una invitación para trabajar juntos",
+                  "Mañana: el dato de 2025 que explica por qué el 84,7% de tokens destruyen capital (y qué hace el 15% que gana)",
+                  "En 3 días: el caso Hyperliquid por dentro (vídeo de 15 min)",
+                  "En 5 días: caso real de un inversor + una pregunta incómoda",
+                  "En 7 días: si tiene sentido, cómo trabajar juntos",
                 ].map((step, index) => (
                   <li key={index} className="flex items-start gap-3">
                     <span className="flex-shrink-0 w-6 h-6 rounded-full bg-[#68fe9a]/10 text-[#68fe9a] text-xs font-semibold flex items-center justify-center mt-0.5">
