@@ -31,11 +31,12 @@ export default function GraciasSistemaMedusaPage() {
                 ENVIADO CON ÉXITO
               </span>
               <h1 className="text-4xl md:text-5xl font-bold text-white mb-6 font-heading">
-                ¡Tu Sistema Medusa está en camino!
+                ¡Tu guía está en camino!
               </h1>
               <p className="text-[#B9B8EB]/80 text-lg leading-relaxed max-w-2xl mx-auto">
-                Revisa tu email ahora &mdash; te enviamos el PDF completo con el
-                framework de 4 pasos, checklists y plantillas.
+                Revisa tu email ahora &mdash; te enviamos los 5 errores que
+                cuestan 5 cifras, el caso Hyperliquid documentado y tu test de
+                autodiagnóstico.
               </p>
             </div>
 
@@ -66,7 +67,7 @@ export default function GraciasSistemaMedusaPage() {
             {/* Section 2: Social Proof */}
             <div className="mb-16">
               <h2 className="font-heading text-2xl md:text-3xl font-bold text-white text-center mb-8">
-                Únete a 250+ inversores que usan el Sistema Medusa
+                Únete a 250+ inversores que ya aplican estos principios
               </h2>
 
               <div className="grid md:grid-cols-3 gap-6 mb-8">
@@ -119,7 +120,7 @@ export default function GraciasSistemaMedusaPage() {
                 ¿Quieres acelerar tu progreso?
               </p>
               <h2 className="font-heading text-2xl md:text-3xl font-bold text-white mb-6">
-                Agenda Tu Sesión Estratégica Gratuita (30 min)
+                Agenda Tu Diagnóstico Gratuito de Cartera (30 min)
               </h2>
 
               <div className="grid sm:grid-cols-2 gap-4 mb-8">
@@ -166,9 +167,9 @@ export default function GraciasSistemaMedusaPage() {
               </h2>
               <ul className="space-y-4">
                 {[
-                  "Hoy: recibirás el PDF del Sistema Medusa en tu bandeja de entrada",
+                  "Hoy: recibirás la guía de los 5 errores que cuestan 5 cifras en tu bandeja de entrada",
                   "Mañana: te contamos cómo perdimos 19.878€ en el primer año y los 3 pilares que lo cambiaron todo",
-                  "En 3 días: el esquema completo del Sistema Medusa en vídeo + el checklist que usamos antes de mover un euro",
+                  "En 3 días: cómo funciona el Sistema Medusa por dentro (los 3 pilares que lo cambiaron todo)",
                   "En 5 días: caso real de un miembro que pasó de mirar el precio cada 10 minutos a una vez al día",
                   "En 7 días: si todo resuena contigo, una invitación para trabajar juntos",
                 ].map((step, index) => (

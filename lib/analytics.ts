@@ -105,7 +105,7 @@ export function trackPdfFunnelEvent(
   params?: Record<string, string | number | boolean>
 ) {
   trackEvent(`pdf_${action}`, {
-    funnel: "pdf_sistema_medusa",
+    funnel: "pdf_5_errores_cripto",
     category: EventCategory.FORM,
     ...params,
   });

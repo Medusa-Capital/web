@@ -89,13 +89,13 @@ export function PdfLeadCaptureForm() {
 
   const handleExpand = () => {
     setIsExpanded(true);
-    trackCTAClick("pdf_sistema_medusa", "inline_form");
+    trackCTAClick("pdf_5_errores_cripto", "inline_form");
     trackEvent("pdf_cta_click", { cta_location: "analysis_framework_section" });
   };
 
   const handleFirstInteraction = () => {
     if (!hasTrackedStart) {
-      trackFormEvent("pdf_sistema_medusa", "start");
+      trackFormEvent("pdf_5_errores_cripto", "start");
       setHasTrackedStart(true);
     }
   };
@@ -144,7 +144,7 @@ export function PdfLeadCaptureForm() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitError(null);
-    trackFormEvent("pdf_sistema_medusa", "submit");
+    trackFormEvent("pdf_5_errores_cripto", "submit");
 
     setTouched({
       firstName: true,
@@ -175,7 +175,7 @@ export function PdfLeadCaptureForm() {
           email: formData.email.trim().toLowerCase(),
           phone: formattedPhone,
           consent: acceptedTerms,
-          lead_source: "pdf_sistema_medusa",
+          lead_source: "pdf_5_errores_cripto",
           experience_level: formData.experienceLevel,
           main_challenge: formData.mainChallenge,
           ...utmParams,
@@ -186,10 +186,10 @@ export function PdfLeadCaptureForm() {
         throw new Error("Error al enviar el formulario");
       }
 
-      trackFormEvent("pdf_sistema_medusa", "success");
-      router.push("/gracias-sistema-medusa");
+      trackFormEvent("pdf_5_errores_cripto", "success");
+      router.push("/gracias-5-errores");
     } catch {
-      trackFormEvent("pdf_sistema_medusa", "error");
+      trackFormEvent("pdf_5_errores_cripto", "error");
       setSubmitError("Ha ocurrido un error. Por favor, inténtalo de nuevo.");
     } finally {
       setIsSubmitting(false);
@@ -212,10 +212,10 @@ export function PdfLeadCaptureForm() {
             className="px-8 py-6 text-base font-semibold rounded-xl gap-2 !bg-gradient-to-r !from-[#6B4CE6] !via-[#9074F6] !to-[#6B4CE6] shadow-[0_0_32px_rgba(144,116,246,0.45)] hover:shadow-[0_0_40px_rgba(144,116,246,0.6)]"
           >
             <Download className="w-5 h-5" />
-            Descargar Sistema Medusa (PDF Gratis)
+            Descarga Gratis: Los 5 Errores que Cuestan 5 Cifras en Cripto
           </Button>
           <p className="text-sm mt-4 text-[#B9B8EB]/60">
-            20 páginas &bull; Casos de estudio &bull; Checklists &bull; Templates
+            14 páginas &bull; Caso real: Hyperliquid +455% &bull; Test de autodiagnóstico
           </p>
         </>
       )}
@@ -230,10 +230,10 @@ export function PdfLeadCaptureForm() {
           {/* Header */}
           <div className="mb-6">
             <h3 className="font-[family-name:var(--font-heading)] text-xl md:text-2xl font-bold text-white mb-2">
-              Descarga el Sistema Medusa
+              Recibe la Guía Gratis
             </h3>
             <p className="text-sm text-[#B9B8EB]/60">
-              Completa el formulario y te lo enviaremos por email
+              Completa el formulario y la recibirás por email en 2 minutos
             </p>
           </div>
 
