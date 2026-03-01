@@ -74,21 +74,21 @@ export default function GraciasSistemaMedusaPage() {
                 {[
                   {
                     quote:
-                      "El framework me ayudó a filtrar el 90% de tokens basura. Ahora sólo invierto en lo que entiendo.",
-                    name: "Carlos M.",
-                    location: "Madrid",
+                      "He pasado por varias comunidades de pago donde solo se enviaban señales y se usaba a la comunidad de exit liquidity. Aquí se hace todo lo contrario: se intenta que cada persona aprenda cómo funciona el mercado y sea capaz de tomar sus propias decisiones.",
+                    name: "kaver",
+                    location: "Alumno",
                   },
                   {
                     quote:
-                      "Antes compraba por hype. Ahora tengo un proceso sistemático que me da confianza.",
-                    name: "Andrea L.",
-                    location: "Buenos Aires",
+                      "Material de primera y comunidad muy activa. Se hizo pública una wallet con muchas ganancias y se explicó con detalle cómo se operó. Ese contenido no es nada frecuente en las redes.",
+                    name: "Jordi77",
+                    location: "Alumno",
                   },
                   {
                     quote:
-                      "La sección de gestión de riesgo vale más que cualquier curso que haya pagado.",
-                    name: "Pablo R.",
-                    location: "Barcelona",
+                      "Ya tenía conocimientos y portafolio, me he formado en otras academias. Lo que he encontrado aquí es muy top, la formación no la había visto de esta calidad ni de cerca.",
+                    name: "isaac81.",
+                    location: "Alumno",
                   },
                 ].map((testimonial, i) => (
                   <div
@@ -120,7 +120,7 @@ export default function GraciasSistemaMedusaPage() {
                 ¿QUIERES QUE REVISEMOS TU SITUACIÓN JUNTOS?
               </p>
               <h2 className="font-heading text-2xl md:text-3xl font-bold text-white mb-6">
-                Reserva tu Diagnóstico Gratuito (30 min)
+                Reserva tu diagnóstico gratuito (30 min)
               </h2>
 
               <div className="grid sm:grid-cols-2 gap-4 mb-8">
