@@ -1,15 +1,40 @@
 import { NextRequest, NextResponse } from "next/server";
 
-const AIRTABLE_WEBHOOK_URL =
-  "https://hooks.airtable.com/workflows/v1/genericWebhook/appOy27N5Wx2OdFX3/wflvb7Dlk2BSdaJUe/wtrEopE3CRZev6Ak1";
+const AIRTABLE_WEBHOOKS = {
+  masterclass:
+    "https://hooks.airtable.com/workflows/v1/genericWebhook/appOy27N5Wx2OdFX3/wflIzSnlqhrpPnT5Q/wtrRMao3I6PL7jKvD",
+  pdf_5_errores:
+    "https://hooks.airtable.com/workflows/v1/genericWebhook/appOy27N5Wx2OdFX3/wflvb7Dlk2BSdaJUe/wtrEopE3CRZev6Ak1",
+};
+
+// Map utm_source to Airtable Source_channel select option
+const SOURCE_CHANNEL_MAP: Record<string, string> = {
+  youtube: "Youtube",
+  x: "Twitter (X)",
+  instagram: "Instagram",
+  newsletter: "Email",
+  google: "Google Ads",
+};
 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
 
-    // Forward all fields to Airtable, including UTM params:
-    // utm_source, utm_medium, utm_campaign, utm_term, utm_content
-    const response = await fetch(AIRTABLE_WEBHOOK_URL, {
+    const webhookUrl =
+      body.lead_source === "pdf_5_errores_cripto"
+        ? AIRTABLE_WEBHOOKS.pdf_5_errores
+        : AIRTABLE_WEBHOOKS.masterclass;
+
+    // Compute source_channel from utm_source so Airtable doesn't need conditional logic
+    if (body.utm_source && !body.source_channel) {
+      body.source_channel =
+        SOURCE_CHANNEL_MAP[body.utm_source] || "Formulario";
+    } else if (!body.source_channel) {
+      body.source_channel = "Formulario";
+    }
+
+    // Forward all fields to Airtable, including UTM params and computed source_channel
+    const response = await fetch(webhookUrl, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

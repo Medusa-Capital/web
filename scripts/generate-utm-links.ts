@@ -1,54 +1,49 @@
 // scripts/generate-utm-links.ts
-// Run with: npx ts-node scripts/generate-utm-links.ts
+// Generates UTM links following docs/crm/utm-taxonomy.md
+// Run with: bun run scripts/generate-utm-links.ts
 
-const BASE_URL = "https://medusacapital.com";
+const BASE_URL = "https://staging.medusacapital.xyz";
 
-interface Campaign {
-  name: string;
+interface UTMLink {
+  campaign: string;
   source: string;
   medium: string;
   content?: string;
+  label?: string;
 }
 
-const campaigns: Campaign[] = [
-  // Social Media Campaigns
-  { name: "launch_2025", source: "twitter", medium: "social", content: "bio_link" },
-  { name: "launch_2025", source: "twitter", medium: "social", content: "thread" },
-  { name: "launch_2025", source: "instagram", medium: "social", content: "bio_link" },
-  { name: "launch_2025", source: "instagram", medium: "social", content: "story" },
-  { name: "launch_2025", source: "instagram", medium: "social", content: "post" },
-  { name: "launch_2025", source: "youtube", medium: "video", content: "description" },
-  { name: "launch_2025", source: "youtube", medium: "video", content: "pinned_comment" },
+// Add new links here as needed. Follow docs/crm/utm-taxonomy.md for naming.
+const links: UTMLink[] = [
+  // Organic bio links (evergreen)
+  { campaign: "organic_bio_2026", source: "x", medium: "social", content: "bio_link", label: "X bio" },
+  { campaign: "organic_bio_2026", source: "youtube", medium: "social", content: "bio_link", label: "YouTube bio" },
+  { campaign: "organic_bio_2026", source: "instagram", medium: "social", content: "bio_link", label: "Instagram bio" },
 
-  // Email Campaigns
-  { name: "newsletter_weekly", source: "email", medium: "email", content: "header_cta" },
-  { name: "newsletter_weekly", source: "email", medium: "email", content: "footer_cta" },
-  { name: "launch_announcement", source: "email", medium: "email", content: "main_cta" },
+  // Newsletter
+  { campaign: "newsletter_semanal", source: "newsletter", medium: "email", content: "header_cta", label: "Newsletter header" },
+  { campaign: "newsletter_semanal", source: "newsletter", medium: "email", content: "footer_cta", label: "Newsletter footer" },
 
-  // Referral
-  { name: "partner_jf", source: "jf_partners", medium: "referral" },
-  { name: "affiliate", source: "affiliate", medium: "referral" },
+  // Partner template (copy and customize per campaign)
+  // { campaign: "campaign_slug", source: "partnername", medium: "social", content: "x_post", label: "Partner X post" },
 ];
 
-function generateUTMLink(campaign: Campaign): string {
+function generateUTMLink(link: UTMLink): string {
   const params = new URLSearchParams({
-    utm_source: campaign.source,
-    utm_medium: campaign.medium,
-    utm_campaign: campaign.name,
-    ...(campaign.content && { utm_content: campaign.content }),
+    utm_source: link.source,
+    utm_medium: link.medium,
+    utm_campaign: link.campaign,
+    ...(link.content && { utm_content: link.content }),
   });
 
   return `${BASE_URL}?${params.toString()}`;
 }
 
 console.log("=== Medusa Capital UTM Links ===\n");
+console.log(`Base URL: ${BASE_URL}\n`);
 
-campaigns.forEach((campaign) => {
-  const label = campaign.content
-    ? `${campaign.source} / ${campaign.medium} / ${campaign.content}`
-    : `${campaign.source} / ${campaign.medium}`;
-
-  console.log(`📍 ${label}`);
-  console.log(`   Campaign: ${campaign.name}`);
-  console.log(`   ${generateUTMLink(campaign)}\n`);
+links.forEach((link) => {
+  const label = link.label || `${link.source} / ${link.medium} / ${link.content || "—"}`;
+  console.log(`  ${label}`);
+  console.log(`  Campaign: ${link.campaign}`);
+  console.log(`  ${generateUTMLink(link)}\n`);
 });
