@@ -95,6 +95,12 @@ function guessImageExt(url: string): string {
 
 /**
  * Convert a Notion page to markdown, downloading all inline images.
+ *
+ * Image downloads happen in two layers:
+ * 1. A custom transformer on "image" blocks fetches images directly from
+ *    block data (fresh signed URLs from the Notion API).
+ * 2. processInlineImages catches any remaining external URLs (e.g. from
+ *    embeds or callouts) and strips ones that fail to download.
  */
 async function pageToMarkdown(
   notion: ReturnType<typeof getNotionClient>,
@@ -102,6 +108,51 @@ async function pageToMarkdown(
   slug: string
 ): Promise<string> {
   const n2m = new NotionToMarkdown({ notionClient: notion });
+
+  const imageDir = join(PUBLIC_IMG_DIR, slug);
+  let imageIndex = 0;
+
+  // Download images directly from block data instead of relying on the URLs
+  // that notion-to-md embeds in its markdown output (which can be stale/expired).
+  n2m.setCustomTransformer("image", async (block) => {
+    const imageBlock = block as unknown as {
+      image: {
+        type: "file" | "external";
+        file?: { url: string };
+        external?: { url: string };
+        caption?: RichTextItemResponse[];
+      };
+    };
+
+    const { image } = imageBlock;
+    if (!image) return "";
+
+    const url =
+      image.type === "file" ? image.file?.url : image.external?.url;
+    if (!url) return "";
+
+    if (!existsSync(imageDir)) {
+      mkdirSync(imageDir, { recursive: true });
+    }
+
+    const ext = guessImageExt(url);
+    const currentIndex = imageIndex++;
+    const filename = `image-${currentIndex}${ext}`;
+    const localPath = join(imageDir, filename);
+    const publicPath = `/img/blog/${slug}/${filename}`;
+
+    console.log(`  Downloading image ${currentIndex + 1}: ${filename}`);
+    const success = await downloadImage(url, localPath);
+
+    if (!success) {
+      console.warn(`  Stripping broken image ${currentIndex + 1} from article`);
+      return "";
+    }
+
+    const alt = image.caption ? getPlainText(image.caption) : "";
+    return `![${alt}](${publicPath})`;
+  });
+
   const mdBlocks = await n2m.pageToMarkdown(pageId);
   const mdString = n2m.toMarkdownString(mdBlocks);
 
@@ -109,7 +160,7 @@ async function pageToMarkdown(
   const markdown =
     typeof mdString === "string" ? mdString : mdString.parent;
 
-  // Download and replace inline image URLs
+  // Catch any remaining external image URLs not handled by the transformer
   const processedMarkdown = await processInlineImages(markdown, slug);
 
   return processedMarkdown;
@@ -154,6 +205,10 @@ async function processInlineImages(
         original: fullMatch,
         replacement: `![${altText}](${publicPath})`,
       });
+    } else {
+      // Strip broken image references instead of leaving dead URLs
+      console.warn(`  Stripping broken image from markdown`);
+      replacements.push({ original: fullMatch, replacement: "" });
     }
 
     imageIndex++;
