@@ -26,6 +26,12 @@ const cormorant = localFont({
 export const metadata: Metadata = {
   title: "Medusa Capital",
   description: "Formación en Criptomonedas para Inversores Exigentes",
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/favicon.svg", type: "image/svg+xml" },
+    ],
+  },
 };
 
 const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
