@@ -67,7 +67,10 @@ async function downloadImage(
 ): Promise<boolean> {
   try {
     const response = await fetch(url);
-    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    if (!response.ok) {
+      console.error(`  HTTP ${response.status} for ${url.substring(0, 80)}...`);
+      return false;
+    }
     const buffer = await response.arrayBuffer();
     writeFileSync(destPath, Buffer.from(buffer));
     return true;
@@ -112,9 +115,8 @@ async function pageToMarkdown(
   const imageDir = join(PUBLIC_IMG_DIR, slug);
   let imageIndex = 0;
 
-  // Download images directly from block data instead of relying on the URLs
-  // that notion-to-md embeds in its markdown output (which can be stale/expired).
   n2m.setCustomTransformer("image", async (block) => {
+    const blockId = "id" in block ? (block as { id: string }).id : null;
     const imageBlock = block as unknown as {
       image: {
         type: "file" | "external";
@@ -141,8 +143,28 @@ async function pageToMarkdown(
     const localPath = join(imageDir, filename);
     const publicPath = `/img/blog/${slug}/${filename}`;
 
-    console.log(`  Downloading image ${currentIndex + 1}: ${filename}`);
-    const success = await downloadImage(url, localPath);
+    console.log(`  Image ${currentIndex + 1} [${image.type}]: ${url.substring(0, 120)}...`);
+    let success = await downloadImage(url, localPath);
+
+    // If the batch-fetched URL failed, re-fetch the block individually
+    // to get a fresh signed URL from the Notion API.
+    if (!success && blockId) {
+      console.log(`  Retrying image ${currentIndex + 1} with fresh block fetch...`);
+      try {
+        const freshBlock = await notion.blocks.retrieve({ block_id: blockId });
+        if ("type" in freshBlock && freshBlock.type === "image") {
+          const freshImage = freshBlock.image;
+          const freshUrl =
+            freshImage.type === "file"
+              ? freshImage.file.url
+              : freshImage.external.url;
+          console.log(`  Fresh URL [${freshImage.type}]: ${freshUrl.substring(0, 120)}...`);
+          success = await downloadImage(freshUrl, localPath);
+        }
+      } catch (err) {
+        console.error(`  Failed to re-fetch block ${blockId}: ${err}`);
+      }
+    }
 
     if (!success) {
       console.warn(`  Stripping broken image ${currentIndex + 1} from article`);
