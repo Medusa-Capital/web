@@ -10,7 +10,7 @@ Spanish-language marketing site for a thesis-driven crypto investing platform. D
 - **Content:** Markdown blog with gray-matter frontmatter, synced from Notion
 - **Analytics:** GA4 via @next/third-parties, custom event tracking in `lib/analytics.ts`, daily GA4 → Supabase sync pipeline
 - **Package Manager:** Bun (never npm/yarn/pnpm)
-- **Deploy:** Vercel (build command overridden in `vercel.json` to run Notion sync before build)
+- **Deploy:** Vercel (builds from git content; Notion sync runs separately via GitHub Actions)
 - **Testing:** Playwright for e2e tests (`bun run test:e2e`)
 
 ## Project Structure
@@ -47,7 +47,7 @@ content/inbox/                  # Staging area for manual blog posts (processed 
 
 scripts/
 ├── sync-analytics.ts           # GA4 → Supabase daily analytics sync (6 reports → 6 tables)
-├── sync-notion.ts              # Notion DB → markdown sync (runs at build time)
+├── sync-notion.ts              # Notion DB → markdown sync (runs via CI or locally)
 ├── process-blog-inbox.ts       # Process manual blog posts from content/inbox/
 ├── basket-data/                # Track record data & Python analysis (gitignored)
 └── ...                         # Other utility scripts (logos, UTM links)
@@ -67,22 +67,22 @@ public/img/blog/                # Blog images (cover + inline, downloaded from N
 
 Articles can come from two sources:
 
-1. **Notion sync** (primary) — Articles in the Notion DB with Status = "publish" are fetched at build time via `bun run sync-notion`. The sync script:
+1. **Notion sync** (primary) — Articles in the Notion DB with `Publicado en web` checked are synced via `bun run sync-notion`. A GitHub Actions workflow (`.github/workflows/sync-notion.yml`) runs this daily, commits changes, and pushes to `main` — which triggers a Vercel deploy. The sync script:
    - Converts Notion blocks to markdown via `notion-to-md`
-   - Downloads and resizes cover images to 16:9 (1200x675) with `sharp`
-   - Downloads inline images to `public/img/blog/[slug]/`
+   - Downloads cover images, resizes to max 1200px wide (JPEG 85%) with `sharp`
+   - Downloads inline images to `public/img/blog/[slug]/`, with retry via fresh block fetch for expired signed URLs
    - Auto-generates slug, description, and tags if not set in Notion
    - Strips duplicate cover image from content (Notion duplicates cover as first block)
    - Strips filename alt text from images without captions
    - Inserts `<!-- newsletter -->` CTA marker at a natural midpoint
-   - Cleans up Notion formatting artifacts (metadata fields, heading format, Twitter links)
+   - Cleans up Notion formatting artifacts (metadata fields, heading format, Twitter/X links, empty blockquotes)
    - Tracks synced slugs in `.notion-sync.json` manifest for unpublish detection
 
 2. **Manual inbox** — Drop markdown files in `content/inbox/`, run `bun run inbox` to process them.
 
-**Vercel build:** `vercel.json` overrides the build command to `bun run build:notion`, which runs Notion sync before the standard build. A GitHub Actions workflow (`.github/workflows/scheduled-deploy.yml`) triggers a daily Vercel deploy via deploy hook.
+**Vercel build:** `vercel.json` uses `bun run build` (standard Next.js build from git content, no Notion API calls). Notion sync is decoupled — it runs in CI via `.github/workflows/sync-notion.yml` (daily at 9 AM UTC + manual trigger), commits content changes, and pushes to `main` to trigger Vercel auto-deploy.
 
-**Notion DB properties:** Nombre (title), Slug, Descripción, Fecha Publicación (date), Responsable (people/author), Status (draft/publish), Tags (multi_select), Category (article/market-analysis), Type (Analysis/Education/Research/DeFi/Trading), Featured (checkbox).
+**Notion DB properties:** Nombre (title), Slug (rich_text), Descripción (rich_text), Fecha Publicación (date), Responsable (people → author), Publicado en web (checkbox → publish filter), Tags (multi_select), Tema (select → derives both category and type), Featured (checkbox). Tema values: "Análisis Mercado" → market-analysis/Análisis, "Educación Cripto" → article/Educación, "Research" → article/Research, "DeFi" → article/DeFi, "Trading" → article/Trading.
 
 **Env vars needed:** `NOTION_API_KEY`, `NOTION_DATABASE_ID` (in `.env.local` locally, Vercel env vars for production).
 
@@ -114,9 +114,9 @@ Articles can come from two sources:
 
 ```bash
 bun dev              # Start dev server (Turbopack)
-bun run build        # Production build (figma + next build)
-bun run build:notion # Full build with Notion sync (used by Vercel)
-bun run sync-notion  # Sync articles from Notion DB (requires env vars)
+bun run build        # Production build (used by Vercel, builds from git content)
+bun run build:notion # Build with Notion sync first (for local dev convenience)
+bun run sync-notion  # Sync articles from Notion DB (runs in CI daily, or locally)
 bun run inbox        # Process manual blog posts from content/inbox/
 bun run lint         # ESLint
 bun run test:e2e     # Playwright e2e tests
