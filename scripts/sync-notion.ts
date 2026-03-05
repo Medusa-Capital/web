@@ -2,7 +2,7 @@
 // Run with: bun scripts/sync-notion.ts
 //
 // Syncs blog articles from a Notion database to content/blog/ at build time.
-// Articles with Status = "publish" are fetched, converted to markdown,
+// Articles with "Publicado en web" checked are fetched, converted to markdown,
 // and written with frontmatter matching the existing blog system.
 
 import { NotionToMarkdown } from "notion-to-md";
@@ -260,8 +260,7 @@ async function fetchPublishedArticles(
   //   Responsable (people)    → author
   //   Publicado en web (checkbox) → publish filter
   //   Tags (multi_select)     → tags
-  //   Category (select)       → category (article/market-analysis)
-  //   Type (select)           → type (Analysis/Education/Research/DeFi/Trading)
+  //   Tema (select)           → category + type (derived)
   //   Featured (checkbox)     → featured
   const response = await notion.databases.query({
     database_id: databaseId,
@@ -321,17 +320,23 @@ async function fetchPublishedArticles(
         ? p.Tags.multi_select.map((t) => t.name)
         : [];
 
-    // Category (required)
-    const category =
-      p.Category?.type === "select" && p.Category.select?.name
-        ? (p.Category.select.name as "article" | "market-analysis")
-        : "article";
-
-    // Type (optional)
-    const type =
-      p.Type?.type === "select" && p.Type.select?.name
-        ? p.Type.select.name
+    // Tema → derives both category and type
+    const tema =
+      p.Tema?.type === "select" && p.Tema.select?.name
+        ? p.Tema.select.name
         : undefined;
+
+    const category: "article" | "market-analysis" =
+      tema === "Análisis Mercado" ? "market-analysis" : "article";
+
+    const TEMA_TO_TYPE: Record<string, string> = {
+      "Análisis Mercado": "Análisis",
+      "Educación Cripto": "Educación",
+      Research: "Research",
+      DeFi: "DeFi",
+      Trading: "Trading",
+    };
+    const type = tema ? TEMA_TO_TYPE[tema] : undefined;
 
     // Featured (optional)
     const featured =

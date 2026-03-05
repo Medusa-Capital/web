@@ -3,12 +3,12 @@ title: "Por qué no invierto en $ETH "
 date: "2026-02-19"
 description: "Mis últimos posts sobre ETH han generado bastantes comentarios y dudas. Respondiendo a todos y unificándolo en una publicación, voy a explicar por qué la mon..."
 tags: ["ethereum", "analisis", "mercado", "institucional", "defi", "onchain"]
-type: "Research"
+type: "Análisis"
 author: "Axel_mnvn"
 image: "/img/blog/por-que-no-invierto-en-eth/cover.jpg"
 featured: true
 published: true
-category: "article"
+category: "market-analysis"
 ---
 
 Mis últimos posts sobre ETH han generado bastantes comentarios y dudas. Respondiendo a todos y unificándolo en una publicación, voy a explicar por qué la moneda ETH no pasa mis filtros para poder invertir en ella.
