@@ -84,7 +84,7 @@ Articles can come from two sources:
 
 **Notion DB properties:** Nombre (title), Slug (rich_text), Descripción (rich_text), Fecha Publicación (date), Responsable (people → author), Publicado en web (checkbox → publish filter), Tags (multi_select), Tema (select → derives both category and type), Featured (checkbox). Tema values: "Análisis Mercado" → market-analysis/Análisis, "Educación Cripto" → article/Educación, "Research" → article/Research, "DeFi" → article/DeFi, "Trading" → article/Trading.
 
-**Env vars needed:** `NOTION_API_KEY`, `NOTION_DATABASE_ID` (in `.env.local` locally, Vercel env vars for production).
+**Env vars needed:** `NOTION_API_KEY`, `NOTION_DATABASE_ID` (in `.env.local` locally, GitHub repo secrets for CI).
 
 ## Conventions
 

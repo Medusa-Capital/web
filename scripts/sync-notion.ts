@@ -289,7 +289,9 @@ async function fetchPublishedArticles(
       p.Slug?.type === "rich_text"
         ? getPlainText(p.Slug.rich_text)
         : "";
-    const slug = slugRaw || generateSlug(title);
+    // Strip common Notion title prefixes before generating slug
+    const titleForSlug = title.replace(/^ARTÍCULO\s*:?\s*/i, "");
+    const slug = slugRaw || generateSlug(titleForSlug);
 
     // Descripción (optional, auto-generated from content later if empty)
     const description =

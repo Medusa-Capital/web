@@ -67,7 +67,7 @@ The Notion sync is **decoupled from the Vercel build**:
 
 1. **GitHub Actions workflow** (`.github/workflows/sync-notion.yml`) runs daily at 9 AM UTC (or manually)
 2. The workflow checks out `main`, runs `bun run sync-notion`, and commits any changes
-3. Pushing to `staging` triggers Vercel auto-deploy
+3. Pushing to `main` triggers Vercel auto-deploy
 4. **Vercel builds from git content** (`bun run build`) — no Notion API calls at build time
 
 This means:
