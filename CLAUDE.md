@@ -71,7 +71,9 @@ Articles can come from two sources:
    - Converts Notion blocks to markdown via `notion-to-md`
    - Downloads cover images, resizes to max 1200px wide (JPEG 85%) with `sharp`
    - Downloads inline images to `public/img/blog/[slug]/`, with retry via fresh block fetch for expired signed URLs
-   - Auto-generates slug, description, and tags if not set in Notion
+   - Strips "ARTÍCULO:" prefix from Notion titles before generating slugs (prevents `articulo-*` prefixed files)
+   - Uses the Notion `Slug` field if set; falls back to auto-generated slug from title
+   - Auto-generates description and tags if not set in Notion
    - Strips duplicate cover image from content (Notion duplicates cover as first block)
    - Strips filename alt text from images without captions
    - Inserts `<!-- newsletter -->` CTA marker at a natural midpoint
@@ -82,7 +84,12 @@ Articles can come from two sources:
 
 **Vercel build:** `vercel.json` uses `bun run build` (standard Next.js build from git content, no Notion API calls). Notion sync is decoupled — it runs in CI via `.github/workflows/sync-notion.yml` (daily at 9 AM UTC + manual trigger), commits content changes, and pushes to `main` to trigger Vercel auto-deploy.
 
-**Notion DB properties:** Nombre (title), Slug (rich_text), Descripción (rich_text), Fecha Publicación (date), Responsable (people → author), Publicado en web (checkbox → publish filter), Tags (multi_select), Tema (select → derives both category and type), Featured (checkbox). Tema values: "Análisis Mercado" → market-analysis/Análisis, "Educación Cripto" → article/Educación, "Research" → article/Research, "DeFi" → article/DeFi, "Trading" → article/Trading.
+**Notion DB properties:** Nombre (title), Slug (rich_text — **always set this for existing articles** to preserve URL stability), Descripción (rich_text), Fecha Publicación (date), Responsable (people → author), Publicado en web (checkbox → publish filter), Tags (multi_select), Tema (select → derives both category and type), Featured (checkbox). Tema values: "Análisis Mercado" → market-analysis/Análisis, "Educación Cripto" → article/Educación, "Research" → article/Research, "DeFi" → article/DeFi, "Trading" → article/Trading.
+
+**Blog categories and routing:**
+- `/blog` — shows only `category: "article"` posts (featured section + regular grid)
+- `/blog/analisis-mercado` — shows only `category: "market-analysis"` posts
+- **Important:** The sync script maps Tema "Análisis Mercado" → `category: "market-analysis"`, which means those articles will NOT appear on `/blog`. If an article with Tema "Análisis Mercado" should appear on `/blog`, its category must be manually overridden to `"article"` in the committed markdown after syncing.
 
 **Env vars needed:** `NOTION_API_KEY`, `NOTION_DATABASE_ID` (in `.env.local` locally, GitHub repo secrets for CI).
 
