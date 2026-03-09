@@ -181,7 +181,7 @@ async function fetchPublishedArticles(
   //   Descripción (rich_text) → description
   //   Fecha Publicación (date)→ date
   //   Responsable (people)    → author
-  //   Status (select)         → publish filter (draft/publish)
+  //   Publicado en web (checkbox) → publish filter
   //   Tags (multi_select)     → tags
   //   Category (select)       → category (article/market-analysis)
   //   Type (select)           → type (Analysis/Education/Research/DeFi/Trading)
@@ -189,8 +189,8 @@ async function fetchPublishedArticles(
   const response = await notion.databases.query({
     database_id: databaseId,
     filter: {
-      property: "Status",
-      select: { equals: "publish" },
+      property: "Publicado en web",
+      checkbox: { equals: true },
     },
     sorts: [{ property: "Fecha Publicación", direction: "descending" }],
   });
