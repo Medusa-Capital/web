@@ -1,0 +1,31 @@
+name: Sync Analytics to Notion
+
+on:
+  schedule:
+    - cron: "0 7 * * 1" # Mondays at 7 AM UTC
+  workflow_dispatch: # manual trigger
+
+concurrency:
+  group: sync-analytics-to-notion
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: oven-sh/setup-bun@v2
+
+      - run: bun install --frozen-lockfile
+
+      - name: Sync analytics to Notion
+        run: bun scripts/sync-analytics-to-notion.ts
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          NOTION_API_KEY: ${{ secrets.NOTION_API_KEY }}
+          NOTION_ANALYTICS_PARENT_PAGE_ID: ${{ secrets.NOTION_ANALYTICS_PARENT_PAGE_ID }}
