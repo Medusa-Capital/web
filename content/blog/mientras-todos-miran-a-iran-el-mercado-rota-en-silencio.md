@@ -8,7 +8,7 @@ author: "Axel_mnvn"
 image: "/img/blog/mientras-todos-miran-a-iran-el-mercado-rota-en-silencio/cover.jpg"
 featured: false
 published: true
-category: "article"
+category: "market-analysis"
 ---
 
 Esta semana los vaivenes geopolíticos han dejado un panorama que merece un análisis a fondo. La Operación "Furia Épica" contra Irán ha reconfigurado el tablero y toca analizar qué implica esto para los mercados.

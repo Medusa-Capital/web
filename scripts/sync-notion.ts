@@ -278,20 +278,19 @@ async function fetchPublishedArticles(
 
     const p = (page as PageObjectResponse).properties;
 
-    // Nombre (title field)
-    const title =
+    // Nombre (title field) — strip "ARTÍCULO:" prefix used in Notion for internal organization
+    const rawTitle =
       p.Nombre?.type === "title"
         ? getPlainText(p.Nombre.title)
         : "Untitled";
+    const title = rawTitle.replace(/^ARTÍCULO\s*:?\s*/i, "");
 
     // Slug (optional, auto-generated from title if empty)
     const slugRaw =
       p.Slug?.type === "rich_text"
         ? getPlainText(p.Slug.rich_text)
         : "";
-    // Strip common Notion title prefixes before generating slug
-    const titleForSlug = title.replace(/^ARTÍCULO\s*:?\s*/i, "");
-    const slug = slugRaw || generateSlug(titleForSlug);
+    const slug = slugRaw || generateSlug(title);
 
     // Descripción (optional, auto-generated from content later if empty)
     const description =

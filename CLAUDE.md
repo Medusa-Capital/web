@@ -91,6 +91,8 @@ Articles can come from two sources:
 - `/blog/analisis-mercado` — shows only `category: "market-analysis"` posts
 - **Important:** The sync script maps Tema "Análisis Mercado" → `category: "market-analysis"`, which means those articles will NOT appear on `/blog`. If an article with Tema "Análisis Mercado" should appear on `/blog`, its category must be manually overridden to `"article"` in the committed markdown after syncing.
 
+**How Notion changes propagate:** Edits in Notion (title, content, tags, etc.) are NOT reflected on the website until the next sync runs (daily at 9 AM UTC or manually via `bun run sync-notion`). The sync commits updated markdown to `main`, which triggers a Vercel deploy. Deploys alone do NOT re-fetch from Notion — they only build from committed markdown. **Important:** If an article has no explicit `Slug` field set in Notion and you change the title, the slug (and therefore URL) will change, breaking existing links. Always set the Slug field for published articles.
+
 **Env vars needed:** `NOTION_API_KEY`, `NOTION_DATABASE_ID` (in `.env.local` locally, GitHub repo secrets for CI).
 
 ## Conventions
