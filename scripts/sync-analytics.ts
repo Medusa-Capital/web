@@ -98,15 +98,13 @@
 //   );
 
 import { BetaAnalyticsDataClient } from "@google-analytics/data";
-import { createClient } from "@supabase/supabase-js";
+import { getSupabaseClient } from "../lib/supabase";
 
 // ---------------------------------------------------------------------------
 // Config
 // ---------------------------------------------------------------------------
 
 const GA4_PROPERTY_ID = requireEnv("GA4_PROPERTY_ID");
-const SUPABASE_URL = requireEnv("SUPABASE_URL");
-const SUPABASE_SERVICE_ROLE_KEY = requireEnv("SUPABASE_SERVICE_ROLE_KEY");
 
 // Optional: explicit SA credentials for local dev. If absent, ADC is used (WIF in CI).
 const GA4_CREDENTIALS_JSON = process.env.GA4_CREDENTIALS_JSON;
@@ -134,9 +132,7 @@ const analyticsOpts = GA4_CREDENTIALS_JSON
 
 const analytics = new BetaAnalyticsDataClient(analyticsOpts);
 
-const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, {
-  db: { schema: "analytics" },
-});
+const supabase = getSupabaseClient("analytics");
 
 // ---------------------------------------------------------------------------
 // Date helpers
