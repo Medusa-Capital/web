@@ -95,6 +95,13 @@ export function generateUTMLink(
   return url.toString();
 }
 
+// Append stored UTM params to an outbound URL (e.g. Calendly, Tally)
+export function getOutboundUrl(baseUrl: string): string {
+  const stored = getStoredUTMParams();
+  if (Object.keys(stored).length === 0) return baseUrl;
+  return generateUTMLink(baseUrl, stored);
+}
+
 // Predefined campaign templates for easy link generation
 // See docs/crm/utm-taxonomy.md for canonical naming conventions
 export const CampaignTemplates = {

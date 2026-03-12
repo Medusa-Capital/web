@@ -5,6 +5,8 @@ import { Check, ChevronDown } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import { trackBookCallClick } from "@/lib/analytics";
+import { getOutboundUrl } from "@/lib/utm";
 
 interface Project {
   id: string;
@@ -472,7 +474,10 @@ export function ROICalculator() {
                 <Button
                   variant="secondaryGlow"
                   className="w-full rounded-xl px-6 py-3 h-auto text-[15px] font-semibold"
-                  onClick={() => window.open("https://calendly.com/contacto-medusacapital/sesion-estrategica-15-clon?month=2026-01", "_blank")}
+                  onClick={() => {
+                    trackBookCallClick("roi_calculator");
+                    window.open(getOutboundUrl("https://calendly.com/contacto-medusacapital/sesion-estrategica-15-clon?month=2026-01"), "_blank");
+                  }}
                 >
                   Reserva tu sesión estratégica
                 </Button>

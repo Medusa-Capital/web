@@ -13,7 +13,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { getCountryCallingCode } from "libphonenumber-js";
-import { trackModalEvent, trackFormEvent, trackVideoEvent } from "@/lib/analytics";
+import { trackModalEvent, trackFormEvent, trackVideoEvent, trackLeadCapture } from "@/lib/analytics";
 import { getUTMParamsForSubmission } from "@/lib/utm";
 import {
   COUNTRIES,
@@ -136,6 +136,7 @@ export function LeadCaptureModal() {
       localStorage.setItem("medusa-lead-modal-seen", "true");
 
       trackFormEvent("lead_capture", "success");
+      trackLeadCapture();
       trackVideoEvent("masterclass", "play");
       setIsSubmitted(true);
     } catch {

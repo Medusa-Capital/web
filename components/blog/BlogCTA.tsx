@@ -1,7 +1,8 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { trackCTAClick, trackOutboundLink } from "@/lib/analytics";
+import { trackBookCallClick } from "@/lib/analytics";
+import { getOutboundUrl } from "@/lib/utm";
 
 export function BlogCTA() {
   return (
@@ -42,15 +43,8 @@ export function BlogCTA() {
                 size="lg"
                 className="px-8 py-6 text-base font-semibold rounded-lg"
                 onClick={() => {
-                  trackCTAClick("blog_cta", "calendly");
-                  trackOutboundLink(
-                    "https://calendly.com/contacto-medusacapital/sesion-estrategica-15-clon?month=2026-01",
-                    "Reserva tu sesión estratégica",
-                  );
-                  window.open(
-                    "https://calendly.com/contacto-medusacapital/sesion-estrategica-15-clon?month=2026-01",
-                    "_blank",
-                  );
+                  trackBookCallClick("blog_cta");
+                  window.open(getOutboundUrl("https://calendly.com/contacto-medusacapital/sesion-estrategica-15-clon?month=2026-01"), "_blank");
                 }}
               >
                 Reserva tu sesión estratégica
