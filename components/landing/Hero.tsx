@@ -4,7 +4,8 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import Image from "next/image";
-import { trackCTAClick, trackOutboundLink } from "@/lib/analytics";
+import { trackBookCallClick } from "@/lib/analytics";
+import { getOutboundUrl } from "@/lib/utm";
 
 const fadeUp = {
   initial: { opacity: 0, y: 30 },
@@ -114,9 +115,8 @@ export function Hero() {
             size="lg"
             className="px-8 py-6 text-base font-semibold rounded-lg"
             onClick={() => {
-              trackCTAClick("hero_cta", "calendly");
-              trackOutboundLink("https://calendly.com/contacto-medusacapital/sesion-estrategica-15-clon?month=2026-01", "Reserva tu sesión estratégica");
-              window.open("https://calendly.com/contacto-medusacapital/sesion-estrategica-15-clon?month=2026-01", "_blank");
+              trackBookCallClick("hero");
+              window.open(getOutboundUrl("https://calendly.com/contacto-medusacapital/sesion-estrategica-15-clon?month=2026-01"), "_blank");
             }}
           >
             Reserva tu sesión estratégica

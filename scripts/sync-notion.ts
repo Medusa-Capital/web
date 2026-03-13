@@ -2,7 +2,7 @@
 // Run with: bun scripts/sync-notion.ts
 //
 // Syncs blog articles from a Notion database to content/blog/ at build time.
-// Articles with Status = "publish" are fetched, converted to markdown,
+// Articles with "Publicado en web" checked are fetched, converted to markdown,
 // and written with frontmatter matching the existing blog system.
 
 import { NotionToMarkdown } from "notion-to-md";
@@ -67,7 +67,10 @@ async function downloadImage(
 ): Promise<boolean> {
   try {
     const response = await fetch(url);
-    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    if (!response.ok) {
+      console.error(`  HTTP ${response.status} for ${url.substring(0, 80)}...`);
+      return false;
+    }
     const buffer = await response.arrayBuffer();
     writeFileSync(destPath, Buffer.from(buffer));
     return true;
@@ -95,6 +98,12 @@ function guessImageExt(url: string): string {
 
 /**
  * Convert a Notion page to markdown, downloading all inline images.
+ *
+ * Image downloads happen in two layers:
+ * 1. A custom transformer on "image" blocks fetches images directly from
+ *    block data (fresh signed URLs from the Notion API).
+ * 2. processInlineImages catches any remaining external URLs (e.g. from
+ *    embeds or callouts) and strips ones that fail to download.
  */
 async function pageToMarkdown(
   notion: ReturnType<typeof getNotionClient>,
@@ -102,6 +111,70 @@ async function pageToMarkdown(
   slug: string
 ): Promise<string> {
   const n2m = new NotionToMarkdown({ notionClient: notion });
+
+  const imageDir = join(PUBLIC_IMG_DIR, slug);
+  let imageIndex = 0;
+
+  n2m.setCustomTransformer("image", async (block) => {
+    const blockId = "id" in block ? (block as { id: string }).id : null;
+    const imageBlock = block as unknown as {
+      image: {
+        type: "file" | "external";
+        file?: { url: string };
+        external?: { url: string };
+        caption?: RichTextItemResponse[];
+      };
+    };
+
+    const { image } = imageBlock;
+    if (!image) return "";
+
+    const url =
+      image.type === "file" ? image.file?.url : image.external?.url;
+    if (!url) return "";
+
+    if (!existsSync(imageDir)) {
+      mkdirSync(imageDir, { recursive: true });
+    }
+
+    const ext = guessImageExt(url);
+    const currentIndex = imageIndex++;
+    const filename = `image-${currentIndex}${ext}`;
+    const localPath = join(imageDir, filename);
+    const publicPath = `/img/blog/${slug}/${filename}`;
+
+    console.log(`  Image ${currentIndex + 1} [${image.type}]: ${url.substring(0, 120)}...`);
+    let success = await downloadImage(url, localPath);
+
+    // If the batch-fetched URL failed, re-fetch the block individually
+    // to get a fresh signed URL from the Notion API.
+    if (!success && blockId) {
+      console.log(`  Retrying image ${currentIndex + 1} with fresh block fetch...`);
+      try {
+        const freshBlock = await notion.blocks.retrieve({ block_id: blockId });
+        if ("type" in freshBlock && freshBlock.type === "image") {
+          const freshImage = freshBlock.image;
+          const freshUrl =
+            freshImage.type === "file"
+              ? freshImage.file.url
+              : freshImage.external.url;
+          console.log(`  Fresh URL [${freshImage.type}]: ${freshUrl.substring(0, 120)}...`);
+          success = await downloadImage(freshUrl, localPath);
+        }
+      } catch (err) {
+        console.error(`  Failed to re-fetch block ${blockId}: ${err}`);
+      }
+    }
+
+    if (!success) {
+      console.warn(`  Stripping broken image ${currentIndex + 1} from article`);
+      return "";
+    }
+
+    const alt = image.caption ? getPlainText(image.caption) : "";
+    return `![${alt}](${publicPath})`;
+  });
+
   const mdBlocks = await n2m.pageToMarkdown(pageId);
   const mdString = n2m.toMarkdownString(mdBlocks);
 
@@ -109,7 +182,7 @@ async function pageToMarkdown(
   const markdown =
     typeof mdString === "string" ? mdString : mdString.parent;
 
-  // Download and replace inline image URLs
+  // Catch any remaining external image URLs not handled by the transformer
   const processedMarkdown = await processInlineImages(markdown, slug);
 
   return processedMarkdown;
@@ -154,6 +227,10 @@ async function processInlineImages(
         original: fullMatch,
         replacement: `![${altText}](${publicPath})`,
       });
+    } else {
+      // Strip broken image references instead of leaving dead URLs
+      console.warn(`  Stripping broken image from markdown`);
+      replacements.push({ original: fullMatch, replacement: "" });
     }
 
     imageIndex++;
@@ -183,8 +260,7 @@ async function fetchPublishedArticles(
   //   Responsable (people)    → author
   //   Publicado en web (checkbox) → publish filter
   //   Tags (multi_select)     → tags
-  //   Category (select)       → category (article/market-analysis)
-  //   Type (select)           → type (Analysis/Education/Research/DeFi/Trading)
+  //   Tema (select)           → category + type (derived)
   //   Featured (checkbox)     → featured
   const response = await notion.databases.query({
     database_id: databaseId,
@@ -202,11 +278,12 @@ async function fetchPublishedArticles(
 
     const p = (page as PageObjectResponse).properties;
 
-    // Nombre (title field)
-    const title =
+    // Nombre (title field) — strip "ARTÍCULO:" prefix used in Notion for internal organization
+    const rawTitle =
       p.Nombre?.type === "title"
         ? getPlainText(p.Nombre.title)
         : "Untitled";
+    const title = rawTitle.replace(/^ARTÍCULO\s*:?\s*/i, "");
 
     // Slug (optional, auto-generated from title if empty)
     const slugRaw =
@@ -244,17 +321,23 @@ async function fetchPublishedArticles(
         ? p.Tags.multi_select.map((t) => t.name)
         : [];
 
-    // Category (required)
-    const category =
-      p.Category?.type === "select" && p.Category.select?.name
-        ? (p.Category.select.name as "article" | "market-analysis")
-        : "article";
-
-    // Type (optional)
-    const type =
-      p.Type?.type === "select" && p.Type.select?.name
-        ? p.Type.select.name
+    // Tema → derives both category and type
+    const tema =
+      p.Tema?.type === "select" && p.Tema.select?.name
+        ? p.Tema.select.name
         : undefined;
+
+    const category: "article" | "market-analysis" =
+      tema === "Análisis Mercado" ? "market-analysis" : "article";
+
+    const TEMA_TO_TYPE: Record<string, string> = {
+      "Análisis Mercado": "Análisis",
+      "Educación Cripto": "Educación",
+      Research: "Research",
+      DeFi: "DeFi",
+      Trading: "Trading",
+    };
+    const type = tema ? TEMA_TO_TYPE[tema] : undefined;
 
     // Featured (optional)
     const featured =

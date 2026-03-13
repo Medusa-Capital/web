@@ -3,6 +3,8 @@
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { Users, Star, TrendingUp } from "lucide-react";
+import { trackBookCallClick } from "@/lib/analytics";
+import { getOutboundUrl } from "@/lib/utm";
 
 export function MissionSection() {
   const stats = [
@@ -54,7 +56,10 @@ export function MissionSection() {
                 variant="secondaryGlow"
                 size="lg"
                 className="px-8 py-6 text-base font-semibold rounded-lg"
-                onClick={() => window.open("https://calendly.com/contacto-medusacapital/sesion-estrategica-15-clon?month=2026-01", "_blank")}
+                onClick={() => {
+                  trackBookCallClick("mission");
+                  window.open(getOutboundUrl("https://calendly.com/contacto-medusacapital/sesion-estrategica-15-clon?month=2026-01"), "_blank");
+                }}
               >
                 Reserva tu sesión estratégica
               </Button>

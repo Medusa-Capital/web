@@ -1,6 +1,8 @@
 // lib/analytics.ts
 "use client";
 
+import { getStoredUTMParams } from "@/lib/utm";
+
 // GA4 Measurement ID - replace with actual ID
 export const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || "";
 
@@ -98,6 +100,35 @@ export function trackSectionView(sectionName: string) {
     category: EventCategory.ENGAGEMENT,
   });
 }
+
+// Track Calendly CTA clicks (book_call_click — funnel stage 2)
+export function trackBookCallClick(placement: string) {
+  const utmParams = getStoredUTMParams();
+  trackEvent("book_call_click", {
+    placement,
+    category: EventCategory.CTA,
+    ...utmParams,
+  });
+}
+
+// Track confirmed Calendly bookings (call_booked — funnel stage 3, mark as GA4 conversion)
+export function trackCallBooked() {
+  const utmParams = getStoredUTMParams();
+  trackEvent("call_booked", {
+    category: EventCategory.CTA,
+    ...utmParams,
+  });
+}
+
+// Track lead capture form submissions (lead_capture — mark as GA4 conversion)
+export function trackLeadCapture() {
+  const utmParams = getStoredUTMParams();
+  trackEvent("lead_capture", {
+    category: EventCategory.FORM,
+    ...utmParams,
+  });
+}
+
 
 // Track PDF lead magnet funnel events
 export function trackPdfFunnelEvent(

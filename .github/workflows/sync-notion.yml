@@ -1,0 +1,40 @@
+name: Sync Notion Blog
+
+on:
+  schedule:
+    - cron: '0 9 * * *' # 9 AM UTC daily
+  workflow_dispatch: # manual trigger
+
+concurrency:
+  group: sync-notion
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - uses: oven-sh/setup-bun@v2
+
+      - run: bun install --frozen-lockfile
+
+      - name: Sync articles from Notion
+        run: bun run sync-notion
+        env:
+          NOTION_API_KEY: ${{ secrets.NOTION_API_KEY }}
+          NOTION_DATABASE_ID: ${{ secrets.NOTION_DATABASE_ID }}
+
+      - name: Commit and push changes
+        run: |
+          git config user.email "notion-sync@medusacapital.xyz"
+          git config user.name "Notion Sync Bot"
+          git add content/blog/ public/img/blog/
+          git diff --cached --quiet && echo "No changes to commit" && exit 0
+          git commit -m "chore: sync blog content from Notion"
+          git push

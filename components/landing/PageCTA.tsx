@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { getOutboundUrl } from "@/lib/utm";
 
 interface PageCTAProps {
   title: string;
@@ -77,7 +78,7 @@ export function PageCTA({
             {buttonEmail ? (
               <a href={`mailto:${buttonEmail}`}>{buttonContent}</a>
             ) : buttonExternalUrl ? (
-              <a href={buttonExternalUrl} target="_blank" rel="noopener noreferrer">{buttonContent}</a>
+              <a href={getOutboundUrl(buttonExternalUrl)} target="_blank" rel="noopener noreferrer">{buttonContent}</a>
             ) : buttonHref ? (
               <Link href={buttonHref}>{buttonContent}</Link>
             ) : (

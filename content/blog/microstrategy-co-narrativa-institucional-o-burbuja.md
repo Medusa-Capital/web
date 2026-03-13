@@ -1,17 +1,66 @@
 ---
 title: "MICROSTRATEGY & Co - ¿NARRATIVA INSTITUCIONAL O BURBUJA?"
 date: "2025-07-02"
-description: "Saylor no va al banco a pedir dinero. Lo que hace es emitir instrumentos financieros adaptados a cada tipo de inversor:"
+description: "Se está poniendo muy de moda que empresas que no valen para nada compren BTC, pero..."
 tags: ["bitcoin", "ethereum", "solana", "analisis", "mercado", "institucional"]
-type: "Análisis"
-author: "Axel"
-image: ""
+type: "Research"
+author: "Axel_mnvn"
 featured: false
 published: true
 category: "article"
 ---
 
+Se está poniendo muy de moda que empresas que no valen para nada compren BTC, pero... 
+
+➤ ¿Por qué lo hacen? 
+➤ ¿Es realmente un peligro para el precio de BTC?
+➤ ¿Narrativa o nuevo vehículo institucional para obtener exposición a criptoactivos?
+
+
+Te explico el modelo de MicroStrategy y cómo lo están replicando muchas compañías sin negocio real.
+
+
+La demanda de BTC es más que notoria. Tanto por parte de las empresa, como por parte de los inversores institucionales, a través de los ETFs. Sin embargo, han emergido una serie de empresas que compran BTC para salvar los muebles de su negocio. Lejos queda la **convicción de Michael Saylor y un gestión del riesgo ejemplar.**
+
+
+![](/img/blog/microstrategy-co-narrativa-institucional-o-burbuja/image-0.png)
+
+
+Me gustaría explicaros lo que están haciendo empresas como MicroStrategy, Metaplanet o Vanadi Coffee . Es algo complejo, por tanto voy a simplificarlo mucho.
+
+
+## El plan de Saylor
+
+
+TL;DR:
+
+
+Saylor ha conseguido construir un puente entre Wall Street y Bitcoin utilizando todas las herramientas del sistema financiero tradicional y, de momento, le ha salido muy bien. Desde que realizó la primera compra en Ago-20 (Con tesorería de la empresa) ha conseguido que [**$MSTR**](https://x.com/search?q=%24MSTR&src=cashtag_click) **se revalorice un +2.473% vs.** [**$BTC**](https://x.com/search?q=%24BTC&src=cashtag_click) **+820%.**
+
+
+![](/img/blog/microstrategy-co-narrativa-institucional-o-burbuja/image-1.png)
+
+
+Gráfico $MSTR vs. $BTC (Agosto 2020 - Julio 2025)
+
+
+De esta manera puede acceder a los más de $300B que hay en el mercado de deuda. Su estrategia se basa en tres pilares:
+
+1. Emite productos atractivos para **distintos perfiles de riesgo** (clave)
+2. Permite ganar exposición a BTC sin usar BTC como colateral
+3. Tiene una narrativa clara que Wall Street le compra: “el dólar pierde valor, el BTC es escaso”
+
+Michael Saylor no es solo un maximalista de BTC. Lo que ha montado en MicroStrategy es una máquina financiera perfectamente diseñada para convertir deuda en Bitcoin sin perder el control de su empresa.
+
+
+![](/img/blog/microstrategy-co-narrativa-institucional-o-burbuja/image-2.png)
+
+
+Vamos a ver los puntos clave:
+
+
 ## 1. No pide un préstamo cualquiera, diseña productos para todos los perfiles.
+
 
 Saylor no va al banco a pedir dinero. Lo que hace es emitir instrumentos financieros adaptados a cada tipo de inversor:
 
@@ -22,13 +71,18 @@ Saylor no va al banco a pedir dinero. Lo que hace es emitir instrumentos financi
 
 Cada vez hay más inversores institucionales dispuestos a prestarle dinero, porque cada uno encuentra algo a su medida. Y **todos entienden el subyacente: BTC.**
 
+
 Esta es la tesis de Jeff Park, advisor en bitwise:
 
-![image.png](/img/blog/microstrategy-co-narrativa-institucional-o-burbuja/image-3.png)
+
+![](/img/blog/microstrategy-co-narrativa-institucional-o-burbuja/image-3.png)
+
 
 ## 2. Ofrece apalancamiento regulado a BTC… sin usar sus tenencias como colateral
 
+
 Muchos fondos no pueden (o no quieren) comprar Bitcoin directamente. Pero sí pueden comprar acciones, bonos u opciones sobre MicroStrategy. Saylor les da exposición a BTC a través de instrumentos financieros tradicionales y regulados.
+
 
 Ejemplo:
 
@@ -36,6 +90,7 @@ Ejemplo:
 - Operar opciones sobre MSTR puede suponer una exposición 5–10x
 
 Y lo más importante sin tocar un satoshi, sin preocuparse de la custodia y sin riesgo de liquidación. Con ello, Saylor convierte su empresa en un **proxy bursátil** de Bitcoin.
+
 
 ## 3. Crea un círculo virtuoso
 
@@ -48,11 +103,15 @@ Y lo más importante sin tocar un satoshi, sin preocuparse de la custodia y sin 
 
 Este mecanismo ha funcionado durante años. Y ahora otros intentan replicarlo.
 
+
 ## 4. La réplica: empresas sin modelo, pero con plan financiero
+
 
 Lo que hizo Saylor ha dado paso a una nueva generación de empresas que están utilizando vehículos bursátiles para **comprar cripto y cotizar con prima.** Ya no hablamos de modelos operativos. Hablamos de empresas que simplemente emiten acciones, captan capital y compran BTC, ETH o SOL.
 
+
 Si sus acciones cotizan por encima del valor de los activos digitales que tienen (NAV), pueden seguir emitiendo equity para comprar más.
+
 
 **Algunos ejemplos recientes (todos en 2025):**
 
@@ -65,6 +124,7 @@ Si sus acciones cotizan por encima del valor de los activos digitales que tienen
 
 Todas siguen el mismo patrón: convierten capital financiero en criptoactivos, con **la esperanza de que el mercado premie esa estrategia vía prima sobre el NAV.**
 
+
 ## 5. ¿Quién gana en este juego?
 
 - **Los banqueros de inversión**: cobran comisiones fijas por estructurar PIPEs y fusiones inversas.
@@ -73,21 +133,33 @@ Todas siguen el mismo patrón: convierten capital financiero en criptoactivos, c
 
 ¿Y quién pierde?
 
+
 Todavía nadie. Pero los nuevos inversores en estas acciones aún no han desbloqueado sus participaciones. Si el precio cae por debajo del NAV, serán los primeros en sufrirlo.
+
+
+
+<!-- newsletter -->
 
 ## 6. ¿Es esto un riesgo para BTC?
 
+
 **No, pero con matices.**
+
 
 Desde fuera puede parecerlo. Cada vez hay más empresas que acumulan BTC en su balance sin tener ingresos operativos ni modelo de negocio claro. Y muchos inversores empiezan a preguntarse: ¿qué pasa si estas empresas colapsan? ¿Tendrán que vender su Bitcoin?
 
+
 La respuesta es clara: **no hay riesgo directo para Bitcoin mientras no haya deuda en el balance**.
+
 
 ¿Por qué?
 
+
 Porque sin deuda no existe un mecanismo que obligue a liquidar las posiciones en caso de deterioro del equity. Es decir, si el precio de las acciones cae por debajo del valor de los BTC que poseen (el NAV), no hay ninguna cláusula que imponga vender esos activos.
 
+
 Los accionistas pierden valor, sí. Pero Bitcoin permanece en la tesorería.
+
 
 Solo cuando hay deuda estructural (como en el caso de MicroStrategy), existe un riesgo potencial de venta forzada si la empresa entra en impago (default). Pero incluso en ese escenario, el riesgo se activa únicamente si:
 
@@ -100,16 +172,19 @@ Emitir deuda → Comprar BTC → Aumento del NAV → Revalorización de la empre
 3. **BTC es requerido como colateral para satisfacer acreedores:**
 
 Esto de momento no parece un problema ya que no hemos visto a empresas incurrir en malas praxis, aún. Pero la realidad es al sector financiero ama el apalancamiento y no sería de extrañar que emplearan ese BTC como **garantía legal** (colateral) en una operación de financiación.
-
 > En otras palabras, el riesgo depende de cómo se financia la acumulación, no de si se posee Bitcoin o no.
 
 **Entonces, ¿no hay ningún peligro?**
 
+
 Sí lo hay, pero es **narrativo**, no estructural.
+
 
 Y esto es clave.
 
+
 El peligro no está en una presión vendedora masiva sobre BTC (al menos en el corto plazo), sino en la posibilidad de que este mecanismo **deteriore la percepción institucional de Bitcoin como activo financiero serio**.
+
 
 Si el mercado empieza a asociar la acumulación de BTC con operaciones especulativas sin fundamentos, empresas zombies inflando su cotización con compras simbólicas de cripto, pueden producirse efectos negativos:
 
@@ -122,21 +197,25 @@ Si el mercado empieza a asociar la acumulación de BTC con operaciones especulat
 1. Que estos vehículos empiecen a emitir deuda sin capacidad real de pago
 2. Que colapsen y tengan que liquidar sus BTC para cubrir obligaciones
 3. Que esa presión vendedora coincida con un entorno de baja liquidez
-4. Que surja un pánico generalizado sobre *“la exposición institucional a BTC”*
+4. Que surja un pánico generalizado sobre _“la exposición institucional a BTC”_
 
 En ese contexto, el precio de BTC sí podría verse afectado de forma indirecta.
 
+
 Pero a día de hoy, **ninguna de las empresas nuevas tiene tamaño ni estructura de deuda suficiente para representar un riesgo sistémico**. Y las que sí lo tienen (como MSTR), han demostrado capacidad de gestión de riesgos financieros y acceso estable a los mercados de capitales para mitigar riesgos.
 
-<!-- newsletter -->
 
 ## 7. Caso Vanadi Coffee: cuando una empresa sin modelo escalable se une a la narrativa Bitcoin
 
-## 7.1. Estados financieros de $VANA
 
-[Cuenta de resultados Vanadi Coffe 2024](https://www.bmegrowth.es/docs/analisis/2025/05/05716_Analisis_20250507.pdf?yyjHLw!!)
+# **7.1. Estados financieros de** [**$VANA**](https://x.com/search?q=%24VANA&src=cashtag_click)
+
+
+[Cuenta de resultados Vanadi Coffe 2024](https://www.bmegrowth.es/docs/analisis/2025/05/05716_Analisis_20250507.pdf?yyjHLw!!=)
+
 
 Vanadi Coffee (VANA), cotizada en BME Growth, es una microcap española (€16M de capitalización bursátil) del sector de restauración que recientemente ha anunciado la incorporación de $BTC a su balance. Pero lo interesante no es solo la compra, sino **desde qué punto de partida financiero se produce**.
+
 
 En 2024, la empresa:
 
@@ -149,17 +228,23 @@ En 2024, la empresa:
 
 El nuevo plan de negocio **retrasa el break-even a 2027**, en el mejor de los casos, y reconoce que para sobrevivir necesitará **inversiones muy elevadas y altamente dilutivas**.
 
+
 ## 7.2. ¿Qué ha aprobado la Junta General en junio de 2025?
+
 
 Hemos visto cientos de comentarios haciendo alusión a como una empresa española comenzaba a adquirir $BTC, pero casi ninguno de ellos se habían siquiera parado a analizar lo más mínimo los puntos tratados en la Junta General.
 
+
 Es aquí donde está el truco.
 
-![image.png](/img/blog/microstrategy-co-narrativa-institucional-o-burbuja/image-4.png)
 
-Update: *Vanadi Coffee plans to invest over $1.1 billion in Bitcoin as a treasury strategy to turn its business around and restore market confidence.*
+![](/img/blog/microstrategy-co-narrativa-institucional-o-burbuja/image-4.png)
+
+
+Update: _Vanadi Coffee plans to invest over $1.1 billion in Bitcoin as a treasury strategy to turn its business around and restore market confidence._
 
 Vanadi Coffee is a small Spanish café chain with just six shops and millions in losses...
+
 
 En la Junta General se **n painiciar una estrategia de acumulación de BTC** como activo no operativo, con un límite de hasta **1.000 millones de euros**
 
@@ -173,29 +258,38 @@ Todo esto acompañado de una política de retribuciones que **vincula directamen
 - Si supera €50M → €1M
 - Si supera €100M → €2M
 
-![image.png](/img/blog/microstrategy-co-narrativa-institucional-o-burbuja/image-5.png)
+![](/img/blog/microstrategy-co-narrativa-institucional-o-burbuja/image-5.png)
+
 
 Este es el mejor caso que podemos analizar para entender la burbuja especulativa a la que se puede enfrentar BTC. El desprestigio puede ser monumental si estas empresas no consiguen cotizar con prima sobre el NAV y se ven forzados a liquidar sus BTCs para hacer frente al pago de intereses (default).
 
 El problema aquí es claro: **empresa sin beneficios que quiere salvar los muebles gracias a BTC. Todo lo contrario a Microstrategy.**
 
+
 ---
+
 
 A pesar de esta fragilidad estructural, Vanadi ha decidido **sumarse a la tendencia de incluir Bitcoin en su estrategia financiera**. Actualmente, tras la última compra de 2 BTC, posee 66 BTC custodiados por Bit2me. Su inclusión pública en este movimiento sugiere que el objetivo no es optimizar el balance operativo, sino **captar atención de mercado** y posicionarse dentro de una narrativa que ya ha hecho multiplicar el precio de otras acciones similares como Metaplane
 
+
 **¿Qué implica esto?**
+
 
 Vanadi no está utilizando BTC como activo de tesorería desde una posición de fortaleza operativa.
 Lo hace como **estrategia narrativa y financiera**, buscando:
+
 
 – Atraer inversores que valoren la exposición indirecta a BTC
 – Potenciar su capitalización bursátil mediante la expectativa de acumulación
 – Financiarse mediante equity sin flujo operativo
 – Activar mecanismos de retribución ligados a la subida en bolsa
 
+
 Es, en esencia, un **caso de equity shell cotizado que busca valorarse con prima sobre NAV futuro**, sin tener aún un NAV real consolidado en BTC.
 
+
 **¿Qué significa esto?**
+
 
 Este caso ilustra cómo incluso empresas sin masa crítica, sin rentabilidad ni ventajas competitivas, están adoptando el relato "Bitcoin como activo de reserva" con fines más financieros que estratégicos.
 
@@ -206,9 +300,12 @@ Este caso ilustra cómo incluso empresas sin masa crítica, sin rentabilidad ni 
 
 En otras palabras: **se está aplicando la lógica del equity shell cripto a compañías reales pero no rentables**, usando BTC como palanca de atención e inversión, no como activo estratégico a largo plazo.
 
+
 ## 7. Cierre
+
 
 No, este mecanismo no representa hoy un riesgo directo para Bitcoin.
 Pero sí plantea un reto: **preservar la narrativa de BTC como activo financiero robusto y no como excusa para especular desde empresas bursátiles inhertes**.
+
 
 Mientras esa línea se mantenga clara, Bitcoin no solo no se ve amenazado, sino que gana legitimidad. El problema no es que las empresas compren BTC. El problema sería que usen esa narrativa como sustituto del valor real.

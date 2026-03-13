@@ -12,7 +12,8 @@ export type PostType =
   | "Educación"
   | "Research"
   | "DeFi"
-  | "Trading";
+  | "Trading"
+  | "Estrategias";
 
 export interface BlogPost {
   slug: string;

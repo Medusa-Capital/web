@@ -187,6 +187,13 @@ export default function GraciasSistemaMedusaPage() {
                 url="https://calendly.com/contacto-medusacapital/sesion-estrategica-15-clon"
                 className="rounded-xl"
               />
+
+              <p className="text-[#B9B8EB]/40 text-xs mt-6 leading-relaxed">
+                Esta llamada es un diagnóstico educativo, no asesoramiento
+                financiero personalizado. No realizamos recomendaciones de
+                compra o venta de activos específicos. Cada inversor es
+                responsable de sus propias decisiones.
+              </p>
             </div>
 
             {/* Section 4: What to Expect */}

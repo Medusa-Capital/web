@@ -3,7 +3,8 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { trackEvent, trackCTAClick, trackOutboundLink } from "@/lib/analytics";
+import { trackEvent, trackBookCallClick } from "@/lib/analytics";
+import { getOutboundUrl } from "@/lib/utm";
 import { Button } from "@/components/ui/button";
 
 export function Header() {
@@ -73,9 +74,8 @@ export function Header() {
                 : "opacity-0 translate-x-4 pointer-events-none"
             }`}
             onClick={() => {
-              trackCTAClick("header_cta", "calendly");
-              trackOutboundLink("https://calendly.com/contacto-medusacapital/sesion-estrategica-15-clon?month=2026-01", "Reserva tu sesión estratégica");
-              window.open("https://calendly.com/contacto-medusacapital/sesion-estrategica-15-clon?month=2026-01", "_blank");
+              trackBookCallClick("header");
+              window.open(getOutboundUrl("https://calendly.com/contacto-medusacapital/sesion-estrategica-15-clon?month=2026-01"), "_blank");
             }}
           >
             Reserva tu sesión estratégica

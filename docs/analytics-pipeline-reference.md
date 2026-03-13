@@ -36,17 +36,60 @@ These fire automatically without any code — GA4 Enhanced Measurement handles t
 | `scroll` | User scrolls past 90% of page height |
 | `click` | Outbound link clicks (Enhanced Measurement) |
 
-### Custom Events (our code in lib/analytics.ts)
+### Custom Events — Conversion Funnel (lib/analytics.ts)
 
-| Event Name | Trigger | Key Parameters |
-|------------|---------|---------------|
-| `cta_click` | Any CTA button click | `cta_name`, `destination` |
-| `form_interaction` | Lead capture form lifecycle | `form_name`, `action` (start/submit/error/success) |
-| `video_interaction` | Video player events | `video_name`, `action` (play/pause/complete/progress), `progress_percent` |
-| `modal_interaction` | Dialog open/close/submit | `modal_name`, `action` |
-| `outbound_click` | External link clicks | `url`, `link_text` |
-| `section_view` | Scroll-triggered section visibility | `section_name` |
-| `campaign_detected` | UTM parameters found in URL | All UTM params |
+These are the key events that define our acquisition funnel. `lead_capture` and `call_booked` should be marked as **key events** (conversions) in GA4 Admin → Events.
+
+```
+page_view (UTMs) → visitor landed
+  ├─ book_call_click (UTMs + placement) → visitor showed intent
+  │   └─ call_booked (UTMs) → visitor converted (Calendly booking confirmed)
+  └─ lead_capture (UTMs) → lead form submitted (LeadCaptureModal)
+```
+
+| Event Name | Trigger | Key Parameters | Key Event? | Helper |
+|------------|---------|---------------|------------|--------|
+| `book_call_click` | Any Calendly CTA clicked | `placement` (hero, header, final_cta, mission, blog_cta, roi_calculator), UTM params | Optional | `trackBookCallClick()` |
+| `lead_capture` | LeadCaptureModal form success | UTM params | **Yes** | `trackLeadCapture()` |
+| `call_booked` | Calendly `calendly.event_scheduled` postMessage on embedded iframe | UTM params | **Yes** | `trackCallBooked()` |
+
+**Note:** `call_booked` only fires from the Calendly **embed** on `/gracias-5-errores`. Bookings via `window.open` (most CTAs) happen on Calendly's domain and can't be tracked client-side — those are tracked in Calendly's own analytics, attributed via UTM params forwarded in the URL.
+
+### Custom Events — General Tracking (lib/analytics.ts)
+
+| Event Name | Trigger | Key Parameters | Helper |
+|------------|---------|---------------|--------|
+| `campaign_detected` | UTM parameters found in URL on landing | All UTM params | AnalyticsProvider |
+| `cta_click` | Generic CTA click (PDF lead magnet) | `cta_name`, `destination` | `trackCTAClick()` |
+| `form_interaction` | Lead capture form lifecycle | `form_name`, `action` (start/submit/error/success) | `trackFormEvent()` |
+| `video_interaction` | Video player events | `video_name`, `action` (play/pause/complete/progress), `progress_percent` | `trackVideoEvent()` |
+| `modal_interaction` | Dialog open/close/submit | `modal_name`, `action` | `trackModalEvent()` |
+| `outbound_click` | External link clicks (social, collaborators) | `url`, `link_text` | `trackOutboundLink()` |
+| `navigation_click` | Header nav link clicks | `destination` | `trackEvent()` direct |
+| `section_view` | Scroll-triggered section visibility | `section_name` | `trackSectionView()` |
+| `pdf_cta_click` | PDF lead magnet CTA | `funnel` | `trackPdfFunnelEvent()` |
+| `faq_expand` | FAQ accordion interaction | — | `trackEvent()` direct |
+| `module_view` | Module visibility tracking | — | `trackEvent()` direct |
+
+### UTM Parameter Flow
+
+UTM params are captured on landing and forwarded through the entire conversion chain:
+
+```
+Visitor arrives with UTMs in URL (e.g., ?utm_source=x&utm_medium=social)
+  → AnalyticsProvider calls initUTMTracking() → stored in sessionStorage
+  → Persists across SPA navigation within the same tab/session
+  → Forwarded to:
+     1. All GA4 events (page_view, book_call_click, lead_capture, call_booked)
+     2. All outbound Calendly URLs (appended as query params via getOutboundUrl())
+     3. Calendly iframe embeds (appended to iframe src)
+     4. Lead capture API → Airtable webhook (included in POST body)
+```
+
+**Key files:**
+- `lib/utm.ts` — UTM extraction, storage, and URL enrichment
+- `lib/analytics.ts` — All event tracking helpers
+- `components/providers/AnalyticsProvider.tsx` — Initializes UTM tracking + page view events
 
 ## Supabase Schema
 
@@ -212,7 +255,7 @@ Our usage: 6 requests per day (daily cron) = ~0.003% of quota. Backfilling 365 d
 | **Event parameters** (e.g., which specific CTA was clicked) | GA4 Data API returns event names but not custom parameters in standard reports. Would need custom dimensions configured in GA4 first. |
 | **Real-time data** | Our pipeline fetches daily aggregates. For real-time, use the GA4 dashboard directly. |
 | **Core Web Vitals** (LCP, CLS, INP) | These come from `@vercel/speed-insights`, not GA4. Available in the Vercel dashboard only — no API to sync. |
-| **Conversion funnels** | Would require defining specific event sequences as conversions in GA4 first, then querying the funnel report. |
+| **Conversion funnels (full)** | We track `book_call_click` → `call_booked` for the embedded Calendly flow. Bookings via `window.open` (most CTAs) are tracked in Calendly analytics via forwarded UTM params, not in GA4. |
 
 ## Useful SQL Queries
 
@@ -254,6 +297,20 @@ GROUP BY source, medium
 ORDER BY total_sessions DESC;
 ```
 
+### Conversion funnel (daily)
+```sql
+SELECT
+  date,
+  MAX(CASE WHEN event_name = 'page_view' THEN event_count END) AS page_views,
+  MAX(CASE WHEN event_name = 'book_call_click' THEN event_count END) AS call_clicks,
+  MAX(CASE WHEN event_name = 'lead_capture' THEN event_count END) AS leads,
+  MAX(CASE WHEN event_name = 'call_booked' THEN event_count END) AS bookings
+FROM analytics.daily_events
+WHERE event_name IN ('page_view', 'book_call_click', 'lead_capture', 'call_booked')
+GROUP BY date
+ORDER BY date DESC;
+```
+
 ### Custom event performance
 ```sql
 SELECT
@@ -261,7 +318,7 @@ SELECT
   SUM(event_count) AS total_fires,
   SUM(unique_users) AS total_users
 FROM analytics.daily_events
-WHERE event_name IN ('cta_click', 'form_interaction', 'outbound_click', 'section_view')
+WHERE event_name IN ('book_call_click', 'lead_capture', 'call_booked', 'cta_click', 'form_interaction', 'outbound_click', 'section_view')
 GROUP BY event_name
 ORDER BY total_fires DESC;
 ```

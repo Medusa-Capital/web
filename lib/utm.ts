@@ -95,10 +95,18 @@ export function generateUTMLink(
   return url.toString();
 }
 
+// Append stored UTM params to an outbound URL (e.g. Calendly, Tally)
+export function getOutboundUrl(baseUrl: string): string {
+  const stored = getStoredUTMParams();
+  if (Object.keys(stored).length === 0) return baseUrl;
+  return generateUTMLink(baseUrl, stored);
+}
+
 // Predefined campaign templates for easy link generation
+// See docs/crm/utm-taxonomy.md for canonical naming conventions
 export const CampaignTemplates = {
-  twitter: (campaign: string, content?: string): UTMParams => ({
-    utm_source: "twitter",
+  x: (campaign: string, content?: string): UTMParams => ({
+    utm_source: "x",
     utm_medium: "social",
     utm_campaign: campaign,
     utm_content: content,
@@ -109,21 +117,22 @@ export const CampaignTemplates = {
     utm_campaign: campaign,
     utm_content: content,
   }),
+  youtube: (campaign: string, content?: string): UTMParams => ({
+    utm_source: "youtube",
+    utm_medium: "social",
+    utm_campaign: campaign,
+    utm_content: content,
+  }),
   email: (campaign: string, content?: string): UTMParams => ({
-    utm_source: "email",
+    utm_source: "newsletter",
     utm_medium: "email",
     utm_campaign: campaign,
     utm_content: content,
   }),
-  youtube: (campaign: string, content?: string): UTMParams => ({
-    utm_source: "youtube",
-    utm_medium: "video",
+  partner: (partnerSlug: string, campaign: string, content?: string): UTMParams => ({
+    utm_source: partnerSlug,
+    utm_medium: "social",
     utm_campaign: campaign,
     utm_content: content,
-  }),
-  referral: (source: string, campaign: string): UTMParams => ({
-    utm_source: source,
-    utm_medium: "referral",
-    utm_campaign: campaign,
   }),
 };

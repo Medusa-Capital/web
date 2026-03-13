@@ -7,7 +7,7 @@ type: "Educación"
 author: "Jaime Cabrera Martínez"
 image: "/img/blog/los-tokens-son-una-mierda/image.png"
 featured: true
-published: true
+published: false
 category: "article"
 ---
 
