@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense } from "react";
+import { Suspense, useEffect, useRef } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { Header } from "@/components/landing/Header";
@@ -28,7 +28,7 @@ const segmentContent: Record<Segment, SegmentContent> = {
     title: "Bienvenido al camino correcto",
     subtitle: "Nivel: Principiante",
     description:
-      "Has dado el primer paso más importante: reconocer que necesitas un enfoque estructurado antes de arriesgar tu capital. En los próximos días te enviaré contenido diseñado específicamente para construir bases sólidas.",
+      "Has dado el primer paso más importante: reconocer que necesitas un enfoque estructurado antes de arriesgar tu capital. En los próximos días te enviaremos contenido diseñado específicamente para construir bases sólidas.",
     features: [
       {
         icon: <BookOpen className="w-6 h-6" />,
@@ -90,7 +90,7 @@ const segmentContent: Record<Segment, SegmentContent> = {
     title: "Research de alta señal",
     subtitle: "Nivel: Avanzado",
     description:
-      "Buscas alpha real, no ruido. Entiendo. Nuestro contenido para perfiles avanzados se centra en research de calidad institucional y acceso a una comunidad de operadores serios.",
+      "Buscas alpha real, no ruido — y eso es exactamente lo que ofrecemos. Nuestro contenido para perfiles avanzados se centra en research de calidad institucional y acceso a una comunidad de operadores serios.",
     features: [
       {
         icon: <BookOpen className="w-6 h-6" />,
@@ -123,7 +123,7 @@ const defaultContent: SegmentContent = {
   title: "Gracias por unirte",
   subtitle: "Tu perfil ha sido registrado",
   description:
-    "Tu respuesta nos ayuda a enviarte contenido relevante. En los próximos días recibirás emails adaptados a tus necesidades.",
+    "Estás en nuestra lista. En los próximos días recibirás emails adaptados a tus necesidades.",
   features: [
     {
       icon: <BookOpen className="w-6 h-6" />,
@@ -151,6 +151,27 @@ const defaultContent: SegmentContent = {
 function WelcomeContent() {
   const searchParams = useSearchParams();
   const segment = searchParams.get("segment") as Segment | null;
+  const email = searchParams.get("email");
+  const hasSent = useRef(false);
+
+  useEffect(() => {
+    if (!segment || !email || hasSent.current) return;
+    hasSent.current = true;
+
+    // Strip email from URL bar for privacy
+    const url = new URL(window.location.href);
+    url.searchParams.delete("email");
+    window.history.replaceState({}, "", url.toString());
+
+    // Fire-and-forget segment persistence to Airtable
+    fetch("/api/segment", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, segment }),
+    }).catch(() => {
+      // Silent fail — don't block the user experience
+    });
+  }, [segment, email]);
 
   const content =
     segment && segmentContent[segment] ? segmentContent[segment] : defaultContent;
