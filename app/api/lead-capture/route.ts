@@ -7,6 +7,11 @@ const AIRTABLE_WEBHOOKS = {
     "https://hooks.airtable.com/workflows/v1/genericWebhook/appOy27N5Wx2OdFX3/wflvb7Dlk2BSdaJUe/wtrEopE3CRZev6Ak1",
 };
 
+// Map lead_source to utm_campaign (Airtable UTM table uses different naming)
+const LEAD_SOURCE_TO_CAMPAIGN: Record<string, string> = {
+  pdf_5_errores_cripto: "pdf_5_errores",
+};
+
 // Map utm_source to Airtable Source_channel select option
 const SOURCE_CHANNEL_MAP: Record<string, string> = {
   youtube: "Youtube",
@@ -30,7 +35,7 @@ export async function POST(request: NextRequest) {
     if (!body.utm_source) {
       body.utm_source = "website";
       body.utm_medium = "form";
-      body.utm_campaign = body.lead_source || "direct";
+      body.utm_campaign = LEAD_SOURCE_TO_CAMPAIGN[body.lead_source] || body.lead_source || "direct";
     }
 
     // Compute source_channel from utm_source so Airtable doesn't need conditional logic
