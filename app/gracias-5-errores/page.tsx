@@ -100,21 +100,21 @@ export default function GraciasSistemaMedusaPage() {
                 {[
                   {
                     quote:
-                      "El framework me ayudó a filtrar el 90% de tokens basura. Ahora sólo invierto en lo que entiendo.",
-                    name: "Carlos M.",
-                    location: "Madrid",
+                      "He pasado por varias comunidades de pago donde solo se enviaban señales y se usaba a la comunidad de exit liquidity. Aquí se hace todo lo contrario: se intenta que cada persona aprenda cómo funciona el mercado y sea capaz de tomar sus propias decisiones.",
+                    name: "kaver",
+                    location: "Alumno",
                   },
                   {
                     quote:
-                      "Antes compraba por hype. Ahora tengo un proceso sistemático que me da confianza.",
-                    name: "Andrea L.",
-                    location: "Buenos Aires",
+                      "Material de primera y comunidad muy activa. Se hizo pública una wallet con muchas ganancias y se explicó con detalle cómo se operó. Ese contenido no es nada frecuente en las redes.",
+                    name: "Jordi77",
+                    location: "Alumno",
                   },
                   {
                     quote:
-                      "La sección de gestión de riesgo vale más que cualquier curso que haya pagado.",
-                    name: "Pablo R.",
-                    location: "Barcelona",
+                      "Ya tenía conocimientos y portafolio, me he formado en otras academias. Lo que he encontrado aquí es muy top, la formación no la había visto de esta calidad ni de cerca.",
+                    name: "isaac81.",
+                    location: "Alumno",
                   },
                 ].map((testimonial, i) => (
                   <div
@@ -137,6 +137,10 @@ export default function GraciasSistemaMedusaPage() {
               <p className="text-center text-white text-sm">
                 El 85% de nuestros miembros reporta mayor confianza en sus
                 decisiones de inversión
+              </p>
+              <p className="text-center text-[#B9B8EB]/30 text-xs mt-4">
+                Nombres modificados por privacidad. Testimonios reales de
+                miembros de la comunidad.
               </p>
             </div>
 
@@ -180,7 +184,7 @@ export default function GraciasSistemaMedusaPage() {
               </div>
 
               <CalendlyEmbed
-                url="https://calendly.com/contacto-medusacapital/sesion-estrategica-15-clon?month=2026-01"
+                url="https://calendly.com/contacto-medusacapital/sesion-estrategica-15-clon"
                 className="rounded-xl"
               />
             </div>
@@ -195,8 +199,8 @@ export default function GraciasSistemaMedusaPage() {
                 {[
                   "Hoy: un email con un test rápido para saber qué tipo de inversor eres",
                   "Mañana: cómo perdimos 19.878€ en el primer año y qué aprendimos",
-                  "Día 3: el esquema del Sistema Medusa por dentro (PDF + vídeo)",
-                  "Día 4-5: casos reales de alumnos + respuestas a las dudas más comunes",
+                  "Día 2: el esquema del Sistema Medusa por dentro (PDF + vídeo)",
+                  "Día 3-4: casos reales de alumnos + respuestas a las dudas más comunes",
                   "Día 7: si tiene sentido, cómo trabajar juntos",
                 ].map((step, index) => (
                   <li key={index} className="flex items-start gap-3">
