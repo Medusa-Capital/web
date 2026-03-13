@@ -12,7 +12,6 @@ import {
   FinalCTA,
   Footer,
   PageBackground,
-  LeadCaptureModal,
   AnalysisFrameworkSection,
 } from "@/components/landing";
 
@@ -35,7 +34,6 @@ export default function Page() {
         <FinalCTA />
         <Footer />
       </div>
-      <LeadCaptureModal />
     </main>
   );
 }
