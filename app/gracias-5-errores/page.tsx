@@ -1,3 +1,5 @@
+"use client";
+
 import { Header } from "@/components/landing/Header";
 import { Footer } from "@/components/landing/Footer";
 import { PageBackground } from "@/components/landing/PageBackground";
@@ -8,10 +10,21 @@ import {
   Shield,
   Target,
   TrendingUp,
+  Download,
 } from "lucide-react";
 import { CalendlyEmbed } from "@/components/landing/CalendlyEmbed";
+import { trackEvent } from "@/lib/analytics";
+
+const PDF_PATH = "/assets/los-5-errores-que-cuestan-5-cifras-en-cripto.pdf";
 
 export default function GraciasSistemaMedusaPage() {
+  function handleDownloadClick() {
+    trackEvent("pdf_download", {
+      pdf_name: "5_errores_cripto",
+      source: "thank_you_page",
+    });
+  }
+
   return (
     <div className="relative min-h-screen">
       <PageBackground />
@@ -26,18 +39,31 @@ export default function GraciasSistemaMedusaPage() {
               </div>
             </div>
 
-            <div className="text-center mb-12">
+            <div className="text-center mb-10">
               <span className="inline-block px-4 py-1.5 mb-4 text-xs font-semibold tracking-wider uppercase rounded-full bg-[#68fe9a]/10 text-[#68fe9a] border border-[#68fe9a]/20">
                 ENVIADO CON ÉXITO
               </span>
               <h1 className="text-4xl md:text-5xl font-bold text-white mb-6 font-heading">
-                ¡Tu guía está en camino!
+                Tu guía está lista
               </h1>
               <p className="text-[#B9B8EB]/80 text-lg leading-relaxed max-w-2xl mx-auto">
-                Revisa tu email ahora &mdash; te enviamos los 5 errores que
-                cuestan 5 cifras, el caso Hyperliquid documentado y tu test de
-                autodiagnóstico.
+                Descarga ahora los 5 errores que cuestan 5 cifras en cripto.
+                14 páginas con los patrones que separan a los que pierden de los
+                que acumulan.
               </p>
+            </div>
+
+            {/* PDF Download Button */}
+            <div className="flex justify-center mb-8">
+              <a
+                href={PDF_PATH}
+                download
+                onClick={handleDownloadClick}
+                className="inline-flex items-center gap-3 px-8 py-4 rounded-xl bg-gradient-to-r from-[#50d98a] to-[#68fe9a] text-[#010052] font-semibold text-lg shadow-lg shadow-[#68fe9a]/20 hover:shadow-[#68fe9a]/40 transition-all duration-200 hover:scale-[1.02]"
+              >
+                <Download className="w-5 h-5" />
+                Descargar guía gratis (PDF)
+              </a>
             </div>
 
             {/* Email instruction card */}
@@ -48,10 +74,10 @@ export default function GraciasSistemaMedusaPage() {
                 </div>
                 <div className="space-y-2">
                   <p className="text-white text-sm font-medium">
-                    Normalmente llega en menos de 2 minutos
+                    También te enviamos la guía por email como respaldo
                   </p>
                   <p className="text-[#B9B8EB]/60 text-sm">
-                    ¿No lo ves? Revisa tu carpeta de spam o promociones
+                    Si no lo ves en tu bandeja, revisa spam o promociones
                   </p>
                   <p className="text-[#B9B8EB]/60 text-sm">
                     Añade{" "}
@@ -167,11 +193,11 @@ export default function GraciasSistemaMedusaPage() {
               </h2>
               <ul className="space-y-4">
                 {[
-                  "Hoy: recibirás la guía de los 5 errores que cuestan 5 cifras en tu bandeja de entrada",
-                  "Mañana: te contamos cómo perdimos 19.878€ en el primer año y los 3 pilares que lo cambiaron todo",
-                  "En 3 días: cómo funciona el Sistema Medusa por dentro (los 3 pilares que lo cambiaron todo)",
-                  "En 5 días: caso real de un miembro que pasó de mirar el precio cada 10 minutos a una vez al día",
-                  "En 7 días: si todo resuena contigo, una invitación para trabajar juntos",
+                  "Hoy: un email con un test rápido para saber qué tipo de inversor eres",
+                  "Mañana: cómo perdimos 19.878€ en el primer año y qué aprendimos",
+                  "Día 3: el esquema del Sistema Medusa por dentro (PDF + vídeo)",
+                  "Día 4-5: casos reales de alumnos + respuestas a las dudas más comunes",
+                  "Día 7: si tiene sentido, cómo trabajar juntos",
                 ].map((step, index) => (
                   <li key={index} className="flex items-start gap-3">
                     <span className="flex-shrink-0 w-6 h-6 rounded-full bg-[#68fe9a]/10 text-[#68fe9a] text-xs font-semibold flex items-center justify-center mt-0.5">
