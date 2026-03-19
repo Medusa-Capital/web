@@ -30,12 +30,17 @@ export async function POST(request: NextRequest) {
         ? AIRTABLE_WEBHOOKS.pdf_5_errores
         : AIRTABLE_WEBHOOKS.masterclass;
 
+    // Always normalize utm_campaign to match Airtable UTM table naming
+    if (body.lead_source && LEAD_SOURCE_TO_CAMPAIGN[body.lead_source]) {
+      body.utm_campaign = LEAD_SOURCE_TO_CAMPAIGN[body.lead_source];
+    }
+
     // Provide default UTM values for organic/direct traffic so Airtable
     // always creates a UTM record linked to the Submission
     if (!body.utm_source) {
       body.utm_source = "website";
-      body.utm_medium = "form";
-      body.utm_campaign = LEAD_SOURCE_TO_CAMPAIGN[body.lead_source] || body.lead_source || "direct";
+      body.utm_medium = "website";
+      body.utm_campaign = body.utm_campaign || body.lead_source || "direct";
     }
 
     // Compute source_channel from utm_source so Airtable doesn't need conditional logic
