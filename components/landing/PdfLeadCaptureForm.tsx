@@ -24,18 +24,10 @@ import { trackEvent, trackFormEvent, trackCTAClick } from "@/lib/analytics";
 import { getUTMParamsForSubmission } from "@/lib/utm";
 import { getCountryCallingCode } from "libphonenumber-js";
 
-const EXPERIENCE_OPTIONS = [
-  { value: "beginner", label: "Principiante (menos de 6 meses activo)" },
-  { value: "intermediate", label: "Intermedio (6 meses - 2 años)" },
-  { value: "advanced", label: "Avanzado (más de 2 años)" },
-];
-
-const CHALLENGE_OPTIONS = [
-  { value: "fundamental_analysis", label: "No sé cómo analizar proyectos fundamentalmente" },
-  { value: "macro_context", label: "No entiendo cómo el contexto macro afecta los precios" },
-  { value: "timing", label: "No sé cuándo entrar o salir de posiciones" },
-  { value: "risk_management", label: "Me cuesta gestionar el riesgo y las emociones" },
-  { value: "other", label: "Otro desafío" },
+const INVESTOR_STAGE_OPTIONS = [
+  { value: "new_to_crypto", label: "Acabo de empezar en cripto" },
+  { value: "experienced_frustrated", label: "Llevo tiempo pero no he conseguido resultados" },
+  { value: "has_system", label: "Ya tengo un sistema pero busco mejorar" },
 ];
 
 export function PdfLeadCaptureForm() {
@@ -53,8 +45,7 @@ export function PdfLeadCaptureForm() {
     lastName: "",
     email: "",
     phone: "",
-    experienceLevel: "",
-    mainChallenge: "",
+    investorStage: "",
   });
 
   const [touched, setTouched] = useState({
@@ -62,8 +53,7 @@ export function PdfLeadCaptureForm() {
     lastName: false,
     email: false,
     phone: false,
-    experienceLevel: false,
-    mainChallenge: false,
+    investorStage: false,
   });
 
   const validation = useMemo(
@@ -72,8 +62,7 @@ export function PdfLeadCaptureForm() {
       lastName: isValidName(formData.lastName),
       email: isValidEmail(formData.email),
       phone: isValidPhone(formData.phone, selectedCountry.code),
-      experienceLevel: formData.experienceLevel !== "",
-      mainChallenge: formData.mainChallenge !== "",
+      investorStage: formData.investorStage !== "",
     }),
     [formData, selectedCountry.code]
   );
@@ -83,8 +72,7 @@ export function PdfLeadCaptureForm() {
     validation.lastName &&
     validation.email &&
     validation.phone &&
-    validation.experienceLevel &&
-    validation.mainChallenge &&
+    validation.investorStage &&
     acceptedTerms;
 
   const handleExpand = () => {
@@ -130,12 +118,9 @@ export function PdfLeadCaptureForm() {
         if (formData.phone.trim() && !validation.phone)
           return "Introduce un número de teléfono válido";
         break;
-      case "experienceLevel":
-        if (!validation.experienceLevel)
-          return "Selecciona tu nivel de experiencia";
-        break;
-      case "mainChallenge":
-        if (!validation.mainChallenge) return "Selecciona tu mayor desafío";
+      case "investorStage":
+        if (!validation.investorStage)
+          return "Selecciona la opción que mejor te describa";
         break;
     }
     return null;
@@ -151,8 +136,7 @@ export function PdfLeadCaptureForm() {
       lastName: true,
       email: true,
       phone: true,
-      experienceLevel: true,
-      mainChallenge: true,
+      investorStage: true,
     });
 
     if (!isFormValid) return;
@@ -176,8 +160,7 @@ export function PdfLeadCaptureForm() {
           phone: formattedPhone,
           consent: acceptedTerms,
           lead_source: "pdf_5_errores_cripto",
-          experience_level: formData.experienceLevel,
-          main_challenge: formData.mainChallenge,
+          investor_stage: formData.investorStage,
           ...utmParams,
         }),
       });
@@ -374,36 +357,26 @@ export function PdfLeadCaptureForm() {
               )}
             </div>
 
-            {/* Divider */}
-            <div className="pt-2 pb-1">
-              <p className="text-sm font-medium text-white">
-                Personaliza tu experiencia
-              </p>
-              <p className="text-xs text-[#B9B8EB]/40 mt-1">
-                Así podemos enviarte contenido más relevante para tu nivel
-              </p>
-            </div>
-
-            {/* Row 4: Experience level */}
+            {/* Row 4: Investor stage */}
             <div>
               <Select
-                value={formData.experienceLevel}
+                value={formData.investorStage}
                 onValueChange={(value) => {
-                  setFormData((prev) => ({ ...prev, experienceLevel: value }));
-                  setTouched((prev) => ({ ...prev, experienceLevel: true }));
+                  setFormData((prev) => ({ ...prev, investorStage: value }));
+                  setTouched((prev) => ({ ...prev, investorStage: true }));
                 }}
               >
                 <SelectTrigger
                   className={`w-full h-12 ${inputStyles} ${
-                    touched.experienceLevel && !validation.experienceLevel
+                    touched.investorStage && !validation.investorStage
                       ? errorInputStyles
                       : ""
                   }`}
                 >
-                  <SelectValue placeholder="Selecciona tu nivel de experiencia" />
+                  <SelectValue placeholder="¿Dónde estás en tu camino como inversor?" />
                 </SelectTrigger>
                 <SelectContent className="bg-[#1b1a64] border-[#B9B8EB]/20">
-                  {EXPERIENCE_OPTIONS.map((opt) => (
+                  {INVESTOR_STAGE_OPTIONS.map((opt) => (
                     <SelectItem
                       key={opt.value}
                       value={opt.value}
@@ -414,46 +387,9 @@ export function PdfLeadCaptureForm() {
                   ))}
                 </SelectContent>
               </Select>
-              {getFieldError("experienceLevel") && (
+              {getFieldError("investorStage") && (
                 <p className="text-red-400 text-xs mt-1">
-                  {getFieldError("experienceLevel")}
-                </p>
-              )}
-            </div>
-
-            {/* Row 5: Main challenge */}
-            <div>
-              <Select
-                value={formData.mainChallenge}
-                onValueChange={(value) => {
-                  setFormData((prev) => ({ ...prev, mainChallenge: value }));
-                  setTouched((prev) => ({ ...prev, mainChallenge: true }));
-                }}
-              >
-                <SelectTrigger
-                  className={`w-full h-12 ${inputStyles} ${
-                    touched.mainChallenge && !validation.mainChallenge
-                      ? errorInputStyles
-                      : ""
-                  }`}
-                >
-                  <SelectValue placeholder="Selecciona tu mayor desafío" />
-                </SelectTrigger>
-                <SelectContent className="bg-[#1b1a64] border-[#B9B8EB]/20">
-                  {CHALLENGE_OPTIONS.map((opt) => (
-                    <SelectItem
-                      key={opt.value}
-                      value={opt.value}
-                      className="text-white hover:bg-[#4355d9]/20 focus:bg-[#4355d9]/20 focus:text-white"
-                    >
-                      {opt.label}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-              {getFieldError("mainChallenge") && (
-                <p className="text-red-400 text-xs mt-1">
-                  {getFieldError("mainChallenge")}
+                  {getFieldError("investorStage")}
                 </p>
               )}
             </div>
