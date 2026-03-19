@@ -18,6 +18,7 @@
   "dependencies": {
     "@base-ui/react": "^1.0.0",
     "@google-analytics/data": "^5.2.1",
+    "@mux/mux-player-react": "^3.11.5",
     "@next/third-parties": "^16.1.1",
     "@notionhq/client": "2",
     "@studio-freight/lenis": "^1.0.42",

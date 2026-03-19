@@ -1,11 +1,14 @@
 "use client";
 
 import { motion } from "framer-motion";
+import MuxPlayer from "@mux/mux-player-react/lazy";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import Image from "next/image";
 import { trackBookCallClick } from "@/lib/analytics";
 import { getOutboundUrl } from "@/lib/utm";
+
+const MUX_PLAYBACK_ID = "oGJ9QWesMTtYkrc1BDkTTWWbhbNB5JqZnq01d52uW3lg";
 
 const fadeUp = {
   initial: { opacity: 0, y: 30 },
@@ -90,19 +93,29 @@ export function Hero() {
           transition={{ duration: 0.6, ease, delay: 0.4 }}
           className="relative w-full mx-auto mb-8 rounded-[30px] overflow-hidden"
         >
-          <div className="aspect-video overflow-hidden">
-            <iframe
-              width="100%"
-              height="100%"
-              src="https://www.youtube.com/embed/6vCzfCYs6DE"
-              title="Medusa Capital - Video"
-              frameBorder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              referrerPolicy="strict-origin-when-cross-origin"
-              allowFullScreen
-              className="w-full h-full"
-            />
-          </div>
+          <MuxPlayer
+            loading="page"
+            playbackId={MUX_PLAYBACK_ID}
+            metadata={{
+              video_id: "vsl-landing",
+              video_title: "Medusa Capital VSL",
+            }}
+            accentColor="#6366f1"
+            primaryColor="#FFFFFF"
+            secondaryColor="#000000"
+            thumbnailTime={2}
+            nohotkeys
+            style={{
+              aspectRatio: "16/9",
+              "--seek-backward-button": "none",
+              "--seek-forward-button": "none",
+              "--time-range": "none",
+              "--time-display": "none",
+              "--duration-display": "none",
+              "--playback-rate-button": "none",
+              "--pip-button": "none",
+            }}
+          />
         </motion.div>
 
         {/* CTA Button */}
