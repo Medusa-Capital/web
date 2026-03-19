@@ -32,8 +32,8 @@ jobs:
 
       - name: Commit and push changes
         run: |
-          git config user.email "notion-sync@medusacapital.xyz"
-          git config user.name "Notion Sync Bot"
+          git config user.email "javier.urbistondo@stitchflow.io"
+          git config user.name "Javier Urbistondo"
           git add content/blog/ public/img/blog/
           git diff --cached --quiet && echo "No changes to commit" && exit 0
           git commit -m "chore: sync blog content from Notion"
