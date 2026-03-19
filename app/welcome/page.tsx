@@ -1,7 +1,6 @@
 "use client";
 
-import { Suspense, useEffect, useRef } from "react";
-import { useSearchParams } from "next/navigation";
+import { Suspense } from "react";
 import Link from "next/link";
 import { Header } from "@/components/landing/Header";
 import { Footer } from "@/components/landing/Footer";
@@ -9,121 +8,11 @@ import { PageBackground } from "@/components/landing/PageBackground";
 import { Button } from "@/components/ui/button";
 import { CheckCircle2, BookOpen, TrendingUp, Users, ArrowRight } from "lucide-react";
 
-type Segment = "beginner" | "intermediate" | "advanced";
-
-interface SegmentContent {
-  title: string;
-  subtitle: string;
-  description: string;
-  features: {
-    icon: React.ReactNode;
-    title: string;
-    description: string;
-  }[];
-  nextSteps: string[];
-}
-
-const segmentContent: Record<Segment, SegmentContent> = {
-  beginner: {
-    title: "Bienvenido al camino correcto",
-    subtitle: "Nivel: Principiante",
-    description:
-      "Has dado el primer paso más importante: reconocer que necesitas un enfoque estructurado antes de arriesgar tu capital. En los próximos días te enviaremos contenido diseñado específicamente para construir bases sólidas.",
-    features: [
-      {
-        icon: <BookOpen className="w-6 h-6" />,
-        title: "Fundamentos primero",
-        description:
-          "Aprenderás los conceptos esenciales antes de tocar una operación.",
-      },
-      {
-        icon: <TrendingUp className="w-6 h-6" />,
-        title: "Gestión de riesgo",
-        description:
-          "Cómo proteger tu capital mientras aprendes (la lección más valiosa).",
-      },
-      {
-        icon: <Users className="w-6 h-6" />,
-        title: "Errores comunes",
-        description:
-          "Los fallos que comete el 90% de principiantes y cómo evitarlos.",
-      },
-    ],
-    nextSteps: [
-      "Recibirás tu primer email en las próximas 24-48 horas",
-      "Incluirá la metodología Medusa en PDF",
-      "Contenido adaptado a tu nivel de experiencia",
-    ],
-  },
-  intermediate: {
-    title: "Hora de profesionalizar",
-    subtitle: "Nivel: Intermedio",
-    description:
-      "Ya tienes experiencia operando, pero sabes que hay un gap entre donde estás y donde quieres llegar. Vamos a trabajar en sistematizar tu proceso y eliminar los errores que frenan tu progreso.",
-    features: [
-      {
-        icon: <BookOpen className="w-6 h-6" />,
-        title: "Sistemas replicables",
-        description:
-          "Convertir tu intuición en reglas claras que puedas seguir consistentemente.",
-      },
-      {
-        icon: <TrendingUp className="w-6 h-6" />,
-        title: "Optimización de proceso",
-        description:
-          "Identificar y eliminar las ineficiencias en tu operativa actual.",
-      },
-      {
-        icon: <Users className="w-6 h-6" />,
-        title: "Mentalidad institucional",
-        description:
-          "Cómo piensan los profesionales vs. el retail (y por qué importa).",
-      },
-    ],
-    nextSteps: [
-      "Recibirás contenido enfocado en optimización de procesos",
-      "Casos de estudio de operadores que dieron el salto",
-      "Herramientas para auditar tu operativa actual",
-    ],
-  },
-  advanced: {
-    title: "Research de alta señal",
-    subtitle: "Nivel: Avanzado",
-    description:
-      "Buscas alpha real, no ruido — y eso es exactamente lo que ofrecemos. Nuestro contenido para perfiles avanzados se centra en research de calidad institucional y acceso a una comunidad de operadores serios.",
-    features: [
-      {
-        icon: <BookOpen className="w-6 h-6" />,
-        title: "Research institucional",
-        description:
-          "Análisis en profundidad con la metodología que usan los fondos profesionales.",
-      },
-      {
-        icon: <TrendingUp className="w-6 h-6" />,
-        title: "Señales de alta convicción",
-        description:
-          "Menos ruido, más calidad. Solo ideas con fundamento sólido.",
-      },
-      {
-        icon: <Users className="w-6 h-6" />,
-        title: "Comunidad selecta",
-        description:
-          "Acceso a un grupo reducido de operadores con experiencia real.",
-      },
-    ],
-    nextSteps: [
-      "Recibirás información sobre nuestros servicios premium",
-      "Acceso prioritario a research y análisis",
-      "Detalles sobre la comunidad privada",
-    ],
-  },
-};
-
-const defaultContent: SegmentContent = {
+const content = {
   title: "Gracias por unirte",
   subtitle: "Tu perfil ha sido registrado",
   description:
-    "Estás en nuestra lista. En los próximos días recibirás emails adaptados a tus necesidades.",
+    "Tu respuesta nos ayuda a enviarte contenido relevante. En los próximos días recibirás emails adaptados a tus necesidades.",
   features: [
     {
       icon: <BookOpen className="w-6 h-6" />,
@@ -149,33 +38,6 @@ const defaultContent: SegmentContent = {
 };
 
 function WelcomeContent() {
-  const searchParams = useSearchParams();
-  const segment = searchParams.get("segment") as Segment | null;
-  const email = searchParams.get("email");
-  const hasSent = useRef(false);
-
-  useEffect(() => {
-    if (!segment || !email || hasSent.current) return;
-    hasSent.current = true;
-
-    // Strip email from URL bar for privacy
-    const url = new URL(window.location.href);
-    url.searchParams.delete("email");
-    window.history.replaceState({}, "", url.toString());
-
-    // Fire-and-forget segment persistence to Airtable
-    fetch("/api/segment", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, segment }),
-    }).catch(() => {
-      // Silent fail — don't block the user experience
-    });
-  }, [segment, email]);
-
-  const content =
-    segment && segmentContent[segment] ? segmentContent[segment] : defaultContent;
-
   return (
     <main className="pt-8 pb-16">
       <div className="max-w-4xl mx-auto px-6">
