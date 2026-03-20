@@ -133,9 +133,7 @@ function TestimonialCard({ testimonial }: { testimonial: typeof testimonials[0] 
     <div
       className="gap-6 overflow-hidden text-sm group/card flex flex-col relative rounded-[20px] p-6 pb-[50px] mb-4 transition-all duration-300"
       style={{
-        background: 'rgba(0, 0, 0, 0.1)',
-        backdropFilter: 'blur(40px) saturate(150%)',
-        WebkitBackdropFilter: 'blur(40px) saturate(150%)',
+        background: 'rgba(10, 10, 60, 0.6)',
         border: '1px solid rgba(255, 255, 255, 0.08)',
       }}
     >
@@ -172,8 +170,8 @@ function ScrollingColumn({
   testimonials: typeof column1;
   direction: "up" | "down";
 }) {
-  // Duplicate testimonials multiple times for seamless infinite scroll
-  const duplicated = [...testimonials, ...testimonials, ...testimonials, ...testimonials];
+  // Duplicate testimonials for seamless infinite scroll (3x is sufficient for -50% translate loop)
+  const duplicated = [...testimonials, ...testimonials, ...testimonials];
 
   return (
     <div className="relative h-[600px] md:h-[880px] overflow-hidden [mask-image:linear-gradient(to_bottom,transparent,black_15%,black_85%,transparent)] [-webkit-mask-image:linear-gradient(to_bottom,transparent,black_15%,black_85%,transparent)]">
@@ -194,42 +192,12 @@ function ScrollingColumn({
 
 export function Testimonials() {
   return (
-    <section className="relative py-16 md:py-[100px] px-4 md:px-6 overflow-hidden">
-      {/* Background gradient orbs - positioned behind the cards */}
-      <div
-        className="absolute pointer-events-none transition-opacity duration-300"
-        style={{
-          top: '35%',
-          left: '50%',
-          transform: 'translateX(-50%)',
-          width: '600px',
-          height: '600px',
-          background: 'radial-gradient(circle, rgba(67, 85, 217, 0.5) 0%, rgba(67, 85, 217, 0.2) 35%, transparent 65%)',
-          filter: 'blur(40px)',
-        }}
-      />
-      <div
-        className="absolute pointer-events-none transition-opacity duration-300"
-        style={{
-          top: '25%',
-          left: '20%',
-          width: '400px',
-          height: '400px',
-          background: 'radial-gradient(circle, rgba(99, 102, 241, 0.45) 0%, rgba(99, 102, 241, 0.15) 40%, transparent 70%)',
-          filter: 'blur(50px)',
-        }}
-      />
-      <div
-        className="absolute pointer-events-none transition-opacity duration-300"
-        style={{
-          top: '50%',
-          right: '15%',
-          width: '450px',
-          height: '450px',
-          background: 'radial-gradient(circle, rgba(67, 85, 217, 0.4) 0%, rgba(99, 102, 241, 0.1) 45%, transparent 70%)',
-          filter: 'blur(45px)',
-        }}
-      />
+    <section
+      className="relative py-16 md:py-[100px] px-4 md:px-6 overflow-hidden"
+      style={{
+        background: 'radial-gradient(ellipse 60% 50% at 50% 40%, rgba(67, 85, 217, 0.25) 0%, rgba(99, 102, 241, 0.08) 50%, transparent 80%)',
+      }}
+    >
 
       <div className="max-w-6xl mx-auto relative z-10">
         {/* Header */}
