@@ -27,6 +27,9 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  experimental: {
+    optimizePackageImports: ["framer-motion", "lucide-react"],
+  },
   async rewrites() {
     return {
       beforeFiles: [
