@@ -1,3 +1,4 @@
+import dynamic from "next/dynamic";
 import {
   BarChart3,
   Globe,
@@ -10,7 +11,10 @@ import {
   Shield,
   Filter,
 } from "lucide-react";
-import { PdfLeadCaptureForm } from "./PdfLeadCaptureForm";
+
+const PdfLeadCaptureForm = dynamic(
+  () => import("./PdfLeadCaptureForm").then((m) => ({ default: m.PdfLeadCaptureForm })),
+);
 
 const BLURRED_TAGS = new Set([
   "Dilución excesiva",
