@@ -8,17 +8,17 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const inter = localFont({
   src: [
-    { path: "../public/fonts/inter/inter-regular.ttf", weight: "400", style: "normal" },
-    { path: "../public/fonts/inter/inter-medium.ttf", weight: "500", style: "normal" },
-    { path: "../public/fonts/inter/inter-semibold.ttf", weight: "600", style: "normal" },
-    { path: "../public/fonts/inter/inter-bold.ttf", weight: "700", style: "normal" },
+    { path: "../public/fonts/inter/inter-regular.woff2", weight: "400", style: "normal" },
+    { path: "../public/fonts/inter/inter-medium.woff2", weight: "500", style: "normal" },
+    { path: "../public/fonts/inter/inter-semibold.woff2", weight: "600", style: "normal" },
+    { path: "../public/fonts/inter/inter-bold.woff2", weight: "700", style: "normal" },
   ],
   variable: "--font-sans",
   display: "swap",
 });
 
 const cormorant = localFont({
-  src: [{ path: "../public/fonts/cormorant/cormorant-bold.ttf", weight: "700", style: "normal" }],
+  src: [{ path: "../public/fonts/cormorant/cormorant-bold.woff2", weight: "700", style: "normal" }],
   variable: "--font-heading",
   display: "swap",
 });
