@@ -52,7 +52,7 @@ const projects: Project[] = [
     athRoi: 4.55,
     athRoiDisplay: "+455%",
     description: "DEX de perpetuals sin VCs extractivos. Tesis sólida + producto funcionando.",
-    logoUrl: "/img/hyperliquid.png",
+    logoUrl: "/img/hyperliquid.webp",
   },
   {
     id: "pumpfun",

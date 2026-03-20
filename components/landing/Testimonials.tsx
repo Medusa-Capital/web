@@ -4,7 +4,7 @@ import { Star } from "lucide-react";
 const featured = {
   name: "Bruno",
   age: 51,
-  avatar: "/img/avatar/bruno.png",
+  avatar: "/img/avatar/bruno.webp",
   rating: 5,
   paragraphs: [
     {
@@ -147,6 +147,7 @@ function TestimonialCard({ testimonial }: { testimonial: typeof testimonials[0] 
           alt={testimonial.name}
           width={48}
           height={48}
+          sizes="48px"
           className="w-12 h-12 rounded-full object-cover"
         />
         <div>
@@ -275,6 +276,7 @@ export function Testimonials() {
               alt={featured.name}
               width={56}
               height={56}
+              sizes="56px"
               className="w-14 h-14 rounded-full object-cover"
             />
             <div>
