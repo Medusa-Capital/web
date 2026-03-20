@@ -8,7 +8,7 @@ import Image from "next/image";
 import { trackBookCallClick } from "@/lib/analytics";
 import { getOutboundUrl } from "@/lib/utm";
 
-const MUX_PLAYBACK_ID = "oGJ9QWesMTtYkrc1BDkTTWWbhbNB5JqZnq01d52uW3lg";
+const MUX_PLAYBACK_ID = "Nl5WHghvNYY19hHNnMfHObKNRyB8r3WVeicBeBiFMaY";
 
 const fadeUp = {
   initial: { opacity: 0, y: 30 },
