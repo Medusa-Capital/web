@@ -67,25 +67,25 @@ page.tsx (server)
 
 **Tasks:**
 
-- [ ] **0.1** Install `@next/bundle-analyzer` and run a production bundle analysis
+- [x] **0.1** Install `@next/bundle-analyzer` and run a production bundle analysis
   - `bun add -D @next/bundle-analyzer`
   - Add to `next.config.ts`: `withBundleAnalyzer` wrapper (enabled via `ANALYZE=true`)
   - Run `ANALYZE=true bun run build` and save the report screenshot
   - Record initial JS bundle sizes (First Load JS per route)
   - **File:** `next.config.ts`
 
-- [ ] **0.2** Compare TTFB across routes to determine if server-side work is needed
+- [x] **0.2** Compare TTFB across routes to determine if server-side work is needed
   - Run from multiple regions: `curl -o /dev/null -w "TTFB: %{time_starttransfer}s\n" https://medusacapital.xyz/` vs `/blog/some-slug` vs `/welcome`
   - If homepage TTFB is significantly higher than other routes → investigate SSR/ISR/middleware
   - If similar across routes → TTFB is CDN/network, not route-specific (proceed with client-side optimizations)
   - **Decision gate:** If TTFB >1.5s on homepage only, add a server-side investigation task before Phase 1
 
-- [ ] **0.3** Record pre-optimization conversion metrics
+- [~] **0.3** Record pre-optimization conversion metrics
   - Export from GA4: homepage bounce rate, scroll depth, `book_call_click` rate, average session duration
   - Save as baseline for post-optimization comparison
   - Check `docs/analytics-pipeline-reference.md` for available events
 
-- [ ] **0.4** Search codebase for files planned for deletion to confirm they're unused
+- [x] **0.4** Search codebase for files planned for deletion to confirm they're unused
   - Verify `step-5.webp` (2.4MB) — **confirmed: zero code references**
   - Verify `step-sec-obj-light.webp` (655KB) — **confirmed: zero code references**
   - Verify `content-sec-obj-light.webp` (315KB) — **confirmed: zero code references**
@@ -104,14 +104,14 @@ page.tsx (server)
 
 **Tasks:**
 
-- [ ] **1.1** Delete confirmed unused images
+- [x] **1.1** Delete confirmed unused images
   - `public/img/step-5.webp` (2.4MB) — no references
   - `public/img/step-sec-obj-light.webp` (655KB) — no references (dark mode only, no light theme)
   - `public/img/content-sec-obj-light.webp` (315KB) — no references
   - `public/img/video-poster.webp` (684KB) — no references
   - **Total freed:** ~4MB of dead weight (not loaded by browsers but clutters the repo)
 
-- [ ] **1.2** Convert team PNG photos to optimized WebP
+- [x] **1.2** Convert team PNG photos to optimized WebP
   - Current sizes (all PNG, all below the fold):
     - `team-alex-new.png` — 1.4MB
     - `team-alejandro-gilabert.png` — 781KB
@@ -123,14 +123,14 @@ page.tsx (server)
   - Update import paths in `Team.tsx` (references in the `teamMembers` data array)
   - **Files:** `components/landing/Team.tsx`, `public/img/team-*.png` → `team-*.webp`
 
-- [ ] **1.3** Compress `bruno.png` featured testimonial avatar
+- [x] **1.3** Compress `bruno.png` featured testimonial avatar
   - Current: 522KB PNG, displayed at 56×56px (`w-14 h-14`)
   - Convert to WebP, resize to 200×200px max (4x display size for retina)
   - Target: <20KB
   - Update path in `Testimonials.tsx` line 7
   - **Files:** `components/landing/Testimonials.tsx`, `public/img/avatar/bruno.png` → `bruno.webp`
 
-- [ ] **1.4** Compress CSS background images using `sharp`
+- [x] **1.4** Compress CSS background images using `sharp`
   - `step-sec-obj.webp` (647KB, decorative medusa graphic in Features) → target ~100KB at 690px wide, quality 70
   - `cta-bg.webp` (313KB, FinalCTA background) → target ~80KB, quality 65
   - `content-sec-obj.webp` (370KB, content section) → target ~80KB, quality 70
@@ -138,29 +138,29 @@ page.tsx (server)
   - Overwrite files in place (same paths, same names)
   - **Files:** `public/img/step-sec-obj.webp`, `public/img/cta-bg.webp`, `public/img/content-sec-obj.webp`, `public/img/content-coing.webp`
 
-- [ ] **1.5** Compress collaborator avatars (InstitutionalQuotes)
+- [x] **1.5** Compress collaborator avatars (InstitutionalQuotes)
   - Current sizes: `javierdelvalle.jpg` (170KB), `elonmusk.jpg` (118KB), `diegopuertas.jpeg` (113KB), `pablogil.jpg` (89KB)
   - Displayed at ~48×48px. Resize to 200×200px, convert to WebP, target <15KB each
   - Update paths in `InstitutionalQuotes.tsx`
   - **Files:** `components/landing/InstitutionalQuotes.tsx`, `public/img/avatar/collaborators/*`
 
-- [ ] **1.6** Compress `hyperliquid.png` (808KB, used in TrackRecordCarousel + ROICalculator)
+- [x] **1.6** Compress `hyperliquid.png` (808KB, used in TrackRecordCarousel + ROICalculator)
   - Convert to WebP, resize to appropriate display size, target <80KB
   - Update paths in `components/landing/track-record/TrackRecordCarousel.tsx:61` and `ROICalculator.tsx:55`
   - **Files:** `public/img/hyperliquid.png` → `hyperliquid.webp`, TrackRecordCarousel.tsx, ROICalculator.tsx
 
-- [ ] **1.7** Remove `priority` from below-fold Team photo
+- [x] **1.7** Remove `priority` from below-fold Team photo
   - `Team.tsx:171` has `priority` on the selected team member photo — this forces preloading for an image far below the fold, competing with above-fold resources
   - Simply delete the `priority` prop
   - **File:** `components/landing/Team.tsx:171`
 
-- [ ] **1.8** Add `remotePatterns` to `next.config.ts` and remove `unoptimized` flags
+- [x] **1.8** Add `remotePatterns` to `next.config.ts` and remove `unoptimized` flags
   - `InstitutionalQuotes.tsx` uses `unoptimized` on external images from `encrypted-tbn0.gstatic.com` and `www.strategy.com`
   - Add these as `remotePatterns` in `next.config.ts` so Next.js can optimize them
   - Remove `unoptimized` prop from quotes that use local images (Ray Dalio, Elon Musk, etc.)
   - **Files:** `next.config.ts`, `components/landing/InstitutionalQuotes.tsx`
 
-- [ ] **1.9** Add `sizes` attribute to key Image components
+- [x] **1.9** Add `sizes` attribute to key Image components
   - Team photos: `sizes="(max-width: 768px) 100vw, 500px"`
   - Testimonial avatars: `sizes="48px"`
   - Collaborator avatars: `sizes="48px"`
@@ -179,7 +179,7 @@ page.tsx (server)
 
 **Tasks:**
 
-- [ ] **2.1** Convert TTF fonts to WOFF2
+- [x] **2.1** Convert TTF fonts to WOFF2
   - Use a font conversion tool (e.g., `woff2_compress` or online converter)
   - Convert all 5 files:
     - `inter-regular.ttf` (335KB) → `inter-regular.woff2` (~80KB)
@@ -191,14 +191,14 @@ page.tsx (server)
   - Update `layout.tsx` font declarations to reference WOFF2 files
   - **Files:** `app/layout.tsx:9-24`, `public/fonts/inter/*.woff2`, `public/fonts/cormorant/*.woff2`
 
-- [ ] **2.2** Remove duplicate `@font-face` declarations from `globals.css`
+- [x] **2.2** Remove duplicate `@font-face` declarations from `globals.css`
   - Lines 6-44 in `globals.css` declare the same fonts that `next/font/local` in `layout.tsx` already handles
   - `next/font/local` provides preloading, subsetting, and `font-display: swap` automatically
   - The CSS declarations load the fonts a second time without those optimizations
   - **ORDERING:** Only remove AFTER step 2.1 is complete and WOFF2 fonts are confirmed working
   - **File:** `app/globals.css:6-44` (delete these lines)
 
-- [ ] **2.3** Verify font rendering after changes
+- [x] **2.3** Verify font rendering after changes
   - Check heading font (Cormorant Bold) renders correctly on all headings
   - Check body font (Inter 400/500/600/700) renders correctly
   - Verify no FOUT (Flash of Unstyled Text) regression
@@ -220,7 +220,7 @@ page.tsx (server)
 
 **Tasks:**
 
-- [ ] **3.1** Dynamic import below-fold sections with `next/dynamic`
+- [x] **3.1** Dynamic import below-fold sections with `next/dynamic`
   - Convert these components from static imports to `dynamic()` in `app/page.tsx`:
     - `Modules` — client component, far below fold
     - `Team` — client component, far below fold, heaviest images
@@ -242,14 +242,14 @@ page.tsx (server)
   });
   ```
 
-- [ ] **3.2** Design height-matched skeleton fallbacks for each dynamically imported section
+- [x] **3.2** Design height-matched skeleton fallbacks for each dynamically imported section
   - Measure rendered height of each section at desktop (1280px) and mobile (375px) breakpoints
   - Create simple placeholder divs with `min-height` matching the measured values
   - Use responsive min-height: `style={{ minHeight: "clamp(400px, 50vh, 800px)" }}`
   - **CLS validation:** After implementing, run Lighthouse CLS audit — must remain at 0 or <0.01
   - **Files:** `app/page.tsx` (inline loading components)
 
-- [ ] **3.3** Defer MuxPlayer loading from "page" to viewport intersection
+- [x] **3.3** Defer MuxPlayer loading from "page" to viewport intersection
   - Current: `loading="page"` (line 97 in `Hero.tsx`) — loads SDK when page loads
   - Change to: `loading="viewport"` — loads SDK when video enters viewport
   - The Mux SDK (~100-200KB) is currently loaded eagerly even though the video is mid-fold
@@ -257,13 +257,13 @@ page.tsx (server)
   - Verify: poster/thumbnail still shows before SDK loads (Mux `thumbnailTime={2}` should handle this)
   - **File:** `components/landing/Hero.tsx:97`
 
-- [ ] **3.4** Lazy-import `libphonenumber-js` in PdfLeadCaptureForm
+- [x] **3.4** Lazy-import `libphonenumber-js` in PdfLeadCaptureForm
   - This large validation library is imported in `AnalysisFrameworkSection` which renders on the homepage
   - The form is initially collapsed — most users never expand it
   - Convert to dynamic import that loads only when the form is expanded/focused
   - **File:** Find and modify the `PdfLeadCaptureForm` component import
 
-- [ ] **3.5** Run bundle analysis after code splitting
+- [x] **3.5** Run bundle analysis after code splitting
   - `ANALYZE=true bun run build`
   - Compare initial JS bundle per route against Phase 0 baseline
   - Verify that dynamically imported chunks are separate from the main bundle
@@ -283,26 +283,26 @@ page.tsx (server)
 
 **Tasks:**
 
-- [ ] **4.1** Remove dead `@studio-freight/lenis` dependency
+- [x] **4.1** Remove dead `@studio-freight/lenis` dependency
   - Installed in `package.json` but never imported in any component
   - `bun remove @studio-freight/lenis`
   - **File:** `package.json`
 
-- [ ] **4.2** Add `optimizePackageImports` to `next.config.ts`
+- [x] **4.2** Add `optimizePackageImports` to `next.config.ts`
   - This enables automatic tree-shaking for large libraries
   - Add: `experimental: { optimizePackageImports: ["framer-motion", "lucide-react"] }`
   - `framer-motion` is imported in 9 components — tree-shaking reduces the bundle to only used features
   - `lucide-react` ships hundreds of icons — tree-shaking reduces to only used icons
   - **File:** `next.config.ts`
 
-- [ ] **4.3** Remove legacy CSS classes that are no longer used
+- [x] **4.3** Remove legacy CSS classes that are no longer used
   - `globals.css:311-328`: `testi-y` and `testi-y-inverse` keyframes (legacy testimonial animations)
   - `globals.css:331-335`: `.testimonial-card-bg` class — search codebase to confirm unused
   - `globals.css:338-340`: `.video-wrapper-bg` class — search codebase to confirm unused
   - **Only delete if confirmed zero references in component code**
   - **File:** `app/globals.css`
 
-- [ ] **4.4** Run final bundle analysis
+- [x] **4.4** Run final bundle analysis
   - `ANALYZE=true bun run build`
   - Compare against Phase 3 numbers
   - Document total bundle reduction from Phase 0 baseline
@@ -317,7 +317,7 @@ page.tsx (server)
 
 **Tasks:**
 
-- [ ] **5.1** Optimize testimonial card backdrop-filter
+- [x] **5.1** Optimize testimonial card backdrop-filter
   - Current: 72 cards each with `backdropFilter: 'blur(40px) saturate(150%)'` — extremely expensive
   - Replace with a simpler semi-transparent background that achieves a similar visual effect:
     ```tsx
@@ -329,7 +329,7 @@ page.tsx (server)
   - **Visual validation required** — screenshot before/after to ensure the dark theme aesthetic is preserved
   - **File:** `components/landing/Testimonials.tsx:136-139`
 
-- [ ] **5.2** Understand testimonial 4x duplication before changing
+- [x] **5.2** Understand testimonial 4x duplication before changing
   - The `ScrollingColumn` duplicates testimonials 4x for seamless infinite scroll animation
   - The animation translates `-50%` (half the total height), so at least 2x is required for the loop to be seamless
   - **Test with 3x** (reduce from 4x to 3x): `[...testimonials, ...testimonials, ...testimonials]`
@@ -337,14 +337,14 @@ page.tsx (server)
   - If 3x works → use 3x. If gaps visible → keep 4x. **Do NOT blindly reduce to 2x.**
   - **File:** `components/landing/Testimonials.tsx:175`
 
-- [ ] **5.3** Simplify Testimonials gradient orbs
+- [x] **5.3** Simplify Testimonials gradient orbs
   - Current: 3 large absolutely positioned divs (400-600px) with `filter: blur(40-50px)`
   - These are purely decorative and are behind the cards
   - Option A: Replace with a single CSS radial-gradient on the section itself (no extra DOM nodes, no blur filter)
   - Option B: Reduce to 1 central gradient orb instead of 3
   - **File:** `components/landing/Testimonials.tsx:198-231`
 
-- [ ] **5.4** Verify PageBackground gradient performance
+- [x] **5.4** Verify PageBackground gradient performance
   - The 4 `.circle-radial` divs (1200×900px each) in `PageBackground.tsx` are positioned throughout the page
   - These are `absolute` positioned inside an `overflow-hidden` container — they only composite when in viewport
   - **Likely acceptable** — they're simple radial gradients without blur filters
