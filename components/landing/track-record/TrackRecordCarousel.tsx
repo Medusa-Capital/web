@@ -58,7 +58,7 @@ const trackRecordProjects = [
     ],
   },
   {
-    screenshotUrl: "/img/hyperliquid.png",
+    screenshotUrl: "/img/hyperliquid.webp",
     glowColor: "#22c55e",
     timestamp: "15/09/24",
     projectName: "Hyperliquid",

@@ -13,7 +13,7 @@ const team = [
     description:
       "Fundador de Medusa Capital. +7 años analizando mercados financieros y +250 inversores formados. Track record documentado de +106% vs BTC en 2025. Creador del Sistema Medusa de análisis fundamental aplicado a activos digitales. Colabora con Pablo Gil, Javier del Valle y Diego Puertas.",
     linkedin: "https://www.linkedin.com/in/alejandro-cuesta/",
-    photo: "/img/team-alex-new.png?v=2",
+    photo: "/img/team-alex-new.webp",
   },
   {
     name: "Alejandro García",
@@ -21,7 +21,7 @@ const team = [
     description:
       "Economista con máster en mercados financieros, lleva desde 2018 analizando el ecosistema cripto con foco en protocolos DeFi y métricas on-chain. Ha formado a decenas de alumnos en programas académicos y trabajó como líder de operaciones en la startup Depasify, ayudando a levantar +2M€ en financiación.",
     linkedin: "#",
-    photo: "/img/team-alejandro-garcia.png?v=2",
+    photo: "/img/team-alejandro-garcia.webp",
   },
   {
     name: "Borja Neira",
@@ -29,7 +29,7 @@ const team = [
     description:
       "Especialista en tokenización de activos y analista financiero. Candidato a CFA y Proxy Product Owner en Mercedes-Benz, trabaja investigando cómo los activos tokenizados impactan en la lógica tradicional de asignación de carteras.",
     linkedin: "https://www.linkedin.com/in/bneira/",
-    photo: "/img/team-borja.png?v=2",
+    photo: "/img/team-borja.webp",
   },
   {
     name: "Alejandro Gilabert",
@@ -37,7 +37,7 @@ const team = [
     description:
       "Ingeniero de telecomunicaciones con experiencia en desarrollo de productos blockchain, es Product Owner en ONYZE, una de las principales custodias cripto en España. Profesor universitario en CEDEU, ha trabajado en soluciones DeFi y estrategias de tokenización.",
     linkedin: "https://www.linkedin.com/in/alejandrogilabertramirez/",
-    photo: "/img/team-alejandro-gilabert.png?v=2",
+    photo: "/img/team-alejandro-gilabert.webp",
   },
   {
     name: "Esteban Rivero",
@@ -45,7 +45,7 @@ const team = [
     description:
       "Licenciado en ADE y Máster en Auditoría y Finanzas. Ejerce como consultor especializado en riesgos y regulación, y experto en fiscalidad de los criptoactivos. Fundador del proyecto de divulgación CeroUnoCrypto.",
     linkedin: "https://www.linkedin.com/in/esteban-rivero/",
-    photo: "/img/team-esteban.png?v=2",
+    photo: "/img/team-esteban.webp",
   },
 ];
 
@@ -100,6 +100,7 @@ export function Team() {
                   src={member.photo}
                   alt={member.name}
                   fill
+                  sizes="64px"
                   className="object-cover border-0 border-transparent"
                   style={{
                     borderStyle: "none",
@@ -162,13 +163,13 @@ export function Team() {
                       alt={selectedMember.name}
                       fill
                       className="object-cover border-0 border-transparent"
+                      sizes="(max-width: 768px) 100vw, 500px"
                       style={{
                         borderStyle: "none",
                         borderImage: "none",
                         borderWidth: 0,
                         borderColor: "rgba(0, 0, 0, 0)",
                       }}
-                      priority
                     />
 
                     {/* Role badge */}
