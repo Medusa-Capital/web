@@ -94,7 +94,7 @@ export function Hero() {
           className="relative w-full mx-auto mb-8 rounded-[30px] overflow-hidden"
         >
           <MuxPlayer
-            loading="page"
+            loading="viewport"
             playbackId={MUX_PLAYBACK_ID}
             metadata={{
               video_id: "vsl-landing",
