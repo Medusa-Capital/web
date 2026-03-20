@@ -267,50 +267,6 @@
   animation: scroll-up 40s linear infinite;
 }
 
-/* Legacy testimonial animations */
-@keyframes testi-y {
-  from {
-    transform: translateY(-80%);
-  }
-  to {
-    transform: translateY(0);
-  }
-}
-
-@keyframes testi-y-inverse {
-  from {
-    transform: translateY(0);
-  }
-  to {
-    transform: translateY(-80%);
-  }
-}
-
-/* Testimonial card background */
-.testimonial-card-bg {
-  background-image: url('/img/test-card-bg.webp');
-  background-size: cover;
-  background-position: center;
-}
-
-/* Video wrapper background */
-.video-wrapper-bg {
-  background-image: url('/img/video-wrapper-bg.webp');
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
-}
-
-/* Tab section h4 wrapper glow */
-.tab-h4-glow {
-  background: linear-gradient(0deg, rgba(1, 0, 82, 0) 0%, rgba(185, 184, 235, 0.2) 100%);
-  box-shadow: inset 0px 0px 10px rgba(255, 172, 227, 0.25);
-}
-
-/* Feature card */
-.feature-card {
-  background-color: var(--medusa-card-bg);
-  border: 1px solid var(--medusa-border);
-}
 
 @layer base {
   * {
