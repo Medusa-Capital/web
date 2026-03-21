@@ -30,7 +30,7 @@ const INVESTOR_STAGE_OPTIONS = [
   { value: "has_system", label: "Ya tengo un sistema pero busco mejorar" },
 ];
 
-const ANCHOR_ID = "guia-gratis";
+const ANCHOR_ID = "5-errores-cripto";
 
 export function PdfLeadCaptureForm() {
   const router = useRouter();
