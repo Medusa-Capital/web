@@ -16,7 +16,7 @@ const quotes = [
     text: "Si optimizas tu cartera, tendrías un 15% en Bitcoin.",
     author: "Ray Dalio",
     position: "Fundador, Bridgewater Associates",
-    image: "/img/avatar/collaborators/raydalio.jpg",
+    image: "/img/avatar/collaborators/raydalio.webp",
   },
   {
     text: "Creemos que Bitcoin alcanzará los $1.5 millones para 2030.",
@@ -36,7 +36,7 @@ const quotes = [
     text: "Bitcoin está basado en energía: puedes emitir dinero fiat falso, pero es imposible falsificar la energía",
     author: "Elon Musk",
     position: "CEO y fundador, Tesla & SpaceX",
-    image: "/img/avatar/collaborators/elonmusk.jpg",
+    image: "/img/avatar/collaborators/elonmusk.webp",
   },
 ];
 
@@ -83,7 +83,7 @@ function QuoteCard({
                 alt={quote.author}
                 fill
                 className="object-cover"
-                unoptimized
+                sizes="48px"
               />
             </div>
           </div>

@@ -2,47 +2,6 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
-/* Local font declarations matching legacy design */
-@font-face {
-  font-family: "Cormorant-Bold";
-  src: url("/fonts/cormorant/cormorant-bold.ttf") format("truetype");
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Inter";
-  src: url("/fonts/inter/inter-regular.ttf") format("truetype");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Inter";
-  src: url("/fonts/inter/inter-medium.ttf") format("truetype");
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Inter";
-  src: url("/fonts/inter/inter-semibold.ttf") format("truetype");
-  font-weight: 600;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Inter";
-  src: url("/fonts/inter/inter-bold.ttf") format("truetype");
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
@@ -308,49 +267,21 @@
   animation: scroll-up 40s linear infinite;
 }
 
-/* Legacy testimonial animations */
-@keyframes testi-y {
+/* Hero fade-up animation — pure CSS replacement for framer-motion in above-fold */
+@keyframes fade-up {
   from {
-    transform: translateY(-80%);
+    opacity: 0;
+    transform: translateY(30px);
   }
   to {
+    opacity: 1;
     transform: translateY(0);
   }
 }
 
-@keyframes testi-y-inverse {
-  from {
-    transform: translateY(0);
-  }
-  to {
-    transform: translateY(-80%);
-  }
-}
-
-/* Testimonial card background */
-.testimonial-card-bg {
-  background-image: url('/img/test-card-bg.webp');
-  background-size: cover;
-  background-position: center;
-}
-
-/* Video wrapper background */
-.video-wrapper-bg {
-  background-image: url('/img/video-wrapper-bg.webp');
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
-}
-
-/* Tab section h4 wrapper glow */
-.tab-h4-glow {
-  background: linear-gradient(0deg, rgba(1, 0, 82, 0) 0%, rgba(185, 184, 235, 0.2) 100%);
-  box-shadow: inset 0px 0px 10px rgba(255, 172, 227, 0.25);
-}
-
-/* Feature card */
-.feature-card {
-  background-color: var(--medusa-card-bg);
-  border: 1px solid var(--medusa-border);
+.animate-fade-up {
+  opacity: 0;
+  animation: fade-up 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 @layer base {
