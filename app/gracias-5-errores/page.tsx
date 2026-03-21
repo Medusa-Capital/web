@@ -29,7 +29,7 @@ export default function GraciasSistemaMedusaPage() {
     <div className="relative min-h-screen">
       <PageBackground />
       <div className="relative z-10">
-        <Header />
+        <Header minimal />
         <main className="pt-8 pb-16">
           <div className="max-w-4xl mx-auto px-6">
             {/* Section 1: Hero / Confirmation */}

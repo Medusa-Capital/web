@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -30,8 +30,11 @@ const INVESTOR_STAGE_OPTIONS = [
   { value: "has_system", label: "Ya tengo un sistema pero busco mejorar" },
 ];
 
+const ANCHOR_ID = "5-errores-cripto";
+
 export function PdfLeadCaptureForm() {
   const router = useRouter();
+  const sectionRef = useRef<HTMLDivElement>(null);
   const [isExpanded, setIsExpanded] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
@@ -179,12 +182,23 @@ export function PdfLeadCaptureForm() {
     }
   };
 
+  useEffect(() => {
+    if (window.location.hash === `#${ANCHOR_ID}`) {
+      setIsExpanded(true);
+      trackCTAClick("pdf_5_errores_cripto", "anchor_link");
+      // Wait for expand animation to start, then scroll
+      requestAnimationFrame(() => {
+        sectionRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+      });
+    }
+  }, []);
+
   const inputStyles =
     "bg-[#1b1a64]/50 border-[#B9B8EB]/20 text-white placeholder:text-[#B9B8EB]/40 h-12 rounded-xl focus-visible:border-[#4355d9] focus-visible:ring-[#4355d9]/20";
   const errorInputStyles = "border-red-500/50 focus-visible:border-red-500";
 
   return (
-    <>
+    <div id={ANCHOR_ID} ref={sectionRef}>
       {/* Collapsed state — CTA button */}
       {!isExpanded && (
         <>
@@ -453,6 +467,6 @@ export function PdfLeadCaptureForm() {
           </form>
         </div>
       </div>
-    </>
+    </div>
   );
 }
