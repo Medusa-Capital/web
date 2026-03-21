@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useMemo, useEffect, useRef } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -182,16 +182,17 @@ export function PdfLeadCaptureForm() {
     }
   };
 
+  const searchParams = useSearchParams();
+
   useEffect(() => {
-    if (window.location.hash === `#${ANCHOR_ID}`) {
+    if (searchParams.get("expand") === "pdf") {
       setIsExpanded(true);
       trackCTAClick("pdf_5_errores_cripto", "anchor_link");
-      // Wait for expand animation to start, then scroll
       requestAnimationFrame(() => {
         sectionRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
       });
     }
-  }, []);
+  }, [searchParams]);
 
   const inputStyles =
     "bg-[#1b1a64]/50 border-[#B9B8EB]/20 text-white placeholder:text-[#B9B8EB]/40 h-12 rounded-xl focus-visible:border-[#4355d9] focus-visible:ring-[#4355d9]/20";
