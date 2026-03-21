@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 import MuxPlayer from "@mux/mux-player-react/lazy";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -10,29 +9,22 @@ import { getOutboundUrl } from "@/lib/utm";
 
 const MUX_PLAYBACK_ID = "Nl5WHghvNYY19hHNnMfHObKNRyB8r3WVeicBeBiFMaY";
 
-const fadeUp = {
-  initial: { opacity: 0, y: 30 },
-  animate: { opacity: 1, y: 0 },
-};
-const ease = [0.22, 1, 0.36, 1] as const;
-
 export function Hero() {
   return (
-    <section
-      className="relative flex flex-col items-center px-4 md:px-6 pt-8 pb-16"
-      style={{
-        backgroundImage: 'url("/img/hero-strokes.webp")',
-        backgroundSize: 'contain',
-        backgroundPosition: 'center 20px',
-        backgroundRepeat: 'no-repeat',
-      }}
-    >
+    <section className="relative flex flex-col items-center px-4 md:px-6 pt-8 pb-16">
+      {/* Hero background — uses <Image priority> so the preload scanner discovers it immediately */}
+      <Image
+        src="/img/hero-strokes.webp"
+        alt=""
+        fill
+        priority
+        sizes="100vw"
+        className="object-contain pointer-events-none"
+        style={{ objectPosition: "center 20px" }}
+      />
       <div className="relative z-10 w-full max-w-[946px] mx-auto text-center">
         {/* Welcome badge */}
-        <motion.div
-          {...fadeUp}
-          transition={{ duration: 0.6, ease, delay: 0 }}
-        >
+        <div className="animate-fade-up" style={{ animationDelay: "0ms" }}>
           <Badge variant="hero" className="mb-5">
             <Image
               src="/img/icons/logo-icon.svg"
@@ -43,35 +35,32 @@ export function Hero() {
             />
             +250 inversores formados con un track record documentado
           </Badge>
-        </motion.div>
+        </div>
 
         {/* Main headline */}
-        <motion.h1
-          {...fadeUp}
-          transition={{ duration: 0.6, ease, delay: 0.1 }}
-          className="font-[family-name:var(--font-heading)] text-[clamp(40px,6vw,72px)] font-bold leading-[1.1] mb-4 text-white"
+        <h1
+          className="animate-fade-up font-[family-name:var(--font-heading)] text-[clamp(40px,6vw,72px)] font-bold leading-[1.1] mb-4 text-white"
+          style={{ animationDelay: "100ms" }}
         >
           Nuestras tesis de inversión han
           <br />
           batido a BTC un <span className="text-[#B9B8EB]">+86%</span> en 2025
-        </motion.h1>
+        </h1>
 
         {/* Subheadline */}
-        <motion.p
-          {...fadeUp}
-          transition={{ duration: 0.6, ease, delay: 0.2 }}
-          className="text-lg md:text-xl leading-relaxed text-[#B9B8EB]/60 w-[90%] mx-auto mb-8"
+        <p
+          className="animate-fade-up text-lg md:text-xl leading-relaxed text-[#B9B8EB]/60 w-[90%] mx-auto mb-8"
+          style={{ animationDelay: "200ms" }}
         >
           Deja de improvisar. Aprende a invertir en criptomonedas con el mismo
           rigor que usarías en acciones o fondos: análisis fundamental, gestión
           de riesgo, y plan de salida desde día 1.
-        </motion.p>
+        </p>
 
         {/* Social proof - people group image */}
-        <motion.div
-          {...fadeUp}
-          transition={{ duration: 0.6, ease, delay: 0.3 }}
-          className="mt-10 flex flex-col items-center gap-3 pb-[35px]"
+        <div
+          className="animate-fade-up mt-10 flex flex-col items-center gap-3 pb-[35px]"
+          style={{ animationDelay: "300ms" }}
         >
           <Image
             src="/img/people-group.webp"
@@ -85,13 +74,12 @@ export function Hero() {
             <span className="text-[#3a54f8] font-semibold">250 inversores</span> ya están aplicando el Sistema Medusa para batir
             a Bitcoin sin estar 24/7 pegados al gráfico
           </p>
-        </motion.div>
+        </div>
 
         {/* Video Container */}
-        <motion.div
-          {...fadeUp}
-          transition={{ duration: 0.6, ease, delay: 0.4 }}
-          className="relative w-full mx-auto mb-8 rounded-[30px] overflow-hidden"
+        <div
+          className="animate-fade-up relative w-full mx-auto mb-8 rounded-[30px] overflow-hidden"
+          style={{ animationDelay: "400ms" }}
         >
           <MuxPlayer
             loading="viewport"
@@ -116,12 +104,12 @@ export function Hero() {
               "--pip-button": "none",
             }}
           />
-        </motion.div>
+        </div>
 
         {/* CTA Button */}
-        <motion.div
-          {...fadeUp}
-          transition={{ duration: 0.6, ease, delay: 0.5 }}
+        <div
+          className="animate-fade-up"
+          style={{ animationDelay: "500ms" }}
         >
           <Button
             variant="secondaryGlow"
@@ -137,7 +125,7 @@ export function Hero() {
           <p className="mt-3 text-sm text-[#B9B8EB]/50">
             Sin compromiso · 30 min · Personalizada según tu perfil
           </p>
-        </motion.div>
+        </div>
 
       </div>
     </section>

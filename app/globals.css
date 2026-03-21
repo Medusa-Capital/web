@@ -267,6 +267,22 @@
   animation: scroll-up 40s linear infinite;
 }
 
+/* Hero fade-up animation — pure CSS replacement for framer-motion in above-fold */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-up {
+  opacity: 0;
+  animation: fade-up 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
 
 @layer base {
   * {
