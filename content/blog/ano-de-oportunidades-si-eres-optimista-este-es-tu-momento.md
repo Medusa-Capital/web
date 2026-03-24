@@ -77,7 +77,7 @@ Los datos concretos:
 - **2019:** Los 10 mejores días = **+217%**. El resto = -**39%**
 - **2024:** Los 10 mejores días = **+52%**. El resto = -**15%**
 
-Quien se perdió esos 10 días pasó de un **+127% anual** a un **84.6%**.
+Quien se perdió esos 10 días pasó de un **+127% anual** a un -**84.6%**.
 
 
 Es decir, el grueso de la rentabilidad de Bitcoin cada año se concentra en muy pocos días, y esos días no avisan. 
@@ -93,7 +93,7 @@ Si no estás posicionado cuando llegan, simplemente los ves pasar.
 > _Los 5 errores que cuestan 5 cifras —_ _**gratis**_ _👇🏻_
 
 
-> [**Descárgalo Aquí**](https://tinyurl.com/2xr4y3zu)
+> [**Descárgalo Aquí**](https://medusacapital.xyz/?utm_source=telegram&utm_medium=social&utm_campaign=analisis_macro&utm_content=pinned_message#5-errores-cripto)
 
 
 ## Resumen
@@ -156,7 +156,7 @@ Podréis estar pensando que qué tiene que ver estos párrafos con el Análisis 
 ### [**$BTC**](https://x.com/search?q=%24BTC&src=cashtag_click)
 
 
-Comenzó la semana con entradas netas reseñables ($400M), pero el miércoles se comenzaron a acumular outflows acumulando -$305.7M. La tendencia se desacelera pero no se revierte.
+Comenzó la semana con entradas netas reseñables ($400M), pero el miércoles se comenzaron a acumular outflows -$305.7M. La tendencia se desacelera pero no se revierte.
 
 
 ![Flujos netos de capital en ETFs de Bitcoin. Fuente: Farside / DefiLlama](/img/blog/ano-de-oportunidades-si-eres-optimista-este-es-tu-momento/image-7.webp)
@@ -165,7 +165,7 @@ Comenzó la semana con entradas netas reseñables ($400M), pero el miércoles se
 ### [**$ETH**](https://x.com/search?q=%24ETH&src=cashtag_click)
 
 
-Es notable la pérdida de interés entre $ETH y $BTC. Mientras que el activo líder mantiene **$56,2B** en AUM **(-10% desde ATH**), las salidas netas desde su ATH son ya de **$3,3B (-22%)**. Más del doble.
+Es notable la pérdida de interés entre $ETH y $BTC. Mientras que el activo líder mantiene **$56,2B** en AUM **(-10% desde ATH**), las salidas netas en ETH desde su ATH son ya de **$3,3B (-22%)**. Más del doble.
 
 
 ![Flujos acumulados en ETFs de Ethereum vs Bitcoin. Fuente: Farside / DefiLlama](/img/blog/ano-de-oportunidades-si-eres-optimista-este-es-tu-momento/image-8.webp)
