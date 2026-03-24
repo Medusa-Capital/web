@@ -25,6 +25,10 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "s2.coinmarketcap.com",
       },
+      {
+        protocol: "https",
+        hostname: "image.mux.com",
+      },
     ],
   },
   experimental: {

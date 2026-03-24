@@ -127,9 +127,9 @@ const principles = [
 export function AnalysisFrameworkSection() {
   return (
     <section className="relative py-16 md:py-24 px-4 md:px-6">
-      {/* Background decorative elements */}
+      {/* Background decorative elements — hidden on mobile to save GPU */}
       <div
-        className="absolute pointer-events-none transition-opacity duration-300"
+        className="hidden md:block absolute pointer-events-none"
         style={{
           top: "15%",
           left: "5%",
@@ -140,7 +140,7 @@ export function AnalysisFrameworkSection() {
         }}
       />
       <div
-        className="absolute pointer-events-none transition-opacity duration-300"
+        className="hidden md:block absolute pointer-events-none"
         style={{
           bottom: "20%",
           right: "10%",
