@@ -8,14 +8,46 @@ interface Props {
   content: string;
 }
 
-function extractText(node: ReactNode): string {
-  if (typeof node === "string") return node;
-  if (!isValidElement(node)) {
-    if (Array.isArray(node)) return node.map(extractText).join("");
-    return "";
+/**
+ * Merge consecutive blockquotes into one when any of them contains a markdown link.
+ * This handles Notion-exported CTAs that render as multiple `>` blocks.
+ */
+function mergeCtaBlockquotes(md: string): string {
+  const lines = md.split("\n");
+  const result: string[] = [];
+  let group: string[] = [];
+  let inGroup = false;
+
+  function flushGroup() {
+    if (group.length === 0) return;
+    const joined = group.join("\n");
+    if (/\[.+?\]\(.+?\)/.test(joined)) {
+      const inner = group.map((l) => l.replace(/^>\s?/, "")).join("\n>\n> ");
+      result.push("> " + inner);
+    } else {
+      result.push(group.join("\n"));
+    }
+    group = [];
+    inGroup = false;
   }
-  const props = node.props as Record<string, unknown>;
-  return extractText(props.children as ReactNode);
+
+  for (const line of lines) {
+    const isQuote = line.startsWith(">");
+    const isBlank = line.trim() === "";
+
+    if (isQuote) {
+      inGroup = true;
+      group.push(line);
+    } else if (isBlank && inGroup) {
+      group.push(line);
+    } else {
+      flushGroup();
+      result.push(line);
+    }
+  }
+  flushGroup();
+
+  return result.join("\n");
 }
 
 function containsLink(node: ReactNode): boolean {
@@ -31,6 +63,8 @@ function containsLink(node: ReactNode): boolean {
 }
 
 export function MarkdownRenderer({ content }: Props) {
+  const processed = mergeCtaBlockquotes(content);
+
   return (
     <ReactMarkdown
       remarkPlugins={[remarkGfm]}
@@ -80,10 +114,7 @@ export function MarkdownRenderer({ content }: Props) {
         ),
         li: ({ children }) => <li className="leading-relaxed">{children}</li>,
         blockquote: ({ children }) => {
-          // Detect CTA blockquotes: contain a link (typically lead magnet / download CTAs from Notion)
-          const text = extractText(children);
-          const hasLink = containsLink(children);
-          if (hasLink) {
+          if (containsLink(children)) {
             return (
               <div className="my-8 rounded-2xl border border-[#6366f1]/30 bg-[#1b1a64]/60 p-6 text-center backdrop-blur-sm">
                 <div className="text-[#B9B8EB]/90 [&>p]:mb-2 [&>p:last-child]:mb-0 [&_a]:inline-block [&_a]:mt-2 [&_a]:rounded-lg [&_a]:bg-[#6366f1] [&_a]:px-6 [&_a]:py-2.5 [&_a]:text-sm [&_a]:font-semibold [&_a]:text-white [&_a]:no-underline [&_a]:transition-colors hover:[&_a]:bg-[#818cf8]">
@@ -160,7 +191,7 @@ export function MarkdownRenderer({ content }: Props) {
         em: ({ children }) => <em className="italic">{children}</em>,
       }}
     >
-      {content}
+      {processed}
     </ReactMarkdown>
   );
 }
