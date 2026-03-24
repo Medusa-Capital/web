@@ -8,9 +8,9 @@ date: 2026-03-20
 
 ## Overview
 
-The homepage (`/`) scores **53 RES** on Vercel Speed Insights (P75, desktop, last 7 days) while `/blog/[slug]` (91) and `/welcome` (93) perform well. The problem is isolated to the homepage, which loads 14 eagerly-imported components with zero code splitting, massive unoptimized images, duplicate font declarations, and GPU-heavy decorative effects.
+The homepage (`/`) scores **53 RES** on Vercel Speed Insights (P75, desktop, last 7 days) while `/blog/[slug]` (91) performs well. The problem is isolated to the homepage, which loads 14 eagerly-imported components with zero code splitting, massive unoptimized images, duplicate font declarations, and GPU-heavy decorative effects.
 
-**Target:** Raise homepage RES from 53 → 90+ (matching blog/welcome pages).
+**Target:** Raise homepage RES from 53 → 90+ (matching blog pages).
 
 ## Current Metrics (Desktop, P75, Last 7 Days)
 
@@ -75,7 +75,7 @@ page.tsx (server)
   - **File:** `next.config.ts`
 
 - [x] **0.2** Compare TTFB across routes to determine if server-side work is needed
-  - Run from multiple regions: `curl -o /dev/null -w "TTFB: %{time_starttransfer}s\n" https://medusacapital.xyz/` vs `/blog/some-slug` vs `/welcome`
+  - Run from multiple regions: `curl -o /dev/null -w "TTFB: %{time_starttransfer}s\n" https://medusacapital.xyz/` vs `/blog/some-slug`
   - If homepage TTFB is significantly higher than other routes → investigate SSR/ISR/middleware
   - If similar across routes → TTFB is CDN/network, not route-specific (proceed with client-side optimizations)
   - **Decision gate:** If TTFB >1.5s on homepage only, add a server-side investigation task before Phase 1

@@ -21,7 +21,6 @@ app/
 ├── blog/                       # Blog listing + [slug] + tags/[tag]
 ├── track-record/               # Performance showcase
 ├── colaboradores/              # Collaborator profiles
-├── welcome/                    # Post-signup welcome
 ├── privacidad/                 # Privacy policy
 └── api/
     ├── lead-capture/route.ts

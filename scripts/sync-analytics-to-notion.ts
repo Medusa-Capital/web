@@ -195,11 +195,12 @@ async function findOrCreateDatabase(notion: Client, parentPageId: string): Promi
     filter: { property: "object", value: "database" },
   });
 
+  const normalize = (id: string) => id.replace(/-/g, "");
   for (const result of results.results) {
     if (result.object !== "database" || !("title" in result)) continue;
     const db = result as Extract<typeof result, { object: "database" }>;
     const title = db.title?.map((t) => t.plain_text).join("") ?? "";
-    if (title === DB_TITLE && "page_id" in db.parent && db.parent.page_id === parentPageId) {
+    if (title === DB_TITLE && "page_id" in db.parent && normalize(db.parent.page_id) === normalize(parentPageId)) {
       console.log("  Found existing database: " + db.id);
       return db.id;
     }

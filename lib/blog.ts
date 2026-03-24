@@ -179,9 +179,9 @@ export function getArticles(): BlogPostMeta[] {
 }
 
 export function getFeaturedArticles(): BlogPostMeta[] {
-  return getArticles().filter((post) => post.featured);
+  return getAllPosts().filter((post) => post.featured);
 }
 
 export function getRegularArticles(): BlogPostMeta[] {
-  return getArticles().filter((post) => !post.featured);
+  return getAllPosts().filter((post) => !post.featured);
 }

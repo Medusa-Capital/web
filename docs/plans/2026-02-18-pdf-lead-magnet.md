@@ -428,7 +428,7 @@ Run `bun run build`. The section should render identically to before (button vis
 **Files:**
 - Create: `app/gracias-sistema-medusa/page.tsx`
 
-**Design:** Mirror the `/welcome` page structure (Header, Footer, PageBackground, Suspense boundary). Same visual language but with different content.
+**Design:** Use standard page structure (Header, Footer, PageBackground, Suspense boundary). Same visual language but with different content.
 
 **Page structure:**
 
@@ -453,7 +453,7 @@ import Link from "next/link";
 
 **Section 1 — Hero / Confirmation:**
 ```
-Icon: CheckCircle2 in green circle (same style as /welcome page)
+Icon: CheckCircle2 in green circle
 Badge: "ENVIADO CON \u00c9XITO"
 Headline: "\u00a1Tu Sistema Medusa est\u00e1 en camino!"
 Subhead: "Revisa tu email ahora \u2014 te enviamos el PDF completo con el framework de 4 pasos, checklists y plantillas."
@@ -474,7 +474,7 @@ Heading: "\u00danete a 250+ inversores que usan el Sistema Medusa"
 Stat: "El 85% de nuestros miembros reporta mayor confianza en sus decisiones de inversi\u00f3n"
 ```
 
-Style: Same card pattern as `/welcome` page feature cards (`rounded-2xl p-6 border border-white/10 bg-[#1b1a64]/50 backdrop-blur-sm`).
+Style: Glass card pattern (`rounded-2xl p-6 border border-white/10 bg-[#1b1a64]/50 backdrop-blur-sm`).
 
 **Section 3 — Calendly CTA (Primary):**
 ```
@@ -502,7 +502,7 @@ Calendly embed: Use an iframe pointing to the Calendly scheduling URL.
 **Section 4 — What to Expect:**
 ```
 Heading (with ArrowRight icon): "Qu\u00e9 esperar en los pr\u00f3ximos d\u00edas"
-3 numbered steps (same style as /welcome nextSteps):
+3 numbered steps:
   1. "Hoy: Recibir\u00e1s el PDF del Sistema Medusa por email"
   2. "En 4 d\u00edas: Contenido educativo personalizado sobre tu mayor desaf\u00edo"
   3. "En 2 semanas: Invitaci\u00f3n a una sesi\u00f3n estrat\u00e9gica gratuita"
