@@ -44,9 +44,9 @@ export function ProblemSection() {
 
   return (
     <section className="relative py-12 md:py-16 px-4 md:px-6">
-      {/* Background decorative elements */}
+      {/* Background decorative elements — hidden on mobile to save GPU */}
       <div
-        className="absolute pointer-events-none transition-opacity duration-300"
+        className="hidden md:block absolute pointer-events-none"
         style={{
           top: "20%",
           left: "10%",
@@ -57,7 +57,7 @@ export function ProblemSection() {
         }}
       />
       <div
-        className="absolute pointer-events-none transition-opacity duration-300"
+        className="hidden md:block absolute pointer-events-none"
         style={{
           bottom: "10%",
           right: "10%",
@@ -86,7 +86,7 @@ export function ProblemSection() {
             return (
               <div
                 key={index}
-                className="h-full flex flex-col rounded-[20px] transition-all duration-[400ms] ease-[cubic-bezier(0.2,0,0,1)] group hover:-translate-y-1.5 relative overflow-hidden backdrop-blur-xl bg-[#1b1a64]/60 border border-[#c5bfe6]/20 shadow-[0_8px_32px_rgba(0,0,0,0.4)] hover:shadow-[0_24px_48px_-12px_rgba(0,0,0,0.6)]"
+                className="h-full flex flex-col rounded-[20px] transition-all duration-[400ms] ease-[cubic-bezier(0.2,0,0,1)] group hover:-translate-y-1.5 relative overflow-hidden bg-[#1b1a64] border border-[#c5bfe6]/20 shadow-[0_8px_32px_rgba(0,0,0,0.4)] hover:shadow-[0_24px_48px_-12px_rgba(0,0,0,0.6)]"
               >
                 {/* Card number badge */}
                 <div
