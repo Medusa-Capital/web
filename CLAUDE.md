@@ -21,7 +21,6 @@ app/
 ├── blog/                       # Blog listing + [slug] + tags/[tag]
 ├── track-record/               # Performance showcase
 ├── colaboradores/              # Collaborator profiles
-├── welcome/                    # Post-signup welcome
 ├── privacidad/                 # Privacy policy
 └── api/
     ├── lead-capture/route.ts
@@ -104,7 +103,7 @@ Articles can come from two sources:
 - **No Prettier** — ESLint only (next/core-web-vitals + typescript)
 - **Git worktrees** at `.worktrees/` for feature branch isolation (gitignored)
 - **Main branch:** `main`
-- **GitHub repo:** `Urbistondo/medusa-capital-typescript`
+- **GitHub repo:** `Medusa-Capital/web`
 
 ## Key Patterns
 

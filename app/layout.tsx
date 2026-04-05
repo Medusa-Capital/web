@@ -7,12 +7,7 @@ import { AnalyticsProvider } from "@/components/providers/AnalyticsProvider";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const inter = localFont({
-  src: [
-    { path: "../public/fonts/inter/inter-regular.woff2", weight: "400", style: "normal" },
-    { path: "../public/fonts/inter/inter-medium.woff2", weight: "500", style: "normal" },
-    { path: "../public/fonts/inter/inter-semibold.woff2", weight: "600", style: "normal" },
-    { path: "../public/fonts/inter/inter-bold.woff2", weight: "700", style: "normal" },
-  ],
+  src: "../public/fonts/inter/inter-variable.woff2",
   variable: "--font-sans",
   display: "swap",
 });

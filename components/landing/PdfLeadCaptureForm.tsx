@@ -157,8 +157,8 @@ export function PdfLeadCaptureForm() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          first_name: formData.firstName.trim().toUpperCase(),
-          last_name: formData.lastName.trim().toUpperCase(),
+          first_name: formData.firstName.trim().split(/\s+/).map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()).join(' '),
+          last_name: formData.lastName.trim().split(/\s+/).map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()).join(' '),
           email: formData.email.trim().toLowerCase(),
           phone: formattedPhone,
           consent: acceptedTerms,

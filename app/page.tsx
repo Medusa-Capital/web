@@ -2,18 +2,30 @@ import dynamic from "next/dynamic";
 import {
   Header,
   Hero,
-  ProblemSection,
-  Features,
   PageBackground,
-  AnalysisFrameworkSection,
 } from "@/components/landing";
 
-// Above-fold: static imports (critical path)
+// Above-fold: static imports (critical path — Header + Hero only on mobile)
 // Below-fold: dynamic imports (deferred hydration, SSR preserved for SEO)
+
+const ProblemSection = dynamic(
+  () => import("@/components/landing/ProblemSection").then((m) => ({ default: m.ProblemSection })),
+  { loading: () => <div style={{ minHeight: "600px" }} /> }
+);
+
+const AnalysisFrameworkSection = dynamic(
+  () => import("@/components/landing/AnalysisFrameworkSection").then((m) => ({ default: m.AnalysisFrameworkSection })),
+  { loading: () => <div style={{ minHeight: "800px" }} /> }
+);
 
 const InstitutionalQuotes = dynamic(
   () => import("@/components/landing/InstitutionalQuotes").then((m) => ({ default: m.InstitutionalQuotes })),
   { loading: () => <div style={{ minHeight: "320px" }} /> }
+);
+
+const Features = dynamic(
+  () => import("@/components/landing/Features").then((m) => ({ default: m.Features })),
+  { loading: () => <div style={{ minHeight: "600px" }} /> }
 );
 
 const MissionSection = dynamic(

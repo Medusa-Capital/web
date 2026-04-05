@@ -4,8 +4,7 @@ import { promisify } from "util";
 
 const execFileAsync = promisify(execFile);
 
-const AIRTABLE_WEBHOOK_URL =
-  "https://hooks.airtable.com/workflows/v1/genericWebhook/appOy27N5Wx2OdFX3/wflIzSnlqhrpPnT5Q/wtrRMao3I6PL7jKvD";
+const AIRTABLE_WEBHOOK_URL = process.env.AIRTABLE_WEBHOOK_MASTERCLASS;
 
 describe("lead-capture webhook connectivity", () => {
   // Next.js API routes run on Node.js (not Bun). Node.js 23+ uses an aggressive

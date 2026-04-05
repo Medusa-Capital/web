@@ -16,7 +16,7 @@ jobs:
   sync:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           ref: main
 
@@ -32,7 +32,7 @@ jobs:
 
       - name: Commit and push changes
         run: |
-          git config user.email "javier.urbistondo@stitchflow.io"
+          git config user.email "urbistondo.javier@gmail.com"
           git config user.name "Javier Urbistondo"
           git add content/blog/ public/img/blog/
           git diff --cached --quiet && echo "No changes to commit" && exit 0

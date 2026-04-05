@@ -1,6 +1,6 @@
 "use client";
 
-import MuxPlayer from "@mux/mux-player-react/lazy";
+import { useState, lazy, Suspense } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import Image from "next/image";
@@ -8,6 +8,78 @@ import { trackBookCallClick } from "@/lib/analytics";
 import { getOutboundUrl } from "@/lib/utm";
 
 const MUX_PLAYBACK_ID = "Nl5WHghvNYY19hHNnMfHObKNRyB8r3WVeicBeBiFMaY";
+const MUX_THUMBNAIL = `https://image.mux.com/${MUX_PLAYBACK_ID}/thumbnail.webp?time=2&width=960`;
+
+const MuxPlayer = lazy(() => import("@mux/mux-player-react/lazy"));
+
+function VideoPlayer() {
+  const [active, setActive] = useState(false);
+
+  if (!active) {
+    return (
+      <button
+        type="button"
+        onClick={() => setActive(true)}
+        className="relative block w-full cursor-pointer bg-black rounded-[30px] overflow-hidden"
+        style={{ aspectRatio: "16/9" }}
+        aria-label="Reproducir vídeo"
+      >
+        <Image
+          src={MUX_THUMBNAIL}
+          alt="Medusa Capital VSL"
+          fill
+          sizes="(max-width: 946px) 100vw, 946px"
+          className="object-cover"
+        />
+        {/* Play button overlay */}
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-[#6366f1]/90 flex items-center justify-center transition-transform hover:scale-110">
+            <svg viewBox="0 0 24 24" fill="white" className="w-7 h-7 md:w-9 md:h-9 ml-1">
+              <path d="M8 5v14l11-7z" />
+            </svg>
+          </div>
+        </div>
+      </button>
+    );
+  }
+
+  return (
+    <Suspense
+      fallback={
+        <div
+          className="w-full bg-black rounded-[30px] flex items-center justify-center"
+          style={{ aspectRatio: "16/9" }}
+        >
+          <div className="w-8 h-8 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+        </div>
+      }
+    >
+      <MuxPlayer
+        playbackId={MUX_PLAYBACK_ID}
+        autoPlay
+        metadata={{
+          video_id: "vsl-landing",
+          video_title: "Medusa Capital VSL",
+        }}
+        accentColor="#6366f1"
+        primaryColor="#FFFFFF"
+        secondaryColor="#000000"
+        nohotkeys
+        style={{
+          aspectRatio: "16/9",
+          borderRadius: "30px",
+          "--seek-backward-button": "none",
+          "--seek-forward-button": "none",
+          "--time-range": "none",
+          "--time-display": "none",
+          "--duration-display": "none",
+          "--playback-rate-button": "none",
+          "--pip-button": "none",
+        }}
+      />
+    </Suspense>
+  );
+}
 
 export function Hero() {
   return (
@@ -76,34 +148,12 @@ export function Hero() {
           </p>
         </div>
 
-        {/* Video Container */}
+        {/* Video Container — poster image until user clicks play */}
         <div
-          className="animate-fade-up relative w-full mx-auto mb-8 rounded-[30px] overflow-hidden"
+          className="animate-fade-up relative w-full mx-auto mb-8"
           style={{ animationDelay: "400ms" }}
         >
-          <MuxPlayer
-            loading="viewport"
-            playbackId={MUX_PLAYBACK_ID}
-            metadata={{
-              video_id: "vsl-landing",
-              video_title: "Medusa Capital VSL",
-            }}
-            accentColor="#6366f1"
-            primaryColor="#FFFFFF"
-            secondaryColor="#000000"
-            thumbnailTime={2}
-            nohotkeys
-            style={{
-              aspectRatio: "16/9",
-              "--seek-backward-button": "none",
-              "--seek-forward-button": "none",
-              "--time-range": "none",
-              "--time-display": "none",
-              "--duration-display": "none",
-              "--playback-rate-button": "none",
-              "--pip-button": "none",
-            }}
-          />
+          <VideoPlayer />
         </div>
 
         {/* CTA Button */}

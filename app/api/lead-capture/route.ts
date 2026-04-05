@@ -1,10 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 
 const AIRTABLE_WEBHOOKS = {
-  masterclass:
-    "https://hooks.airtable.com/workflows/v1/genericWebhook/appOy27N5Wx2OdFX3/wflIzSnlqhrpPnT5Q/wtrRMao3I6PL7jKvD",
-  pdf_5_errores:
-    "https://hooks.airtable.com/workflows/v1/genericWebhook/appOy27N5Wx2OdFX3/wflvb7Dlk2BSdaJUe/wtrEopE3CRZev6Ak1",
+  masterclass: process.env.AIRTABLE_WEBHOOK_MASTERCLASS,
+  pdf_5_errores: process.env.AIRTABLE_WEBHOOK_PDF_5_ERRORES,
 };
 
 // Map lead_source to utm_campaign (Airtable UTM table uses different naming)
@@ -19,6 +17,7 @@ const SOURCE_CHANNEL_MAP: Record<string, string> = {
   instagram: "Instagram",
   newsletter: "Email",
   google: "Google Ads",
+  telegram: "Telegram",
 };
 
 export async function POST(request: NextRequest) {
@@ -30,17 +29,25 @@ export async function POST(request: NextRequest) {
         ? AIRTABLE_WEBHOOKS.pdf_5_errores
         : AIRTABLE_WEBHOOKS.masterclass;
 
-    // Always normalize utm_campaign to match Airtable UTM table naming
-    if (body.lead_source && LEAD_SOURCE_TO_CAMPAIGN[body.lead_source]) {
-      body.utm_campaign = LEAD_SOURCE_TO_CAMPAIGN[body.lead_source];
+    if (!webhookUrl) {
+      return NextResponse.json(
+        { error: "Webhook not configured" },
+        { status: 500 }
+      );
     }
 
     // Provide default UTM values for organic/direct traffic so Airtable
-    // always creates a UTM record linked to the Submission
+    // always creates a UTM record linked to the Submission.
+    // Only override when no UTM params exist — preserve original UTM params
+    // from campaign links (e.g. Telegram, Instagram) so they match the
+    // correct UTM record in Airtable.
     if (!body.utm_source) {
       body.utm_source = "website";
       body.utm_medium = "website";
-      body.utm_campaign = body.utm_campaign || body.lead_source || "direct";
+      body.utm_campaign =
+        LEAD_SOURCE_TO_CAMPAIGN[body.lead_source] ||
+        body.lead_source ||
+        "direct";
     }
 
     // Compute source_channel from utm_source so Airtable doesn't need conditional logic
@@ -50,7 +57,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Forward all fields to Airtable, including UTM params and computed source_channel
-    const response = await fetch(webhookUrl, {
+    const response = await fetch(webhookUrl as string, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
