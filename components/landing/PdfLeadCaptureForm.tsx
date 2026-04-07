@@ -208,7 +208,7 @@ export function PdfLeadCaptureForm() {
             className="px-8 py-6 text-base font-semibold rounded-xl gap-2 whitespace-normal text-center !bg-gradient-to-r !from-[#6B4CE6] !via-[#9074F6] !to-[#6B4CE6] shadow-[0_0_32px_rgba(144,116,246,0.45)] hover:shadow-[0_0_40px_rgba(144,116,246,0.6)]"
           >
             <Download className="w-5 h-5 shrink-0" />
-            Descarga Gratis: Los 5 Errores que Cuestan 5 Cifras en Cripto
+            Descarga gratis: Los 5 errores que cuestan 5 cifras en cripto
           </Button>
           <p className="text-sm mt-4 text-[#B9B8EB]/60">
             14 páginas &bull; Caso real: Hyperliquid +455% &bull; Test de autodiagnóstico
@@ -226,7 +226,7 @@ export function PdfLeadCaptureForm() {
           {/* Header */}
           <div className="mb-6">
             <h3 className="font-[family-name:var(--font-heading)] text-xl md:text-2xl font-bold text-white mb-2">
-              Recibe la Guía Gratis
+              Recibe la guía gratis
             </h3>
             <p className="text-sm text-[#B9B8EB]/60">
               Completa el formulario y la recibirás por email en 2 minutos
@@ -459,7 +459,7 @@ export function PdfLeadCaptureForm() {
               ) : (
                 <>
                   <Download className="w-5 h-5" />
-                  Enviar y Recibir PDF
+                  Descargar mi guía gratis
                 </>
               )}
             </Button>
