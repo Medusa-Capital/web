@@ -54,76 +54,78 @@ export function Header({ minimal = false }: { minimal?: boolean }) {
   }, [mobileMenuOpen]);
 
   return (
-    <header
-      className={`sticky top-0 z-50 transition-all duration-300 ${
-        isScrolled || mobileMenuOpen
-          ? "bg-[#010052]/95 backdrop-blur-md shadow-lg"
-          : "bg-transparent"
-      }`}
-    >
-      <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-5 md:py-5">
-        {/* Logo */}
-        <Link href="/" onClick={() => setMobileMenuOpen(false)}>
-          <Image
-            src="/img/logo.svg"
-            alt="Medusa Capital"
-            width={180}
-            height={60}
-            className="h-12 md:h-14 w-auto transition-opacity duration-300"
-            priority
-          />
-        </Link>
+    <>
+      <header
+        className={`sticky top-0 z-50 transition-all duration-300 ${
+          isScrolled || mobileMenuOpen
+            ? "bg-[#010052]/95 backdrop-blur-md shadow-lg"
+            : "bg-transparent"
+        }`}
+      >
+        <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-5 md:py-5">
+          {/* Logo */}
+          <Link href="/" onClick={() => setMobileMenuOpen(false)}>
+            <Image
+              src="/img/logo.svg"
+              alt="Medusa Capital"
+              width={180}
+              height={60}
+              className="h-12 md:h-14 w-auto transition-opacity duration-300"
+              priority
+            />
+          </Link>
 
-        {/* Navigation */}
-        {!minimal && (
-          <>
-            {/* Desktop nav */}
-            <nav className="hidden sm:flex items-center gap-4 md:gap-8">
-              {NAV_LINKS.map(({ href, label }) => (
-                <Link
-                  key={href}
-                  href={href}
-                  className="text-[#B9B8EB]/70 hover:text-white transition-colors font-semibold text-lg md:text-xl"
-                  onClick={() => trackEvent("navigation_click", { destination: href.slice(1), category: "navigation" })}
+          {/* Navigation */}
+          {!minimal && (
+            <>
+              {/* Desktop nav */}
+              <nav className="hidden sm:flex items-center gap-4 md:gap-8">
+                {NAV_LINKS.map(({ href, label }) => (
+                  <Link
+                    key={href}
+                    href={href}
+                    className="text-[#B9B8EB]/70 hover:text-white transition-colors font-semibold text-lg md:text-xl"
+                    onClick={() => trackEvent("navigation_click", { destination: href.slice(1), category: "navigation" })}
+                  >
+                    {label}
+                  </Link>
+                ))}
+
+                {/* CTA Button - appears on scroll */}
+                <Button
+                  variant="secondaryGlow"
+                  size="lg"
+                  className={`px-8 py-6 text-base font-semibold rounded-lg transition-all duration-300 ${
+                    isScrolled
+                      ? "opacity-100 translate-x-0"
+                      : "opacity-0 translate-x-4 pointer-events-none"
+                  }`}
+                  onClick={() => {
+                    trackBookCallClick("header");
+                    window.open(getOutboundUrl("https://calendly.com/contacto-medusacapital/sesion-estrategica-15-clon?month=2026-01"), "_blank");
+                  }}
                 >
-                  {label}
-                </Link>
-              ))}
+                  Reserva tu sesión estratégica
+                </Button>
+              </nav>
 
-              {/* CTA Button - appears on scroll */}
-              <Button
-                variant="secondaryGlow"
-                size="lg"
-                className={`px-8 py-6 text-base font-semibold rounded-lg transition-all duration-300 ${
-                  isScrolled
-                    ? "opacity-100 translate-x-0"
-                    : "opacity-0 translate-x-4 pointer-events-none"
-                }`}
-                onClick={() => {
-                  trackBookCallClick("header");
-                  window.open(getOutboundUrl("https://calendly.com/contacto-medusacapital/sesion-estrategica-15-clon?month=2026-01"), "_blank");
-                }}
+              {/* Mobile hamburger */}
+              <button
+                type="button"
+                className="sm:hidden p-2 text-white"
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                aria-label={mobileMenuOpen ? "Cerrar menú" : "Abrir menú"}
               >
-                Reserva tu sesión estratégica
-              </Button>
-            </nav>
+                {mobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
+              </button>
+            </>
+          )}
+        </div>
+      </header>
 
-            {/* Mobile hamburger */}
-            <button
-              type="button"
-              className="sm:hidden p-2 text-white"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              aria-label={mobileMenuOpen ? "Cerrar menú" : "Abrir menú"}
-            >
-              {mobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
-            </button>
-          </>
-        )}
-      </div>
-
-      {/* Mobile menu — outside max-w-7xl so it covers full viewport */}
+      {/* Mobile menu — rendered as sibling so it escapes header stacking context */}
       {!minimal && mobileMenuOpen && (
-        <nav className="sm:hidden fixed left-0 right-0 top-[72px] bottom-0 bg-[#010052] flex flex-col items-center gap-8 pt-12">
+        <nav className="sm:hidden fixed inset-0 z-40 bg-[#010052] flex flex-col items-center gap-8 pt-28">
           {NAV_LINKS.map(({ href, label }) => (
             <Link
               key={href}
@@ -151,6 +153,6 @@ export function Header({ minimal = false }: { minimal?: boolean }) {
           </Button>
         </nav>
       )}
-    </header>
+    </>
   );
 }
