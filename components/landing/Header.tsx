@@ -27,15 +27,29 @@ export function Header({ minimal = false }: { minimal?: boolean }) {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Lock body scroll when mobile menu is open
+  // Lock body scroll when mobile menu is open (iOS-safe)
   useEffect(() => {
     if (mobileMenuOpen) {
-      document.body.style.overflow = "hidden";
+      const scrollY = window.scrollY;
+      document.body.style.position = "fixed";
+      document.body.style.top = `-${scrollY}px`;
+      document.body.style.left = "0";
+      document.body.style.right = "0";
     } else {
-      document.body.style.overflow = "";
+      const top = document.body.style.top;
+      document.body.style.position = "";
+      document.body.style.top = "";
+      document.body.style.left = "";
+      document.body.style.right = "";
+      if (top) window.scrollTo(0, parseInt(top, 10) * -1);
     }
     return () => {
-      document.body.style.overflow = "";
+      const top = document.body.style.top;
+      document.body.style.position = "";
+      document.body.style.top = "";
+      document.body.style.left = "";
+      document.body.style.right = "";
+      if (top) window.scrollTo(0, parseInt(top, 10) * -1);
     };
   }, [mobileMenuOpen]);
 
@@ -109,7 +123,7 @@ export function Header({ minimal = false }: { minimal?: boolean }) {
 
       {/* Mobile menu — outside max-w-7xl so it covers full viewport */}
       {!minimal && mobileMenuOpen && (
-        <nav className="sm:hidden absolute left-0 right-0 top-full h-[calc(100dvh-72px)] bg-[#010052] flex flex-col items-center gap-8 pt-12">
+        <nav className="sm:hidden fixed left-0 right-0 top-[72px] bottom-0 bg-[#010052] flex flex-col items-center gap-8 pt-12">
           {NAV_LINKS.map(({ href, label }) => (
             <Link
               key={href}
