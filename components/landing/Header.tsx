@@ -41,13 +41,13 @@ export function Header({ minimal = false }: { minimal?: boolean }) {
 
   return (
     <header
-      className={`sticky top-0 z-50 px-6 py-5 md:py-5 transition-all duration-300 ${
+      className={`sticky top-0 z-50 transition-all duration-300 ${
         isScrolled || mobileMenuOpen
           ? "bg-[#010052]/95 backdrop-blur-md shadow-lg"
           : "bg-transparent"
       }`}
     >
-      <div className="max-w-7xl mx-auto flex items-center justify-between">
+      <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-5 md:py-5">
         {/* Logo */}
         <Link href="/" onClick={() => setMobileMenuOpen(false)}>
           <Image
@@ -103,42 +103,40 @@ export function Header({ minimal = false }: { minimal?: boolean }) {
             >
               {mobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
             </button>
-
-            {/* Mobile menu overlay */}
-            {mobileMenuOpen && (
-              <div className="fixed inset-0 top-[72px] z-40 bg-[#010052]/98 backdrop-blur-md sm:hidden">
-                <nav className="flex flex-col items-center gap-8 pt-12">
-                  {NAV_LINKS.map(({ href, label }) => (
-                    <Link
-                      key={href}
-                      href={href}
-                      className="text-[#B9B8EB] hover:text-white transition-colors font-semibold text-2xl"
-                      onClick={() => {
-                        setMobileMenuOpen(false);
-                        trackEvent("navigation_click", { destination: href.slice(1), category: "navigation" });
-                      }}
-                    >
-                      {label}
-                    </Link>
-                  ))}
-                  <Button
-                    variant="secondaryGlow"
-                    size="lg"
-                    className="px-8 py-6 text-base font-semibold rounded-lg mt-4"
-                    onClick={() => {
-                      setMobileMenuOpen(false);
-                      trackBookCallClick("header_mobile");
-                      window.open(getOutboundUrl("https://calendly.com/contacto-medusacapital/sesion-estrategica-15-clon?month=2026-01"), "_blank");
-                    }}
-                  >
-                    Reserva tu sesión estratégica
-                  </Button>
-                </nav>
-              </div>
-            )}
           </>
         )}
       </div>
+
+      {/* Mobile menu — outside max-w-7xl so it covers full viewport */}
+      {!minimal && mobileMenuOpen && (
+        <nav className="sm:hidden absolute left-0 right-0 top-full h-[calc(100dvh-72px)] bg-[#010052] flex flex-col items-center gap-8 pt-12">
+          {NAV_LINKS.map(({ href, label }) => (
+            <Link
+              key={href}
+              href={href}
+              className="text-[#B9B8EB] hover:text-white transition-colors font-semibold text-2xl"
+              onClick={() => {
+                setMobileMenuOpen(false);
+                trackEvent("navigation_click", { destination: href.slice(1), category: "navigation" });
+              }}
+            >
+              {label}
+            </Link>
+          ))}
+          <Button
+            variant="secondaryGlow"
+            size="lg"
+            className="px-8 py-6 text-base font-semibold rounded-lg mt-4"
+            onClick={() => {
+              setMobileMenuOpen(false);
+              trackBookCallClick("header_mobile");
+              window.open(getOutboundUrl("https://calendly.com/contacto-medusacapital/sesion-estrategica-15-clon?month=2026-01"), "_blank");
+            }}
+          >
+            Reserva tu sesión estratégica
+          </Button>
+        </nav>
+      )}
     </header>
   );
 }
