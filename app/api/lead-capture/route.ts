@@ -36,6 +36,24 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Defensive: some URL shorteners (e.g. TinyURL) encode ampersands in
+    // redirects, causing URLSearchParams to jam all UTM params into
+    // utm_source as one concatenated string like
+    // "telegram&utm_medium=social&utm_campaign=...". Detect and re-parse.
+    if (body.utm_source && body.utm_source.includes("&utm_")) {
+      const reparsed = new URLSearchParams(
+        body.utm_source.replace(/^([^&]+)/, "utm_source=$1")
+      );
+      body.utm_source = reparsed.get("utm_source") || body.utm_source;
+      if (reparsed.has("utm_medium")) body.utm_medium = reparsed.get("utm_medium");
+      if (reparsed.has("utm_campaign")) body.utm_campaign = reparsed.get("utm_campaign");
+      if (reparsed.has("utm_term")) body.utm_term = reparsed.get("utm_term");
+      if (reparsed.has("utm_content")) {
+        // Strip any trailing URL fragment (e.g. #5-errores-cripto)
+        body.utm_content = (reparsed.get("utm_content") || "").replace(/#.*$/, "");
+      }
+    }
+
     // Provide default UTM values for organic/direct traffic so Airtable
     // always creates a UTM record linked to the Submission.
     // Only override when no UTM params exist — preserve original UTM params
