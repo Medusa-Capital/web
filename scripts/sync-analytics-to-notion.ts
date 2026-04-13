@@ -11,18 +11,17 @@
 //   SUPABASE_URL                      - Supabase project URL
 //   SUPABASE_SERVICE_ROLE_KEY         - Supabase service role key
 //   NOTION_API_KEY                    - Notion integration token
-//   NOTION_ANALYTICS_PARENT_PAGE_ID   - Notion page ID where the analytics DB is created
+//   NOTION_ANALYTICS_DB_ID             - Notion database ID to sync rows into
 //
 // Setup:
-//   1. Ensure the Notion integration is shared with the parent page (Connections -> add integration)
-//   2. On first run, the script creates a "Website Analytics - Weekly" database under the parent page
-//   3. Subsequent runs find the existing database by title and upsert rows
+//   1. Ensure the Notion integration is shared with the database (Connections -> add integration)
+//   2. Set NOTION_ANALYTICS_DB_ID to the existing Notion database ID
+//   3. The script upserts rows (one per week) into the database
 
 import { Client } from "@notionhq/client";
 import type {
   CreatePageParameters,
   UpdatePageParameters,
-  QueryDatabaseParameters,
 } from "@notionhq/client/build/src/api-endpoints";
 import { getSupabaseClient } from "../lib/supabase";
 
@@ -90,8 +89,6 @@ function requireEnv(name: string): string {
   }
   return value;
 }
-
-const DB_TITLE = "Website Analytics \u2014 Weekly";
 
 // ---------------------------------------------------------------------------
 // Date helpers
@@ -161,59 +158,6 @@ function getWeeksToSync(): string[] {
   const prevMonday = new Date(currentMonday);
   prevMonday.setUTCDate(prevMonday.getUTCDate() - 7);
   return [formatDate(prevMonday), formatDate(currentMonday)];
-}
-
-// ---------------------------------------------------------------------------
-// Notion DB management
-// ---------------------------------------------------------------------------
-
-const NOTION_DB_SCHEMA = {
-  Week: { title: {} },
-  "Week Start": { date: {} },
-  Days: { number: { format: "number" as const } },
-  Users: { number: { format: "number" as const } },
-  "New Users": { number: { format: "number" as const } },
-  Sessions: { number: { format: "number" as const } },
-  Pageviews: { number: { format: "number" as const } },
-  "Bounce Rate": { number: { format: "percent" as const } },
-  "Avg Duration": { number: { format: "number" as const } },
-  "Prev Users": { number: { format: "number" as const } },
-  "Prev Sessions": { number: { format: "number" as const } },
-  "Prev Pageviews": { number: { format: "number" as const } },
-  "Top Pages": { rich_text: {} },
-  "Top Sources": { rich_text: {} },
-  "Top Countries": { rich_text: {} },
-  "Top Events": { rich_text: {} },
-  "Desktop %": { number: { format: "percent" as const } },
-  "Mobile %": { number: { format: "percent" as const } },
-  "Tablet %": { number: { format: "percent" as const } },
-};
-
-async function findOrCreateDatabase(notion: Client, parentPageId: string): Promise<string> {
-  const results = await notion.search({
-    query: DB_TITLE,
-    filter: { property: "object", value: "database" },
-  });
-
-  const normalize = (id: string) => id.replace(/-/g, "");
-  for (const result of results.results) {
-    if (result.object !== "database" || !("title" in result)) continue;
-    const db = result as Extract<typeof result, { object: "database" }>;
-    const title = db.title?.map((t) => t.plain_text).join("") ?? "";
-    if (title === DB_TITLE && "page_id" in db.parent && normalize(db.parent.page_id) === normalize(parentPageId)) {
-      console.log("  Found existing database: " + db.id);
-      return db.id;
-    }
-  }
-
-  console.log("  Creating new database under parent page " + parentPageId + "...");
-  const db = await notion.databases.create({
-    parent: { page_id: parentPageId },
-    title: [{ text: { content: DB_TITLE } }],
-    properties: NOTION_DB_SCHEMA as any,
-  });
-  console.log("  Created database: " + db.id);
-  return db.id;
 }
 
 // ---------------------------------------------------------------------------
@@ -362,10 +306,9 @@ async function upsertWeekRow(notion: Client, dbId: string, weekStart: string, pr
 async function main() {
   const notion = new Client({ auth: requireEnv("NOTION_API_KEY") });
   const supabase = getSupabaseClient("analytics");
-  const parentPageId = requireEnv("NOTION_ANALYTICS_PARENT_PAGE_ID");
+  const dbId = requireEnv("NOTION_ANALYTICS_DB_ID");
 
   console.log("=== Notion Analytics Sync ===");
-  const dbId = await findOrCreateDatabase(notion, parentPageId);
 
   const weeks = getWeeksToSync();
   console.log("\nSyncing " + weeks.length + " week(s): " + weeks.join(", "));
