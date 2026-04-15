@@ -55,7 +55,7 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
   response.cookies.set(OAUTH_FLOW_COOKIE, sealed, {
     httpOnly: true,
     secure: true,
-    sameSite: "lax",
+    sameSite: "none",
     path: "/",
     maxAge: OAUTH_FLOW_TTL,
   });
