@@ -63,5 +63,7 @@ export async function POST(_req: NextRequest): Promise<NextResponse> {
   session.destroy();
   await session.save();
 
-  return NextResponse.redirect(new URL("/entrar", appOrigin));
+  // 303 converts the POST → GET on the follow-up request (otherwise the
+  // browser re-POSTs to /entrar, which is a page and returns 405).
+  return NextResponse.redirect(new URL("/entrar", appOrigin), 303);
 }
