@@ -24,7 +24,7 @@ import { verifyMembership } from "@/lib/auth/membership";
 import { deriveTiers } from "@/lib/auth/tiers";
 import { encrypt } from "@/lib/auth/tokens";
 import { sanitizeReturnTo } from "@/lib/auth/return-to";
-import { captureError } from "@/lib/logger";
+import { captureError, log } from "@/lib/logger";
 
 const OAUTH_FLOW_COOKIE = "__Host-medusa-oauth-flow";
 
@@ -63,6 +63,7 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
   };
 
   if (!sealedFlow) {
+    log("warn", "callback: missing oauth flow cookie");
     return clearFlowCookie(
       NextResponse.redirect(new URL("/entrar?error=retry", appOrigin))
     );
@@ -72,7 +73,8 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
   try {
     const raw = await unsealData(sealedFlow, { password: sessionSecret });
     flowData = FlowDataSchema.parse(raw);
-  } catch {
+  } catch (err) {
+    log("warn", "callback: failed to unseal flow cookie", { error: String(err) });
     return clearFlowCookie(
       NextResponse.redirect(new URL("/entrar?error=retry", appOrigin))
     );
@@ -96,6 +98,9 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
   // -------------------------------------------------------------------------
   const codeParsed = CodeCallbackSchema.safeParse(params);
   if (!codeParsed.success) {
+    log("warn", "callback: missing/invalid code or state query params", {
+      paramKeys: Object.keys(params),
+    });
     return clearFlowCookie(
       NextResponse.redirect(new URL("/entrar?error=retry", appOrigin))
     );
@@ -104,6 +109,10 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
   const { code, state } = codeParsed.data;
 
   if (!timingSafeEqual(state, flowData.state)) {
+    log("warn", "callback: state mismatch", {
+      queryStateLen: state.length,
+      flowStateLen: flowData.state.length,
+    });
     return clearFlowCookie(
       NextResponse.redirect(new URL("/entrar?error=retry", appOrigin))
     );
