@@ -31,6 +31,7 @@ export interface SessionData {
 
 // Module augmentation so every getIronSession() call is typed without generics.
 declare module "iron-session" {
+  // eslint-disable-next-line @typescript-eslint/no-empty-object-type
   interface IronSessionData extends SessionData {}
 }
 
