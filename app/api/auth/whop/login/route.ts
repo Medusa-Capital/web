@@ -1,21 +1,31 @@
 // GET /api/auth/whop/login
 //
-// 1. Generate PKCE code_verifier, state, nonce
-// 2. Seal them into a short-lived httpOnly cookie
+// 1. Generate PKCE code_verifier + nonce
+// 2. Seal {codeVerifier, nonce, returnTo} into the OAuth `state` param
 // 3. Redirect to Whop's /oauth/authorize
+//
+// Why state-encoded (not cookie-stored) flow data:
+//   Chrome/Chromium silently drops our __Host- prefixed flow cookie on the
+//   return trip from Whop (even with SameSite=None; Secure). Embedding the
+//   flow data inside the signed `state` param removes the cross-site cookie
+//   dependency entirely — Whop round-trips `state` back to us verbatim.
+//
+// CSRF note: the sealed state is unguessable (HMAC-authenticated with
+// SESSION_SECRET), so it still serves its CSRF role. A login-CSRF attacker
+// would need to trick a user into submitting an attacker-crafted callback URL;
+// that's a known limitation of cookieless OAuth. Accepted for a members-only
+// site with <200 users. Revisit if the threat model changes.
 
 import { NextRequest, NextResponse } from "next/server";
 import { sealData } from "iron-session";
 import {
   generateCodeVerifier,
-  generateState,
   generateNonce,
   buildAuthorizeUrl,
 } from "@/lib/auth/whop";
 import { sanitizeReturnTo } from "@/lib/auth/return-to";
 
-const OAUTH_FLOW_COOKIE = "__Host-medusa-oauth-flow";
-const OAUTH_FLOW_TTL = 600; // 10 minutes
+const OAUTH_STATE_TTL = 600; // 10 minutes
 
 function requireEnv(name: string): string {
   const val = process.env[name];
@@ -27,19 +37,17 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
   const appOrigin = requireEnv("NEXT_PUBLIC_APP_URL");
   const callbackUrl = `${appOrigin}/api/auth/whop/callback`;
 
-  // Capture a safe returnTo before generating PKCE material
   const rawReturnTo = req.nextUrl.searchParams.get("returnTo");
   const returnTo = sanitizeReturnTo(rawReturnTo, appOrigin);
 
   const codeVerifier = generateCodeVerifier();
-  const state = generateState();
   const nonce = generateNonce();
 
-  const sealed = await sealData(
-    { codeVerifier, state, nonce, returnTo },
+  const state = await sealData(
+    { codeVerifier, nonce, returnTo },
     {
       password: requireEnv("SESSION_SECRET"),
-      ttl: OAUTH_FLOW_TTL,
+      ttl: OAUTH_STATE_TTL,
     }
   );
 
@@ -50,15 +58,5 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
     redirectUri: callbackUrl,
   });
 
-  const response = NextResponse.redirect(authorizeUrl);
-
-  response.cookies.set(OAUTH_FLOW_COOKIE, sealed, {
-    httpOnly: true,
-    secure: true,
-    sameSite: "none",
-    path: "/",
-    maxAge: OAUTH_FLOW_TTL,
-  });
-
-  return response;
+  return NextResponse.redirect(authorizeUrl);
 }

@@ -1,8 +1,14 @@
 // GET /api/auth/whop/callback
 //
+// Flow data arrives via the signed `state` query param (see login route for
+// rationale — Chrome/Chromium and Safari all drop our cross-site flow cookie
+// on the return trip from Whop, so we encode PKCE + nonce + returnTo into
+// state instead).
+//
 // Full branch coverage:
-//   ?error=...          → clear cookie, redirect /entrar?error=canceled
-//   token exchange fail → log Sentry, clear cookie, redirect /entrar?error=retry
+//   ?error=...          → redirect /entrar?error=canceled
+//   state missing/bad   → redirect /entrar?error=retry
+//   token exchange fail → log Sentry, redirect /entrar?error=retry
 //   id_token bad/nonce  → fail closed (same as exchange fail)
 //   email missing       → redirect /entrar?error=no-email
 //   non-member          → redirect /no-miembro
@@ -26,12 +32,9 @@ import { encrypt } from "@/lib/auth/tokens";
 import { sanitizeReturnTo } from "@/lib/auth/return-to";
 import { captureError, log } from "@/lib/logger";
 
-const OAUTH_FLOW_COOKIE = "__Host-medusa-oauth-flow";
-
-// Sealed flow data shape
+// Sealed flow data shape — round-tripped through Whop as the `state` param
 const FlowDataSchema = z.object({
   codeVerifier: z.string().min(1),
-  state: z.string().min(1),
   nonce: z.string().min(1),
   returnTo: z.string(),
 });
@@ -53,69 +56,40 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
   const sessionSecret = requireEnv("SESSION_SECRET");
 
   // -------------------------------------------------------------------------
-  // Step 1: Unseal the PKCE flow cookie — must happen before any redirect
-  // -------------------------------------------------------------------------
-  const sealedFlow = req.cookies.get(OAUTH_FLOW_COOKIE)?.value;
-
-  const clearFlowCookie = (res: NextResponse): NextResponse => {
-    res.cookies.delete(OAUTH_FLOW_COOKIE);
-    return res;
-  };
-
-  if (!sealedFlow) {
-    log("warn", "callback: missing oauth flow cookie");
-    return clearFlowCookie(
-      NextResponse.redirect(new URL("/entrar?error=retry", appOrigin))
-    );
-  }
-
-  let flowData: z.infer<typeof FlowDataSchema>;
-  try {
-    const raw = await unsealData(sealedFlow, { password: sessionSecret });
-    flowData = FlowDataSchema.parse(raw);
-  } catch (err) {
-    log("warn", "callback: failed to unseal flow cookie", { error: String(err) });
-    return clearFlowCookie(
-      NextResponse.redirect(new URL("/entrar?error=retry", appOrigin))
-    );
-  }
-
-  // -------------------------------------------------------------------------
-  // Step 2: Detect error callback (user canceled consent)
+  // Step 1: Detect error callback (user canceled consent)
   // -------------------------------------------------------------------------
   const params = Object.fromEntries(req.nextUrl.searchParams.entries());
 
   if (params.error) {
-    // User canceled OAuth or provider returned an error — always redirect to
-    // canceled page regardless of state match (don't leak info via timing).
-    return clearFlowCookie(
-      NextResponse.redirect(new URL("/entrar?error=canceled", appOrigin))
+    return NextResponse.redirect(
+      new URL("/entrar?error=canceled", appOrigin)
     );
   }
 
   // -------------------------------------------------------------------------
-  // Step 3: Validate code + state (constant-time state comparison)
+  // Step 2: Validate code + state query params
   // -------------------------------------------------------------------------
   const codeParsed = CodeCallbackSchema.safeParse(params);
   if (!codeParsed.success) {
-    log("warn", "callback: missing/invalid code or state query params", {
+    log("warn", "callback: missing code or state query params", {
       paramKeys: Object.keys(params),
     });
-    return clearFlowCookie(
-      NextResponse.redirect(new URL("/entrar?error=retry", appOrigin))
-    );
+    return NextResponse.redirect(new URL("/entrar?error=retry", appOrigin));
   }
 
   const { code, state } = codeParsed.data;
 
-  if (!timingSafeEqual(state, flowData.state)) {
-    log("warn", "callback: state mismatch", {
-      queryStateLen: state.length,
-      flowStateLen: flowData.state.length,
-    });
-    return clearFlowCookie(
-      NextResponse.redirect(new URL("/entrar?error=retry", appOrigin))
-    );
+  // -------------------------------------------------------------------------
+  // Step 3: Unseal `state` to recover PKCE + nonce + returnTo
+  // The seal uses SESSION_SECRET + HMAC, so a forged state cannot unseal.
+  // -------------------------------------------------------------------------
+  let flowData: z.infer<typeof FlowDataSchema>;
+  try {
+    const raw = await unsealData(state, { password: sessionSecret });
+    flowData = FlowDataSchema.parse(raw);
+  } catch (err) {
+    log("warn", "callback: failed to unseal state", { error: String(err) });
+    return NextResponse.redirect(new URL("/entrar?error=retry", appOrigin));
   }
 
   // -------------------------------------------------------------------------
@@ -130,9 +104,7 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
     });
   } catch (err) {
     await captureError(err, { step: "token_exchange" });
-    return clearFlowCookie(
-      NextResponse.redirect(new URL("/entrar?error=retry", appOrigin))
-    );
+    return NextResponse.redirect(new URL("/entrar?error=retry", appOrigin));
   }
 
   // -------------------------------------------------------------------------
@@ -146,9 +118,7 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
     });
   } catch (err) {
     await captureError(err, { step: "id_token_verify" });
-    return clearFlowCookie(
-      NextResponse.redirect(new URL("/entrar?error=retry", appOrigin))
-    );
+    return NextResponse.redirect(new URL("/entrar?error=retry", appOrigin));
   }
 
   // -------------------------------------------------------------------------
@@ -159,15 +129,11 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
     userinfo = await fetchUserinfo(tokenResponse.access_token);
   } catch (err) {
     await captureError(err, { step: "userinfo_fetch" });
-    return clearFlowCookie(
-      NextResponse.redirect(new URL("/entrar?error=retry", appOrigin))
-    );
+    return NextResponse.redirect(new URL("/entrar?error=retry", appOrigin));
   }
 
   if (!userinfo.email) {
-    return clearFlowCookie(
-      NextResponse.redirect(new URL("/entrar?error=no-email", appOrigin))
-    );
+    return NextResponse.redirect(new URL("/entrar?error=no-email", appOrigin));
   }
 
   // -------------------------------------------------------------------------
@@ -178,15 +144,11 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
     membership = await verifyMembership(idTokenPayload.sub);
   } catch (err) {
     await captureError(err, { step: "membership_verify" });
-    return clearFlowCookie(
-      NextResponse.redirect(new URL("/entrar?error=retry", appOrigin))
-    );
+    return NextResponse.redirect(new URL("/entrar?error=retry", appOrigin));
   }
 
   if (!membership.isActive) {
-    return clearFlowCookie(
-      NextResponse.redirect(new URL("/no-miembro", appOrigin))
-    );
+    return NextResponse.redirect(new URL("/no-miembro", appOrigin));
   }
 
   // -------------------------------------------------------------------------
@@ -258,9 +220,7 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
     });
   } catch (err) {
     await captureError(err, { step: "db_upsert" });
-    return clearFlowCookie(
-      NextResponse.redirect(new URL("/entrar?error=retry", appOrigin))
-    );
+    return NextResponse.redirect(new URL("/entrar?error=retry", appOrigin));
   }
 
   // -------------------------------------------------------------------------
@@ -285,45 +245,19 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
     await session.save();
   } catch (err) {
     await captureError(err, { step: "session_write" });
-    return clearFlowCookie(
-      NextResponse.redirect(new URL("/entrar?error=retry", appOrigin))
-    );
+    return NextResponse.redirect(new URL("/entrar?error=retry", appOrigin));
   }
 
   // -------------------------------------------------------------------------
   // Step 10: Redirect to returnTo (safe, allowlisted)
   // -------------------------------------------------------------------------
   const returnTo = sanitizeReturnTo(flowData.returnTo, appOrigin);
-  const response = NextResponse.redirect(new URL(returnTo, appOrigin));
-  response.cookies.delete(OAUTH_FLOW_COOKIE);
-  return response;
+  return NextResponse.redirect(new URL(returnTo, appOrigin));
 }
 
 // ---------------------------------------------------------------------------
 // Helpers
 // ---------------------------------------------------------------------------
-
-/**
- * Constant-time string comparison to prevent timing attacks on state checks.
- */
-function timingSafeEqual(a: string, b: string): boolean {
-  if (!a || !b || a.length !== b.length) {
-    // Still iterate to avoid length-based timing leak, then return false
-    if (a && b) {
-      const len = Math.max(a.length, b.length);
-      let acc = 0;
-      for (let i = 0; i < len; i++) {
-        acc |= (a.charCodeAt(i) || 0) ^ (b.charCodeAt(i) || 0);
-      }
-    }
-    return false;
-  }
-  let result = 0;
-  for (let i = 0; i < a.length; i++) {
-    result |= a.charCodeAt(i) ^ b.charCodeAt(i);
-  }
-  return result === 0;
-}
 
 /** Title-case a display name: "juan carlos" → "Juan Carlos" */
 function toTitleCase(name: string | null): string | null {
