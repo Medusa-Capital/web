@@ -27,11 +27,10 @@ import { log, captureError } from "@/lib/logger";
 
 const REPLAY_WINDOW_MS = 5 * 60 * 1000; // ±5 minutes
 
-// Events that trigger membership revocation
+// Events that trigger membership revocation.
+// Whop uses snake_case event names (confirmed from dashboard event list).
 const REVOCATION_EVENTS = new Set([
-  "membership.went_invalid",
-  "membership.cancelled",
-  "membership.expired",
+  "membership_deactivated", // covers cancellation, expiry, and going invalid
   "payment_failed",
 ]);
 
