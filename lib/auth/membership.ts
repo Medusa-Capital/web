@@ -1,14 +1,18 @@
 // Whop membership verification.
 //
-// At login: call GET /api/v1/memberships?user_id=X&product_ids[]=Y
-// Accept if any membership has status in ['active', 'trialing'].
-// If multiple memberships (renewals / overlapping products), pick deterministically:
-//   max expires_at among active/trialing rows.
+// At login: list the user's memberships scoped to our company, then
+// client-side-filter by product_id. Accept if any row is active/trialing
+// under our configured product. For multiple overlapping rows (renewals,
+// plan changes) pick deterministically by max expires_at.
 //
-// Endpoint verified 2026-04-15:
+// Endpoint:
 //   GET https://api.whop.com/api/v1/memberships
-//   Query: user_id=X, product_ids[]=Y
+//   Query: company_id=biz_xxx, user_ids[]=user_xxx, statuses[]=active, statuses[]=trialing
 //   Auth: Bearer $WHOP_API_KEY (NOT the user access_token)
+//
+// Param names verified against the official Whop SDK (/whopio/whop-sdk-ts).
+// Filtering by product_ids[] is NOT supported by the REST endpoint —
+// product membership is derived from the product_id field on each row.
 
 import { z } from "zod";
 
@@ -52,11 +56,15 @@ export async function verifyMembership(
   whopUserId: string
 ): Promise<MembershipResult> {
   const apiKey = requireEnv("WHOP_API_KEY");
+  const companyId = requireEnv("WHOP_COMPANY_ID");
   const productId = requireEnv("WHOP_MEDUSA_PRODUCT_ID");
 
   const url = new URL(WHOP_MEMBERSHIPS_URL);
-  url.searchParams.set("user_id", whopUserId);
-  url.searchParams.append("product_ids[]", productId);
+  url.searchParams.set("company_id", companyId);
+  url.searchParams.append("user_ids[]", whopUserId);
+  for (const status of VALID_STATUSES) {
+    url.searchParams.append("statuses[]", status);
+  }
 
   const res = await fetch(url.toString(), {
     headers: {
@@ -75,22 +83,23 @@ export async function verifyMembership(
   const json = await res.json();
   const parsed = MembershipsResponseSchema.parse(json);
 
-  const activeMemberships = parsed.data.filter((m) =>
-    (VALID_STATUSES as readonly string[]).includes(m.status)
+  const activeRows = parsed.data.filter(
+    (m) =>
+      (VALID_STATUSES as readonly string[]).includes(m.status) &&
+      m.product_id === productId
   );
 
-  if (activeMemberships.length === 0) {
+  if (activeRows.length === 0) {
     return { isActive: false, productIds: [], activeMembership: null };
   }
 
-  // Deterministic tie-break: max expires_at (null = lifetime → treat as Infinity)
-  const best = activeMemberships.reduce((acc, cur) => {
+  const best = activeRows.reduce((acc, cur) => {
     const accExp = acc.expires_at ?? Infinity;
     const curExp = cur.expires_at ?? Infinity;
     return curExp > accExp ? cur : acc;
   });
 
-  const productIds = activeMemberships.map((m) => m.product_id);
+  const productIds = activeRows.map((m) => m.product_id);
 
   return { isActive: true, productIds, activeMembership: best };
 }
