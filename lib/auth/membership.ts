@@ -22,9 +22,8 @@ const VALID_STATUSES = ["active", "trialing"] as const;
 const MembershipRowSchema = z.object({
   id: z.string(),
   status: z.string(),
-  product_id: z.string(),
-  expires_at: z.number().nullable().optional(), // unix timestamp or null (lifetime)
-  valid: z.boolean().optional(),
+  product: z.object({ id: z.string() }),
+  renewal_period_end: z.string().nullable().optional(),
 });
 
 const MembershipsResponseSchema = z.object({
@@ -86,20 +85,21 @@ export async function verifyMembership(
   const activeRows = parsed.data.filter(
     (m) =>
       (VALID_STATUSES as readonly string[]).includes(m.status) &&
-      m.product_id === productId
+      m.product.id === productId
   );
 
   if (activeRows.length === 0) {
     return { isActive: false, productIds: [], activeMembership: null };
   }
 
-  const best = activeRows.reduce((acc, cur) => {
-    const accExp = acc.expires_at ?? Infinity;
-    const curExp = cur.expires_at ?? Infinity;
-    return curExp > accExp ? cur : acc;
-  });
+  const toMillis = (row: MembershipRow) =>
+    row.renewal_period_end ? Date.parse(row.renewal_period_end) : Infinity;
 
-  const productIds = activeRows.map((m) => m.product_id);
+  const best = activeRows.reduce((acc, cur) =>
+    toMillis(cur) > toMillis(acc) ? cur : acc
+  );
+
+  const productIds = activeRows.map((m) => m.product.id);
 
   return { isActive: true, productIds, activeMembership: best };
 }

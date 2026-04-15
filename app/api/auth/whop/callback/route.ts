@@ -141,9 +141,16 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
   // -------------------------------------------------------------------------
   let membership;
   try {
+    log("info", "callback: verifying membership", {
+      whopUserId: idTokenPayload.sub,
+      email: userinfo.email,
+    });
     membership = await verifyMembership(idTokenPayload.sub);
   } catch (err) {
-    await captureError(err, { step: "membership_verify" });
+    await captureError(err, {
+      step: "membership_verify",
+      whopUserId: idTokenPayload.sub,
+    });
     return NextResponse.redirect(new URL("/entrar?error=retry", appOrigin));
   }
 
