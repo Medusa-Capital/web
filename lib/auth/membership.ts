@@ -17,7 +17,11 @@
 import { z } from "zod";
 
 const WHOP_MEMBERSHIPS_URL = "https://api.whop.com/api/v1/memberships";
-const VALID_STATUSES = ["active", "trialing"] as const;
+// Whop status values that grant access:
+//   active     — subscription billing is current
+//   trialing   — subscription is in trial period
+//   completed  — one-time / lifetime purchase has been paid (no recurring billing)
+const VALID_STATUSES = ["active", "trialing", "completed"] as const;
 
 const MembershipRowSchema = z.object({
   id: z.string(),
