@@ -56,7 +56,7 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
     httpOnly: true,
     secure: true,
     sameSite: "lax",
-    path: "/api/auth/whop",
+    path: "/",
     maxAge: OAUTH_FLOW_TTL,
   });
 
