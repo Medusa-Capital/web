@@ -94,6 +94,54 @@ Articles can come from two sources:
 
 **Env vars needed:** `NOTION_API_KEY`, `NOTION_DATABASE_ID` (in `.env.local` locally, GitHub repo secrets for CI).
 
+## Auth (Whop OAuth + iron-session)
+
+Member login flows through `/entrar` → `/api/auth/whop/login` → Whop authorize → `/api/auth/whop/callback` → DB upsert + iron-session → `/ideas`.
+
+- **Provider:** Whop OAuth 2.1 + PKCE. The `client_secret` needs `oauth:token_exchange` permission (toggled per OAuth app in the Whop dashboard).
+- **State carries flow data:** PKCE verifier + nonce + returnTo are sealed (iron-session `sealData`) into the OAuth `state` param itself. We **don't** use a flow cookie — Chrome/Safari both drop cross-site cookies on OAuth redirects, even with `__Host-` + `SameSite=None`. State HMAC preserves CSRF.
+- **Membership gate:** `verifyMembership(whopUserId)` calls `GET /api/v1/memberships?company_id=biz_xxx&user_ids[]=user_xxx&statuses[]=active&statuses[]=trialing&statuses[]=completed`, then client-side filters by `WHOP_MEDUSA_PRODUCT_ID`. The `completed` status covers one-time/lifetime purchases (vs `active` for recurring subs).
+- **Session:** `__Host-medusa-session` iron-session cookie, 7-day rolling TTL. Tokens stored AES-GCM encrypted in `user_tokens` table, **not** in the cookie.
+- **Lazy re-check:** every 10 min, `requireMember()` re-calls Whop to refresh tiers / detect membership cancellation.
+- **Logout** uses 303 redirect to convert POST → GET on the follow-up to `/entrar`.
+- **Webhook:** `POST /api/webhooks/whop` with HMAC-SHA256 over `${timestamp}.${rawBody}` and ±5min replay window. Whop event names use snake_case: `membership_deactivated` (covers cancellation + expiry + invalid) and `payment_failed`.
+
+Guards live in `lib/auth/require.ts`:
+- `requireMember()` — RSC redirect; `requireMemberCore()` — Result-returning for actions
+- `requireInternal()` — re-reads role from DB (never trusts session cache)
+- `requireEntitlement(tier)` — trusts `session.tiers` (kept fresh by lazy re-check)
+
+## Database (Drizzle + Neon)
+
+- **Driver:** `drizzle-orm/neon-serverless` with `Pool` (WebSocket) — the `neon-http` driver doesn't support transactions. All routes run on the Node.js runtime; no edge runtime declared.
+- **Schema:** `db/schema/*` (users, sessions, tokens, feedback). Drizzle barrel re-export at `db/schema/index.ts`. Generate migrations with `bunx drizzle-kit generate`.
+- **Feedback schema:** all feedback tables live in a dedicated Postgres schema `feedback` (posts / votes / comments / post_status_history). Composite PK on `(post_id, user_id)` makes upvote toggling race-safe.
+- **author_id is nullable** on posts + comments (SET NULL on user soft-delete) — UI shows "Miembro anterior" for orphaned rows.
+
+## Feedback Board (`/ideas`)
+
+- **List page:** `app/ideas/page.tsx` — sort (votes / newest) + status filter via URL params; `dynamic = "force-dynamic"`, never cached (per-viewer vote state).
+- **Server actions:** `app/ideas/actions.ts` — `createPost`, `toggleVote`, `addComment`, `changeStatus`. Every action: assert same-origin (CSRF), Zod-validate, return `ActionResult<T>` discriminated union.
+- **Vote toggle:** `INSERT … ON CONFLICT DO NOTHING` followed by separate `DELETE` (never delete-then-insert — would briefly drop the vote in a race).
+- **Status changes:** internal-only. Atomic transaction: update `posts.status` + insert `post_status_history` row. Email fanout (best-effort) outside the transaction.
+- **Similar posts:** `GET /api/ideas/similar?q=…` for the propose-idea modal. ILIKE input is escaped (`%`, `_`, `\`) before query — see `escapeIlike()` in `lib/feedback/queries.ts`.
+
+## Email (Resend)
+
+- **Client:** `lib/email/client.ts` — fail-soft (try/catch + `captureError`). Email failures never block the underlying user action.
+- **Templates:** `lib/email/templates.ts` — plain HTML strings, Spanish copy, dark theme. Move to react-email if templates grow past ~5.
+- **Unsubscribe:** `lib/email/unsubscribe-token.ts` — HMAC tokens HKDF-derived from `SESSION_SECRET`. `GET` + `POST` `/api/unsubscribe?token=…` both flip `users.email_notifications_enabled`. Idempotent. `List-Unsubscribe` + `List-Unsubscribe-Post` headers on every email for inbox-provider one-click.
+- **Recipient filter:** every fanout query enforces `WHERE deleted_at IS NULL AND email_notifications_enabled = true`.
+
+## Security
+
+- **CSRF:** `lib/csrf.ts` `assertSameOrigin()` requires `Origin === NEXT_PUBLIC_APP_URL` OR `Sec-Fetch-Site: same-origin`. Called by every server action.
+- **Open redirect:** `returnTo` is regex-allowlisted in `lib/auth/return-to.ts` (only `/`, `/ideas`, `/ideas/[slug]`).
+- **XSS:** `react-markdown` with `skipHtml`, element allowlist, and `https://`-only links forced `rel="nofollow noopener" target="_blank"`.
+- **Tokens:** AES-256-GCM encrypted in DB; key HKDF-derived from `SESSION_SECRET` (no separate key env var).
+- **Webhook:** raw body preserved before any JSON parse; HMAC compared in constant time; ±5min replay window enforced.
+- **id_token:** verified via JWKS (`jose`); issuer + audience + expiry + nonce match all enforced fail-closed.
+
 ## Conventions
 
 - **All UI copy is in Spanish** — never switch to English in user-facing text
