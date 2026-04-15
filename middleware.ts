@@ -1,62 +1,33 @@
 // Middleware — runs on edge runtime.
 //
-// Two responsibilities:
-//   1. Cheap cookie-presence gate on /ideas/:path* — no iron-session call
-//      (edge runtime friction). Real guard is requireMember() in the layout.
-//      If an attacker forges a cookie, middleware passes but the server
-//      component redirects before any data is rendered.
+// Responsibility: cheap cookie-presence gate on /ideas/:path*
 //
-//   2. Fail-closed rate limiting on /api/auth/* — 20 req/min per IP via Upstash.
-//      Returns 503 if Upstash is unreachable (fail closed).
+// No iron-session call here (edge runtime friction). Real auth guard is
+// requireMember() in app/ideas/layout.tsx. If an attacker forges a cookie,
+// middleware passes but the server component redirects before any data renders.
+//
+// Rate limiting (deferred):
+//   When traffic warrants it, add Upstash Ratelimit here:
+//   - /api/auth/*  → 20 req/min per IP, fail-closed (return 503 if Upstash unreachable)
+//   - Server actions (createPost, addComment) → 30 req/min per user
+//   Packages already in the Upstash ecosystem: @upstash/ratelimit, @upstash/redis
+//   Env vars needed: UPSTASH_REDIS_REST_URL, UPSTASH_REDIS_REST_TOKEN
+//   Vercel Pro alternative: built-in rate limiting at the edge (no extra dep)
 
 import { NextRequest, NextResponse } from "next/server";
-import { checkAuthRateLimit } from "@/lib/rate-limit";
 
 const SESSION_COOKIE = "__Host-medusa-session";
 
 export const config = {
-  matcher: [
-    "/ideas/:path*",
-    "/api/auth/:path*",
-  ],
+  matcher: ["/ideas/:path*"],
 };
 
-export async function middleware(req: NextRequest): Promise<NextResponse> {
-  const { pathname } = req.nextUrl;
-
-  // -------------------------------------------------------------------------
-  // Rate limit: /api/auth/* — fail closed
-  // -------------------------------------------------------------------------
-  if (pathname.startsWith("/api/auth/")) {
-    const ip =
-      req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ??
-      req.headers.get("x-real-ip") ??
-      "anonymous";
-
-    const result = await checkAuthRateLimit(ip);
-
-    if (!result.allowed) {
-      return new NextResponse("Too Many Requests", {
-        status: 429,
-        headers: {
-          "Retry-After": String(result.retryAfter ?? 60),
-          "Content-Type": "text/plain",
-        },
-      });
-    }
+export function middleware(req: NextRequest): NextResponse {
+  const hasSession = req.cookies.has(SESSION_COOKIE);
+  if (!hasSession) {
+    const loginUrl = new URL("/entrar", req.url);
+    loginUrl.searchParams.set("returnTo", req.nextUrl.pathname);
+    return NextResponse.redirect(loginUrl);
   }
-
-  // -------------------------------------------------------------------------
-  // Cookie presence gate: /ideas/:path*
-  // -------------------------------------------------------------------------
-  if (pathname.startsWith("/ideas")) {
-    const hasSession = req.cookies.has(SESSION_COOKIE);
-    if (!hasSession) {
-      const loginUrl = new URL("/entrar", req.url);
-      loginUrl.searchParams.set("returnTo", pathname);
-      return NextResponse.redirect(loginUrl);
-    }
-  }
-
   return NextResponse.next();
 }
