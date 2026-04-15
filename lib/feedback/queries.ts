@@ -1,6 +1,11 @@
-import { sql, eq, desc } from "drizzle-orm";
+import { sql, eq, desc, and, isNull, notInArray } from "drizzle-orm";
 import { db } from "@/db";
-import { feedbackPosts, users } from "@/db/schema";
+import {
+  feedbackPosts,
+  feedbackComments,
+  feedbackVotes,
+  users,
+} from "@/db/schema";
 import type { Sort, StatusFilter } from "./schemas";
 
 // ---------------------------------------------------------------------------
@@ -149,3 +154,109 @@ export async function findSimilarPosts(
 export function escapeIlike(input: string): string {
   return input.replace(/[%_\\]/g, "\\$&");
 }
+
+// ---------------------------------------------------------------------------
+// Comments
+// ---------------------------------------------------------------------------
+
+export interface CommentRow {
+  id: string;
+  body: string;
+  createdAt: Date;
+  authorName: string | null;
+}
+
+export async function listComments(postId: string): Promise<CommentRow[]> {
+  return db
+    .select({
+      id: feedbackComments.id,
+      body: feedbackComments.body,
+      createdAt: feedbackComments.createdAt,
+      authorName: users.displayName,
+    })
+    .from(feedbackComments)
+    .leftJoin(users, eq(users.id, feedbackComments.authorId))
+    .where(eq(feedbackComments.postId, postId))
+    .orderBy(feedbackComments.createdAt);
+}
+
+// ---------------------------------------------------------------------------
+// Email-recipient lookups
+// ---------------------------------------------------------------------------
+// Both filters apply at every fanout site:
+//   deleted_at IS NULL
+//   email_notifications_enabled = true
+// ---------------------------------------------------------------------------
+
+export interface EmailRecipient {
+  id: string;
+  email: string;
+  displayName: string | null;
+}
+
+export async function getPostAuthorRecipient(
+  postId: string
+): Promise<EmailRecipient | null> {
+  const [row] = await db
+    .select({
+      id: users.id,
+      email: users.email,
+      displayName: users.displayName,
+    })
+    .from(feedbackPosts)
+    .innerJoin(users, eq(users.id, feedbackPosts.authorId))
+    .where(
+      and(
+        eq(feedbackPosts.id, postId),
+        isNull(users.deletedAt),
+        eq(users.emailNotificationsEnabled, true)
+      )
+    )
+    .limit(1);
+  return row ?? null;
+}
+
+export async function listVoterRecipients(
+  postId: string,
+  excludeUserIds: string[] = []
+): Promise<EmailRecipient[]> {
+  const conds = [
+    eq(feedbackVotes.postId, postId),
+    isNull(users.deletedAt),
+    eq(users.emailNotificationsEnabled, true),
+  ];
+  if (excludeUserIds.length > 0) {
+    conds.push(notInArray(users.id, excludeUserIds));
+  }
+
+  return db
+    .select({
+      id: users.id,
+      email: users.email,
+      displayName: users.displayName,
+    })
+    .from(feedbackVotes)
+    .innerJoin(users, eq(users.id, feedbackVotes.userId))
+    .where(and(...conds));
+}
+
+// ---------------------------------------------------------------------------
+// Internal — used by the actions to read minimal post info before email fanout
+// ---------------------------------------------------------------------------
+
+export async function getPostMinimal(
+  postId: string
+): Promise<{ id: string; title: string; status: string; authorId: string | null } | null> {
+  const [row] = await db
+    .select({
+      id: feedbackPosts.id,
+      title: feedbackPosts.title,
+      status: feedbackPosts.status,
+      authorId: feedbackPosts.authorId,
+    })
+    .from(feedbackPosts)
+    .where(eq(feedbackPosts.id, postId))
+    .limit(1);
+  return row ?? null;
+}
+

@@ -36,3 +36,31 @@ export const StatusFilterSchema = z
   .enum(["all", "open", "planned", "in_progress", "shipped", "declined"])
   .default("all");
 export type StatusFilter = z.infer<typeof StatusFilterSchema>;
+
+export const COMMENT_MIN = 1;
+export const COMMENT_MAX = 5000;
+
+export const AddCommentSchema = z.object({
+  postId: z.string().uuid(),
+  body: z
+    .string()
+    .trim()
+    .min(COMMENT_MIN, "El comentario no puede estar vacío")
+    .max(COMMENT_MAX, `El comentario no puede superar ${COMMENT_MAX} caracteres`),
+});
+export type AddCommentInput = z.infer<typeof AddCommentSchema>;
+
+export const StatusEnum = z.enum([
+  "open",
+  "planned",
+  "in_progress",
+  "shipped",
+  "declined",
+]);
+
+export const ChangeStatusSchema = z.object({
+  postId: z.string().uuid(),
+  toStatus: StatusEnum,
+  reason: z.string().trim().max(2000).optional().nullable(),
+});
+export type ChangeStatusInput = z.infer<typeof ChangeStatusSchema>;
