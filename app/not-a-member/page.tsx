@@ -1,4 +1,4 @@
-// /no-miembro — shown when a user authenticates via Whop but has no active
+// /not-a-member — shown when a user authenticates via Whop but has no active
 // Medusa Capital membership. CTA points to the booking page.
 
 import Link from "next/link";
@@ -9,7 +9,7 @@ export const metadata = {
   robots: "noindex",
 };
 
-export default function NoMiembroPage() {
+export default function NotAMemberPage() {
   return (
     <main className="min-h-screen bg-[#0a0a0f] flex items-center justify-center px-4">
       <div className="w-full max-w-sm space-y-8 text-center">
@@ -53,7 +53,7 @@ export default function NoMiembroPage() {
         <p className="text-xs text-[#B9B8EB]/40">
           ¿Ya eres miembro?{" "}
           <Link
-            href="/entrar"
+            href="/login"
             className="text-[#B9B8EB]/60 underline underline-offset-2 hover:text-[#B9B8EB]"
           >
             Vuelve a entrar

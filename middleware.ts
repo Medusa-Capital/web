@@ -25,7 +25,7 @@ export const config = {
 export function middleware(req: NextRequest): NextResponse {
   const hasSession = req.cookies.has(SESSION_COOKIE);
   if (!hasSession) {
-    const loginUrl = new URL("/entrar", req.url);
+    const loginUrl = new URL("/login", req.url);
     loginUrl.searchParams.set("returnTo", req.nextUrl.pathname);
     return NextResponse.redirect(loginUrl);
   }

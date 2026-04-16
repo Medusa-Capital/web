@@ -148,7 +148,7 @@ export async function requireMemberCore(): Promise<
 export async function requireMember(): Promise<SessionData> {
   const result = await requireMemberCore();
   if (!result.ok) {
-    redirect("/entrar");
+    redirect("/login");
   }
   return result.data;
 }
@@ -188,7 +188,7 @@ export async function requireInternalCore(): Promise<
 export async function requireInternal(): Promise<SessionData> {
   const result = await requireInternalCore();
   if (!result.ok) {
-    redirect("/entrar");
+    redirect("/login");
   }
   return result.data;
 }
@@ -223,7 +223,7 @@ export async function requireEntitlementCore(
 export async function requireEntitlement(tier: string): Promise<SessionData> {
   const result = await requireEntitlementCore(tier);
   if (!result.ok) {
-    redirect("/no-miembro");
+    redirect("/not-a-member");
   }
   return result.data;
 }

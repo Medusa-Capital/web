@@ -4,7 +4,7 @@
 // 2. Mark session revoked in DB
 // 3. Best-effort revoke refresh token at Whop (ignore 4xx/network errors)
 // 4. Destroy iron-session cookie
-// 5. Redirect to /entrar
+// 5. Redirect to /login
 
 import { NextRequest, NextResponse } from "next/server";
 import { cookies } from "next/headers";
@@ -64,6 +64,6 @@ export async function POST(_req: NextRequest): Promise<NextResponse> {
   await session.save();
 
   // 303 converts the POST → GET on the follow-up request (otherwise the
-  // browser re-POSTs to /entrar, which is a page and returns 405).
-  return NextResponse.redirect(new URL("/entrar", appOrigin), 303);
+  // browser re-POSTs to /login, which is a page and returns 405).
+  return NextResponse.redirect(new URL("/login", appOrigin), 303);
 }

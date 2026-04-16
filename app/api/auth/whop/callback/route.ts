@@ -6,11 +6,11 @@
 // state instead).
 //
 // Full branch coverage:
-//   ?error=...          → redirect /entrar?error=canceled
-//   state missing/bad   → redirect /entrar?error=retry
-//   token exchange fail → log Sentry, redirect /entrar?error=retry
+//   ?error=...          → redirect /login?error=canceled
+//   state missing/bad   → redirect /login?error=retry
+//   token exchange fail → log Sentry, redirect /login?error=retry
 //   id_token bad/nonce  → fail closed (same as exchange fail)
-//   email missing       → redirect /entrar?error=no-email
+//   email missing       → redirect /login?error=no-email
 //   non-member          → redirect /no-miembro
 //   happy path          → DB upsert, iron-session, redirect returnTo
 
@@ -62,7 +62,7 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
 
   if (params.error) {
     return NextResponse.redirect(
-      new URL("/entrar?error=canceled", appOrigin)
+      new URL("/login?error=canceled", appOrigin)
     );
   }
 
@@ -74,7 +74,7 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
     log("warn", "callback: missing code or state query params", {
       paramKeys: Object.keys(params),
     });
-    return NextResponse.redirect(new URL("/entrar?error=retry", appOrigin));
+    return NextResponse.redirect(new URL("/login?error=retry", appOrigin));
   }
 
   const { code, state } = codeParsed.data;
@@ -89,7 +89,7 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
     flowData = FlowDataSchema.parse(raw);
   } catch (err) {
     log("warn", "callback: failed to unseal state", { error: String(err) });
-    return NextResponse.redirect(new URL("/entrar?error=retry", appOrigin));
+    return NextResponse.redirect(new URL("/login?error=retry", appOrigin));
   }
 
   // -------------------------------------------------------------------------
@@ -104,7 +104,7 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
     });
   } catch (err) {
     await captureError(err, { step: "token_exchange" });
-    return NextResponse.redirect(new URL("/entrar?error=retry", appOrigin));
+    return NextResponse.redirect(new URL("/login?error=retry", appOrigin));
   }
 
   // -------------------------------------------------------------------------
@@ -118,7 +118,7 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
     });
   } catch (err) {
     await captureError(err, { step: "id_token_verify" });
-    return NextResponse.redirect(new URL("/entrar?error=retry", appOrigin));
+    return NextResponse.redirect(new URL("/login?error=retry", appOrigin));
   }
 
   // -------------------------------------------------------------------------
@@ -129,11 +129,11 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
     userinfo = await fetchUserinfo(tokenResponse.access_token);
   } catch (err) {
     await captureError(err, { step: "userinfo_fetch" });
-    return NextResponse.redirect(new URL("/entrar?error=retry", appOrigin));
+    return NextResponse.redirect(new URL("/login?error=retry", appOrigin));
   }
 
   if (!userinfo.email) {
-    return NextResponse.redirect(new URL("/entrar?error=no-email", appOrigin));
+    return NextResponse.redirect(new URL("/login?error=no-email", appOrigin));
   }
 
   // -------------------------------------------------------------------------
@@ -151,11 +151,11 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
       step: "membership_verify",
       whopUserId: idTokenPayload.sub,
     });
-    return NextResponse.redirect(new URL("/entrar?error=retry", appOrigin));
+    return NextResponse.redirect(new URL("/login?error=retry", appOrigin));
   }
 
   if (!membership.isActive) {
-    return NextResponse.redirect(new URL("/no-miembro", appOrigin));
+    return NextResponse.redirect(new URL("/not-a-member", appOrigin));
   }
 
   // -------------------------------------------------------------------------
@@ -227,7 +227,7 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
     });
   } catch (err) {
     await captureError(err, { step: "db_upsert" });
-    return NextResponse.redirect(new URL("/entrar?error=retry", appOrigin));
+    return NextResponse.redirect(new URL("/login?error=retry", appOrigin));
   }
 
   // -------------------------------------------------------------------------
@@ -252,7 +252,7 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
     await session.save();
   } catch (err) {
     await captureError(err, { step: "session_write" });
-    return NextResponse.redirect(new URL("/entrar?error=retry", appOrigin));
+    return NextResponse.redirect(new URL("/login?error=retry", appOrigin));
   }
 
   // -------------------------------------------------------------------------

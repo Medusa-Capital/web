@@ -21,7 +21,7 @@ const ERROR_COPY: Record<string, { title: string; body: string }> = {
   },
 };
 
-export function EntrarContent() {
+export function LoginContent() {
   const searchParams = useSearchParams();
   const errorKey = searchParams.get("error") ?? null;
   const errorInfo = errorKey ? ERROR_COPY[errorKey] ?? null : null;

@@ -77,8 +77,8 @@ describe("sanitizeReturnTo — allowlist", () => {
     expect(sanitizeReturnTo("/admin", ORIGIN)).toBe("/ideas");
   });
 
-  test("/entrar → rejected", () => {
-    expect(sanitizeReturnTo("/entrar", ORIGIN)).toBe("/ideas");
+  test("/login → rejected", () => {
+    expect(sanitizeReturnTo("/login", ORIGIN)).toBe("/ideas");
   });
 
   // Rejected: javascript: / data: URIs

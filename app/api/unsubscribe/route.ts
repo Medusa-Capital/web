@@ -24,7 +24,7 @@ async function handle(req: NextRequest): Promise<NextResponse> {
 
   if (!token) {
     return NextResponse.redirect(
-      new URL("/entrar?error=unsubscribe-bad", appOrigin),
+      new URL("/login?error=unsubscribe-bad", appOrigin),
       303
     );
   }
@@ -32,7 +32,7 @@ async function handle(req: NextRequest): Promise<NextResponse> {
   const userId = await verifyUnsubscribeToken(token);
   if (!userId) {
     return NextResponse.redirect(
-      new URL("/entrar?error=unsubscribe-bad", appOrigin),
+      new URL("/login?error=unsubscribe-bad", appOrigin),
       303
     );
   }
@@ -45,7 +45,7 @@ async function handle(req: NextRequest): Promise<NextResponse> {
   } catch (e) {
     await captureError(e, { step: "unsubscribe_update" });
     return NextResponse.redirect(
-      new URL("/entrar?error=unsubscribe-fail", appOrigin),
+      new URL("/login?error=unsubscribe-fail", appOrigin),
       303
     );
   }

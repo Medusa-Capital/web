@@ -1,4 +1,4 @@
-// /entrar — Login page
+// /login — Login page
 // Shows "Entrar con Whop" button + contextual copy based on ?error= param.
 // Error copy keys:
 //   canceled  → "Cancelaste el acceso"
@@ -6,18 +6,18 @@
 //   no-email  → "Necesitamos tu email. Añádelo en Whop."
 
 import { Suspense } from "react";
-import { EntrarContent } from "./entrar-content";
+import { LoginContent } from "./login-content";
 
 export const metadata = {
-  title: "Entrar — Medusa Capital",
+  title: "Login — Medusa Capital",
   description: "Accede con tu cuenta de Whop para entrar en Medusa Capital.",
   robots: "noindex",
 };
 
-export default function EntrarPage() {
+export default function LoginPage() {
   return (
     <Suspense fallback={null}>
-      <EntrarContent />
+      <LoginContent />
     </Suspense>
   );
 }
