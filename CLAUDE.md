@@ -142,6 +142,15 @@ Guards live in `lib/auth/require.ts`:
 - **Webhook:** raw body preserved before any JSON parse; HMAC compared in constant time; ±5min replay window enforced.
 - **id_token:** verified via JWKS (`jose`); issuer + audience + expiry + nonce match all enforced fail-closed.
 
+## Design
+
+Design system: `~/Code/design-system/`
+Profile: `./design-profile.md` (preferred brands: coinbase + stripe, Neo-Noir / Cyber-Luxury, purple/blue accents)
+
+For any UI work, invoke the `design-system` skill. It reads `design-profile.md` and loads the right brand reference (coinbase for product pages, stripe for marketing/landing pages), component patterns, and guidelines automatically.
+
+Aesthetic: Neo-Noir / Cyber-Luxury — dark backgrounds, purple/blue gradients, institutional authority, crypto-native.
+
 ## Conventions
 
 - **All UI copy is in Spanish** — never switch to English in user-facing text
