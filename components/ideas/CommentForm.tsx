@@ -27,7 +27,10 @@ export function CommentForm({ postId }: { postId: string }) {
   }
 
   return (
-    <form onSubmit={onSubmit} className="flex flex-col gap-2">
+    <form
+      onSubmit={onSubmit}
+      className="rounded-xl border border-white/[0.06] bg-[#111118] p-4"
+    >
       <textarea
         required
         rows={3}
@@ -35,19 +38,19 @@ export function CommentForm({ postId }: { postId: string }) {
         value={body}
         onChange={(e) => setBody(e.target.value)}
         placeholder="Añade tu comentario…"
-        className="rounded-md border border-[#6366f1]/20 bg-[#13131c] px-3 py-2 text-sm text-white placeholder:text-[#B9B8EB]/30 focus:border-[#6366f1] focus:outline-none"
+        className="w-full resize-none rounded-lg border border-white/[0.06] bg-white/[0.03] px-3.5 py-2.5 text-[14px] text-white placeholder:text-[#3f3f46] focus:border-[#6366f1]/60 focus:outline-none focus:ring-1 focus:ring-[#6366f1]/30"
       />
       {error && (
-        <p className="text-xs text-red-300">{error}</p>
+        <p className="mt-2 text-[12px] text-red-400">{error}</p>
       )}
-      <div className="flex items-center justify-between">
-        <span className="text-xs text-[#B9B8EB]/40">
+      <div className="mt-3 flex items-center justify-between">
+        <span className="text-[11px] text-[#3f3f46]">
           {body.length}/{COMMENT_MAX}
         </span>
         <button
           type="submit"
           disabled={pending || body.trim().length === 0}
-          className="rounded-md bg-[#6366f1] px-3 py-1.5 text-sm font-medium text-white transition hover:bg-[#7376f3] disabled:opacity-50"
+          className="rounded-lg bg-[#6366f1] px-3.5 py-1.5 text-[13px] font-semibold text-white transition-all hover:bg-[#5558e6] disabled:opacity-40"
         >
           {pending ? "Enviando…" : "Comentar"}
         </button>

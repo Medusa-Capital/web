@@ -2,6 +2,7 @@
 
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
+import { Shield } from "lucide-react";
 import { changeStatus } from "@/app/ideas/actions";
 import { STATUS_LABELS, type PostStatus } from "./status";
 
@@ -48,20 +49,21 @@ export function StatusChanger({
   return (
     <form
       onSubmit={onSubmit}
-      className="flex flex-col gap-3 rounded-lg border border-amber-500/30 bg-amber-500/5 p-4"
+      className="flex flex-col gap-3 rounded-xl border border-amber-500/20 bg-amber-500/[0.04] p-4"
     >
       <div className="flex items-center gap-2">
-        <span className="text-xs uppercase tracking-wider text-amber-200/70">
+        <Shield className="h-3.5 w-3.5 text-amber-400/70" />
+        <span className="text-[12px] font-medium uppercase tracking-wider text-amber-400/70">
           Interno
         </span>
-        <span className="text-xs text-[#B9B8EB]/50">— cambiar estado</span>
+        <span className="text-[12px] text-[#52525b]">— cambiar estado</span>
       </div>
 
       <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
         <select
           value={next}
           onChange={(e) => setNext(e.target.value as PostStatus)}
-          className="rounded-md border border-[#6366f1]/20 bg-[#13131c] px-3 py-1.5 text-sm text-white focus:border-[#6366f1] focus:outline-none"
+          className="rounded-lg border border-white/[0.08] bg-white/[0.03] px-3 py-1.5 text-[13px] text-white focus:border-[#6366f1]/60 focus:outline-none"
         >
           {ORDER.map((s) => (
             <option key={s} value={s}>
@@ -76,19 +78,19 @@ export function StatusChanger({
           onChange={(e) => setReason(e.target.value)}
           placeholder="Razón opcional (visible en el email)"
           maxLength={2000}
-          className="flex-1 rounded-md border border-[#6366f1]/20 bg-[#13131c] px-3 py-1.5 text-sm text-white placeholder:text-[#B9B8EB]/30 focus:border-[#6366f1] focus:outline-none"
+          className="flex-1 rounded-lg border border-white/[0.08] bg-white/[0.03] px-3 py-1.5 text-[13px] text-white placeholder:text-[#3f3f46] focus:border-[#6366f1]/60 focus:outline-none"
         />
 
         <button
           type="submit"
           disabled={pending || next === currentStatus}
-          className="rounded-md bg-amber-500/80 px-3 py-1.5 text-sm font-medium text-[#0a0a0f] transition hover:bg-amber-400 disabled:opacity-50"
+          className="rounded-lg bg-amber-500/80 px-3.5 py-1.5 text-[13px] font-semibold text-[#0a0a0f] transition-all hover:bg-amber-400 disabled:opacity-40"
         >
           {pending ? "Aplicando…" : "Aplicar"}
         </button>
       </div>
 
-      {error && <p className="text-xs text-red-300">{error}</p>}
+      {error && <p className="text-[12px] text-red-400">{error}</p>}
     </form>
   );
 }

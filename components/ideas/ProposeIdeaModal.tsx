@@ -2,8 +2,14 @@
 
 import { useEffect, useRef, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
+import { Plus, X } from "lucide-react";
 import { createPost } from "@/app/ideas/actions";
-import { TITLE_MIN, TITLE_MAX, BODY_MIN, BODY_MAX } from "@/lib/feedback/schemas";
+import {
+  TITLE_MIN,
+  TITLE_MAX,
+  BODY_MIN,
+  BODY_MAX,
+} from "@/lib/feedback/schemas";
 import { STATUS_LABELS } from "./status";
 
 interface SimilarPost {
@@ -90,32 +96,35 @@ export function ProposeIdeaModal() {
       <button
         type="button"
         onClick={() => setOpen(true)}
-        className="rounded-md bg-[#6366f1] px-4 py-2 text-sm font-medium text-white shadow-[0_0_24px_rgba(99,102,241,0.25)] transition hover:bg-[#7376f3]"
+        className="inline-flex items-center gap-2 rounded-lg bg-[#6366f1] px-4 py-2.5 text-[13px] font-semibold text-white shadow-[0_0_20px_rgba(99,102,241,0.2)] transition-all hover:bg-[#5558e6] hover:shadow-[0_0_28px_rgba(99,102,241,0.3)]"
       >
+        <Plus className="h-4 w-4" strokeWidth={2.5} />
         Proponer idea
       </button>
 
       <dialog
         ref={dialogRef}
-        className="m-auto w-full max-w-xl rounded-xl border border-[#6366f1]/30 bg-[#0f0f17] p-0 text-white backdrop:bg-black/70 backdrop:backdrop-blur-sm"
+        className="m-auto w-full max-w-lg rounded-2xl border border-white/[0.08] bg-[#111118] p-0 text-white shadow-[0_25px_50px_-12px_rgba(0,0,0,0.5)] backdrop:bg-black/60 backdrop:backdrop-blur-sm"
       >
-        <form onSubmit={handleSubmit} className="flex flex-col gap-4 p-6">
-          <header className="flex items-start justify-between">
-            <h2 className="font-heading text-2xl text-white">
+        <form onSubmit={handleSubmit} className="flex flex-col gap-5 p-6">
+          <header className="flex items-center justify-between">
+            <h2 className="text-lg font-semibold text-white">
               Propón una idea
             </h2>
             <button
               type="button"
               onClick={() => setOpen(false)}
-              className="text-[#B9B8EB]/60 hover:text-white"
+              className="rounded-lg p-1 text-[#52525b] transition-colors hover:bg-white/[0.06] hover:text-white"
               aria-label="Cerrar"
             >
-              ✕
+              <X className="h-4 w-4" />
             </button>
           </header>
 
           <label className="flex flex-col gap-1.5">
-            <span className="text-sm text-[#B9B8EB]/80">Título</span>
+            <span className="text-[13px] font-medium text-[#a1a1aa]">
+              Título
+            </span>
             <input
               type="text"
               required
@@ -124,16 +133,16 @@ export function ProposeIdeaModal() {
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               placeholder="Resume tu idea en una frase"
-              className="rounded-md border border-[#6366f1]/20 bg-[#13131c] px-3 py-2 text-sm text-white placeholder:text-[#B9B8EB]/30 focus:border-[#6366f1] focus:outline-none"
+              className="rounded-lg border border-white/[0.08] bg-white/[0.03] px-3.5 py-2.5 text-[14px] text-white placeholder:text-[#3f3f46] focus:border-[#6366f1]/60 focus:outline-none focus:ring-1 focus:ring-[#6366f1]/30"
             />
-            <span className="text-xs text-[#B9B8EB]/40">
+            <span className="text-[11px] text-[#3f3f46]">
               {title.length}/{TITLE_MAX}
             </span>
           </label>
 
           {similar.length > 0 && (
-            <div className="rounded-md border border-amber-500/30 bg-amber-500/5 p-3">
-              <p className="text-xs uppercase tracking-wider text-amber-200/80">
+            <div className="rounded-lg border border-amber-500/20 bg-amber-500/5 p-3.5">
+              <p className="text-[12px] font-medium uppercase tracking-wider text-amber-400/80">
                 Ideas parecidas — ¿quieres votarlas en su lugar?
               </p>
               <ul className="mt-2 space-y-1.5">
@@ -141,13 +150,14 @@ export function ProposeIdeaModal() {
                   <li key={s.id}>
                     <a
                       href={`/ideas/${s.id}`}
-                      className="text-sm text-amber-100 underline underline-offset-2 hover:text-white"
+                      className="text-[13px] text-amber-200 underline underline-offset-2 hover:text-white"
                     >
                       {s.title}
                     </a>
-                    <span className="ml-2 text-[10px] uppercase text-amber-200/60">
-                      {STATUS_LABELS[s.status as keyof typeof STATUS_LABELS] ??
-                        s.status}
+                    <span className="ml-2 text-[10px] uppercase text-amber-400/50">
+                      {STATUS_LABELS[
+                        s.status as keyof typeof STATUS_LABELS
+                      ] ?? s.status}
                     </span>
                   </li>
                 ))}
@@ -156,40 +166,42 @@ export function ProposeIdeaModal() {
           )}
 
           <label className="flex flex-col gap-1.5">
-            <span className="text-sm text-[#B9B8EB]/80">Descripción</span>
+            <span className="text-[13px] font-medium text-[#a1a1aa]">
+              Descripción
+            </span>
             <textarea
               required
               minLength={BODY_MIN}
               maxLength={BODY_MAX}
-              rows={6}
+              rows={5}
               value={body}
               onChange={(e) => setBody(e.target.value)}
               placeholder="Detalla el problema, el caso de uso y cómo lo imaginas funcionando."
-              className="rounded-md border border-[#6366f1]/20 bg-[#13131c] px-3 py-2 text-sm text-white placeholder:text-[#B9B8EB]/30 focus:border-[#6366f1] focus:outline-none"
+              className="rounded-lg border border-white/[0.08] bg-white/[0.03] px-3.5 py-2.5 text-[14px] text-white placeholder:text-[#3f3f46] focus:border-[#6366f1]/60 focus:outline-none focus:ring-1 focus:ring-[#6366f1]/30"
             />
-            <span className="text-xs text-[#B9B8EB]/40">
+            <span className="text-[11px] text-[#3f3f46]">
               {body.length}/{BODY_MAX}
             </span>
           </label>
 
           {error && (
-            <p className="rounded-md border border-red-500/40 bg-red-500/10 px-3 py-2 text-sm text-red-200">
+            <p className="rounded-lg border border-red-500/30 bg-red-500/10 px-3.5 py-2.5 text-[13px] text-red-300">
               {error}
             </p>
           )}
 
-          <footer className="flex items-center justify-end gap-2">
+          <footer className="flex items-center justify-end gap-2 pt-1">
             <button
               type="button"
               onClick={() => setOpen(false)}
-              className="px-4 py-2 text-sm text-[#B9B8EB]/70 hover:text-white"
+              className="rounded-lg px-4 py-2 text-[13px] font-medium text-[#71717a] transition-colors hover:text-white"
             >
               Cancelar
             </button>
             <button
               type="submit"
               disabled={pending}
-              className="rounded-md bg-[#6366f1] px-4 py-2 text-sm font-medium text-white shadow-[0_0_24px_rgba(99,102,241,0.25)] transition hover:bg-[#7376f3] disabled:opacity-50"
+              className="rounded-lg bg-[#6366f1] px-4 py-2 text-[13px] font-semibold text-white transition-all hover:bg-[#5558e6] disabled:opacity-50"
             >
               {pending ? "Publicando…" : "Publicar idea"}
             </button>
