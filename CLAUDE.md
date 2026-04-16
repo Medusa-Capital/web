@@ -96,14 +96,14 @@ Articles can come from two sources:
 
 ## Auth (Whop OAuth + iron-session)
 
-Member login flows through `/entrar` → `/api/auth/whop/login` → Whop authorize → `/api/auth/whop/callback` → DB upsert + iron-session → `/ideas`.
+Member login flows through `/login` → `/api/auth/whop/login` → Whop authorize → `/api/auth/whop/callback` → DB upsert + iron-session → `/ideas`.
 
 - **Provider:** Whop OAuth 2.1 + PKCE. The `client_secret` needs `oauth:token_exchange` permission (toggled per OAuth app in the Whop dashboard).
 - **State carries flow data:** PKCE verifier + nonce + returnTo are sealed (iron-session `sealData`) into the OAuth `state` param itself. We **don't** use a flow cookie — Chrome/Safari both drop cross-site cookies on OAuth redirects, even with `__Host-` + `SameSite=None`. State HMAC preserves CSRF.
 - **Membership gate:** `verifyMembership(whopUserId)` calls `GET /api/v1/memberships?company_id=biz_xxx&user_ids[]=user_xxx&statuses[]=active&statuses[]=trialing&statuses[]=completed`, then client-side filters by `WHOP_MEDUSA_PRODUCT_ID`. The `completed` status covers one-time/lifetime purchases (vs `active` for recurring subs).
 - **Session:** `__Host-medusa-session` iron-session cookie, 7-day rolling TTL. Tokens stored AES-GCM encrypted in `user_tokens` table, **not** in the cookie.
 - **Lazy re-check:** every 10 min, `requireMember()` re-calls Whop to refresh tiers / detect membership cancellation.
-- **Logout** uses 303 redirect to convert POST → GET on the follow-up to `/entrar`.
+- **Logout** uses 303 redirect to convert POST → GET on the follow-up to `/login`.
 - **Webhook:** `POST /api/webhooks/whop` with HMAC-SHA256 over `${timestamp}.${rawBody}` and ±5min replay window. Whop event names use snake_case: `membership_deactivated` (covers cancellation + expiry + invalid) and `payment_failed`.
 
 Guards live in `lib/auth/require.ts`:
