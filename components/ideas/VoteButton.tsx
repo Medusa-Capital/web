@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useTransition } from "react";
+import { ChevronUp } from "lucide-react";
 import { toggleVote } from "@/app/ideas/actions";
 
 export function VoteButton({
@@ -37,14 +38,16 @@ export function VoteButton({
       onClick={onClick}
       aria-pressed={voted}
       aria-label={voted ? "Quitar voto" : "Votar"}
-      className={`flex w-16 shrink-0 flex-col items-center justify-center rounded-md border px-2 py-3 text-sm transition ${
+      className={`flex w-14 shrink-0 flex-col items-center gap-0.5 rounded-lg border py-2.5 transition-all ${
         voted
-          ? "border-[#6366f1] bg-[#6366f1]/15 text-white"
-          : "border-[#6366f1]/20 bg-transparent text-[#B9B8EB]/70 hover:border-[#6366f1]/50 hover:text-white"
-      } ${pending ? "opacity-60" : ""}`}
+          ? "border-[#6366f1]/60 bg-[#6366f1]/15 text-[#818cf8]"
+          : "border-white/[0.08] bg-white/[0.03] text-[#71717a] hover:border-[#6366f1]/40 hover:text-[#a5b4fc]"
+      } ${pending ? "opacity-50" : ""}`}
     >
-      <span className="text-xs leading-none">▲</span>
-      <span className="mt-1 text-base font-semibold tabular-nums">{count}</span>
+      <ChevronUp className="h-4 w-4" strokeWidth={2.5} />
+      <span className="text-sm font-semibold tabular-nums leading-none">
+        {count}
+      </span>
     </button>
   );
 }

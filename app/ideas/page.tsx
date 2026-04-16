@@ -1,4 +1,4 @@
-// /ideas — feedback board list view.
+// /ideas — feedback board list view (Featurebase-style).
 // Personalized (vote state per viewer) → never cache. requireMember()
 // is enforced by the layout, so session.userId is guaranteed here.
 
@@ -10,6 +10,7 @@ import { SortSchema, StatusFilterSchema } from "@/lib/feedback/schemas";
 import { PostCard } from "@/components/ideas/PostCard";
 import { ProposeIdeaModal } from "@/components/ideas/ProposeIdeaModal";
 import { ListControls } from "@/components/ideas/ListControls";
+import { Lightbulb } from "lucide-react";
 
 export const dynamic = "force-dynamic";
 
@@ -23,7 +24,10 @@ export default async function IdeasPage({
   const status = StatusFilterSchema.parse(sp.status ?? "all");
 
   const cookieStore = await cookies();
-  const session = await getIronSession<SessionData>(cookieStore, sessionOptions);
+  const session = await getIronSession<SessionData>(
+    cookieStore,
+    sessionOptions
+  );
 
   const posts = await listPosts({
     viewerId: session.userId,
@@ -31,31 +35,37 @@ export default async function IdeasPage({
     status,
   });
 
-  const name = session.displayName ?? session.email;
-
   return (
-    <main className="min-h-screen bg-[#0a0a0f] px-4 py-12">
-      <div className="mx-auto max-w-3xl">
-        <header className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-          <div>
-            <h1 className="font-heading text-4xl font-bold text-white tracking-tight">
-              Ideas y sugerencias
-            </h1>
-            <p className="mt-2 text-[#B9B8EB]/70">
-              Vota, comenta o propón lo que quieres que construyamos.
-            </p>
+    <main className="px-4 pb-16 pt-8 sm:px-6">
+      <div className="mx-auto max-w-4xl">
+        {/* Hero section — Featurebase-style */}
+        <div className="flex flex-col items-center text-center">
+          <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-white/[0.06] bg-[#111118]">
+            <Lightbulb className="h-5 w-5 text-[#6366f1]" />
           </div>
-          <ProposeIdeaModal />
-        </header>
+          <h1 className="mt-4 text-2xl font-semibold tracking-tight text-white sm:text-3xl">
+            Comparte tu feedback
+          </h1>
+          <p className="mt-2 max-w-lg text-[15px] leading-relaxed text-[#71717a]">
+            Cuéntanos qué funcionalidad te gustaría ver. Vota, comenta o propón
+            ideas para mejorar la plataforma.
+          </p>
+          <div className="mt-5">
+            <ProposeIdeaModal />
+          </div>
+        </div>
 
-        <div className="mt-8">
+        {/* Filter controls */}
+        <div className="mt-10">
           <ListControls sort={sort} status={status} />
         </div>
 
-        <section className="mt-6 flex flex-col gap-3">
+        {/* Post list */}
+        <section className="mt-4 flex flex-col gap-2">
           {posts.length === 0 ? (
-            <div className="rounded-lg border border-dashed border-[#6366f1]/20 bg-[#0f0f17] px-6 py-12 text-center">
-              <p className="text-[#B9B8EB]/70">
+            <div className="rounded-xl border border-dashed border-white/[0.08] bg-[#111118] px-6 py-16 text-center">
+              <Lightbulb className="mx-auto h-8 w-8 text-[#3f3f46]" />
+              <p className="mt-3 text-[15px] text-[#52525b]">
                 No hay ideas todavía. Sé el primero en proponer una.
               </p>
             </div>
@@ -64,19 +74,12 @@ export default async function IdeasPage({
           )}
         </section>
 
-        <footer className="mt-12 flex items-center justify-between text-xs text-[#B9B8EB]/40">
-          <span>
-            Hola, <span className="text-[#B9B8EB]/60">{name}</span>
-          </span>
-          <form action="/api/auth/whop/logout" method="POST">
-            <button
-              type="submit"
-              className="underline underline-offset-2 hover:text-[#B9B8EB]"
-            >
-              Cerrar sesión
-            </button>
-          </form>
-        </footer>
+        {/* Post count */}
+        {posts.length > 0 && (
+          <p className="mt-6 text-center text-[12px] text-[#3f3f46]">
+            {posts.length} {posts.length === 1 ? "idea" : "ideas"}
+          </p>
+        )}
       </div>
     </main>
   );
