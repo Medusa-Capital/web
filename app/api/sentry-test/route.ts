@@ -4,7 +4,8 @@ export const dynamic = "force-dynamic";
 import * as Sentry from "@sentry/nextjs";
 import { NextResponse } from "next/server";
 
-export function GET() {
-  Sentry.captureMessage("sentry test — safe to delete this file", "info");
+export async function GET() {
+  Sentry.captureException(new Error("sentry test — safe to delete this file"));
+  await Sentry.flush(2000);
   return NextResponse.json({ ok: true, message: "Event sent to Sentry" });
 }
