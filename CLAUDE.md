@@ -19,14 +19,32 @@ Spanish-language marketing site for a thesis-driven crypto investing platform. D
 app/
 ├── page.tsx                    # Landing page (home)
 ├── blog/                       # Blog listing + [slug] + tags/[tag]
+├── ideas/                      # Member feedback board (Featurebase-style)
+│   ├── layout.tsx              # Auth gate (requireMember) + IdeasHeader
+│   ├── page.tsx                # List view: hero, filters, post cards
+│   ├── [id]/page.tsx           # Post detail: vote, markdown body, comments
+│   └── actions.ts              # Server actions: createPost, toggleVote, addComment, changeStatus
+├── login/                      # Whop OAuth login page
+├── not-a-member/               # Gate for authenticated non-members
 ├── track-record/               # Performance showcase
 ├── colaboradores/              # Collaborator profiles
 ├── privacidad/                 # Privacy policy
 └── api/
     ├── lead-capture/route.ts
-    └── newsletter/route.ts
+    ├── newsletter/route.ts
+    ├── ideas/similar/route.ts  # Similar post search for propose modal
+    └── auth/whop/              # login, callback, logout routes
 
 components/
+├── ideas/                      # Feedback board components (Featurebase-style)
+│   ├── IdeasHeader.tsx         # Sticky top nav: logo, tabs, user avatar, logout
+│   ├── PostCard.tsx            # Post card with vote button, status pill, comment count
+│   ├── ListControls.tsx        # Status filter pills + sort controls
+│   ├── VoteButton.tsx          # Upvote toggle (detail page)
+│   ├── ProposeIdeaModal.tsx    # Create post modal with similar-post suggestions
+│   ├── CommentForm.tsx         # Comment input form
+│   ├── StatusChanger.tsx       # Internal-only status change form
+│   └── status.ts              # Status labels, badge colors, dot colors
 ├── landing/                    # Domain components (Hero, Header, Footer, Testimonials, etc.)
 │   └── track-record/           # Performance chart, carousel, ROI calculator
 ├── blog/                       # Blog cards, markdown renderer, newsletter CTA
@@ -120,10 +138,15 @@ Guards live in `lib/auth/require.ts`:
 
 ## Feedback Board (`/ideas`)
 
-- **List page:** `app/ideas/page.tsx` — sort (votes / newest) + status filter via URL params; `dynamic = "force-dynamic"`, never cached (per-viewer vote state).
+Featurebase-inspired design. Dark card surfaces (`#111118`), `white/[0.06]` borders, zinc text scale, lucide-react icons throughout.
+
+- **Layout:** `app/ideas/layout.tsx` — `requireMember()` auth gate + `IdeasHeader` (sticky top nav with Medusa logo, Feedback/Roadmap/Novedades tabs, user avatar, logout). Uses session data returned by `requireMember()` directly — never double-read the session.
+- **List page:** `app/ideas/page.tsx` — centered hero section ("Comparte tu feedback" + lightbulb icon), status filter pills with colored dots, sort controls (votes/newest), post cards. `dynamic = "force-dynamic"`, never cached (per-viewer vote state).
+- **Detail page:** `app/ideas/[id]/page.tsx` — post in card container, vote button, markdown body, status badge, comment section with user avatars. Comment form above comment list.
 - **Server actions:** `app/ideas/actions.ts` — `createPost`, `toggleVote`, `addComment`, `changeStatus`. Every action: assert same-origin (CSRF), Zod-validate, return `ActionResult<T>` discriminated union.
 - **Vote toggle:** `INSERT … ON CONFLICT DO NOTHING` followed by separate `DELETE` (never delete-then-insert — would briefly drop the vote in a race).
 - **Status changes:** internal-only. Atomic transaction: update `posts.status` + insert `post_status_history` row. Email fanout (best-effort) outside the transaction.
+- **Status colors:** `status.ts` exports `STATUS_LABELS`, `STATUS_TONE` (badge classes), and `STATUS_DOT` (dot indicator classes). Colors: open=purple, planned=indigo, in_progress=sky, shipped=green, declined=zinc.
 - **Similar posts:** `GET /api/ideas/similar?q=…` for the propose-idea modal. ILIKE input is escaped (`%`, `_`, `\`) before query — see `escapeIlike()` in `lib/feedback/queries.ts`.
 
 ## Email (Resend)
