@@ -24,7 +24,8 @@ app/
 ├── privacidad/                 # Privacy policy
 └── api/
     ├── lead-capture/route.ts
-    └── newsletter/route.ts
+    ├── newsletter/route.ts
+    └── webhooks/calendly/route.ts  # Calendly booking → Airtable sync
 
 components/
 ├── landing/                    # Domain components (Hero, Header, Footer, Testimonials, etc.)
@@ -117,6 +118,7 @@ Articles can come from two sources:
 - **Blog article page** splits content at `<!-- newsletter -->` marker for mid-article CTA
 - **Analytics** tracked via `lib/analytics.ts` helpers. Conversion funnel: `book_call_click` (CTA intent) → `call_booked` (Calendly confirmation) / `lead_capture` (form submission). All events include UTM params from `lib/utm.ts`
 - **UTM forwarding** — UTM params captured on landing (sessionStorage) and appended to all outbound Calendly URLs (`getOutboundUrl()`), Calendly iframe embeds, and lead capture API payloads. See `lib/utm.ts`
+- **Calendly webhook** — `POST /api/webhooks/calendly` receives Calendly `invitee.created` and `invitee.canceled` events, verified via HMAC-SHA256 signature. Creates Booking records in Airtable CRM, auto-creates/links People records, promotes Lifecycle stage (Lead → Engaged), recovers UTM attribution, and detects reschedules vs. true cancellations. Env vars: `AIRTABLE_API_TOKEN`, `CALENDLY_WEBHOOK_SECRET`. Schema: Bookings table (`tbldExV63rXedIKHe`) in CRM base.
 - **Analytics pipeline** syncs GA4 data daily into Supabase `analytics` schema (6 tables: daily_summary, daily_pages, daily_sources, daily_events, daily_devices, daily_geo). Full event catalog and UTM flow documented in `docs/analytics-pipeline-reference.md` — **keep this doc updated when adding or changing tracked events**
 
 ## Commands
