@@ -9,6 +9,8 @@ const AIRTABLE_API_URL = `https://api.airtable.com/v0/${AIRTABLE_BASE_ID}`;
 const TABLE = {
   people: "tblfMh8VJ7kk9vVZf",
   bookings: "tbldExV63rXedIKHe",
+  submissions: "tblsb2EHPks208wQ8",
+  answers: "tbljgkuPhHpWw6MDr",
 } as const;
 
 const FIELD = {
@@ -34,6 +36,22 @@ const FIELD = {
   bookings_owner: "fldjHm5s8bag4DXea",
   bookings_calendly_uri: "fldzWjX9HyTLqb2Du",
   bookings_raw_payload: "fld8zAvufIRsUOzsa",
+  bookings_submission: "fldJBLqhyfDBCHh2Y",
+  // Submissions
+  submissions_person: "fldmlyQBRBr95TlLg",
+  submissions_form_version: "fldA30BPQNBOqEdRf",
+  submissions_submitted_at: "fldDtsNxl7lURPFZc",
+  submissions_utm_source: "fldwR4eFvPT2RmV0K",
+  submissions_utm_medium: "fld8Y4rXRLDqGiyLh",
+  submissions_utm_campaign: "fldk3C1YCqPZGYPRv",
+  submissions_utm_content: "fldoIpAN2CLWLEKfM",
+  submissions_utm_term: "fldupzTStyPuONKd6",
+  submissions_raw_payload: "fldXcorI85omM8EpI",
+  // Answers
+  answers_submission: "fldZhvAuGInrLK0da",
+  answers_question: "fldYddbALGlOYITa3",
+  answers_answer_text: "fldtwdwb2QMXX4uw6",
+  answers_captured_at: "fldv6ASAwE3aCIWcw",
 } as const;
 
 // Same mapping as lead-capture/route.ts
@@ -52,6 +70,28 @@ const SOURCE_CHANNEL_MAP: Record<string, string> = {
 const OWNER_MAP: Record<string, string> = {
   "contacto@medusacapital.xyz": "recZAkBzAMtR6pgOy", // Axel (shared account)
 };
+
+// Live Calendly Form Version ID (v1, 2026-04-20). When Calendly questions change:
+// create a new Form Version in Airtable + new Question records, archive the prior
+// version, update this constant, and redeploy.
+const CALENDLY_LIVE_FORM_VERSION_ID = "recbVJCYRsHd75T9i";
+
+// Question text (exact match from Calendly payload) → Airtable Question record ID.
+// Add entries here when new questions are added to the Calendly form.
+const CALENDLY_QUESTION_MAP: Record<string, string> = {
+  "Para preparar bien la sesión y no hacerte perder el tiempo, ¿en qué rango se mueve tu cartera cripto actual?":
+    "recCcgosQ6P6IDxbd",
+  '¿Cuál es tu objetivo económico concreto con cripto a 2-3 años? (ej: "llegar a 100k", "generar 1.500€/mes")':
+    "recduXlPJlhO1xQrL",
+  "¿Cuál describe mejor tu situación actual?": "recCMWd4EUzUors1a",
+  "¿Cuál ha sido tu mayor error o pérdida en cripto hasta ahora? Sé concreto.":
+    "recrXkyiCx1RJPVED",
+  "¿Hay algo concreto que quieras resolver en esta llamada?": "recuKImcMKBgITsp7",
+  "Acepto recibir material relacionado con la sesión por WhatsApp":
+    "recw6fPiS3nXblMCW",
+};
+// Fallback for questions not yet in the map — preserves data without losing context.
+const CAL_UNMAPPED_QUESTION_ID = "recq8Z9BSU6VjNHOo";
 
 // --- Helpers ---
 
@@ -131,6 +171,25 @@ async function airtableCreate(
   return res.json();
 }
 
+async function airtableBatchCreate(
+  tableId: string,
+  records: Array<Record<string, unknown>>
+): Promise<void> {
+  if (records.length === 0) return;
+  // Airtable supports up to 10 records per batch request.
+  for (let i = 0; i < records.length; i += 10) {
+    const batch = records.slice(i, i + 10);
+    const res = await airtableRequest(`/${tableId}`, {
+      method: "POST",
+      body: JSON.stringify({ records: batch.map((fields) => ({ fields })) }),
+    });
+    if (!res.ok) {
+      const err = await res.text();
+      throw new Error(`Airtable batch create failed: ${res.status} ${err}`);
+    }
+  }
+}
+
 async function airtableUpdate(
   tableId: string,
   recordId: string,
@@ -146,6 +205,55 @@ async function airtableUpdate(
   }
 }
 
+// --- Calendly-specific write helpers ---
+
+async function createSubmission(
+  personId: string,
+  tracking: {
+    utm_source?: string;
+    utm_medium?: string;
+    utm_campaign?: string;
+    utm_content?: string;
+    utm_term?: string;
+  },
+  rawPayload: string
+): Promise<string> {
+  const fields: Record<string, unknown> = {
+    [FIELD.submissions_person]: [personId],
+    [FIELD.submissions_form_version]: [CALENDLY_LIVE_FORM_VERSION_ID],
+    [FIELD.submissions_submitted_at]: new Date().toISOString(),
+    [FIELD.submissions_raw_payload]: rawPayload.slice(0, 99000),
+  };
+  if (tracking.utm_source) fields[FIELD.submissions_utm_source] = tracking.utm_source;
+  if (tracking.utm_medium) fields[FIELD.submissions_utm_medium] = tracking.utm_medium;
+  if (tracking.utm_campaign) fields[FIELD.submissions_utm_campaign] = tracking.utm_campaign;
+  if (tracking.utm_content) fields[FIELD.submissions_utm_content] = tracking.utm_content;
+  if (tracking.utm_term) fields[FIELD.submissions_utm_term] = tracking.utm_term;
+  const created = await airtableCreate(TABLE.submissions, fields);
+  return created.id;
+}
+
+async function createAnswersForBooking(
+  submissionId: string,
+  questionsAndAnswers: Array<{ question: string; answer: string; position: number }>
+): Promise<void> {
+  if (questionsAndAnswers.length === 0) return;
+  const now = new Date().toISOString();
+  const records = questionsAndAnswers.map(({ question, answer }) => {
+    const questionId = CALENDLY_QUESTION_MAP[question];
+    if (!questionId) {
+      console.warn(`Unmapped Calendly question (update CALENDLY_QUESTION_MAP): "${question}"`);
+    }
+    return {
+      [FIELD.answers_submission]: [submissionId],
+      [FIELD.answers_question]: [questionId ?? CAL_UNMAPPED_QUESTION_ID],
+      [FIELD.answers_answer_text]: questionId ? answer : `[${question}]: ${answer}`,
+      [FIELD.answers_captured_at]: now,
+    };
+  });
+  await airtableBatchCreate(TABLE.answers, records);
+}
+
 // --- Webhook handler ---
 
 async function handleInviteeCreated(
@@ -155,8 +263,23 @@ async function handleInviteeCreated(
     email: string;
     name: string;
     event: string;
-    scheduled_event: { name: string; start_time: string; event_memberships: Array<{ user_email: string }> };
-    tracking: { utm_source?: string; utm_medium?: string; utm_campaign?: string; utm_content?: string; utm_term?: string };
+    scheduled_event: {
+      name: string;
+      start_time: string;
+      event_memberships: Array<{ user_email: string }>;
+    };
+    tracking: {
+      utm_source?: string;
+      utm_medium?: string;
+      utm_campaign?: string;
+      utm_content?: string;
+      utm_term?: string;
+    };
+    questions_and_answers?: Array<{
+      question: string;
+      answer: string;
+      position: number;
+    }>;
   };
 
   const eventUri = invitee.event;
@@ -167,7 +290,7 @@ async function handleInviteeCreated(
   const tracking = invitee.tracking || {};
   const hostEmail = invitee.scheduled_event?.event_memberships?.[0]?.user_email;
 
-  // Idempotency: check if booking already exists
+  // Idempotency: check if booking already exists (fires before any write)
   const existingBookings = await airtableSearch(
     TABLE.bookings,
     `{Calendly event URI} = "${eventUri}"`
@@ -185,7 +308,6 @@ async function handleInviteeCreated(
   );
 
   if (people.length === 0) {
-    // Create new Person
     const sourceChannel = SOURCE_CHANNEL_MAP[tracking.utm_source || ""];
     const fields: Record<string, unknown> = {
       [FIELD.people_first_name]: firstName,
@@ -213,10 +335,22 @@ async function handleInviteeCreated(
     }
   }
 
+  const rawPayload = JSON.stringify(payload);
+
+  // Create Submission (before Booking — if Booking fails, orphaned Submission is
+  // traceable in Airtable and cleanable manually)
+  const submissionId = await createSubmission(personId, tracking, rawPayload);
+
+  // Create one Answer per Q&A entry from the Calendly form
+  await createAnswersForBooking(
+    submissionId,
+    invitee.questions_and_answers ?? []
+  );
+
   // Map owner from Calendly host
   const ownerId = hostEmail ? OWNER_MAP[hostEmail.toLowerCase()] : undefined;
 
-  // Create Booking
+  // Create Booking, linked to the Submission
   const bookingFields: Record<string, unknown> = {
     [FIELD.bookings_persona]: [personId],
     [FIELD.bookings_source]: "Calendly",
@@ -224,7 +358,8 @@ async function handleInviteeCreated(
     [FIELD.bookings_status]: "Agendada",
     [FIELD.bookings_scheduled_at]: invitee.scheduled_event?.start_time,
     [FIELD.bookings_calendly_uri]: eventUri,
-    [FIELD.bookings_raw_payload]: JSON.stringify(payload).slice(0, 99000),
+    [FIELD.bookings_raw_payload]: rawPayload.slice(0, 99000),
+    [FIELD.bookings_submission]: [submissionId],
   };
 
   if (tracking.utm_source) bookingFields[FIELD.bookings_utm_source] = tracking.utm_source;
