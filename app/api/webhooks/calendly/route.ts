@@ -269,18 +269,16 @@ async function handleInviteeCanceled(
 // --- Route ---
 
 export async function POST(request: NextRequest) {
-  const secret = process.env.CALENDLY_WEBHOOK_SECRET;
-  if (!secret) {
-    console.error("CALENDLY_WEBHOOK_SECRET not configured");
-    return NextResponse.json({ error: "Not configured" }, { status: 500 });
-  }
-
-  // Read raw body for signature verification
   const rawBody = await request.text();
-  const signature = request.headers.get("calendly-webhook-signature") || "";
 
-  if (!verifySignature(rawBody, signature, secret)) {
-    return NextResponse.json({ error: "Invalid signature" }, { status: 403 });
+  // Signature verification is only enforced when both the secret env var is
+  // set AND Calendly includes the header (signing is plan-dependent).
+  const secret = process.env.CALENDLY_WEBHOOK_SECRET;
+  const signature = request.headers.get("calendly-webhook-signature") || "";
+  if (secret && signature) {
+    if (!verifySignature(rawBody, signature, secret)) {
+      return NextResponse.json({ error: "Invalid signature" }, { status: 403 });
+    }
   }
 
   const body = JSON.parse(rawBody);
