@@ -50,6 +50,7 @@ const FIELD = {
   // Answers
   answers_submission: "fldZhvAuGInrLK0da",
   answers_question: "fldYddbALGlOYITa3",
+  answers_option: "fld0lt1NTeiCOMfkS",
   answers_answer_text: "fldtwdwb2QMXX4uw6",
   answers_captured_at: "fldv6ASAwE3aCIWcw",
 } as const;
@@ -92,6 +93,36 @@ const CALENDLY_QUESTION_MAP: Record<string, string> = {
 };
 // Fallback for questions not yet in the map — preserves data without losing context.
 const CAL_UNMAPPED_QUESTION_ID = "recq8Z9BSU6VjNHOo";
+
+// For select-type Calendly questions, map the exact answer text → Option record ID
+// so Answers link to an Option (like other forms) instead of storing free text.
+// Free-text questions (goal, biggest mistake, call objective) are absent from this map
+// and fall through to answer_text. If Calendly's option label drifts (typo fix, emoji,
+// etc.) the match will miss → we log + fall back to answer_text instead of failing.
+const CALENDLY_OPTION_MAP: Record<string, Record<string, string>> = {
+  // cal_portfolio_range_v1
+  recCcgosQ6P6IDxbd: {
+    "Menos de 5.000€": "rectHW0Sx4VYYLdCb",
+    "Entre 5.000€ y 20.000€": "recdBo56T9IuXxGuP",
+    "Entre 20.000€ y 50.000€": "recbjUcoRGwKoI9Dg",
+    "Más de 50.000€": "recVUUOKn2q7W3u0U",
+  },
+  // cal_situation_v1
+  recCMWd4EUzUors1a: {
+    "Llevo tiempo invirtiendo pero sin sistema, y he tenido pérdidas importantes":
+      "recD1lCdncu2M8eKK",
+    "Invierto pero sigo señales de otros sin entender bien por qué":
+      "recPdQdGVN56dqI0J",
+    "Tengo capital pero no sé cómo empezar de forma seria": "recvlSwHHOsMc1O4F",
+    "Estoy en otra comunidad pero no estoy obteniendo resultados":
+      "recBojxbaYjkxQ0Da",
+  },
+  // cal_whatsapp_consent_v1
+  recw6fPiS3nXblMCW: {
+    Si: "reclZKUa52MrNVVB1",
+    No: "recdphH0v9N3INoJ0",
+  },
+};
 
 // --- Helpers ---
 
@@ -244,12 +275,29 @@ async function createAnswersForBooking(
     if (!questionId) {
       console.warn(`Unmapped Calendly question (update CALENDLY_QUESTION_MAP): "${question}"`);
     }
-    return {
+    const resolvedQuestionId = questionId ?? CAL_UNMAPPED_QUESTION_ID;
+    const optionId = questionId
+      ? CALENDLY_OPTION_MAP[questionId]?.[answer.trim()]
+      : undefined;
+
+    // Log option drift so we can add the missing label to the map.
+    if (questionId && CALENDLY_OPTION_MAP[questionId] && !optionId) {
+      console.warn(
+        `Unmapped Calendly option for question "${question}" (update CALENDLY_OPTION_MAP): "${answer}"`
+      );
+    }
+
+    const fields: Record<string, unknown> = {
       [FIELD.answers_submission]: [submissionId],
-      [FIELD.answers_question]: [questionId ?? CAL_UNMAPPED_QUESTION_ID],
-      [FIELD.answers_answer_text]: questionId ? answer : `[${question}]: ${answer}`,
+      [FIELD.answers_question]: [resolvedQuestionId],
       [FIELD.answers_captured_at]: now,
     };
+    if (optionId) {
+      fields[FIELD.answers_option] = [optionId];
+    } else {
+      fields[FIELD.answers_answer_text] = questionId ? answer : `[${question}]: ${answer}`;
+    }
+    return fields;
   });
   await airtableBatchCreate(TABLE.answers, records);
 }
