@@ -27,7 +27,7 @@ const team = [
     name: "Borja Neira",
     role: "PROFESOR",
     description:
-      "Especialista en tokenización de activos y analista financiero. Candidato a CFA y Proxy Product Owner en Mercedes-Benz, trabaja investigando cómo los activos tokenizados impactan en la lógica tradicional de asignación de carteras.",
+      "Especialista en tokenización de activos y analista financiero. Candidato a CFA y consultor independiente en Tempo, trabaja investigando cómo los activos tokenizados impactan en la lógica tradicional de asignación de carteras.",
     linkedin: "https://www.linkedin.com/in/bneira/",
     photo: "/img/team-borja.webp",
   },
@@ -35,7 +35,7 @@ const team = [
     name: "Alejandro Gilabert",
     role: "PROFESOR",
     description:
-      "Ingeniero de telecomunicaciones con experiencia en desarrollo de productos blockchain, es Product Owner en ONYZE, una de las principales custodias cripto en España. Profesor universitario en CEDEU, ha trabajado en soluciones DeFi y estrategias de tokenización.",
+      "Ingeniero de telecomunicaciones con experiencia en desarrollo de productos blockchain, es Head of Product en ONYZE, una de las principales custodias cripto en España. Profesor universitario en CEDEU, ha trabajado en soluciones DeFi y estrategias de tokenización.",
     linkedin: "https://www.linkedin.com/in/alejandrogilabertramirez/",
     photo: "/img/team-alejandro-gilabert.webp",
   },
