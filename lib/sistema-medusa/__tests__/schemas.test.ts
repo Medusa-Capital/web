@@ -7,6 +7,7 @@ import {
   SUMMARY_MAX,
   VERDICT_SUMMARY_MAX,
 } from "@/lib/sistema-medusa/schemas";
+import { METHODOLOGIES } from "@/lib/sistema-medusa/methodologies";
 
 const validAnalysis = () => ({
   ticker: "AERO",
@@ -143,6 +144,21 @@ describe("analysisSchema", () => {
     payload.verdict_section.final_verdict = "DESCARTE";
     expect(() => analysisSchema.parse(payload)).toThrow(
       "verdict must match verdict_section.final_verdict"
+    );
+  });
+
+  test("accepts deprecated methodology versions for old rows", () => {
+    const payload = validAnalysis();
+    payload.methodology_version = "V2-Guardrail";
+    expect(METHODOLOGIES["V2-Guardrail"].deprecated).toBe(true);
+    expect(analysisSchema.parse(payload).methodology_version).toBe("V2-Guardrail");
+  });
+
+  test("rejects unknown methodology versions", () => {
+    const payload = validAnalysis();
+    payload.methodology_version = "V0-Unknown";
+    expect(() => analysisSchema.parse(payload)).toThrow(
+      "unknown methodology version"
     );
   });
 

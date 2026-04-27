@@ -8,6 +8,7 @@ import {
   PILLAR_STATUS_VALUES,
   VERDICT_VALUES,
 } from "./enum-values";
+import { isKnownMethodologyVersion } from "./methodologies";
 
 export const SUMMARY_MAX = 600;
 export const VERDICT_SUMMARY_MAX = 300;
@@ -138,7 +139,10 @@ export const analysisSchema = z
     category: categoryEnum,
     tags: z.array(boundedString(SHORT_STRING_MAX)).max(TAGS_MAX),
     analysis_date: dateString,
-    methodology_version: boundedString(SHORT_STRING_MAX),
+    methodology_version: boundedString(SHORT_STRING_MAX).refine(
+      isKnownMethodologyVersion,
+      { message: "unknown methodology version" }
+    ),
     analyst: boundedString(SHORT_STRING_MAX),
     verdict: verdictEnum,
     verdict_summary: safeProse(VERDICT_SUMMARY_MAX),
