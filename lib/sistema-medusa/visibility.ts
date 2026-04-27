@@ -1,7 +1,7 @@
 import type { Analysis } from "./schemas";
+import type { AnalysisPublicView } from "./types";
 
 export type Visibility = "public" | "member" | `tier:${string}`;
-export type AnalysisPublicView = Partial<Analysis>;
 
 export const FIELD_VISIBILITY = {
   ticker: "public",
