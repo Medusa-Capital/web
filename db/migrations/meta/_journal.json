@@ -15,6 +15,20 @@
       "when": 1776250500000,
       "tag": "0001_constraints_and_triggers",
       "breakpoints": false
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1777324887506,
+      "tag": "0002_simple_quasimodo",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1777324890000,
+      "tag": "0003_sistema_medusa_constraints_and_triggers",
+      "breakpoints": false
     }
   ]
 }
