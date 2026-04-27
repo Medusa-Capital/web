@@ -145,10 +145,19 @@ export async function requireMemberCore(): Promise<
 // requireMember — RSC wrapper (redirects on failure)
 // ---------------------------------------------------------------------------
 
-export async function requireMember(): Promise<SessionData> {
+type RequireMemberOptions = {
+  returnTo?: string;
+};
+
+export async function requireMember(
+  options: RequireMemberOptions = {}
+): Promise<SessionData> {
   const result = await requireMemberCore();
   if (!result.ok) {
-    redirect("/login");
+    const suffix = options.returnTo
+      ? `?returnTo=${encodeURIComponent(options.returnTo)}`
+      : "";
+    redirect(`/login${suffix}`);
   }
   return result.data;
 }
