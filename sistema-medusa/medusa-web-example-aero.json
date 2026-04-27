@@ -1,0 +1,180 @@
+{
+  "schema_version": "1.0",
+  "metadata": {
+    "id": "aero-2026-04-25",
+    "ticker": "AERO",
+    "project_name": "Aerodrome Finance",
+    "contract_address": "0x940181a94A35A4569E4529A3CDfB74e38FD98631",
+    "chain": "Base",
+    "category": "DEX",
+    "tags": ["ve(3,3)", "institutional-aligned", "cyclical", "infrastructure"],
+    "analysis_date": "2026-04-25",
+    "system_version": "V4.1",
+    "analyst": "Medusa Capital",
+    "verdict": "AVANZA_A_AT",
+    "verdict_summary": "Captura de valor 100% directa, supera todos los filtros sin red flags estructurales"
+  },
+
+  "base_data": {
+    "price_usd": 0.41,
+    "market_cap_usd": 375000000,
+    "fdv_usd": 602000000,
+    "mc_fdv_ratio": 0.62,
+    "circulating_supply": 926300000,
+    "total_supply": 1880000000,
+    "max_supply": null,
+    "revenue_annualized_usd": 205510000,
+    "mc_revenue_ratio": 1.83,
+    "tvl_usd": 508730000,
+    "data_source_primary": "https://defillama.com/protocol/aerodrome",
+    "data_date": "2026-04-25"
+  },
+
+  "discard_filters": {
+    "filter_01_inflationary": {
+      "name": "Token altamente inflacionario",
+      "status": "VERDE",
+      "justification": "Inflación nominal del 11% anual está estructuralmente compensada. Locks netos superan emisiones, buybacks programáticos compran y bloquean ~30% del revenue, y el AERO Fed permite a votantes reducir emisiones.",
+      "key_metric": "Inflación neta efectiva: 8% anual. Productividad: $1.50 retornado por cada $1 emitido (oct 2025)",
+      "metric_source": "https://coinmarketcap.com/cmc-ai/aerodrome-finance/latest-updates/"
+    },
+    "filter_02_equity_token_duality": {
+      "name": "Dualidad equity vs token",
+      "status": "VERDE",
+      "justification": "100% del revenue del protocolo va a veAERO holders. No existe entidad privada capturando revenue. Aerodrome Foundation tiene 100% de sus tokens lockeados como veAERO.",
+      "key_metric": "100% fees → veAERO holders. 0% retenido por treasury o entidad privada",
+      "metric_source": "https://tokenomics.com/articles/aerodrome-tokenomics-how-aero-captures-100-of-protocol-fees"
+    },
+    "filter_03_low_float_high_fdv": {
+      "name": "Low-float & high-FDV",
+      "status": "VERDE",
+      "justification": "MC/FDV ratio de 0.62. Sin cliffs concentrados. Dilución continua y predecible (~9M/epoch) en lugar de eventos discretos. 90% del supply inicial fue lockeado como veAERO desde día uno.",
+      "key_metric": "MC/FDV = 0.62. Sin cliffs masivos pendientes",
+      "metric_source": "https://www.coingecko.com/en/coins/aerodrome-finance"
+    },
+    "filter_04_egotistical_founder": {
+      "name": "Fundador ególatra",
+      "status": "VERDE",
+      "justification": "Alex Cutler (CEO Dromos Labs) operó anónimamente desde 2022 hasta noviembre 2025. Track record validado en Velodrome (2022, Optimism). Perfil técnico, baja exposición pública.",
+      "key_metric": "Doxxing tardío (nov 2025). Equipo lockeado en mismo instrumento que retail",
+      "metric_source": "https://www.dlnews.com/articles/defi/aerodrome-founder-talks-aero-uniswap-feud-pseudonymity/"
+    },
+    "filter_05_excessive_tge_hype": {
+      "name": "TGE con hype excesivo",
+      "status": "VERDE",
+      "justification": "Lanzamiento agosto 2023 vía airdrop a holders de veVELO. Sin presale, sin private sale, sin VC. Coinbase Ventures compró AERO en mercado abierto sin trato privilegiado.",
+      "key_metric": "0% allocation líquida a VCs. ATL post-TGE: $0.006",
+      "metric_source": "https://medium.com/@aerodromefi/aerodrome-launch-tokenomics-30b546654a91"
+    },
+    "filter_06_not_understandable": {
+      "name": "No lo entiendo tras 30 min",
+      "status": "VERDE",
+      "justification": "Modelo ve(3,3) con 4 años en producción (Velodrome 2022, Aerodrome 2023). LPs reciben emisiones, holders lockean para voting power y reciben 100% fees. Comprensible y maduro.",
+      "key_metric": "4 años operativo, sin exploits en smart contracts",
+      "metric_source": "https://aerodrome.finance/docs"
+    },
+    "step_1_result": "PASA",
+    "step_1_summary": "Aerodrome supera los 6 filtros de descarte sin red flags estructurales."
+  },
+
+  "fundamental_pillars": {
+    "pillar_01_pmf": {
+      "name": "Product-Market Fit",
+      "status": "VERDE",
+      "analysis": "Aerodrome es el DEX dominante en Base con 56.89% del volumen 24h y >50% del TVL. Procesó >$200B en volumen durante 2025 (3x crecimiento YoY). En agosto 2025 generó $4.6M en fees en 7 días, excediendo el revenue combinado de PancakeSwap, Meteora y Pump.fun.",
+      "key_metrics": [
+        {"metric": "Cuota volumen Base", "value": "56.89%", "source_url": "https://defillama.com/protocol/aerodrome"},
+        {"metric": "Volumen acumulado histórico", "value": ">$238B desde TGE", "source_url": "https://coinstats.app/ai/a/fundamental-analysis-aerodrome-finance"},
+        {"metric": "DEX Volume 30d", "value": "$23.15B", "source_url": "https://defillama.com/protocol/aerodrome"}
+      ]
+    },
+    "pillar_02_real_revenue": {
+      "name": "Revenue Real",
+      "status": "VERDE",
+      "analysis": "Revenue anualizado verificado de $205.5M (combined) o $84M (Aerodrome solo). Earnings anualizados ya positivos (+$10M). Desde septiembre 2025 el protocolo opera revenue-positive estructural. Múltiplos comprimidos vs peers: P/S 1.8x-4.5x frente a HYPE 11x, RAY 16x, UNI 21x, CRV 55x.",
+      "key_metrics": [
+        {"metric": "Revenue Anualizado", "value": "$205.5M (combined)", "source_url": "https://defillama.com/protocol/aerodrome"},
+        {"metric": "Cumulative Holders Revenue", "value": "$266.4M", "source_url": "https://defillama.com/protocol/aerodrome"},
+        {"metric": "P/S Ratio", "value": "1.8x - 4.5x", "source_url": "https://defillama.com/protocol/aerodrome"}
+      ]
+    },
+    "pillar_03_value_capture": {
+      "name": "Captura de Valor",
+      "status": "VERDE",
+      "analysis": "Best-in-class entre DEXs. 100% del revenue va directo a veAERO holders. Adicionalmente, ~30% del revenue se usa para buybacks programáticos vía PGF. >150M AERO comprados y lockeados (~17% del circulating supply). Sin dependencia de mecanismos discrecionales.",
+      "key_metrics": [
+        {"metric": "% Revenue al holder", "value": "100% directo + buyback adicional", "source_url": "https://tokenomics.com/articles/aerodrome-tokenomics-how-aero-captures-100-of-protocol-fees"},
+        {"metric": "AERO comprados y lockeados", "value": ">150M (~17% supply)", "source_url": "https://x.com/AerodromeFi/status/1990540509857919210"},
+        {"metric": "Lock rate veAERO", "value": "~42% supply, duración media 3.86 años", "source_url": "https://www.bankless.com/aerodromes-killer-year"}
+      ]
+    },
+    "pillar_04_aligned_incentives": {
+      "name": "Incentivos Alineados",
+      "status": "VERDE",
+      "analysis": "Foundation/Team allocation = 8.3% (frente a 15-25% típico). 100% lockeado como veAERO con vesting 2-4 años. Sin VCs líquidos vendiendo contra retail. Equipo come la misma comida que la comunidad. Coinbase Ventures, Animoca Brands y Momentum Fund operan como veAERO holders.",
+      "key_metrics": [
+        {"metric": "Equipo allocation", "value": "8.3% (100% en veAERO 2-4 años)", "source_url": "https://tokenomist.ai/aerodrome-finance"},
+        {"metric": "VC allocation líquido", "value": "0%", "source_url": "https://medium.com/@aerodromefi/aerodrome-launch-tokenomics-30b546654a91"}
+      ]
+    },
+    "step_2_result": "PASA",
+    "step_2_summary": "Los 4 pilares fundamentales superados con verde limpio."
+  },
+
+  "ita_definitiva": {
+    "question": "¿Si este proyecto gana dinero, YO voy a ganar dinero con mi token?",
+    "answer": "SI_CLARO",
+    "rationale": "100% del revenue va a veAERO holders más buyback programático adicional con 30% del revenue. La mecánica está demostrada operacionalmente con $266M+ distribuidos cumulativamente y >150M AERO comprados y lockeados a 4 años en open market."
+  },
+
+  "comparative_analysis": {
+    "peer_tokens": [
+      {"ticker": "AERO", "mc": 375000000, "revenue": 205500000, "ps_ratio": 1.8, "value_capture_pct": 100, "notes": "100% directo + buyback adicional"},
+      {"ticker": "HYPE", "mc": null, "revenue": null, "ps_ratio": 11, "value_capture_pct": 97, "notes": "97% fees → buyback HYPE (Assistance Fund)"},
+      {"ticker": "UNI", "mc": null, "revenue": null, "ps_ratio": 21, "value_capture_pct": 17, "notes": "Post-UNIfication: ~17% fees → buyback&burn UNI"},
+      {"ticker": "CRV", "mc": null, "revenue": null, "ps_ratio": 55.5, "value_capture_pct": 50, "notes": "50% admin fees → veCRV"},
+      {"ticker": "RAY", "mc": null, "revenue": null, "ps_ratio": 16, "value_capture_pct": null, "notes": "Buyback parcial"}
+    ],
+    "summary": "AERO tradea a múltiplos materialmente más bajos que cualquier comparable DEX, mientras distribuye el porcentaje más alto de revenue (100%)."
+  },
+
+  "risks_and_watchpoints": {
+    "structural_risks": [
+      "Revenue procíclico al volumen on-chain de Base",
+      "Dependencia estructural del ecosistema Base (mitigada parcialmente por merger Aero Q2 2026)",
+      "Concentración de gobernanza: Momentum Fund 25% voting power"
+    ],
+    "operational_risks": [
+      "DNS hijack recurrente desde 2023 (afecta UX, no smart contracts)",
+      "Riesgo regulatorio sobre modelos ve y distribución de revenue",
+      "Ejecución del merger Aero (Q2 2026) y reset potencial de locks"
+    ],
+    "things_to_monitor": [
+      "Activación de Uniswap V4 en Base con hooks programables",
+      "Evolución del % supply lockeado y duración media",
+      "Revenue vs Emisiones mensual (debe mantenerse positivo)",
+      "Posible network token de Base (declaración Jesse Pollak sept 2025)"
+    ]
+  },
+
+  "verdict_section": {
+    "final_verdict": "AVANZA_A_AT",
+    "confidence_level": "ALTA",
+    "executive_summary": "Aerodrome presenta uno de los perfiles fundamentales más limpios del segmento DEX. 100% del revenue al holder, 0% VCs líquidos, equipo lockeado en el mismo instrumento que retail, múltiplos comprimidos vs peers (P/S 1.8x-4.5x). Avanza al filtro técnico sin reservas estructurales.",
+    "next_step": "Aplicar análisis técnico como filtro binario pass/no-pass antes de construcción de posición."
+  },
+
+  "sources": {
+    "primary": [
+      {"name": "DefiLlama - Aerodrome", "url": "https://defillama.com/protocol/aerodrome", "type": "aggregator"},
+      {"name": "Aerodrome Docs", "url": "https://aerodrome.finance/docs", "type": "official_docs"},
+      {"name": "Tokenomist - AERO", "url": "https://tokenomist.ai/aerodrome-finance", "type": "aggregator"},
+      {"name": "Aerodrome Contracts (GitHub)", "url": "https://github.com/aerodrome-finance/contracts", "type": "onchain"}
+    ],
+    "secondary": [
+      {"name": "Bankless - Aerodrome's Killer Year", "url": "https://www.bankless.com/aerodromes-killer-year"},
+      {"name": "DWF Labs Research", "url": "https://www.dwf-labs.com/research/has-aerodrome-finance-become-the-leading-defi-protocol-on-base"},
+      {"name": "CoinGecko Learn", "url": "https://www.coingecko.com/learn/what-is-aerodrome-finance-aero-base"}
+    ]
+  }
+}
