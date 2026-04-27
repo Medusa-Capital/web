@@ -6,3 +6,4 @@ export * from "./users";
 export * from "./sessions";
 export * from "./tokens";
 export * from "./feedback";
+export * from "./sistema-medusa";
