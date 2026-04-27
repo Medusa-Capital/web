@@ -10,6 +10,7 @@ import {
   uniqueIndex,
   uuid,
 } from "drizzle-orm/pg-core";
+import { categoryPgEnum, chainPgEnum, verdictPgEnum } from "./enums";
 import { users } from "./users";
 
 // ---------------------------------------------------------------------------
@@ -28,8 +29,8 @@ export const analyses = sistemaMedusaSchema.table(
 
     ticker: text("ticker").notNull(),
     projectName: text("project_name").notNull(),
-    chain: text("chain").notNull(),
-    category: text("category").notNull(),
+    chain: chainPgEnum("chain").notNull(),
+    category: categoryPgEnum("category").notNull(),
     contractAddress: text("contract_address"),
     coingeckoId: text("coingecko_id"),
     defillamaSlug: text("defillama_slug"),
@@ -38,7 +39,7 @@ export const analyses = sistemaMedusaSchema.table(
       () => analysisVersions.id,
       { onDelete: "restrict" }
     ),
-    currentVerdict: text("current_verdict"),
+    currentVerdict: verdictPgEnum("current_verdict"),
 
     createdAt: timestamp("created_at", { withTimezone: true })
       .notNull()
@@ -69,7 +70,7 @@ export const analysisVersions = sistemaMedusaSchema.table(
     methodologyVersion: text("methodology_version").notNull(),
     payload: jsonb("payload").notNull().$type<Record<string, unknown>>(),
     payloadHash: text("payload_hash").notNull(),
-    verdict: text("verdict").notNull(),
+    verdict: verdictPgEnum("verdict").notNull(),
     dataDate: date("data_date").notNull(),
     analysisDate: date("analysis_date").notNull(),
     revisionNote: text("revision_note"),
