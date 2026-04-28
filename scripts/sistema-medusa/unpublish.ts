@@ -97,6 +97,7 @@ if (import.meta.main) {
       reason,
     });
     console.log(asJson ? JSON.stringify(result, null, 2) : `unpublished: ${ticker} v${version}`);
+    process.exit(0);
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
     if (asJson) {

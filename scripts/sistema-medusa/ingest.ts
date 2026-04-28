@@ -268,6 +268,7 @@ function archivePaths(filePath: string, ticker: string, versionNumber: number) {
 
 if (import.meta.main) {
   const args = process.argv.slice(2);
+  const asJson = args.includes("--json");
   const path = args.find((arg) => !arg.startsWith("--"));
   if (!path) {
     console.error("Usage: bun scripts/sistema-medusa/ingest.ts <path> [--force]");
@@ -280,16 +281,31 @@ if (import.meta.main) {
       dryRun: args.includes("--dry-run"),
     });
     if (!result.ok) {
-      console.error(
-        `${result.action}: ${result.ticker} v${result.version_number} (${result.error})`
-      );
+      if (asJson) {
+        console.log(JSON.stringify({ ...result, errors: [result.error] }, null, 2));
+      } else {
+        console.error(
+          `${result.action}: ${result.ticker} v${result.version_number} (${result.error})`
+        );
+      }
       process.exit(1);
     }
-    console.log(
-      `${result.action}: ${result.ticker} v${result.version_number} (${result.payload_hash})`
-    );
+
+    if (asJson) {
+      console.log(JSON.stringify(result, null, 2));
+    } else {
+      console.log(
+        `${result.action}: ${result.ticker} v${result.version_number} (${result.payload_hash})`
+      );
+    }
+    process.exit(0);
   } catch (error) {
-    console.error(error instanceof Error ? error.message : String(error));
+    const message = error instanceof Error ? error.message : String(error);
+    if (asJson) {
+      console.log(JSON.stringify({ ok: false, errors: [message] }, null, 2));
+    } else {
+      console.error(message);
+    }
     process.exit(1);
   }
 }
