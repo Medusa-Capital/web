@@ -27,6 +27,13 @@ export const EventCategory = {
   ENGAGEMENT: "engagement",
 } as const;
 
+export type SistemaMedusaAnalyticsAction =
+  | "view_list"
+  | "view_detail"
+  | "filter_applied"
+  | "search"
+  | "version_navigated";
+
 // Track custom events
 export function trackEvent(
   eventName: string,
@@ -126,6 +133,16 @@ export function trackLeadCapture() {
   trackEvent("lead_capture", {
     category: EventCategory.FORM,
     ...utmParams,
+  });
+}
+
+export function trackSistemaMedusaEvent(
+  action: SistemaMedusaAnalyticsAction,
+  params?: Record<string, string | number | boolean>
+) {
+  trackEvent(`sistema_medusa_${action}`, {
+    category: EventCategory.ENGAGEMENT,
+    ...params,
   });
 }
 

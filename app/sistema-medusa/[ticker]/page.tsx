@@ -27,6 +27,7 @@ import { ItaBox } from "@/components/sistema-medusa/ItaBox";
 import { MethodologyTag } from "@/components/sistema-medusa/MethodologyTag";
 import { RisksSection } from "@/components/sistema-medusa/RisksSection";
 import { SourcesList } from "@/components/sistema-medusa/SourcesList";
+import { SistemaMedusaAnalytics } from "@/components/sistema-medusa/SistemaMedusaAnalytics";
 import { VerdictBadge } from "@/components/sistema-medusa/VerdictBadge";
 import { VerdictBox } from "@/components/sistema-medusa/VerdictBox";
 import { VersionNavigator } from "@/components/sistema-medusa/VersionNavigator";
@@ -89,6 +90,15 @@ export default async function SistemaMedusaDetailPage({
 
   return (
     <article className="mx-auto max-w-5xl px-4 py-10 sm:px-6">
+      <SistemaMedusaAnalytics
+        action="view_detail"
+        params={{
+          ticker,
+          version_number: selectedVersion,
+          verdict: view.data.verdict,
+          methodology_version: view.data.methodology_version,
+        }}
+      />
       <header className="border-b border-white/[0.06] pb-6">
         <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#6366f1]">
           Medusa Capital — Sistema Medusa {view.data.methodology_version}
