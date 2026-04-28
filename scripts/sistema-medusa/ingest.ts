@@ -1,25 +1,47 @@
 import { createHash } from "crypto";
-import { existsSync, readFileSync, statSync } from "fs";
-import { join } from "path";
+import {
+  existsSync,
+  mkdirSync,
+  readFileSync,
+  renameSync,
+  statSync,
+} from "fs";
+import { dirname, join, resolve, sep } from "path";
 import { and, desc, eq, isNull } from "drizzle-orm";
 import { canonicalize } from "@/lib/sistema-medusa/canonicalize";
 import { analysisSchema, type Analysis } from "@/lib/sistema-medusa/schemas";
 
 const MAX_FILE_BYTES = 1024 * 1024;
 
-type IngestAction = "created" | "noop" | "force_created";
+type IngestAction =
+  | "created"
+  | "noop"
+  | "force_created"
+  | "created_archive_failed"
+  | "archive_recovered";
 
 type IngestOptions = {
   force?: boolean;
 };
 
-export type IngestResult = {
+export type IngestSuccess = {
   ok: true;
-  action: IngestAction;
+  action: Exclude<IngestAction, "created_archive_failed">;
   ticker: string;
   version_number: number;
   payload_hash: string;
 };
+
+export type IngestFailure = {
+  ok: false;
+  action: "created_archive_failed";
+  ticker: string;
+  version_number: number;
+  payload_hash: string;
+  error: string;
+};
+
+export type IngestResult = IngestSuccess | IngestFailure;
 
 export async function ingestAnalysis(
   inputPath: string,
@@ -38,7 +60,7 @@ export async function ingestAnalysis(
   const { db } = await import("@/db");
   const { analyses, analysisVersions, publishEvents } = await import("@/db/schema");
 
-  return db.transaction(async (tx) => {
+  const txResult = await db.transaction(async (tx) => {
     const [upserted] = await tx
       .insert(analyses)
       .values(parentValues(payload))
@@ -152,8 +174,10 @@ export async function ingestAnalysis(
       ticker: payload.ticker,
       version_number: versionNumber,
       payload_hash: payloadHash,
-    };
+    } satisfies IngestSuccess;
   });
+
+  return archiveInboxFile(filePath, txResult);
 }
 
 function parentValues(payload: Analysis) {
@@ -184,6 +208,57 @@ function resolveInputPath(inputPath: string): string {
   throw new Error(`No Sistema Medusa JSON found at ${inputPath}`);
 }
 
+function archiveInboxFile(filePath: string, result: IngestSuccess): IngestResult {
+  const paths = archivePaths(filePath, result.ticker, result.version_number);
+  if (!paths) return result;
+
+  if (existsSync(paths.destination)) {
+    return result;
+  }
+
+  if (!existsSync(paths.source)) {
+    return result;
+  }
+
+  try {
+    mkdirSync(dirname(paths.destination), { recursive: true });
+    renameSync(paths.source, paths.destination);
+
+    if (result.action === "noop") {
+      return { ...result, action: "archive_recovered" };
+    }
+
+    return result;
+  } catch (error) {
+    return {
+      ok: false,
+      action: "created_archive_failed",
+      ticker: result.ticker,
+      version_number: result.version_number,
+      payload_hash: result.payload_hash,
+      error: error instanceof Error ? error.message : String(error),
+    };
+  }
+}
+
+function archivePaths(filePath: string, ticker: string, versionNumber: number) {
+  const inboxRoot = resolve(process.cwd(), "content/sistema-medusa/inbox");
+  const source = resolve(filePath);
+  const inboxPrefix = `${inboxRoot}${sep}`;
+
+  if (!source.startsWith(inboxPrefix)) return null;
+
+  return {
+    source,
+    destination: resolve(
+      process.cwd(),
+      "content/sistema-medusa/published",
+      ticker.toLowerCase(),
+      `v${versionNumber}.json`
+    ),
+  };
+}
+
 if (import.meta.main) {
   const args = process.argv.slice(2);
   const path = args.find((arg) => !arg.startsWith("--"));
@@ -194,6 +269,12 @@ if (import.meta.main) {
 
   try {
     const result = await ingestAnalysis(path, { force: args.includes("--force") });
+    if (!result.ok) {
+      console.error(
+        `${result.action}: ${result.ticker} v${result.version_number} (${result.error})`
+      );
+      process.exit(1);
+    }
     console.log(
       `${result.action}: ${result.ticker} v${result.version_number} (${result.payload_hash})`
     );
