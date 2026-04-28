@@ -50,7 +50,7 @@ export interface AnalysisVersionSummary {
   revision_note: string | null;
 }
 
-interface ListRow {
+type ListRow = {
   ticker: string;
   project_name: string;
   chain: Chain;
@@ -60,19 +60,19 @@ interface ListRow {
   analysis_date: string | Date;
   version_number: number;
   payload: unknown;
-}
+} & Record<string, unknown>;
 
-interface VersionRow {
+type VersionRow = {
   payload: unknown;
   version_number: number;
-}
+} & Record<string, unknown>;
 
-interface VersionListRow {
+type VersionListRow = {
   version_number: number;
   verdict: Verdict;
   published_at: Date;
   revision_note: string | null;
-}
+} & Record<string, unknown>;
 
 const DEFAULT_LIMIT = 50;
 const MAX_LIMIT = 200;
@@ -248,7 +248,7 @@ export async function getAnalysisIdByTicker(
   ticker: string
 ): Promise<string | null> {
   const db = await getDb();
-  const result = await db.execute<{ id: string }>(sql`
+  const result = await db.execute<{ id: string } & Record<string, unknown>>(sql`
     SELECT id FROM sistema_medusa.analyses WHERE ticker = ${ticker} LIMIT 1
   `);
   return result.rows[0]?.id ?? null;
