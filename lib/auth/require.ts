@@ -73,7 +73,7 @@ async function recheckMembership(session: SessionData): Promise<boolean> {
       .set({ revokedAt: new Date() })
       .where(eq(sessions.id, session.sessionId));
     ironSession.destroy();
-    await ironSession.save();
+    try { await ironSession.save(); } catch { /* best-effort */ }
     return false;
   }
 
@@ -83,7 +83,10 @@ async function recheckMembership(session: SessionData): Promise<boolean> {
       .set({ revokedAt: new Date() })
       .where(eq(sessions.id, session.sessionId));
     ironSession.destroy();
-    await ironSession.save();
+    // Cookie save may fail if called from a Server Component context (Next.js
+    // restriction). The DB revokedAt is already set, so isSessionActive() will
+    // reject the session on the next request even if the cookie lingers.
+    try { await ironSession.save(); } catch { /* best-effort */ }
     return false;
   }
 
@@ -97,15 +100,31 @@ async function recheckMembership(session: SessionData): Promise<boolean> {
       .where(eq(users.id, session.userId));
   }
 
-  // Refresh session cookie
+  // Refresh session cookie — best-effort; fails silently from Server Component
+  // context (Next.js only allows cookie writes in Actions/Route Handlers).
+  // The session will simply recheck on the next request.
   Object.assign(ironSession, {
     ...session,
     tiers: newTiers,
     membershipCheckedAt: Date.now(),
   });
-  await ironSession.save();
+  try { await ironSession.save(); } catch { /* best-effort */ }
 
   return true;
+}
+
+// ---------------------------------------------------------------------------
+// getSessionCachedRole — read-only, no DB round-trip
+// ---------------------------------------------------------------------------
+
+/**
+ * Returns the role cached in the iron-session cookie, or null if no session.
+ * Safe to call from Server Components (read-only — never writes cookies).
+ * Use for UI gating only; always enforce with requireInternalCore() in actions.
+ */
+export async function getSessionCachedRole(): Promise<"member" | "internal" | null> {
+  const session = await getSession();
+  return session?.role ?? null;
 }
 
 // ---------------------------------------------------------------------------
@@ -145,10 +164,19 @@ export async function requireMemberCore(): Promise<
 // requireMember — RSC wrapper (redirects on failure)
 // ---------------------------------------------------------------------------
 
-export async function requireMember(): Promise<SessionData> {
+type RequireMemberOptions = {
+  returnTo?: string;
+};
+
+export async function requireMember(
+  options: RequireMemberOptions = {}
+): Promise<SessionData> {
   const result = await requireMemberCore();
   if (!result.ok) {
-    redirect("/login");
+    const suffix = options.returnTo
+      ? `?returnTo=${encodeURIComponent(options.returnTo)}`
+      : "";
+    redirect(`/login${suffix}`);
   }
   return result.data;
 }

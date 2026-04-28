@@ -27,6 +27,28 @@ describe("sanitizeReturnTo — allowlist", () => {
     );
   });
 
+  test("/sistema-medusa → allowed", () => {
+    expect(sanitizeReturnTo("/sistema-medusa", ORIGIN)).toBe("/sistema-medusa");
+  });
+
+  test("/sistema-medusa/aero?v=2 → preserves version query", () => {
+    expect(sanitizeReturnTo("/sistema-medusa/aero?v=2", ORIGIN)).toBe(
+      "/sistema-medusa/aero?v=2"
+    );
+  });
+
+  test("/sistema-medusa/aero?v=99999 → strips oversized version query", () => {
+    expect(sanitizeReturnTo("/sistema-medusa/aero?v=99999", ORIGIN)).toBe(
+      "/sistema-medusa/aero"
+    );
+  });
+
+  test("/sistema-medusa/aero?other=x → strips disallowed query", () => {
+    expect(sanitizeReturnTo("/sistema-medusa/aero?other=x", ORIGIN)).toBe(
+      "/sistema-medusa/aero"
+    );
+  });
+
   // Rejected: cross-origin
   test("//evil.com → rejected", () => {
     expect(sanitizeReturnTo("//evil.com", ORIGIN)).toBe("/ideas");
@@ -79,6 +101,10 @@ describe("sanitizeReturnTo — allowlist", () => {
 
   test("/login → rejected", () => {
     expect(sanitizeReturnTo("/login", ORIGIN)).toBe("/ideas");
+  });
+
+  test("/etc/passwd → rejected", () => {
+    expect(sanitizeReturnTo("/etc/passwd", ORIGIN)).toBe("/ideas");
   });
 
   // Rejected: javascript: / data: URIs

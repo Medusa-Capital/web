@@ -71,6 +71,18 @@ page_view (UTMs) → visitor landed
 | `faq_expand` | FAQ accordion interaction | — | `trackEvent()` direct |
 | `module_view` | Module visibility tracking | — | `trackEvent()` direct |
 
+### Custom Events — Sistema Medusa Library
+
+These events measure member research-library usage. They are engagement events, not conversion events.
+
+| Event Name | Trigger | Key Parameters | Helper |
+|------------|---------|---------------|--------|
+| `sistema_medusa_view_list` | Member lands on `/sistema-medusa` | `result_count`, `has_filters`, `sort`, `offset` | `trackSistemaMedusaEvent("view_list")` |
+| `sistema_medusa_view_detail` | Member lands on `/sistema-medusa/[ticker]` | `ticker`, `version_number`, `verdict`, `methodology_version` | `trackSistemaMedusaEvent("view_detail")` |
+| `sistema_medusa_filter_applied` | Member clicks verdict/category/chain/sort controls | `filter_type`, `filter_value` | `trackSistemaMedusaEvent("filter_applied")` |
+| `sistema_medusa_search` | Member uses list search | `query_length`, `has_query` | `trackSistemaMedusaEvent("search")` |
+| `sistema_medusa_version_navigated` | Member selects a historical version | `ticker`, `version_number` | `trackSistemaMedusaEvent("version_navigated")` |
+
 ### UTM Parameter Flow
 
 UTM params are captured on landing and forwarded through the entire conversion chain:

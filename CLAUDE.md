@@ -150,6 +150,23 @@ Featurebase-inspired design. Dark card surfaces (`#111118`), `white/[0.06]` bord
 - **Status colors:** `status.ts` exports `STATUS_LABELS`, `STATUS_TONE` (badge classes), and `STATUS_DOT` (dot indicator classes). Colors: open=purple, planned=indigo, in_progress=sky, shipped=green, declined=zinc.
 - **Similar posts:** `GET /api/ideas/similar?q=…` for the propose-idea modal. ILIKE input is escaped (`%`, `_`, `\`) before query — see `escapeIlike()` in `lib/feedback/queries.ts`.
 
+## Sistema Medusa Library (`/sistema-medusa`)
+
+Member-only research library for Sistema Medusa analyses. Dark product surface using the existing site purple `#6366f1`, card surfaces `#111118`, borders `white/[0.06]`, and Spanish copy throughout.
+
+- **Routes:** `app/sistema-medusa/layout.tsx` gates once with `requireMember({ returnTo })`; `page.tsx` renders the filterable list; `[ticker]/page.tsx` renders a detail article with `ComplianceDisclaimer`. `generateMetadata` is noindex for v1.
+- **Auth allowlist:** `lib/auth/return-to.ts` allows `/sistema-medusa` and `/sistema-medusa/[ticker]`; only detail routes preserve `?v=\d{1,4}`. Middleware injects `x-pathname` for layout-level returnTo.
+- **DB schema:** `db/schema/sistema-medusa.ts` defines `sistema_medusa.analyses`, `analysis_versions`, and `publish_events`. `latest_version_id` is nullable; `analysis_versions.analysis_id` is `ON DELETE RESTRICT`; `publish_events` is an outbox for `published`, `superseded`, `unpublished`.
+- **Migrations:** generated schema migration is paired with journaled custom SQL `0003_sistema_medusa_constraints_and_triggers.sql`. Manual SQL creates `published_versions`, `pg_trgm` search index, partial active payload-hash unique index, column-only CHECKs, and `analysis_versions_refresh_current`.
+- **Reads:** `lib/sistema-medusa/queries.ts` reads from `published_versions`, never `analysis_versions` directly. JSONB payloads are re-parsed with `analysisSchema.parse()` at the boundary.
+- **Payload schema:** `lib/sistema-medusa/schemas.ts` is the single canonical Zod schema. It enforces safe `https://` URLs, prose XSS guards, array/string bounds, semantic filter/pillar IDs, methodology registry membership, and verdict consistency.
+- **Visibility:** `FIELD_VISIBILITY` in `lib/sistema-medusa/visibility.ts` is path-based with `[]` array markers and default-deny behavior. `pickPublic()` strips member-only fields server-side before serialization.
+- **Enum split:** pure values live in `lib/sistema-medusa/enum-values.ts`; DB pgEnums live in `db/schema/enums.ts`; client-safe Zod enums and Spanish labels live in `lib/sistema-medusa/enums/`. Do not import Drizzle into client label modules.
+- **Methodologies:** `lib/sistema-medusa/methodologies.ts` is append-only. Mark old methodologies `deprecated: true`; never remove keys while DB rows reference them.
+- **Ingest commands:** `bun run sm:validate <path>`, `bun run sm:ingest <path>`, `bun run sm:ingest:dry <path>`, `bun run sm:unpublish <ticker> <version> [--reason "..."]`. Every CLI supports `--json`; no `--from-stdin` in v1.
+- **Authoring for Alex:** author canonical JSON under `content/sistema-medusa/inbox/<ticker>/<ticker>.json`, run `bun run sm:validate`, then `bun run sm:ingest`. Successful inbox ingests archive to `content/sistema-medusa/published/<ticker>/v<n>.json`. `--force` preserves history by superseding the active version, not overwriting it.
+- **Testing:** focused gate is `bun test lib/sistema-medusa/__tests__/`. E2E specs live at `e2e/sistema-medusa.spec.ts` and are intentionally skipped until a robust HTTPS/member-session fixture exists.
+
 ## Email (Resend)
 
 - **Client:** `lib/email/client.ts` — fail-soft (try/catch + `captureError`). Email failures never block the underlying user action.
