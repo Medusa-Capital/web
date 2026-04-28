@@ -49,7 +49,7 @@ export function LoginContent() {
 
         {/* CTA */}
         <a
-          href="/api/auth/whop/login"
+          href={`/api/auth/whop/login${searchParams.get("returnTo") ? `?returnTo=${encodeURIComponent(searchParams.get("returnTo")!)}` : ""}`}
           className="flex w-full items-center justify-center gap-3 rounded-lg bg-[#6366f1] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#4f46e5] focus:outline-none focus:ring-2 focus:ring-[#6366f1] focus:ring-offset-2 focus:ring-offset-[#0a0a0f]"
         >
           Entrar con Whop
