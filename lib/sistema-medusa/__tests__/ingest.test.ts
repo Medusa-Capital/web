@@ -265,4 +265,64 @@ describe("ingestAnalysis", () => {
       .where(eq(analysisVersions.analysisId, parent.id));
     expect(versions).toEqual([{ versionNumber: 1 }]);
   });
+
+  test("concurrent identical ingests create a single version", async () => {
+    const ticker = `C${Date.now().toString(36).toUpperCase()}`;
+    createdTickers.push(ticker);
+    await cleanupTicker(ticker);
+
+    const payload = transformAeroInput(rawAero());
+    payload.ticker = ticker;
+    payload.project_name = "Test Concurrent Ingest";
+
+    const dir = mkdtempSync(join(tmpdir(), "sistema-medusa-concurrent-"));
+    const filePath = join(dir, `${ticker.toLowerCase()}.json`);
+    writeFileSync(filePath, JSON.stringify(payload, null, 2));
+
+    const results = await Promise.all([
+      ingestAnalysis(filePath),
+      ingestAnalysis(filePath),
+    ]);
+
+    expect(results.map((result) => result.action).sort()).toEqual([
+      "created",
+      "noop",
+    ]);
+
+    const [parent] = await db
+      .select({ id: analyses.id })
+      .from(analyses)
+      .where(eq(analyses.ticker, ticker));
+    const versions = await db
+      .select({ versionNumber: analysisVersions.versionNumber })
+      .from(analysisVersions)
+      .where(eq(analysisVersions.analysisId, parent.id));
+    expect(versions).toEqual([{ versionNumber: 1 }]);
+  });
+
+  test("mid-flight transaction failure leaves no orphan rows", async () => {
+    const ticker = `X${Date.now().toString(36).toUpperCase()}`;
+    createdTickers.push(ticker);
+    await cleanupTicker(ticker);
+
+    const payload = transformAeroInput(rawAero());
+    payload.ticker = ticker;
+    payload.project_name = "Test Transaction Rollback";
+
+    const dir = mkdtempSync(join(tmpdir(), "sistema-medusa-rollback-"));
+    const filePath = join(dir, `${ticker.toLowerCase()}.json`);
+    writeFileSync(filePath, JSON.stringify(payload, null, 2));
+
+    await expect(
+      ingestAnalysis(filePath, {
+        testHooks: { failAfterVersionInsert: true },
+      })
+    ).rejects.toThrow("Simulated ingest failure after version insert");
+
+    const parents = await db
+      .select({ id: analyses.id })
+      .from(analyses)
+      .where(eq(analyses.ticker, ticker));
+    expect(parents).toEqual([]);
+  });
 });
