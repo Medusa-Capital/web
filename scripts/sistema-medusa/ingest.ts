@@ -70,128 +70,130 @@ export async function ingestAnalysis(
     return dryRunIngest(payload, payloadHash, analyses, analysisVersions);
   }
 
-  const txResult = await db.transaction(async (tx) => {
-    const [upserted] = await tx
-      .insert(analyses)
-      .values(parentValues(payload))
-      .onConflictDoUpdate({
-        target: analyses.ticker,
-        set: {
-          projectName: payload.project_name,
-          chain: payload.chain,
-          category: payload.category,
-          contractAddress: payload.contract_address ?? null,
-          updatedAt: new Date(),
-        },
-      })
-      .returning({ id: analyses.id });
+  const txResult: IngestSuccess = await db.transaction(
+    async (tx): Promise<IngestSuccess> => {
+      const [upserted] = await tx
+        .insert(analyses)
+        .values(parentValues(payload))
+        .onConflictDoUpdate({
+          target: analyses.ticker,
+          set: {
+            projectName: payload.project_name,
+            chain: payload.chain,
+            category: payload.category,
+            contractAddress: payload.contract_address ?? null,
+            updatedAt: new Date(),
+          },
+        })
+        .returning({ id: analyses.id });
 
-    if (!upserted) throw new Error("Analysis upsert returned no row");
+      if (!upserted) throw new Error("Analysis upsert returned no row");
 
-    const [locked] = await tx
-      .select({ id: analyses.id })
-      .from(analyses)
-      .where(eq(analyses.id, upserted.id))
-      .for("update")
-      .limit(1);
+      const [locked] = await tx
+        .select({ id: analyses.id })
+        .from(analyses)
+        .where(eq(analyses.id, upserted.id))
+        .for("update")
+        .limit(1);
 
-    if (!locked) throw new Error("Analysis lock returned no row");
+      if (!locked) throw new Error("Analysis lock returned no row");
 
-    const [latestPublished] = await tx
-      .select({
-        id: analysisVersions.id,
-        versionNumber: analysisVersions.versionNumber,
-        payloadHash: analysisVersions.payloadHash,
-        verdict: analysisVersions.verdict,
-      })
-      .from(analysisVersions)
-      .where(
-        and(
-          eq(analysisVersions.analysisId, locked.id),
-          isNull(analysisVersions.unpublishedAt)
+      const [latestPublished] = await tx
+        .select({
+          id: analysisVersions.id,
+          versionNumber: analysisVersions.versionNumber,
+          payloadHash: analysisVersions.payloadHash,
+          verdict: analysisVersions.verdict,
+        })
+        .from(analysisVersions)
+        .where(
+          and(
+            eq(analysisVersions.analysisId, locked.id),
+            isNull(analysisVersions.unpublishedAt)
+          )
         )
-      )
-      .orderBy(desc(analysisVersions.versionNumber))
-      .limit(1);
+        .orderBy(desc(analysisVersions.versionNumber))
+        .limit(1);
 
-    if (latestPublished?.payloadHash === payloadHash && !options.force) {
-      return {
-        ok: true,
-        action: "noop",
-        ticker: payload.ticker,
-        version_number: latestPublished.versionNumber,
-        payload_hash: payloadHash,
-      };
-    }
+      if (latestPublished?.payloadHash === payloadHash && !options.force) {
+        return {
+          ok: true,
+          action: "noop",
+          ticker: payload.ticker,
+          version_number: latestPublished.versionNumber,
+          payload_hash: payloadHash,
+        };
+      }
 
-    const forceSupersededVersion =
-      options.force && latestPublished?.payloadHash === payloadHash
-        ? latestPublished
-        : null;
+      const forceSupersededVersion =
+        options.force && latestPublished?.payloadHash === payloadHash
+          ? latestPublished
+          : null;
 
-    if (forceSupersededVersion) {
-      await tx
-        .update(analysisVersions)
-        .set({ unpublishedAt: new Date() })
-        .where(eq(analysisVersions.id, forceSupersededVersion.id));
+      if (forceSupersededVersion) {
+        await tx
+          .update(analysisVersions)
+          .set({ unpublishedAt: new Date() })
+          .where(eq(analysisVersions.id, forceSupersededVersion.id));
+
+        await tx.insert(publishEvents).values({
+          analysisId: locked.id,
+          analysisVersionId: forceSupersededVersion.id,
+          versionNumber: forceSupersededVersion.versionNumber,
+          eventType: "superseded",
+          verdict: forceSupersededVersion.verdict,
+        });
+      }
+
+      const [latestVersion] = await tx
+        .select({ versionNumber: analysisVersions.versionNumber })
+        .from(analysisVersions)
+        .where(eq(analysisVersions.analysisId, locked.id))
+        .orderBy(desc(analysisVersions.versionNumber))
+        .limit(1);
+
+      const versionNumber = (latestVersion?.versionNumber ?? 0) + 1;
+
+      const [version] = await tx
+        .insert(analysisVersions)
+        .values({
+          analysisId: locked.id,
+          versionNumber,
+          payloadSchemaVersion: 1,
+          methodologyVersion: payload.methodology_version,
+          payload: payload as unknown as Record<string, unknown>,
+          payloadHash,
+          verdict: payload.verdict,
+          dataDate: payload.base_data.data_date,
+          analysisDate: payload.analysis_date,
+        })
+        .returning({ id: analysisVersions.id });
+
+      if (!version) throw new Error("Version insert returned no row");
+
+      if (options.testHooks?.failAfterVersionInsert) {
+        throw new Error("Simulated ingest failure after version insert");
+      }
 
       await tx.insert(publishEvents).values({
         analysisId: locked.id,
-        analysisVersionId: forceSupersededVersion.id,
-        versionNumber: forceSupersededVersion.versionNumber,
-        eventType: "superseded",
-        verdict: forceSupersededVersion.verdict,
-      });
-    }
-
-    const [latestVersion] = await tx
-      .select({ versionNumber: analysisVersions.versionNumber })
-      .from(analysisVersions)
-      .where(eq(analysisVersions.analysisId, locked.id))
-      .orderBy(desc(analysisVersions.versionNumber))
-      .limit(1);
-
-    const versionNumber = (latestVersion?.versionNumber ?? 0) + 1;
-
-    const [version] = await tx
-      .insert(analysisVersions)
-      .values({
-        analysisId: locked.id,
+        analysisVersionId: version.id,
         versionNumber,
-        payloadSchemaVersion: 1,
-        methodologyVersion: payload.methodology_version,
-        payload: payload as unknown as Record<string, unknown>,
-        payloadHash,
+        eventType: "published",
         verdict: payload.verdict,
-        dataDate: payload.base_data.data_date,
-        analysisDate: payload.analysis_date,
-      })
-      .returning({ id: analysisVersions.id });
+      });
 
-    if (!version) throw new Error("Version insert returned no row");
-
-    if (options.testHooks?.failAfterVersionInsert) {
-      throw new Error("Simulated ingest failure after version insert");
+      return {
+        ok: true,
+        action: forceSupersededVersion ? "force_created" : "created",
+        ticker: payload.ticker,
+        version_number: versionNumber,
+        payload_hash: payloadHash,
+      } satisfies IngestSuccess;
     }
+  );
 
-    await tx.insert(publishEvents).values({
-      analysisId: locked.id,
-      analysisVersionId: version.id,
-      versionNumber,
-      eventType: "published",
-      verdict: payload.verdict,
-    });
-
-    return {
-      ok: true,
-      action: forceSupersededVersion ? "force_created" : "created",
-      ticker: payload.ticker,
-      version_number: versionNumber,
-      payload_hash: payloadHash,
-    } satisfies IngestSuccess;
-  });
-
-  return archiveInboxFile(filePath, txResult as IngestSuccess);
+  return archiveInboxFile(filePath, txResult);
 }
 
 function parentValues(payload: Analysis) {
