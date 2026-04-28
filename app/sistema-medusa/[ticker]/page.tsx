@@ -1,9 +1,3 @@
-// /sistema-medusa/[ticker] — detail page (member-gated by parent layout).
-//
-// Builds the AnalysisView discriminated union once at the top so section
-// components stay mode-agnostic. v1 always renders mode="member"; v2's
-// /analisis/[ticker] will render mode="public" from the same components.
-
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import {
@@ -13,12 +7,11 @@ import {
   listVersions,
 } from "@/lib/sistema-medusa/queries";
 import { getSessionCachedRole } from "@/lib/auth/require";
-import {
-  CATEGORY_LABELS,
-} from "@/lib/sistema-medusa/enums/category";
+import { CATEGORY_LABELS } from "@/lib/sistema-medusa/enums/category";
 import { CHAIN_LABELS } from "@/lib/sistema-medusa/enums/chain";
 import { VERDICT_LABELS } from "@/lib/sistema-medusa/enums/verdict";
 import type { AnalysisView } from "@/lib/sistema-medusa/types";
+import type { Verdict } from "@/lib/sistema-medusa/enum-values";
 import { BaseDataTable } from "@/components/sistema-medusa/BaseDataTable";
 import { ComparativeTable } from "@/components/sistema-medusa/ComparativeTable";
 import { ComplianceDisclaimer } from "@/components/sistema-medusa/ComplianceDisclaimer";
@@ -39,6 +32,22 @@ export const dynamic = "force-dynamic";
 
 const VERSION_REGEX = /^\d{1,4}$/;
 const TICKER_REGEX = /^[a-z0-9]{1,20}$/;
+
+const VERDICT_ACCENT: Record<Verdict, string> = {
+  AVANZA_A_AT: "from-emerald-500/40 via-emerald-500/10 to-transparent",
+  EN_REVISION: "from-amber-500/40 via-amber-500/10 to-transparent",
+  DESCARTE: "from-red-500/40 via-red-500/10 to-transparent",
+  AT_BLOQUEA: "from-orange-500/40 via-orange-500/10 to-transparent",
+  EN_CARTERA: "from-[#6366f1]/40 via-[#6366f1]/10 to-transparent",
+};
+
+const VERDICT_BAR: Record<Verdict, string> = {
+  AVANZA_A_AT: "bg-emerald-500",
+  EN_REVISION: "bg-amber-500",
+  DESCARTE: "bg-red-500",
+  AT_BLOQUEA: "bg-orange-500",
+  EN_CARTERA: "bg-[#6366f1]",
+};
 
 export async function generateMetadata({
   params,
@@ -93,8 +102,11 @@ export default async function SistemaMedusaDetailPage({
   const selectedVersion =
     versionNumber ?? Math.max(...versions.map((v) => v.version_number), 1);
 
+  const verdictAccent = VERDICT_ACCENT[view.data.verdict] ?? VERDICT_ACCENT.EN_REVISION;
+  const verdictBar = VERDICT_BAR[view.data.verdict] ?? VERDICT_BAR.EN_REVISION;
+
   return (
-    <article className="mx-auto max-w-5xl px-4 py-10 sm:px-6">
+    <article>
       <SistemaMedusaAnalytics
         action="view_detail"
         params={{
@@ -104,102 +116,232 @@ export default async function SistemaMedusaDetailPage({
           methodology_version: view.data.methodology_version,
         }}
       />
-      <header className="border-b border-white/[0.06] pb-6">
-        <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#6366f1]">
-          Medusa Capital — Sistema Medusa {view.data.methodology_version}
-        </p>
-        <div className="mt-3 flex flex-wrap items-baseline gap-3">
-          <h1 className="text-2xl font-semibold tracking-tight text-white sm:text-3xl">
+
+      {/* Editorial header — full-width, verdict-tinted */}
+      <header className="relative overflow-hidden border-b border-white/[0.06] bg-[#0a0a0f]">
+        {/* Ambient verdict glow */}
+        <div
+          className={`pointer-events-none absolute inset-0 bg-gradient-to-b ${verdictAccent} opacity-30`}
+        />
+
+        <div className="relative mx-auto max-w-screen-xl px-4 pb-10 pt-10 sm:px-6 lg:px-8">
+          {/* Breadcrumb */}
+          <p className="text-[9px] font-bold uppercase tracking-[0.22em] text-[#6366f1]">
+            Medusa Capital — Sistema Medusa {view.data.methodology_version}
+          </p>
+
+          {/* Project name — Cormorant */}
+          <h1 className="mt-4 font-[family-name:var(--font-heading)] text-5xl font-bold leading-[1.0] tracking-tight text-white sm:text-6xl lg:text-7xl">
             {view.data.project_name}
           </h1>
-          <span className="rounded border border-white/[0.06] bg-[#111118] px-2 py-1 font-mono text-[13px] text-zinc-300">
-            {view.data.ticker}
-          </span>
-          <VerdictBadge verdict={view.data.verdict} size="md" />
-        </div>
 
-        <dl className="mt-4 flex flex-wrap items-center gap-x-6 gap-y-1 text-[12px] text-zinc-500">
-          <div>
-            <dt className="inline">Categoría: </dt>
-            <dd className="inline text-zinc-300">
-              {CATEGORY_LABELS[view.data.category]}
-            </dd>
+          {/* Ticker + verdict badge row */}
+          <div className="mt-5 flex flex-wrap items-center gap-3">
+            <span className="rounded border border-white/[0.08] bg-white/[0.04] px-3 py-1 font-mono text-[15px] font-semibold text-zinc-200">
+              {view.data.ticker}
+            </span>
+            <VerdictBadge verdict={view.data.verdict} size="lg" />
           </div>
-          <div>
-            <dt className="inline">Chain: </dt>
-            <dd className="inline text-zinc-300">
-              {CHAIN_LABELS[view.data.chain]}
-            </dd>
-          </div>
-          <div>
-            <dt className="inline">Fecha del análisis: </dt>
-            <dd className="inline font-mono text-zinc-300">
-              {view.data.analysis_date}
-            </dd>
-          </div>
-          <div>
-            <dt className="inline">Analista: </dt>
-            <dd className="inline text-zinc-300">{view.data.analyst}</dd>
-          </div>
-        </dl>
 
-        <div className="mt-4 flex flex-wrap items-center gap-3">
-          <MethodologyTag version={view.data.methodology_version} />
-          {view.data.tags.length > 0 ? (
-            <ul className="flex flex-wrap gap-1.5">
-              {view.data.tags.map((tag) => (
-                <li
-                  key={tag}
-                  className="rounded border border-white/[0.06] bg-white/[0.02] px-2 py-0.5 text-[10px] uppercase tracking-wider text-zinc-500"
-                >
-                  {tag}
-                </li>
-              ))}
-            </ul>
-          ) : null}
-          <div className="ml-auto">
-            <VersionNavigator
-              ticker={tickerLower}
-              options={versionOptions}
-              selectedVersion={selectedVersion}
-            />
+          {/* Meta row */}
+          <dl className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-1.5 text-[12px] text-zinc-500">
+            <div>
+              <dt className="inline">Categoría: </dt>
+              <dd className="inline text-zinc-300">{CATEGORY_LABELS[view.data.category]}</dd>
+            </div>
+            <div>
+              <dt className="inline">Chain: </dt>
+              <dd className="inline text-zinc-300">{CHAIN_LABELS[view.data.chain]}</dd>
+            </div>
+            <div>
+              <dt className="inline">Análisis: </dt>
+              <dd className="inline font-mono text-zinc-300">{view.data.analysis_date}</dd>
+            </div>
+            <div>
+              <dt className="inline">Analista: </dt>
+              <dd className="inline text-zinc-300">{view.data.analyst}</dd>
+            </div>
+          </dl>
+
+          {/* Tags + methodology + version navigator */}
+          <div className="mt-5 flex flex-wrap items-center gap-3">
+            <MethodologyTag version={view.data.methodology_version} />
+            {view.data.tags.length > 0 ? (
+              <ul className="flex flex-wrap gap-1.5">
+                {view.data.tags.map((tag) => (
+                  <li
+                    key={tag}
+                    className="rounded border border-white/[0.06] bg-white/[0.02] px-2 py-0.5 text-[10px] uppercase tracking-wider text-zinc-500"
+                  >
+                    {tag}
+                  </li>
+                ))}
+              </ul>
+            ) : null}
+            <div className="ml-auto flex items-center gap-3">
+              <VersionNavigator
+                ticker={tickerLower}
+                options={versionOptions}
+                selectedVersion={selectedVersion}
+              />
+              {role === "internal" ? (
+                <DeleteAnalysisButton
+                  ticker={ticker}
+                  onDelete={deleteAnalysis.bind(null, ticker)}
+                />
+              ) : null}
+            </div>
           </div>
         </div>
-        {role === "internal" ? (
-          <div className="mt-4 flex justify-end">
-            <DeleteAnalysisButton
-              ticker={ticker}
-              onDelete={deleteAnalysis.bind(null, ticker)}
-            />
-          </div>
-        ) : null}
       </header>
 
-      <p className="mt-6 text-[14px] leading-relaxed text-zinc-300">
-        {view.data.executive_summary}
-      </p>
+      {/* Content area — two-column on large screens */}
+      <div className="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 lg:px-8">
+        <div className="flex gap-10">
+          {/* Main content column */}
+          <div className="min-w-0 flex-1">
+            {/* Executive summary */}
+            <p className="text-[15px] leading-relaxed text-zinc-300">
+              {view.data.executive_summary}
+            </p>
 
-      {view.mode === "member" ? (
-        <>
-          <BaseDataTable data={view.data.base_data} />
-          <FiltersGrid data={view.data.discard_filters} />
-          <FundamentalPillarsGrid data={view.data.fundamental_pillars} />
-          <ItaBox data={view.data.ita_definitiva} />
-          <ComparativeTable
-            data={view.data.comparative_analysis}
-            ownTicker={view.data.ticker}
-          />
-          <RisksSection data={view.data.risks_and_watchpoints} />
-          <VerdictBox
-            verdict={view.data.verdict}
-            verdictSummary={view.data.verdict_summary}
-            verdictSection={view.data.verdict_section}
-          />
-          <SourcesList data={view.data.sources} />
-        </>
-      ) : null}
+            {view.mode === "member" ? (
+              <>
+                <BaseDataTable data={view.data.base_data} />
+                <FiltersGrid data={view.data.discard_filters} />
+                <FundamentalPillarsGrid data={view.data.fundamental_pillars} />
+                <ItaBox data={view.data.ita_definitiva} />
+                <ComparativeTable
+                  data={view.data.comparative_analysis}
+                  ownTicker={view.data.ticker}
+                />
+                <RisksSection data={view.data.risks_and_watchpoints} />
+                <VerdictBox
+                  verdict={view.data.verdict}
+                  verdictSummary={view.data.verdict_summary}
+                  verdictSection={view.data.verdict_section}
+                />
+                <SourcesList data={view.data.sources} />
+              </>
+            ) : null}
 
-      <ComplianceDisclaimer />
+            <ComplianceDisclaimer />
+          </div>
+
+          {/* Sticky sidebar — hidden on mobile/tablet */}
+          {view.mode === "member" ? (
+            <aside className="hidden w-72 shrink-0 xl:block">
+              <div className="sticky top-20 space-y-4">
+                {/* Verdict summary card */}
+                <div className="overflow-hidden rounded-lg border border-white/[0.06] bg-[#111118]">
+                  <div className={`h-0.5 w-full ${verdictBar}`} />
+                  <div className="p-5">
+                    <p className="text-[9px] font-bold uppercase tracking-[0.2em] text-zinc-600">
+                      Veredicto
+                    </p>
+                    <div className="mt-3">
+                      <VerdictBadge verdict={view.data.verdict} size="lg" />
+                    </div>
+                    <p className="mt-4 text-[12px] leading-relaxed text-zinc-400">
+                      {view.data.verdict_summary}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Key metadata card */}
+                <div className="rounded-lg border border-white/[0.06] bg-[#111118] p-5">
+                  <p className="text-[9px] font-bold uppercase tracking-[0.2em] text-zinc-600">
+                    Ficha técnica
+                  </p>
+                  <dl className="mt-4 space-y-3">
+                    <div>
+                      <dt className="text-[10px] font-semibold uppercase tracking-wider text-zinc-500">
+                        Activo
+                      </dt>
+                      <dd className="mt-0.5 font-mono text-[13px] font-semibold text-white">
+                        {view.data.ticker}
+                      </dd>
+                    </div>
+                    <div>
+                      <dt className="text-[10px] font-semibold uppercase tracking-wider text-zinc-500">
+                        Categoría
+                      </dt>
+                      <dd className="mt-0.5 text-[13px] text-zinc-300">
+                        {CATEGORY_LABELS[view.data.category]}
+                      </dd>
+                    </div>
+                    <div>
+                      <dt className="text-[10px] font-semibold uppercase tracking-wider text-zinc-500">
+                        Chain
+                      </dt>
+                      <dd className="mt-0.5 text-[13px] text-zinc-300">
+                        {CHAIN_LABELS[view.data.chain]}
+                      </dd>
+                    </div>
+                    <div>
+                      <dt className="text-[10px] font-semibold uppercase tracking-wider text-zinc-500">
+                        Fecha del análisis
+                      </dt>
+                      <dd className="mt-0.5 font-mono text-[12px] text-zinc-300">
+                        {view.data.analysis_date}
+                      </dd>
+                    </div>
+                    <div>
+                      <dt className="text-[10px] font-semibold uppercase tracking-wider text-zinc-500">
+                        Analista
+                      </dt>
+                      <dd className="mt-0.5 text-[13px] text-zinc-300">
+                        {view.data.analyst}
+                      </dd>
+                    </div>
+                    <div>
+                      <dt className="text-[10px] font-semibold uppercase tracking-wider text-zinc-500">
+                        Metodología
+                      </dt>
+                      <dd className="mt-1">
+                        <MethodologyTag version={view.data.methodology_version} />
+                      </dd>
+                    </div>
+                  </dl>
+                </div>
+
+                {/* Version navigator card */}
+                {versionOptions.length > 1 ? (
+                  <div className="rounded-lg border border-white/[0.06] bg-[#111118] p-5">
+                    <p className="mb-3 text-[9px] font-bold uppercase tracking-[0.2em] text-zinc-600">
+                      Versiones
+                    </p>
+                    <VersionNavigator
+                      ticker={tickerLower}
+                      options={versionOptions}
+                      selectedVersion={selectedVersion}
+                    />
+                  </div>
+                ) : null}
+
+                {/* Tags */}
+                {view.data.tags.length > 0 ? (
+                  <div className="rounded-lg border border-white/[0.06] bg-[#111118] p-5">
+                    <p className="mb-3 text-[9px] font-bold uppercase tracking-[0.2em] text-zinc-600">
+                      Tags
+                    </p>
+                    <ul className="flex flex-wrap gap-1.5">
+                      {view.data.tags.map((tag) => (
+                        <li
+                          key={tag}
+                          className="rounded border border-white/[0.06] bg-white/[0.02] px-2 py-0.5 text-[10px] uppercase tracking-wider text-zinc-500"
+                        >
+                          {tag}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ) : null}
+              </div>
+            </aside>
+          ) : null}
+        </div>
+      </div>
     </article>
   );
 }

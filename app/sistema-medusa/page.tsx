@@ -2,9 +2,7 @@
 //
 // dynamic = "force-dynamic": this is per-viewer auth, not "to avoid ISR" —
 // requireMember() in the layout reads the iron-session cookie on every
-// render, which already opts the route out of static generation. Using
-// force-dynamic here is documentation: ISR + on-demand revalidation is
-// not worth the tooling cost at v1 scale.
+// render, which already opts the route out of static generation.
 
 import Link from "next/link";
 import { z } from "zod";
@@ -48,9 +46,7 @@ export default async function SistemaMedusaPage({
   );
 
   const parsed = searchParamsSchema.safeParse(flat);
-  const params = parsed.success
-    ? parsed.data
-    : searchParamsSchema.parse({});
+  const params = parsed.success ? parsed.data : searchParamsSchema.parse({});
 
   const items = await listAnalyses({
     filters: {
@@ -79,41 +75,59 @@ export default async function SistemaMedusaPage({
           offset: params.offset,
         }}
       />
+
       <HeroSection count={items.length + params.offset} />
 
-      <main className="mx-auto max-w-6xl px-4 py-8 sm:px-6">
-        <div className="rounded-lg border border-white/[0.06] bg-[#0d0d14] p-5">
-          <ListControls
-            selectedVerdict={params.verdict ?? null}
-            selectedCategory={params.category ?? null}
-            selectedChain={params.chain ?? null}
-            initialQ={params.q ?? ""}
-            selectedSort={params.sort}
-          />
-        </div>
+      <div className="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-10">
+        <div className="flex gap-10 py-10">
+          {/* Desktop sidebar */}
+          <aside className="hidden w-52 shrink-0 lg:block">
+            <div className="sticky top-20">
+              <ListControls
+                selectedVerdict={params.verdict ?? null}
+                selectedCategory={params.category ?? null}
+                selectedChain={params.chain ?? null}
+                initialQ={params.q ?? ""}
+                selectedSort={params.sort}
+              />
+            </div>
+          </aside>
 
-        <section className="mt-8">
-          {items.length === 0 ? (
-            hasFilters ? (
-              <NoResults />
+          {/* Main content */}
+          <main className="min-w-0 flex-1">
+            {/* Mobile controls */}
+            <div className="mb-6 lg:hidden">
+              <ListControls
+                selectedVerdict={params.verdict ?? null}
+                selectedCategory={params.category ?? null}
+                selectedChain={params.chain ?? null}
+                initialQ={params.q ?? ""}
+                selectedSort={params.sort}
+              />
+            </div>
+
+            {items.length === 0 ? (
+              hasFilters ? (
+                <NoResults />
+              ) : (
+                <EmptyLibrary />
+              )
             ) : (
-              <EmptyLibrary />
-            )
-          ) : (
-            <ul className="grid gap-3 md:grid-cols-2 lg:grid-cols-3">
-              {items.map((item) => (
-                <li key={item.ticker}>
-                  <AnalysisCard item={item} />
-                </li>
-              ))}
-            </ul>
-          )}
-        </section>
+              <ul className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+                {items.map((item) => (
+                  <li key={item.ticker}>
+                    <AnalysisCard item={item} />
+                  </li>
+                ))}
+              </ul>
+            )}
 
-        {items.length === PAGE_LIMIT ? (
-          <Paginator currentOffset={params.offset} params={raw} />
-        ) : null}
-      </main>
+            {items.length === PAGE_LIMIT ? (
+              <Paginator currentOffset={params.offset} params={raw} />
+            ) : null}
+          </main>
+        </div>
+      </div>
     </>
   );
 }
@@ -141,26 +155,26 @@ function Paginator({
   return (
     <nav
       aria-label="Paginación de análisis"
-      className="mt-8 flex items-center justify-between"
+      className="mt-10 flex items-center justify-between border-t border-white/[0.06] pt-6"
     >
       <Link
         href={hrefFor(prev)}
         aria-disabled={currentOffset === 0}
         className={
-          "rounded-md border border-white/[0.06] bg-white/[0.02] px-3 py-1.5 text-[12px] " +
+          "rounded-md border border-white/[0.06] bg-white/[0.02] px-4 py-2 text-[12px] transition-colors " +
           (currentOffset === 0
-            ? "pointer-events-none text-zinc-600"
-            : "text-zinc-300 hover:text-white")
+            ? "pointer-events-none text-zinc-700"
+            : "text-zinc-300 hover:border-white/10 hover:text-white")
         }
       >
         Anterior
       </Link>
-      <span className="font-mono text-[10px] uppercase tracking-wider text-zinc-500">
-        Mostrando {currentOffset + 1}–{currentOffset + PAGE_LIMIT}
+      <span className="font-mono text-[10px] uppercase tracking-wider text-zinc-600">
+        {currentOffset + 1}–{currentOffset + PAGE_LIMIT}
       </span>
       <Link
         href={hrefFor(next)}
-        className="rounded-md border border-white/[0.06] bg-white/[0.02] px-3 py-1.5 text-[12px] text-zinc-300 hover:text-white"
+        className="rounded-md border border-white/[0.06] bg-white/[0.02] px-4 py-2 text-[12px] text-zinc-300 transition-colors hover:border-white/10 hover:text-white"
       >
         Siguiente
       </Link>

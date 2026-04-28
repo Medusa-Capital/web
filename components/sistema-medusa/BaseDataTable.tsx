@@ -12,7 +12,10 @@ const PRECISE = new Intl.NumberFormat("en-US", {
   maximumFractionDigits: 6,
 });
 
-function fmtUsd(value: number | null | undefined, mode: "compact" | "precise" = "compact") {
+function fmtUsd(
+  value: number | null | undefined,
+  mode: "compact" | "precise" = "compact"
+) {
   if (value === null || value === undefined) return "—";
   const fmt = mode === "compact" ? COMPACT : PRECISE;
   return `$${fmt.format(value)}`;
@@ -31,26 +34,33 @@ function fmtSupply(value: number | null | undefined) {
 export function BaseDataTable({ data }: BaseDataTableProps) {
   return (
     <section aria-labelledby="base-data-heading" className="mt-10">
-      <header className="mb-3 flex items-baseline justify-between border-b border-white/[0.06] pb-3">
-        <h2
-          id="base-data-heading"
-          className="text-[15px] font-semibold text-white"
-        >
-          Datos base
-        </h2>
-        <span className="font-mono text-[10px] uppercase tracking-wider text-zinc-500">
-          {data.data_date}
-        </span>
+      <header className="mb-5 flex items-baseline justify-between border-b border-white/[0.06] pb-4">
+        <div>
+          <p className="text-[9px] font-bold uppercase tracking-[0.2em] text-zinc-600">
+            Datos base
+          </p>
+          <h2
+            id="base-data-heading"
+            className="mt-1 font-[family-name:var(--font-heading)] text-2xl font-bold text-white"
+          >
+            Métricas clave
+          </h2>
+        </div>
+        <span className="font-mono text-[11px] text-zinc-600">{data.data_date}</span>
       </header>
+
       <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-3">
-        <Metric label="Precio" value={fmtUsd(data.price_usd, "precise")} />
-        <Metric label="Market Cap" value={fmtUsd(data.market_cap_usd)} />
-        <Metric
+        <MetricCard
+          label="Precio"
+          value={fmtUsd(data.price_usd, "precise")}
+        />
+        <MetricCard label="Market Cap" value={fmtUsd(data.market_cap_usd)} />
+        <MetricCard
           label="FDV"
           value={fmtUsd(data.fdv_usd)}
           sub={`MC/FDV: ${fmtRatio(data.mc_fdv_ratio)}`}
         />
-        <Metric
+        <MetricCard
           label="Revenue anualizado"
           value={fmtUsd(data.revenue_annualized_usd)}
           sub={
@@ -59,9 +69,9 @@ export function BaseDataTable({ data }: BaseDataTableProps) {
               : undefined
           }
         />
-        <Metric label="TVL" value={fmtUsd(data.tvl_usd)} />
-        <Metric
-          label="Supply"
+        <MetricCard label="TVL" value={fmtUsd(data.tvl_usd)} />
+        <MetricCard
+          label="Supply circulante"
           value={fmtSupply(data.circulating_supply)}
           sub={
             data.total_supply
@@ -74,7 +84,7 @@ export function BaseDataTable({ data }: BaseDataTableProps) {
   );
 }
 
-function Metric({
+function MetricCard({
   label,
   value,
   sub,
@@ -85,15 +95,15 @@ function Metric({
 }) {
   return (
     <div className="rounded-lg border border-white/[0.06] bg-[#111118] p-4">
-      <div className="text-[10px] font-medium uppercase tracking-wider text-zinc-500">
+      <p className="text-[10px] font-semibold uppercase tracking-wider text-zinc-500">
         {label}
-      </div>
-      <div className="mt-1 font-mono text-[16px] font-medium text-white">
+      </p>
+      <p className="mt-2 font-mono text-[18px] font-semibold tabular-nums text-white">
         {value}
-      </div>
-      {sub ? (
-        <div className="mt-1 text-[11px] text-zinc-500">{sub}</div>
-      ) : null}
+      </p>
+      {sub && (
+        <p className="mt-1 text-[11px] text-zinc-600">{sub}</p>
+      )}
     </div>
   );
 }

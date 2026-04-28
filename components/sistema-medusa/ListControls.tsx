@@ -2,7 +2,7 @@
 
 import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { Search } from "lucide-react";
+import { Search, X } from "lucide-react";
 import { trackSistemaMedusaEvent } from "@/lib/analytics";
 import {
   CATEGORY_VALUES,
@@ -13,10 +13,7 @@ import {
   CATEGORY_DOT,
   CATEGORY_LABELS,
 } from "@/lib/sistema-medusa/enums/category";
-import {
-  CHAIN_DOT,
-  CHAIN_LABELS,
-} from "@/lib/sistema-medusa/enums/chain";
+import { CHAIN_DOT, CHAIN_LABELS } from "@/lib/sistema-medusa/enums/chain";
 import {
   VERDICT_DOT,
   VERDICT_LABELS,
@@ -47,6 +44,9 @@ export function ListControls({
   const router = useRouter();
   const searchParams = useSearchParams();
   const [q, setQ] = useState(initialQ);
+  const hasActiveFilters = Boolean(
+    selectedVerdict || selectedCategory || selectedChain || initialQ
+  );
 
   useEffect(() => {
     setQ(initialQ);
@@ -86,40 +86,60 @@ export function ListControls({
   );
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-6">
+      {/* Search */}
       <label className="relative block">
         <span className="sr-only">Buscar análisis</span>
         <Search
           aria-hidden="true"
-          className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-zinc-500"
+          className="pointer-events-none absolute left-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-zinc-600"
         />
         <input
           type="search"
           value={q}
-          onChange={(event) => {
-            const next = event.target.value;
-            setQ(next);
-            debouncedSearch(next);
+          onChange={(e) => {
+            setQ(e.target.value);
+            debouncedSearch(e.target.value);
           }}
-          placeholder="Buscar por ticker o nombre…"
-          className="w-full rounded-md border border-white/[0.06] bg-[#111118] py-2 pl-9 pr-3 text-[13px] text-white placeholder:text-zinc-500 focus:border-[#6366f1]/40 focus:outline-none focus:ring-1 focus:ring-[#6366f1]/30"
+          placeholder="Ticker o nombre…"
+          className="w-full rounded-md border border-white/[0.07] bg-white/[0.03] py-2 pl-8 pr-7 text-[12px] text-white placeholder:text-zinc-600 focus:border-[#6366f1]/40 focus:outline-none focus:ring-1 focus:ring-[#6366f1]/20"
           maxLength={200}
         />
+        {q && (
+          <button
+            type="button"
+            className="absolute right-2.5 top-1/2 -translate-y-1/2 text-zinc-600 hover:text-zinc-400"
+            onClick={() => {
+              setQ("");
+              debouncedSearch("");
+            }}
+          >
+            <X className="h-3 w-3" aria-hidden="true" />
+            <span className="sr-only">Limpiar búsqueda</span>
+          </button>
+        )}
       </label>
 
-      <div
-        role="radiogroup"
-        aria-label="Filtrar por veredicto"
-        className="flex flex-wrap items-center gap-1.5"
-      >
-        <FilterPill
+      {/* Clear all filters */}
+      {hasActiveFilters && (
+        <a
+          href="/sistema-medusa"
+          className="block rounded border border-white/[0.06] py-1.5 text-center text-[11px] text-zinc-500 transition-colors hover:border-white/10 hover:text-zinc-300"
+        >
+          Limpiar filtros
+        </a>
+      )}
+
+      {/* Verdict */}
+      <FilterSection label="Veredicto" ariaLabel="Filtrar por veredicto">
+        <SidebarItem
           href={buildHref("verdict", null)}
           isActive={!selectedVerdict}
-          label="Todos los veredictos"
+          label="Todos"
           analytics={{ filter_type: "verdict", filter_value: "all" }}
         />
         {VERDICT_VALUES.map((value) => (
-          <FilterPill
+          <SidebarItem
             key={value}
             href={buildHref("verdict", value)}
             isActive={selectedVerdict === value}
@@ -128,21 +148,18 @@ export function ListControls({
             analytics={{ filter_type: "verdict", filter_value: value }}
           />
         ))}
-      </div>
+      </FilterSection>
 
-      <div
-        role="radiogroup"
-        aria-label="Filtrar por categoría"
-        className="flex flex-wrap items-center gap-1.5"
-      >
-        <FilterPill
+      {/* Category */}
+      <FilterSection label="Categoría" ariaLabel="Filtrar por categoría">
+        <SidebarItem
           href={buildHref("category", null)}
           isActive={!selectedCategory}
-          label="Todas las categorías"
+          label="Todas"
           analytics={{ filter_type: "category", filter_value: "all" }}
         />
         {CATEGORY_VALUES.map((value) => (
-          <FilterPill
+          <SidebarItem
             key={value}
             href={buildHref("category", value)}
             isActive={selectedCategory === value}
@@ -151,21 +168,18 @@ export function ListControls({
             analytics={{ filter_type: "category", filter_value: value }}
           />
         ))}
-      </div>
+      </FilterSection>
 
-      <div
-        role="radiogroup"
-        aria-label="Filtrar por chain"
-        className="flex flex-wrap items-center gap-1.5"
-      >
-        <FilterPill
+      {/* Chain */}
+      <FilterSection label="Cadena" ariaLabel="Filtrar por chain">
+        <SidebarItem
           href={buildHref("chain", null)}
           isActive={!selectedChain}
-          label="Todas las chains"
+          label="Todas"
           analytics={{ filter_type: "chain", filter_value: "all" }}
         />
         {CHAIN_VALUES.map((value) => (
-          <FilterPill
+          <SidebarItem
             key={value}
             href={buildHref("chain", value)}
             isActive={selectedChain === value}
@@ -174,43 +188,58 @@ export function ListControls({
             analytics={{ filter_type: "chain", filter_value: value }}
           />
         ))}
-      </div>
+      </FilterSection>
 
-      <div className="flex items-center justify-between gap-3 pt-2">
-        <span className="text-[11px] uppercase tracking-wider text-zinc-500">
-          Orden
-        </span>
-        <div className="flex flex-wrap items-center gap-1">
-          {(Object.keys(SORT_LABELS) as SortKey[]).map((key) => (
-            <FilterPill
-              key={key}
-              href={buildHref("sort", key === "newest" ? null : key)}
-              isActive={selectedSort === key}
-              label={SORT_LABELS[key]}
-              analytics={{ filter_type: "sort", filter_value: key }}
-            />
-          ))}
-        </div>
-      </div>
+      {/* Sort */}
+      <FilterSection label="Orden" ariaLabel="Ordenar resultados">
+        {(Object.keys(SORT_LABELS) as SortKey[]).map((key) => (
+          <SidebarItem
+            key={key}
+            href={buildHref("sort", key === "newest" ? null : key)}
+            isActive={selectedSort === key}
+            label={SORT_LABELS[key]}
+            analytics={{ filter_type: "sort", filter_value: key }}
+          />
+        ))}
+      </FilterSection>
     </div>
   );
 }
 
-interface FilterPillProps {
+function FilterSection({
+  label,
+  ariaLabel,
+  children,
+}: {
+  label: string;
+  ariaLabel: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <div role="radiogroup" aria-label={ariaLabel}>
+      <p className="mb-2 text-[9px] font-bold uppercase tracking-[0.2em] text-zinc-600">
+        {label}
+      </p>
+      <div className="space-y-0.5">{children}</div>
+    </div>
+  );
+}
+
+interface SidebarItemProps {
   href: string;
   isActive: boolean;
   label: string;
   dotClass?: string;
-  analytics?: Record<string, string>;
+  analytics?: Record<string, string | number | boolean>;
 }
 
-function FilterPill({
+function SidebarItem({
   href,
   isActive,
   label,
   dotClass,
   analytics,
-}: FilterPillProps) {
+}: SidebarItemProps) {
   return (
     <a
       role="radio"
@@ -220,16 +249,27 @@ function FilterPill({
         if (analytics) trackSistemaMedusaEvent("filter_applied", analytics);
       }}
       className={
-        "inline-flex items-center gap-1.5 rounded-md border px-2.5 py-1 text-[12px] transition-colors " +
+        "flex items-center gap-2 rounded-md px-2.5 py-1.5 text-[12px] transition-colors " +
         (isActive
-          ? "border-[#6366f1]/40 bg-[#6366f1]/15 text-white"
-          : "border-white/[0.06] bg-white/[0.02] text-zinc-400 hover:border-white/[0.12] hover:text-white")
+          ? "bg-[#6366f1]/10 font-semibold text-white"
+          : "text-zinc-500 hover:bg-white/[0.03] hover:text-zinc-300")
       }
     >
       {dotClass ? (
-        <span aria-hidden="true" className={`h-1.5 w-1.5 rounded-full ${dotClass}`} />
-      ) : null}
-      {label}
+        <span
+          aria-hidden="true"
+          className={`h-1.5 w-1.5 shrink-0 rounded-full ${dotClass}`}
+        />
+      ) : (
+        <span className="h-1.5 w-1.5 shrink-0" />
+      )}
+      <span className="flex-1">{label}</span>
+      {isActive && (
+        <span
+          aria-hidden="true"
+          className="h-1 w-1 shrink-0 rounded-full bg-[#6366f1]"
+        />
+      )}
     </a>
   );
 }
