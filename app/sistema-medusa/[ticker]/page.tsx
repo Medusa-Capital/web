@@ -169,7 +169,7 @@ export default async function SistemaMedusaDetailPage({
           <div className="mt-4 flex justify-end">
             <DeleteAnalysisButton
               ticker={ticker}
-              onDelete={deleteAnalysis.bind(null, tickerLower)}
+              onDelete={deleteAnalysis.bind(null, ticker)}
             />
           </div>
         ) : null}
