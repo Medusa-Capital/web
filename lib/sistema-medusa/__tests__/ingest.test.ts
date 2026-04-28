@@ -119,5 +119,40 @@ describe("ingestAnalysis", () => {
       version_number: 1,
       payload_hash: created.payload_hash,
     });
+
+    const forced = await ingestAnalysis(filePath, { force: true });
+    expect(forced).toMatchObject({
+      ok: true,
+      action: "force_created",
+      ticker,
+      version_number: 2,
+      payload_hash: created.payload_hash,
+    });
+
+    const versionRows = await db
+      .select({
+        versionNumber: analysisVersions.versionNumber,
+        unpublishedAt: analysisVersions.unpublishedAt,
+      })
+      .from(analysisVersions)
+      .where(eq(analysisVersions.analysisId, parent.id))
+      .orderBy(analysisVersions.versionNumber);
+    expect(versionRows).toHaveLength(2);
+    expect(versionRows[0]?.unpublishedAt).toBeInstanceOf(Date);
+    expect(versionRows[1]?.unpublishedAt).toBeNull();
+
+    const eventRows = await db
+      .select({
+        eventType: publishEvents.eventType,
+        versionNumber: publishEvents.versionNumber,
+      })
+      .from(publishEvents)
+      .where(eq(publishEvents.analysisId, parent.id))
+      .orderBy(publishEvents.occurredAt);
+    expect(eventRows).toEqual([
+      { eventType: "published", versionNumber: 1 },
+      { eventType: "superseded", versionNumber: 1 },
+      { eventType: "published", versionNumber: 2 },
+    ]);
   });
 });
