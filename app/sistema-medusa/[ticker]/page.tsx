@@ -12,7 +12,7 @@ import {
   getMemberView,
   listVersions,
 } from "@/lib/sistema-medusa/queries";
-import { requireMemberCore } from "@/lib/auth/require";
+import { getSessionCachedRole } from "@/lib/auth/require";
 import {
   CATEGORY_LABELS,
 } from "@/lib/sistema-medusa/enums/category";
@@ -59,7 +59,7 @@ export default async function SistemaMedusaDetailPage({
   params: Promise<{ ticker: string }>;
   searchParams: Promise<{ v?: string }>;
 }) {
-  const session = await requireMemberCore();
+  const role = await getSessionCachedRole();
 
   const { ticker: rawTicker } = await params;
   const sp = await searchParams;
@@ -165,7 +165,7 @@ export default async function SistemaMedusaDetailPage({
             />
           </div>
         </div>
-        {session.ok && session.data.role === "internal" ? (
+        {role === "internal" ? (
           <div className="mt-4 flex justify-end">
             <DeleteAnalysisButton
               ticker={ticker}
