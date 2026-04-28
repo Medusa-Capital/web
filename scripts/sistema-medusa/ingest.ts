@@ -7,7 +7,11 @@ import { analysisSchema, type Analysis } from "@/lib/sistema-medusa/schemas";
 
 const MAX_FILE_BYTES = 1024 * 1024;
 
-type IngestAction = "created" | "noop";
+type IngestAction = "created" | "noop" | "force_created";
+
+type IngestOptions = {
+  force?: boolean;
+};
 
 export type IngestResult = {
   ok: true;
@@ -17,7 +21,10 @@ export type IngestResult = {
   payload_hash: string;
 };
 
-export async function ingestAnalysis(inputPath: string): Promise<IngestResult> {
+export async function ingestAnalysis(
+  inputPath: string,
+  options: IngestOptions = {}
+): Promise<IngestResult> {
   const filePath = resolveInputPath(inputPath);
   const stat = statSync(filePath);
   if (stat.size > MAX_FILE_BYTES) {
@@ -60,8 +67,10 @@ export async function ingestAnalysis(inputPath: string): Promise<IngestResult> {
 
     const [latestPublished] = await tx
       .select({
+        id: analysisVersions.id,
         versionNumber: analysisVersions.versionNumber,
         payloadHash: analysisVersions.payloadHash,
+        verdict: analysisVersions.verdict,
       })
       .from(analysisVersions)
       .where(
@@ -73,7 +82,7 @@ export async function ingestAnalysis(inputPath: string): Promise<IngestResult> {
       .orderBy(desc(analysisVersions.versionNumber))
       .limit(1);
 
-    if (latestPublished?.payloadHash === payloadHash) {
+    if (latestPublished?.payloadHash === payloadHash && !options.force) {
       return {
         ok: true,
         action: "noop",
@@ -81,6 +90,26 @@ export async function ingestAnalysis(inputPath: string): Promise<IngestResult> {
         version_number: latestPublished.versionNumber,
         payload_hash: payloadHash,
       };
+    }
+
+    const forceSupersededVersion =
+      options.force && latestPublished?.payloadHash === payloadHash
+        ? latestPublished
+        : null;
+
+    if (forceSupersededVersion) {
+      await tx
+        .update(analysisVersions)
+        .set({ unpublishedAt: new Date() })
+        .where(eq(analysisVersions.id, forceSupersededVersion.id));
+
+      await tx.insert(publishEvents).values({
+        analysisId: locked.id,
+        analysisVersionId: forceSupersededVersion.id,
+        versionNumber: forceSupersededVersion.versionNumber,
+        eventType: "superseded",
+        verdict: forceSupersededVersion.verdict,
+      });
     }
 
     const [latestVersion] = await tx
@@ -119,7 +148,7 @@ export async function ingestAnalysis(inputPath: string): Promise<IngestResult> {
 
     return {
       ok: true,
-      action: "created",
+      action: forceSupersededVersion ? "force_created" : "created",
       ticker: payload.ticker,
       version_number: versionNumber,
       payload_hash: payloadHash,
@@ -156,14 +185,15 @@ function resolveInputPath(inputPath: string): string {
 }
 
 if (import.meta.main) {
-  const path = process.argv[2];
+  const args = process.argv.slice(2);
+  const path = args.find((arg) => !arg.startsWith("--"));
   if (!path) {
-    console.error("Usage: bun scripts/sistema-medusa/ingest.ts <path>");
+    console.error("Usage: bun scripts/sistema-medusa/ingest.ts <path> [--force]");
     process.exit(1);
   }
 
   try {
-    const result = await ingestAnalysis(path);
+    const result = await ingestAnalysis(path, { force: args.includes("--force") });
     console.log(
       `${result.action}: ${result.ticker} v${result.version_number} (${result.payload_hash})`
     );
