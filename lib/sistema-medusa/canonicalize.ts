@@ -1,5 +1,9 @@
 type JsonPrimitive = string | number | boolean | null;
-type CanonicalValue = JsonPrimitive | CanonicalValue[] | Record<string, CanonicalValue>;
+type CanonicalValue =
+  | JsonPrimitive
+  | CanonicalArray
+  | { [key: string]: CanonicalValue };
+type CanonicalArray = Array<CanonicalValue>;
 
 export function canonicalize(payload: unknown): string {
   return JSON.stringify(toCanonicalValue(payload));

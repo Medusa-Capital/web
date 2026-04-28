@@ -9,6 +9,7 @@ import {
   timestamp,
   uniqueIndex,
   uuid,
+  type AnyPgColumn,
 } from "drizzle-orm/pg-core";
 import { categoryPgEnum, chainPgEnum, verdictPgEnum } from "./enums";
 import { users } from "./users";
@@ -36,7 +37,7 @@ export const analyses = sistemaMedusaSchema.table(
     defillamaSlug: text("defillama_slug"),
 
     latestVersionId: uuid("latest_version_id").references(
-      () => analysisVersions.id,
+      (): AnyPgColumn => analysisVersions.id,
       { onDelete: "restrict" }
     ),
     currentVerdict: verdictPgEnum("current_verdict"),
