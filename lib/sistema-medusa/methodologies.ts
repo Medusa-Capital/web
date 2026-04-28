@@ -32,6 +32,6 @@ export function isKnownMethodologyVersion(
 export function isDeprecatedMethodologyVersion(
   value: MethodologyVersion
 ): boolean {
-  const entry = METHODOLOGIES[value] as MethodologyMetadata;
-  return entry.deprecated === true;
+  const entry = METHODOLOGIES[value];
+  return "deprecated" in entry && entry.deprecated === true;
 }
