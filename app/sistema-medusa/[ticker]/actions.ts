@@ -17,7 +17,7 @@ export async function deleteAnalysis(ticker: string): Promise<void> {
     const [parent] = await tx
       .select({ id: analyses.id })
       .from(analyses)
-      .where(eq(analyses.ticker, ticker.toLowerCase()))
+      .where(eq(analyses.ticker, ticker.toUpperCase()))
       .for("update")
       .limit(1);
 

@@ -21,7 +21,9 @@ export function DeleteAnalysisButton({
       )
     )
       return;
-    startTransition(() => void onDelete());
+    startTransition(async () => {
+      await onDelete();
+    });
   }
 
   return (
