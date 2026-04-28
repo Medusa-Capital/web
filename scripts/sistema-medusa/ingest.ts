@@ -24,6 +24,9 @@ type IngestAction =
 type IngestOptions = {
   force?: boolean;
   dryRun?: boolean;
+  testHooks?: {
+    failAfterVersionInsert?: boolean;
+  };
 };
 
 export type IngestSuccess = {
@@ -166,6 +169,10 @@ export async function ingestAnalysis(
       .returning({ id: analysisVersions.id });
 
     if (!version) throw new Error("Version insert returned no row");
+
+    if (options.testHooks?.failAfterVersionInsert) {
+      throw new Error("Simulated ingest failure after version insert");
+    }
 
     await tx.insert(publishEvents).values({
       analysisId: locked.id,
