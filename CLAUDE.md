@@ -202,9 +202,13 @@ Featurebase-inspired design. Dark card surfaces (`#111118`), `white/[0.06]` bord
 
 ## Sistema Medusa Library (`/sistema-medusa`)
 
-Member-only research library for Sistema Medusa analyses. Dark product surface using the existing site purple `#6366f1`, card surfaces `#111118`, borders `white/[0.06]`, and Spanish copy throughout.
+Member-only research library for Sistema Medusa analyses. Editorial dark product surface — Neo-Noir / Cyber-Luxury aesthetic with Cormorant Bold headings, semantic verdict colors, and full desktop-width layouts.
 
+- **List page layout:** `max-w-screen-xl`, sticky left sidebar (lg+) for filters + 2–3 col card grid. Filters are vertical sidebar items on desktop, stacked above grid on mobile.
+- **Detail page layout:** full-width verdict-tinted editorial header (Cormorant Bold project name, `text-5xl`–`text-7xl`), then two-column flex below on xl: main content column + `w-72` sticky sidebar (verdict card, ficha técnica, version navigator, tags).
+- **Verdict colors:** AVANZA_A_AT=emerald, EN_REVISION=amber, DESCARTE=red, AT_BLOQUEA=orange, EN_CARTERA=indigo. Applied to badges, card left borders, hover glows, detail page ambient glow, and sidebar verdict bar.
 - **Routes:** `app/sistema-medusa/layout.tsx` gates once with `requireMember({ returnTo })`; `page.tsx` renders the filterable list; `[ticker]/page.tsx` renders a detail article with `ComplianceDisclaimer`. `generateMetadata` is noindex for v1.
+- **Local dev auth bypass:** set `SKIP_AUTH=true` in `.env.local` to skip the Whop gate in both middleware and layout. Never set this in production env vars.
 - **Auth allowlist:** `lib/auth/return-to.ts` allows `/sistema-medusa` and `/sistema-medusa/[ticker]`; only detail routes preserve `?v=\d{1,4}`. Middleware injects `x-pathname` for layout-level returnTo.
 - **DB schema:** `db/schema/sistema-medusa.ts` defines `sistema_medusa.analyses`, `analysis_versions`, and `publish_events`. `latest_version_id` is nullable; `analysis_versions.analysis_id` is `ON DELETE RESTRICT`; `publish_events` is an outbox for `published`, `superseded`, `unpublished`.
 - **Migrations:** generated schema migration is paired with journaled custom SQL `0003_sistema_medusa_constraints_and_triggers.sql`. Manual SQL creates `published_versions`, `pg_trgm` search index, partial active payload-hash unique index, column-only CHECKs, and `analysis_versions_refresh_current`.
