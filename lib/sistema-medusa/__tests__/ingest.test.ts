@@ -1,5 +1,12 @@
 import { afterAll, beforeAll, describe, expect, test } from "bun:test";
-import { mkdtempSync, readFileSync, writeFileSync } from "fs";
+import {
+  existsSync,
+  mkdirSync,
+  mkdtempSync,
+  readFileSync,
+  rmSync,
+  writeFileSync,
+} from "fs";
 import { tmpdir } from "os";
 import { join } from "path";
 import { eq } from "drizzle-orm";
@@ -9,6 +16,7 @@ import { ingestAnalysis } from "@/scripts/sistema-medusa/ingest";
 import { transformAeroInput } from "@/scripts/sistema-medusa/seed-aero";
 
 const createdTickers: string[] = [];
+const cleanupPaths: string[] = [];
 let db: typeof import("@/db").db;
 
 function loadEnvLocal() {
@@ -61,6 +69,9 @@ beforeAll(async () => {
 afterAll(async () => {
   for (const ticker of createdTickers) {
     await cleanupTicker(ticker);
+  }
+  for (const path of cleanupPaths) {
+    rmSync(path, { force: true, recursive: true });
   }
 });
 
@@ -154,5 +165,66 @@ describe("ingestAnalysis", () => {
       { eventType: "superseded", versionNumber: 1 },
       { eventType: "published", versionNumber: 2 },
     ]);
+  });
+
+  test("recovers archive move failures without duplicating DB rows", async () => {
+    const ticker = `R${Date.now().toString(36).toUpperCase()}`;
+    const slug = ticker.toLowerCase();
+    createdTickers.push(ticker);
+    await cleanupTicker(ticker);
+
+    const inboxDir = join(process.cwd(), "content/sistema-medusa/inbox", slug);
+    const publishedDir = join(
+      process.cwd(),
+      "content/sistema-medusa/published",
+      slug
+    );
+    const publishedParent = join(process.cwd(), "content/sistema-medusa/published");
+    cleanupPaths.push(inboxDir, publishedDir);
+    rmSync(inboxDir, { force: true, recursive: true });
+    rmSync(publishedDir, { force: true, recursive: true });
+
+    mkdirSync(inboxDir, { recursive: true });
+    mkdirSync(publishedParent, { recursive: true });
+    writeFileSync(publishedDir, "blocks archive mkdir");
+
+    const payload = transformAeroInput(rawAero());
+    payload.ticker = ticker;
+    payload.project_name = "Test Archive Recovery";
+
+    const filePath = join(inboxDir, `${slug}.json`);
+    writeFileSync(filePath, JSON.stringify(payload, null, 2));
+
+    const failed = await ingestAnalysis(filePath);
+    expect(failed).toMatchObject({
+      ok: false,
+      action: "created_archive_failed",
+      ticker,
+      version_number: 1,
+    });
+    expect(existsSync(filePath)).toBe(true);
+
+    rmSync(publishedDir, { force: true, recursive: true });
+
+    const recovered = await ingestAnalysis(filePath);
+    expect(recovered).toMatchObject({
+      ok: true,
+      action: "archive_recovered",
+      ticker,
+      version_number: 1,
+      payload_hash: failed.payload_hash,
+    });
+    expect(existsSync(filePath)).toBe(false);
+    expect(existsSync(join(publishedDir, "v1.json"))).toBe(true);
+
+    const [parent] = await db
+      .select({ id: analyses.id })
+      .from(analyses)
+      .where(eq(analyses.ticker, ticker));
+    const versions = await db
+      .select({ versionNumber: analysisVersions.versionNumber })
+      .from(analysisVersions)
+      .where(eq(analysisVersions.analysisId, parent.id));
+    expect(versions).toEqual([{ versionNumber: 1 }]);
   });
 });
