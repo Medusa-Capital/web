@@ -92,7 +92,7 @@ export const FIELD_VISIBILITY = {
 } as const satisfies Record<string, Visibility>;
 
 export function getVisibility(path: string): Visibility {
-  return FIELD_VISIBILITY[path] ?? "member";
+  return (FIELD_VISIBILITY as Record<string, Visibility>)[path] ?? "member";
 }
 
 export function pickPublic(payload: Analysis): AnalysisPublicView {
@@ -113,13 +113,12 @@ function pickPublicValue(value: unknown, path: string): unknown {
   }
 
   if (isPlainObject(value)) {
-    const entries = Object.entries(value)
-      .map(([key, child]) => {
-        const childPath = path ? `${path}.${key}` : key;
-        const picked = pickPublicValue(child, childPath);
-        return picked === undefined ? undefined : [key, picked];
-      })
-      .filter((entry): entry is [string, unknown] => entry !== undefined);
+    const entries: Array<[string, unknown]> = [];
+    for (const [key, child] of Object.entries(value)) {
+      const childPath = path ? `${path}.${key}` : key;
+      const picked = pickPublicValue(child, childPath);
+      if (picked !== undefined) entries.push([key, picked]);
+    }
 
     return entries.length > 0 ? Object.fromEntries(entries) : undefined;
   }

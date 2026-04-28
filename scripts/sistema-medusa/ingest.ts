@@ -191,7 +191,7 @@ export async function ingestAnalysis(
     } satisfies IngestSuccess;
   });
 
-  return archiveInboxFile(filePath, txResult);
+  return archiveInboxFile(filePath, txResult as IngestSuccess);
 }
 
 function parentValues(payload: Analysis) {
