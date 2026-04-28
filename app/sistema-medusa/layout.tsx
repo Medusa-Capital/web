@@ -13,8 +13,12 @@ export default async function SistemaMedusaLayout({
 }) {
   const headerList = await headers();
   const pathname = headerList.get("x-pathname") ?? "/sistema-medusa";
-  const session = await requireMember({ returnTo: pathname });
-  const userName = session.displayName ?? session.email ?? "Miembro";
+
+  let userName = "Miembro";
+  if (process.env.SKIP_AUTH !== "true") {
+    const session = await requireMember({ returnTo: pathname });
+    userName = session.displayName ?? session.email ?? "Miembro";
+  }
 
   return (
     <div className="min-h-screen bg-[#0a0a0f]">
