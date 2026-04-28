@@ -52,6 +52,12 @@ export function IdeasHeader({ userName }: IdeasHeaderProps) {
           >
             Novedades
           </span>
+          <Link
+            href="/sistema-medusa"
+            className="rounded-md px-3 py-1.5 text-[13px] text-[#a1a1aa] transition-colors hover:bg-white/[0.04] hover:text-white"
+          >
+            Sistema Medusa
+          </Link>
         </nav>
 
         {/* Right: User + actions */}
