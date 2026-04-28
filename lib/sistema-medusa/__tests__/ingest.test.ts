@@ -227,4 +227,42 @@ describe("ingestAnalysis", () => {
       .where(eq(analysisVersions.analysisId, parent.id));
     expect(versions).toEqual([{ versionNumber: 1 }]);
   });
+
+  test("dry-run validates and diffs without writing", async () => {
+    const ticker = `D${Date.now().toString(36).toUpperCase()}`;
+    createdTickers.push(ticker);
+    await cleanupTicker(ticker);
+
+    const payload = transformAeroInput(rawAero());
+    payload.ticker = ticker;
+    payload.project_name = "Test Dry Run";
+
+    const dir = mkdtempSync(join(tmpdir(), "sistema-medusa-dry-"));
+    const filePath = join(dir, `${ticker.toLowerCase()}.json`);
+    writeFileSync(filePath, JSON.stringify(payload, null, 2));
+
+    await ingestAnalysis(filePath);
+
+    payload.executive_summary = `${payload.executive_summary} Cambio controlado.`;
+    writeFileSync(filePath, JSON.stringify(payload, null, 2));
+
+    const dryRun = await ingestAnalysis(filePath, { dryRun: true });
+    expect(dryRun).toMatchObject({
+      ok: true,
+      action: "validated",
+      ticker,
+      version_number: 2,
+    });
+    expect(dryRun.diff).toContain("executive_summary");
+
+    const [parent] = await db
+      .select({ id: analyses.id })
+      .from(analyses)
+      .where(eq(analyses.ticker, ticker));
+    const versions = await db
+      .select({ versionNumber: analysisVersions.versionNumber })
+      .from(analysisVersions)
+      .where(eq(analysisVersions.analysisId, parent.id));
+    expect(versions).toEqual([{ versionNumber: 1 }]);
+  });
 });

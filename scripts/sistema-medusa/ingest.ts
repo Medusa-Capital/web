@@ -18,10 +18,12 @@ type IngestAction =
   | "noop"
   | "force_created"
   | "created_archive_failed"
-  | "archive_recovered";
+  | "archive_recovered"
+  | "validated";
 
 type IngestOptions = {
   force?: boolean;
+  dryRun?: boolean;
 };
 
 export type IngestSuccess = {
@@ -30,6 +32,7 @@ export type IngestSuccess = {
   ticker: string;
   version_number: number;
   payload_hash: string;
+  diff?: string[];
 };
 
 export type IngestFailure = {
@@ -59,6 +62,10 @@ export async function ingestAnalysis(
   const payloadHash = sha256(canonicalize(payload));
   const { db } = await import("@/db");
   const { analyses, analysisVersions, publishEvents } = await import("@/db/schema");
+
+  if (options.dryRun) {
+    return dryRunIngest(payload, payloadHash, analyses, analysisVersions);
+  }
 
   const txResult = await db.transaction(async (tx) => {
     const [upserted] = await tx
@@ -268,7 +275,10 @@ if (import.meta.main) {
   }
 
   try {
-    const result = await ingestAnalysis(path, { force: args.includes("--force") });
+    const result = await ingestAnalysis(path, {
+      force: args.includes("--force"),
+      dryRun: args.includes("--dry-run"),
+    });
     if (!result.ok) {
       console.error(
         `${result.action}: ${result.ticker} v${result.version_number} (${result.error})`
@@ -282,4 +292,101 @@ if (import.meta.main) {
     console.error(error instanceof Error ? error.message : String(error));
     process.exit(1);
   }
+}
+
+async function dryRunIngest(
+  payload: Analysis,
+  payloadHash: string,
+  tables: typeof import("@/db/schema").analyses,
+  versionTable: typeof import("@/db/schema").analysisVersions
+): Promise<IngestSuccess> {
+  const { db } = await import("@/db");
+
+  const [parent] = await db
+    .select({ id: tables.id })
+    .from(tables)
+    .where(eq(tables.ticker, payload.ticker))
+    .limit(1);
+
+  if (!parent) {
+    return {
+      ok: true,
+      action: "validated",
+      ticker: payload.ticker,
+      version_number: 1,
+      payload_hash: payloadHash,
+      diff: ["new analysis"],
+    };
+  }
+
+  const [latest] = await db
+    .select({
+      versionNumber: versionTable.versionNumber,
+      payloadHash: versionTable.payloadHash,
+      payload: versionTable.payload,
+    })
+    .from(versionTable)
+    .where(
+      and(eq(versionTable.analysisId, parent.id), isNull(versionTable.unpublishedAt))
+    )
+    .orderBy(desc(versionTable.versionNumber))
+    .limit(1);
+
+  if (!latest) {
+    return {
+      ok: true,
+      action: "validated",
+      ticker: payload.ticker,
+      version_number: 1,
+      payload_hash: payloadHash,
+      diff: ["new analysis"],
+    };
+  }
+
+  if (latest.payloadHash === payloadHash) {
+    return {
+      ok: true,
+      action: "validated",
+      ticker: payload.ticker,
+      version_number: latest.versionNumber,
+      payload_hash: payloadHash,
+      diff: [],
+    };
+  }
+
+  const latestPayload = analysisSchema.parse(latest.payload);
+
+  return {
+    ok: true,
+    action: "validated",
+    ticker: payload.ticker,
+    version_number: latest.versionNumber + 1,
+    payload_hash: payloadHash,
+    diff: diffPaths(latestPayload, payload),
+  };
+}
+
+function diffPaths(left: unknown, right: unknown, path = ""): string[] {
+  if (canonicalize(left) === canonicalize(right)) return [];
+
+  if (isPlainObject(left) && isPlainObject(right)) {
+    const keys = new Set([...Object.keys(left), ...Object.keys(right)]);
+    return [...keys].flatMap((key) => {
+      const childPath = path ? `${path}.${key}` : key;
+      return diffPaths(left[key], right[key], childPath);
+    });
+  }
+
+  if (Array.isArray(left) && Array.isArray(right)) {
+    const max = Math.max(left.length, right.length);
+    return Array.from({ length: max }).flatMap((_, index) => {
+      return diffPaths(left[index], right[index], `${path}[]`);
+    });
+  }
+
+  return [path || "$"];
+}
+
+function isPlainObject(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
 }
