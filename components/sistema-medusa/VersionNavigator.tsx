@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useTransition } from "react";
+import { trackSistemaMedusaEvent } from "@/lib/analytics";
 
 interface VersionOption {
   version_number: number;
@@ -33,6 +34,10 @@ export function VersionNavigator({
         disabled={isPending}
         onChange={(event) => {
           const next = event.target.value;
+          trackSistemaMedusaEvent("version_navigated", {
+            ticker: ticker.toUpperCase(),
+            version_number: Number(next),
+          });
           startTransition(() => {
             router.replace(
               `/sistema-medusa/${ticker.toLowerCase()}?v=${next}`

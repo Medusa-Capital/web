@@ -19,6 +19,7 @@ import { EmptyLibrary } from "@/components/sistema-medusa/EmptyLibrary";
 import { HeroSection } from "@/components/sistema-medusa/HeroSection";
 import { ListControls } from "@/components/sistema-medusa/ListControls";
 import { NoResults } from "@/components/sistema-medusa/NoResults";
+import { SistemaMedusaAnalytics } from "@/components/sistema-medusa/SistemaMedusaAnalytics";
 
 export const dynamic = "force-dynamic";
 
@@ -69,6 +70,15 @@ export default async function SistemaMedusaPage({
 
   return (
     <>
+      <SistemaMedusaAnalytics
+        action="view_list"
+        params={{
+          result_count: items.length,
+          has_filters: hasFilters,
+          sort: params.sort,
+          offset: params.offset,
+        }}
+      />
       <HeroSection count={items.length + params.offset} />
 
       <main className="mx-auto max-w-6xl px-4 py-8 sm:px-6">

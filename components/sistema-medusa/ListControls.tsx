@@ -3,6 +3,7 @@
 import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Search } from "lucide-react";
+import { trackSistemaMedusaEvent } from "@/lib/analytics";
 import {
   CATEGORY_VALUES,
   CHAIN_VALUES,
@@ -74,6 +75,10 @@ export function ListControls({
         else params.set("q", trimmed);
         params.delete("offset");
         const qs = params.toString();
+        trackSistemaMedusaEvent("search", {
+          query_length: trimmed.length,
+          has_query: trimmed.length > 0,
+        });
         router.replace(qs ? `/sistema-medusa?${qs}` : "/sistema-medusa");
       }, 300);
     },
@@ -111,6 +116,7 @@ export function ListControls({
           href={buildHref("verdict", null)}
           isActive={!selectedVerdict}
           label="Todos los veredictos"
+          analytics={{ filter_type: "verdict", filter_value: "all" }}
         />
         {VERDICT_VALUES.map((value) => (
           <FilterPill
@@ -119,6 +125,7 @@ export function ListControls({
             isActive={selectedVerdict === value}
             label={VERDICT_LABELS[value]}
             dotClass={VERDICT_DOT[value]}
+            analytics={{ filter_type: "verdict", filter_value: value }}
           />
         ))}
       </div>
@@ -132,6 +139,7 @@ export function ListControls({
           href={buildHref("category", null)}
           isActive={!selectedCategory}
           label="Todas las categorías"
+          analytics={{ filter_type: "category", filter_value: "all" }}
         />
         {CATEGORY_VALUES.map((value) => (
           <FilterPill
@@ -140,6 +148,7 @@ export function ListControls({
             isActive={selectedCategory === value}
             label={CATEGORY_LABELS[value]}
             dotClass={CATEGORY_DOT[value]}
+            analytics={{ filter_type: "category", filter_value: value }}
           />
         ))}
       </div>
@@ -153,6 +162,7 @@ export function ListControls({
           href={buildHref("chain", null)}
           isActive={!selectedChain}
           label="Todas las chains"
+          analytics={{ filter_type: "chain", filter_value: "all" }}
         />
         {CHAIN_VALUES.map((value) => (
           <FilterPill
@@ -161,6 +171,7 @@ export function ListControls({
             isActive={selectedChain === value}
             label={CHAIN_LABELS[value]}
             dotClass={CHAIN_DOT[value]}
+            analytics={{ filter_type: "chain", filter_value: value }}
           />
         ))}
       </div>
@@ -176,6 +187,7 @@ export function ListControls({
               href={buildHref("sort", key === "newest" ? null : key)}
               isActive={selectedSort === key}
               label={SORT_LABELS[key]}
+              analytics={{ filter_type: "sort", filter_value: key }}
             />
           ))}
         </div>
@@ -189,14 +201,24 @@ interface FilterPillProps {
   isActive: boolean;
   label: string;
   dotClass?: string;
+  analytics?: Record<string, string>;
 }
 
-function FilterPill({ href, isActive, label, dotClass }: FilterPillProps) {
+function FilterPill({
+  href,
+  isActive,
+  label,
+  dotClass,
+  analytics,
+}: FilterPillProps) {
   return (
     <a
       role="radio"
       aria-checked={isActive}
       href={href}
+      onClick={() => {
+        if (analytics) trackSistemaMedusaEvent("filter_applied", analytics);
+      }}
       className={
         "inline-flex items-center gap-1.5 rounded-md border px-2.5 py-1 text-[12px] transition-colors " +
         (isActive
