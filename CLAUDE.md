@@ -24,6 +24,12 @@ app/
 │   ├── page.tsx                # List view: hero, filters, post cards
 │   ├── [id]/page.tsx           # Post detail: vote, markdown body, comments
 │   └── actions.ts              # Server actions: createPost, toggleVote, addComment, changeStatus
+├── sistema-medusa/             # Member-only Sistema Medusa research library
+│   ├── layout.tsx              # Auth gate (requireMember) + SistemaMedusaHeader
+│   ├── page.tsx                # Filterable analysis list (verdict/category/chain/q filters)
+│   └── [ticker]/
+│       ├── page.tsx            # Full analysis detail — all sections + admin delete button
+│       └── actions.ts          # deleteAnalysis server action (requireInternalCore gated)
 ├── login/                      # Whop OAuth login page
 ├── not-a-member/               # Gate for authenticated non-members
 ├── track-record/               # Performance showcase
@@ -33,12 +39,13 @@ app/
     ├── lead-capture/route.ts
     ├── newsletter/route.ts
     ├── ideas/similar/route.ts  # Similar post search for propose modal
+    ├── sistema-medusa/         # Internal read API (analyses list + ticker detail + versions)
     ├── webhooks/calendly/route.ts  # Calendly booking → Airtable sync
     └── auth/whop/              # login, callback, logout routes
 
 components/
 ├── ideas/                      # Feedback board components (Featurebase-style)
-│   ├── IdeasHeader.tsx         # Sticky top nav: logo, tabs, user avatar, logout
+│   ├── IdeasHeader.tsx         # Sticky top nav: logo, tabs (+ Sistema Medusa link), user, logout
 │   ├── PostCard.tsx            # Post card with vote button, status pill, comment count
 │   ├── ListControls.tsx        # Status filter pills + sort controls
 │   ├── VoteButton.tsx          # Upvote toggle (detail page)
@@ -46,6 +53,23 @@ components/
 │   ├── CommentForm.tsx         # Comment input form
 │   ├── StatusChanger.tsx       # Internal-only status change form
 │   └── status.ts              # Status labels, badge colors, dot colors
+├── sistema-medusa/             # Sistema Medusa Library UI components
+│   ├── SistemaMedusaHeader.tsx # Sticky nav with active Sistema Medusa + Feedback cross-link
+│   ├── AnalysisCard.tsx        # List card: verdict badge, category, chain, date
+│   ├── BaseDataTable.tsx       # Base data section (key/value rows)
+│   ├── FiltersGrid.tsx         # Discard filters grid with pass/fail pills
+│   ├── FundamentalPillarsGrid.tsx  # Pillar scores with status pills
+│   ├── ComparativeTable.tsx    # Comparative analysis table
+│   ├── ItaBox.tsx              # ITA definitiva highlighted box
+│   ├── RisksSection.tsx        # Risks + watchpoints list
+│   ├── VerdictBox.tsx          # Final verdict + summary + section narrative
+│   ├── SourcesList.tsx         # Numbered sources list with links
+│   ├── VerdictBadge.tsx        # Inline verdict pill (APTO / NO APTO / VIGILAR)
+│   ├── MethodologyTag.tsx      # Methodology version tag
+│   ├── VersionNavigator.tsx    # Version picker dropdown
+│   ├── DeleteAnalysisButton.tsx # Admin-only delete (client, confirm dialog, useTransition)
+│   ├── ComplianceDisclaimer.tsx # "No es asesoramiento financiero" footer
+│   └── ...                     # HeroSection, ListControls, EmptyLibrary, NoResults, etc.
 ├── landing/                    # Domain components (Hero, Header, Footer, Testimonials, etc.)
 │   └── track-record/           # Performance chart, carousel, ROI calculator
 ├── blog/                       # Blog cards, markdown renderer, newsletter CTA
@@ -53,6 +77,16 @@ components/
 └── providers/                  # AnalyticsProvider (GA4 context)
 
 lib/
+├── sistema-medusa/             # Sistema Medusa data layer, schemas, and tooling
+│   ├── schemas.ts              # Canonical Zod payload schema (single source of truth)
+│   ├── queries.ts              # DB read layer — reads from published_versions view
+│   ├── types.ts                # AnalysisView discriminated union (member vs public)
+│   ├── visibility.ts           # Field visibility map (member-only vs public)
+│   ├── methodologies.ts        # Methodology registry — append-only, never remove keys
+│   ├── canonicalize.ts         # Payload normalization for dedup hash
+│   ├── enum-values.ts          # Pure enum value arrays (no Drizzle imports)
+│   ├── enums/                  # Client-safe Zod enums + Spanish label maps
+│   └── __tests__/              # 70+ unit tests (ingest, schema, queries, API, visibility)
 ├── analytics.ts                # GA4 event tracking helpers (funnel events, CTA tracking, etc.)
 ├── blog.ts                     # Blog data layer (getAllPosts, getPostBySlug, etc.)
 ├── blog-processing.ts          # Shared content processing (slug, tags, description, cleanup)
@@ -60,15 +94,31 @@ lib/
 ├── utils.ts                    # General utilities
 └── utm.ts                      # UTM capture, sessionStorage persistence, and outbound URL enrichment
 
-content/blog/                   # Markdown articles (Spanish) — synced from Notion + manual
-content/inbox/                  # Staging area for manual blog posts (processed by inbox script)
+content/
+├── blog/                       # Markdown articles (Spanish) — synced from Notion + manual
+├── inbox/                      # Staging area for manual blog posts (processed by inbox script)
+└── sistema-medusa/
+    ├── inbox/<ticker>/         # Drop <ticker>.json here, then bun run sm:validate + sm:ingest
+    └── published/<ticker>/     # Archived versions after ingest (v1.json, v2.json, …)
 
 scripts/
+├── sistema-medusa/             # Sistema Medusa CLI toolchain
+│   ├── validate.ts             # bun run sm:validate <path> — schema + consistency check
+│   ├── ingest.ts               # bun run sm:ingest <path> — publish to DB + archive
+│   ├── unpublish.ts            # bun run sm:unpublish <ticker> <version> [--reason "…"]
+│   └── seed-aero.ts            # Dev seed for AERO analysis (testing)
 ├── sync-analytics.ts           # GA4 → Supabase daily analytics sync (6 reports → 6 tables)
 ├── sync-notion.ts              # Notion DB → markdown sync (runs via CI or locally)
 ├── process-blog-inbox.ts       # Process manual blog posts from content/inbox/
 ├── basket-data/                # Track record data & Python analysis (gitignored)
 └── ...                         # Other utility scripts (logos, UTM links)
+
+db/
+├── schema/
+│   ├── sistema-medusa.ts       # analyses, analysis_versions, publish_events + published_versions view
+│   ├── enums.ts                # Shared pgEnum definitions (verdict, category, chain, etc.)
+│   └── ...                     # users, sessions, feedback tables
+└── migrations/                 # 0002 (sistema_medusa schema) + 0003 (constraints, triggers, indexes)
 
 docs/
 ├── analytics-pipeline-reference.md  # Full event catalog, UTM flow, conversion funnel, table schemas, SQL queries — UPDATE THIS when adding/changing events
