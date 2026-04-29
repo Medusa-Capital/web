@@ -102,7 +102,7 @@ export function Header({ minimal = false }: { minimal?: boolean }) {
                   }`}
                   onClick={() => {
                     trackBookCallClick("header");
-                    window.open(getOutboundUrl("https://calendly.com/contacto-medusacapital/sesion-estrategica-15-clon?month=2026-01"), "_blank");
+                    window.open(getOutboundUrl("https://calendly.com/contacto-medusacapital/sesion-estrategica-15-clon"), "_blank");
                   }}
                 >
                   Reserva tu sesión estratégica
@@ -146,7 +146,7 @@ export function Header({ minimal = false }: { minimal?: boolean }) {
             onClick={() => {
               setMobileMenuOpen(false);
               trackBookCallClick("header_mobile");
-              window.open(getOutboundUrl("https://calendly.com/contacto-medusacapital/sesion-estrategica-15-clon?month=2026-01"), "_blank");
+              window.open(getOutboundUrl("https://calendly.com/contacto-medusacapital/sesion-estrategica-15-clon"), "_blank");
             }}
           >
             Reserva tu sesión estratégica

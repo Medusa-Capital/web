@@ -180,7 +180,7 @@ export default async function BlogPostPage({ params }: Props) {
             title="¿Listo para dar el siguiente paso?"
             description="Reserva una sesión estratégica gratuita de 15 minutos donde analizamos tu situación y te ayudamos a construir tu plan de inversión en cripto."
             buttonText="Reservar mi sesión gratuita"
-            buttonExternalUrl="https://calendly.com/contacto-medusacapital/sesion-estrategica-15-clon?month=2026-01"
+            buttonExternalUrl="https://calendly.com/contacto-medusacapital/sesion-estrategica-15-clon"
           />
         </article>
         <Footer />

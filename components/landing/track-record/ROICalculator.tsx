@@ -476,7 +476,7 @@ export function ROICalculator() {
                   className="w-full rounded-xl px-6 py-3 h-auto text-[15px] font-semibold"
                   onClick={() => {
                     trackBookCallClick("roi_calculator");
-                    window.open(getOutboundUrl("https://calendly.com/contacto-medusacapital/sesion-estrategica-15-clon?month=2026-01"), "_blank");
+                    window.open(getOutboundUrl("https://calendly.com/contacto-medusacapital/sesion-estrategica-15-clon"), "_blank");
                   }}
                 >
                   Reserva tu sesión estratégica

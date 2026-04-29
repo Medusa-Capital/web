@@ -259,7 +259,7 @@ export default function TrackRecordPage() {
             title="¿Listo para invertir con criterio?"
             description="La misma metodología detrás del +80%. Reserva tu sesión y te la explicamos."
             buttonText="Reserva tu sesión estratégica"
-            buttonExternalUrl="https://calendly.com/contacto-medusacapital/sesion-estrategica-15-clon?month=2026-01"
+            buttonExternalUrl="https://calendly.com/contacto-medusacapital/sesion-estrategica-15-clon"
           />
         </main>
 

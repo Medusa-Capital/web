@@ -167,7 +167,7 @@ export function Hero() {
             className="px-8 py-6 text-base font-semibold rounded-lg"
             onClick={() => {
               trackBookCallClick("hero");
-              window.open(getOutboundUrl("https://calendly.com/contacto-medusacapital/sesion-estrategica-15-clon?month=2026-01"), "_blank");
+              window.open(getOutboundUrl("https://calendly.com/contacto-medusacapital/sesion-estrategica-15-clon"), "_blank");
             }}
           >
             Reserva tu sesión estratégica
