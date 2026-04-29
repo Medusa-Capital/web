@@ -78,10 +78,10 @@ export default async function SistemaMedusaPage({
 
       <HeroSection count={items.length + params.offset} />
 
-      <div className="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-10">
+      <div className="mx-auto max-w-[1500px] px-4 sm:px-6 lg:px-10">
         <div className="flex gap-10 py-10">
           {/* Desktop sidebar */}
-          <aside className="hidden w-52 shrink-0 lg:block">
+          <aside className="hidden w-56 shrink-0 lg:block">
             <div className="sticky top-20">
               <ListControls
                 selectedVerdict={params.verdict ?? null}
@@ -113,7 +113,13 @@ export default async function SistemaMedusaPage({
                 <EmptyLibrary />
               )
             ) : (
-              <ul className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+              <ul
+                className="grid gap-4"
+                style={{
+                  gridTemplateColumns:
+                    "repeat(auto-fill, minmax(min(100%, 340px), 420px))",
+                }}
+              >
                 {items.map((item) => (
                   <li key={item.ticker}>
                     <AnalysisCard item={item} />

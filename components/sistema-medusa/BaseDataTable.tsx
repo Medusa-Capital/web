@@ -49,7 +49,7 @@ export function BaseDataTable({ data }: BaseDataTableProps) {
         <span className="font-mono text-[11px] text-zinc-600">{data.data_date}</span>
       </header>
 
-      <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-3">
+      <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-6">
         <MetricCard
           label="Precio"
           value={fmtUsd(data.price_usd, "precise")}
