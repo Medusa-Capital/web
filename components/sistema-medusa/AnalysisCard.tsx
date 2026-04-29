@@ -4,17 +4,8 @@ import { CATEGORY_LABELS } from "@/lib/sistema-medusa/enums/category";
 import { CHAIN_LABELS } from "@/lib/sistema-medusa/enums/chain";
 import { getTokenBrand } from "@/lib/sistema-medusa/token-registry";
 import type { AnalysisListItem } from "@/lib/sistema-medusa/queries";
-import type { Verdict } from "@/lib/sistema-medusa/enum-values";
 import { VerdictBadge } from "./VerdictBadge";
 import { TokenAvatar } from "./TokenAvatar";
-
-const VERDICT_SPINE: Record<Verdict, string> = {
-  AVANZA_A_AT: "bg-emerald-500",
-  EN_REVISION: "bg-amber-500",
-  DESCARTE: "bg-red-500",
-  AT_BLOQUEA: "bg-orange-500",
-  EN_CARTERA: "bg-[#6366f1]",
-};
 
 interface AnalysisCardProps {
   item: AnalysisListItem;
@@ -29,21 +20,21 @@ export function AnalysisCard({ item }: AnalysisCardProps) {
       className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-white/[0.06] bg-[#111118] transition-all hover:border-white/[0.14] hover:bg-[#13131e]"
       style={
         {
-          // brand-tinted hover glow via CSS var (kept subtle so cards don't fight)
           ["--brand" as string]: brand.brand_color,
         } as React.CSSProperties
       }
     >
-      {/* Verdict spine — left edge, semantic */}
+      {/* Brand-colored spine — left edge, project identity */}
       <span
         aria-hidden="true"
-        className={`absolute left-0 top-0 h-full w-[3px] ${VERDICT_SPINE[item.verdict]}`}
+        className="absolute left-0 top-0 h-full w-[3px]"
+        style={{ background: brand.brand_color }}
       />
 
-      {/* Brand-tinted ambient glow on hover */}
+      {/* Persistent brand-tinted glow at top-right (visible without hover) */}
       <span
         aria-hidden="true"
-        className="pointer-events-none absolute -right-20 -top-20 h-48 w-48 rounded-full opacity-0 blur-3xl transition-opacity duration-500 group-hover:opacity-30"
+        className="pointer-events-none absolute -right-20 -top-20 h-56 w-56 rounded-full opacity-30 blur-3xl transition-opacity duration-500 group-hover:opacity-60"
         style={{ background: brand.brand_color }}
       />
 

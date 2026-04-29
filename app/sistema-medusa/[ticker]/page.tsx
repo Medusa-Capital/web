@@ -35,14 +35,6 @@ export const dynamic = "force-dynamic";
 const VERSION_REGEX = /^\d{1,4}$/;
 const TICKER_REGEX = /^[a-z0-9]{1,20}$/;
 
-const VERDICT_ACCENT: Record<Verdict, string> = {
-  AVANZA_A_AT: "from-emerald-500/40 via-emerald-500/10 to-transparent",
-  EN_REVISION: "from-amber-500/40 via-amber-500/10 to-transparent",
-  DESCARTE: "from-red-500/40 via-red-500/10 to-transparent",
-  AT_BLOQUEA: "from-orange-500/40 via-orange-500/10 to-transparent",
-  EN_CARTERA: "from-[#6366f1]/40 via-[#6366f1]/10 to-transparent",
-};
-
 const VERDICT_BAR: Record<Verdict, string> = {
   AVANZA_A_AT: "bg-emerald-500",
   EN_REVISION: "bg-amber-500",
@@ -104,7 +96,6 @@ export default async function SistemaMedusaDetailPage({
   const selectedVersion =
     versionNumber ?? Math.max(...versions.map((v) => v.version_number), 1);
 
-  const verdictAccent = VERDICT_ACCENT[view.data.verdict] ?? VERDICT_ACCENT.EN_REVISION;
   const verdictBar = VERDICT_BAR[view.data.verdict] ?? VERDICT_BAR.EN_REVISION;
   const brand = getTokenBrand(view.data.ticker);
 
@@ -125,15 +116,18 @@ export default async function SistemaMedusaDetailPage({
         {/* Brand-tinted ambient glow — radial wash from upper-left */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-0 opacity-40"
+          className="pointer-events-none absolute inset-0"
           style={{
-            background: `radial-gradient(ellipse 1100px 420px at 18% 0%, ${brand.brand_color}26 0%, ${brand.brand_color}0a 38%, transparent 70%)`,
+            background: `radial-gradient(ellipse 1100px 420px at 18% 0%, ${brand.brand_color}55 0%, ${brand.brand_color}1a 38%, transparent 72%)`,
           }}
         />
-        {/* Subtle verdict glow underlay (kept for verdict semantic continuity) */}
+        {/* Secondary brand wash from the right — keeps the dark side from feeling dead */}
         <div
           aria-hidden="true"
-          className={`pointer-events-none absolute inset-0 bg-gradient-to-b ${verdictAccent} opacity-15`}
+          className="pointer-events-none absolute inset-0"
+          style={{
+            background: `radial-gradient(ellipse 700px 300px at 90% 0%, ${brand.brand_color}22 0%, transparent 60%)`,
+          }}
         />
 
         <div className="relative mx-auto max-w-[1500px] px-4 pb-10 pt-10 sm:px-6 lg:px-10">
