@@ -114,10 +114,10 @@ export default async function SistemaMedusaPage({
               )
             ) : (
               <ul
-                className="grid gap-4"
+                className="grid gap-5"
                 style={{
                   gridTemplateColumns:
-                    "repeat(auto-fill, minmax(min(100%, 340px), 420px))",
+                    "repeat(auto-fill, minmax(min(100%, 380px), 480px))",
                 }}
               >
                 {items.map((item) => (
