@@ -26,6 +26,8 @@ import { VerdictBadge } from "@/components/sistema-medusa/VerdictBadge";
 import { VerdictBox } from "@/components/sistema-medusa/VerdictBox";
 import { VersionNavigator } from "@/components/sistema-medusa/VersionNavigator";
 import { DeleteAnalysisButton } from "@/components/sistema-medusa/DeleteAnalysisButton";
+import { TokenAvatar } from "@/components/sistema-medusa/TokenAvatar";
+import { getTokenBrand } from "@/lib/sistema-medusa/token-registry";
 import { deleteAnalysis } from "./actions";
 
 export const dynamic = "force-dynamic";
@@ -104,6 +106,7 @@ export default async function SistemaMedusaDetailPage({
 
   const verdictAccent = VERDICT_ACCENT[view.data.verdict] ?? VERDICT_ACCENT.EN_REVISION;
   const verdictBar = VERDICT_BAR[view.data.verdict] ?? VERDICT_BAR.EN_REVISION;
+  const brand = getTokenBrand(view.data.ticker);
 
   return (
     <article>
@@ -117,11 +120,20 @@ export default async function SistemaMedusaDetailPage({
         }}
       />
 
-      {/* Editorial header — full-width, verdict-tinted */}
+      {/* Editorial header — full-width, brand-tinted glow */}
       <header className="relative overflow-hidden border-b border-white/[0.06] bg-[#0a0a0f]">
-        {/* Ambient verdict glow */}
+        {/* Brand-tinted ambient glow — radial wash from upper-left */}
         <div
-          className={`pointer-events-none absolute inset-0 bg-gradient-to-b ${verdictAccent} opacity-30`}
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 opacity-40"
+          style={{
+            background: `radial-gradient(ellipse 1100px 420px at 18% 0%, ${brand.brand_color}26 0%, ${brand.brand_color}0a 38%, transparent 70%)`,
+          }}
+        />
+        {/* Subtle verdict glow underlay (kept for verdict semantic continuity) */}
+        <div
+          aria-hidden="true"
+          className={`pointer-events-none absolute inset-0 bg-gradient-to-b ${verdictAccent} opacity-15`}
         />
 
         <div className="relative mx-auto max-w-[1500px] px-4 pb-10 pt-10 sm:px-6 lg:px-10">
@@ -130,14 +142,29 @@ export default async function SistemaMedusaDetailPage({
             Medusa Capital — Sistema Medusa {view.data.methodology_version}
           </p>
 
-          {/* Project name — Cormorant */}
-          <h1 className="mt-4 font-[family-name:var(--font-heading)] text-5xl font-bold leading-[1.0] tracking-tight text-white sm:text-6xl lg:text-7xl">
-            {view.data.project_name}
-          </h1>
+          {/* Avatar + project name */}
+          <div className="mt-5 flex items-center gap-5">
+            <TokenAvatar
+              ticker={view.data.ticker}
+              logoUrl={brand.logo_url}
+              brandColor={brand.brand_color}
+              size="xl"
+            />
+            <h1 className="font-[family-name:var(--font-heading)] text-5xl font-bold leading-[1.0] tracking-tight text-white sm:text-6xl lg:text-[68px]">
+              {view.data.project_name}
+            </h1>
+          </div>
 
           {/* Ticker + verdict badge row */}
           <div className="mt-5 flex flex-wrap items-center gap-3">
-            <span className="rounded border border-white/[0.08] bg-white/[0.04] px-3 py-1 font-mono text-[15px] font-semibold text-zinc-200">
+            <span
+              className="rounded-md border px-3 py-1 font-mono text-[15px] font-semibold"
+              style={{
+                color: brand.brand_color,
+                borderColor: `${brand.brand_color}40`,
+                backgroundColor: `${brand.brand_color}14`,
+              }}
+            >
               {view.data.ticker}
             </span>
             <VerdictBadge verdict={view.data.verdict} size="lg" />
