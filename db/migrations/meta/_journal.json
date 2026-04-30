@@ -29,6 +29,13 @@
       "when": 1777324890000,
       "tag": "0003_sistema_medusa_constraints_and_triggers",
       "breakpoints": false
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1777324900000,
+      "tag": "0004_sistema_medusa_enum_extensions",
+      "breakpoints": true
     }
   ]
 }

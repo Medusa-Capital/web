@@ -23,6 +23,26 @@ const REGISTRY: Record<string, TokenBrand> = {
     logo_url: "/img/tokens/aero.png",
     brand_color: "#E63946",
   },
+  HYPE: {
+    name: "Hyperliquid",
+    logo_url: "/img/tokens/hype.png",
+    brand_color: "#50D2C1",
+  },
+  META: {
+    name: "MetaDAO",
+    logo_url: "/img/tokens/meta.png",
+    brand_color: "#DC2626",
+  },
+  MORPHO: {
+    name: "Morpho",
+    logo_url: "/img/tokens/morpho.png",
+    brand_color: "#2470FF",
+  },
+  SYRUP: {
+    name: "Maple Finance",
+    logo_url: "/img/tokens/syrup.png",
+    brand_color: "#F2783A",
+  },
 };
 
 const DEFAULT_BRAND: TokenBrand = {

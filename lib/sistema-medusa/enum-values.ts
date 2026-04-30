@@ -16,6 +16,8 @@ export const CATEGORY_VALUES = [
   "RESTAKING",
   "RWA",
   "PERPS",
+  "LENDING",
+  "INFRASTRUCTURE",
 ] as const;
 export type Category = (typeof CATEGORY_VALUES)[number];
 
@@ -26,6 +28,7 @@ export const CHAIN_VALUES = [
   "Arbitrum",
   "Optimism",
   "Bitcoin",
+  "Hyperliquid_L1",
   "Other",
 ] as const;
 export type Chain = (typeof CHAIN_VALUES)[number];
