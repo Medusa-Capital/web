@@ -10,6 +10,7 @@ export const CHAIN_LABELS = {
   Arbitrum: "Arbitrum",
   Optimism: "Optimism",
   Bitcoin: "Bitcoin",
+  Hyperliquid_L1: "Hyperliquid L1",
   Other: "Otra",
 } as const satisfies Record<Chain, string>;
 
@@ -20,6 +21,7 @@ export const CHAIN_TONE = {
   Arbitrum: "sky",
   Optimism: "red",
   Bitcoin: "amber",
+  Hyperliquid_L1: "teal",
   Other: "zinc",
 } as const satisfies Record<Chain, string>;
 
@@ -30,5 +32,6 @@ export const CHAIN_DOT = {
   Arbitrum: "bg-sky-400",
   Optimism: "bg-red-400",
   Bitcoin: "bg-amber-400",
+  Hyperliquid_L1: "bg-teal-400",
   Other: "bg-zinc-400",
 } as const satisfies Record<Chain, string>;

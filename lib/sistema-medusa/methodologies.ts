@@ -14,6 +14,14 @@ export const METHODOLOGIES = {
     deprecated: true,
     supersededBy: "V4.1",
   },
+  V4: {
+    label: "V4",
+    introducedAt: "2026-01-15",
+    notes:
+      "Primera iteración con ITA + 4 pilares fundamentales. Reemplazada por V4.1.",
+    deprecated: true,
+    supersededBy: "V4.1",
+  },
   "V4.1": {
     label: "V4.1",
     introducedAt: "2026-03-15",

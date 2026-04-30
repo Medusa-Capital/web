@@ -11,6 +11,8 @@ export const CATEGORY_LABELS = {
   RESTAKING: "Restaking",
   RWA: "RWA",
   PERPS: "Perps",
+  LENDING: "Lending",
+  INFRASTRUCTURE: "Infraestructura",
 } as const satisfies Record<Category, string>;
 
 export const CATEGORY_TONE = {
@@ -21,6 +23,8 @@ export const CATEGORY_TONE = {
   RESTAKING: "violet",
   RWA: "emerald",
   PERPS: "amber",
+  LENDING: "rose",
+  INFRASTRUCTURE: "slate",
 } as const satisfies Record<Category, string>;
 
 export const CATEGORY_DOT = {
@@ -31,4 +35,6 @@ export const CATEGORY_DOT = {
   RESTAKING: "bg-violet-400",
   RWA: "bg-emerald-400",
   PERPS: "bg-amber-400",
+  LENDING: "bg-rose-400",
+  INFRASTRUCTURE: "bg-slate-400",
 } as const satisfies Record<Category, string>;

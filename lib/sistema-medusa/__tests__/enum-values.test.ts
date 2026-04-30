@@ -30,6 +30,8 @@ describe("Sistema Medusa enum values", () => {
       "RESTAKING",
       "RWA",
       "PERPS",
+      "LENDING",
+      "INFRASTRUCTURE",
     ]);
   });
 
@@ -41,6 +43,7 @@ describe("Sistema Medusa enum values", () => {
       "Arbitrum",
       "Optimism",
       "Bitcoin",
+      "Hyperliquid_L1",
       "Other",
     ]);
   });
