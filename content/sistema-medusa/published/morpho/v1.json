@@ -1,0 +1,271 @@
+{
+  "ticker": "MORPHO",
+  "project_name": "Morpho Labs",
+  "contract_address": "0x9994E35Db50125E0DF82e4c2dde62496CE330999",
+  "chain": "Ethereum",
+  "category": "LENDING",
+  "tags": [
+    "real-business-no-token-capture",
+    "fee-switch-off",
+    "vc-heavy",
+    "institutional-integrations",
+    "multichain:Base"
+  ],
+  "analysis_date": "2026-03-17",
+  "methodology_version": "V4.1",
+  "analyst": "Medusa Capital",
+  "verdict": "DESCARTE",
+  "verdict_summary": "Negocio excepcional sin captura de valor para el holder. Capture Ratio 0%, fee switch apagado. Buen producto, mal token.",
+  "executive_summary": "Morpho es uno de los protocolos de lending más adoptados ($6.8B TVL, integraciones con Coinbase, Apollo, Société Générale) pero el token MORPHO no captura nada del valor que genera el negocio. Capture Ratio 0%, fee switch apagado, dilución masiva pendiente. Es el caso de manual del Sistema Medusa: buen producto, mal token. Misma dinámica que ETHFI documentada en lead magnet.",
+  "base_data": {
+    "price_usd": 1.5,
+    "market_cap_usd": 700000000,
+    "fdv_usd": 1500000000,
+    "mc_fdv_ratio": 0.45,
+    "circulating_supply": 447253133,
+    "total_supply": 1000000000,
+    "max_supply": null,
+    "revenue_annualized_usd": 0,
+    "mc_revenue_ratio": null,
+    "tvl_usd": 6800000000,
+    "data_source_primary": "https://defillama.com/protocol/morpho",
+    "data_date": "2026-03-17"
+  },
+  "discard_filters": {
+    "filters": [
+      {
+        "id": "inflationary",
+        "name": "Token altamente inflacionario",
+        "status": "ROJO",
+        "justification": "Realized Float Growth 180d = +34%. Unlocks proyectados 12m representan ~27% del float actual. Cohort 2 VCs (16.8%) ya desbloqueados a oct-2025. Cohort 3 (6.7%) y founders (15.2%) en curso. Dilución estructural masiva.",
+        "key_metric": "2 de 3 métricas en rojo (Realized Float Growth +34%, Unlocks 12m 27%)",
+        "metric_source": "https://defillama.com/protocol/morpho"
+      },
+      {
+        "id": "equity_token_duality",
+        "name": "Dualidad equity vs token",
+        "status": "ROJO",
+        "justification": "El protocolo genera $120.9M anualizados en fees brutos pero $0 va al token holder. Todo el revenue va a lenders y liquidators. Capture Ratio = 0%. Fee switch existe en contrato pero está apagado. HARD FAIL.",
+        "key_metric": "Capture Ratio 0%, Net Holder Yield 0%",
+        "metric_source": "https://defillama.com/protocol/morpho"
+      },
+      {
+        "id": "low_float_high_fdv",
+        "name": "Low-float & high-FDV",
+        "status": "ROJO",
+        "justification": "Float circulante en TGE: 11.2%. Unlocks 12m proyectados >27% del float. Realized Float Growth 180d: +34%. 2 de 3 métricas en rojo.",
+        "key_metric": "Float TGE 11.2% + Realized Float Growth +34% en 180d",
+        "metric_source": "https://defillama.com/protocol/morpho"
+      },
+      {
+        "id": "egotistical_founder",
+        "name": "Fundador ególatra",
+        "status": "VERDE",
+        "justification": "Paul Frambot. Equipo técnico sólido, ejecución consistente. Producto > personaje. Sin red flags de comportamiento. Relockeo voluntario 2 años adicionales es señal positiva de alineación.",
+        "key_metric": "Paul Frambot, equipo institucional, relockeo voluntario hasta mayo-2028",
+        "metric_source": "https://defillama.com/protocol/morpho"
+      },
+      {
+        "id": "excessive_tge_hype",
+        "name": "TGE con hype excesivo",
+        "status": "VERDE",
+        "justification": "TGE noviembre 2024. Con solo 11.2% circulante inicial, FDV estimado en lanzamiento <$1B. Pass técnico (borderline).",
+        "key_metric": "FDV en TGE estimado <$1B",
+        "metric_source": "https://defillama.com/protocol/morpho"
+      },
+      {
+        "id": "not_understandable",
+        "name": "No lo entiendo tras 30 min",
+        "status": "AMARILLO",
+        "justification": "Producto: protocolo de lending permissionless. Quién paga: borrowers vía interés. Cómo captura el token: AMBIGUO - solo gobernanza. El fee switch existe pero está apagado. La tercera pregunta no tiene respuesta clara hoy.",
+        "key_metric": "Tercera pregunta sin respuesta clara hoy",
+        "metric_source": "https://defillama.com/protocol/morpho"
+      }
+    ],
+    "step_1_result": "DESCARTE_AUTOMATICO",
+    "step_1_summary": "Triple ROJO en F1.01 + F1.02 + F1.03. Hard fail en captura de valor. Fee switch apagado, dilución masiva pendiente."
+  },
+  "fundamental_pillars": {
+    "pillars": [
+      {
+        "id": "pmf",
+        "name": "Product-Market Fit",
+        "status": "VERDE",
+        "analysis": "$6.8B TVL (+6% semanal). Integraciones institucionales: Coinbase, Apollo, Société Générale, Bitwise, Crypto.com. Compound Blue, Seamless y otros migrando sobre Morpho. PMF excepcional - es uno de los protocolos de lending más adoptados.",
+        "key_metrics": [
+          {
+            "metric": "TVL",
+            "value": "$6.8B",
+            "source_url": "https://defillama.com/protocol/morpho"
+          },
+          {
+            "metric": "Crecimiento semanal",
+            "value": "+6%",
+            "source_url": "https://defillama.com/protocol/morpho"
+          },
+          {
+            "metric": "Integraciones",
+            "value": "Coinbase, Apollo, Société Générale, Bitwise, Crypto.com",
+            "source_url": "https://defillama.com/protocol/morpho"
+          }
+        ]
+      },
+      {
+        "id": "real_revenue",
+        "name": "Revenue Real",
+        "status": "AMARILLO",
+        "analysis": "Fees brutos: ~$120.9M anualizados (consistentes en DefiLlama). Revenue del protocolo para el token: $0 (va íntegro a lenders/liquidators). Revenue Yield para el token: 0%. INSUFICIENTE bajo V4.1 - en holder revenue es $0.",
+        "key_metrics": [
+          {
+            "metric": "Fees brutos anualizados",
+            "value": "$120.9M",
+            "source_url": "https://defillama.com/protocol/morpho"
+          },
+          {
+            "metric": "Revenue para token holder",
+            "value": "$0",
+            "source_url": "https://defillama.com/protocol/morpho"
+          },
+          {
+            "metric": "Revenue Yield",
+            "value": "0%",
+            "source_url": "https://defillama.com/protocol/morpho"
+          }
+        ]
+      },
+      {
+        "id": "value_capture",
+        "name": "Captura de Valor",
+        "status": "ROJO",
+        "analysis": "Capture Ratio = 0%. Sin buybacks. Sin burns. Sin distribución de fees a holders. Fee switch (máx. 25% del interés) existe en contrato pero está inactivo. Net Holder Yield = 0%. Sin mecanismo activo hoy → fuera. HARD FAIL.",
+        "key_metrics": [
+          {
+            "metric": "Capture Ratio",
+            "value": "0%",
+            "source_url": "https://defillama.com/protocol/morpho"
+          },
+          {
+            "metric": "Net Holder Yield",
+            "value": "0%",
+            "source_url": "https://defillama.com/protocol/morpho"
+          },
+          {
+            "metric": "Fee switch",
+            "value": "Inactivo (existe en contrato)",
+            "source_url": "https://defillama.com/protocol/morpho"
+          }
+        ]
+      },
+      {
+        "id": "aligned_incentives",
+        "name": "Incentivos Alineados",
+        "status": "AMARILLO",
+        "analysis": "Founders relockados voluntariamente hasta mayo-2028 (señal positiva). Cohort 2 VCs (16.8%) ya desbloqueados → presión de venta pasada. Cohort 3 (6.7%) y founders (15.2%) en curso. Concentración VC alta. Apollo como comprador estructural (90M en 48m). Evidencia indirecta de sell efectivo: precio -84% desde ATH coincidiendo con Cohort 2 completion.",
+        "key_metrics": [
+          {
+            "metric": "Unlocks proyectados 12m",
+            "value": "~27% del float",
+            "source_url": "https://defillama.com/protocol/morpho"
+          },
+          {
+            "metric": "Realized Float Growth 180d",
+            "value": "+34%",
+            "source_url": "https://defillama.com/protocol/morpho"
+          },
+          {
+            "metric": "Founders relockeados",
+            "value": "Hasta mayo-2028",
+            "source_url": "https://defillama.com/protocol/morpho"
+          },
+          {
+            "metric": "Apollo posición",
+            "value": "90M en 48m",
+            "source_url": "https://defillama.com/protocol/morpho"
+          }
+        ]
+      }
+    ],
+    "step_2_result": "NO_PASA",
+    "step_2_summary": "Pilar 03 HARD FAIL (Capture Ratio 0%). Pilares 02 y 04 INSUFICIENTES. Solo Pilar 01 (PMF) es claramente verde."
+  },
+  "ita_definitiva": {
+    "question": "¿Si este proyecto gana dinero, YO voy a ganar dinero con mi token?",
+    "answer": "NO",
+    "rationale": "El protocolo genera $120.9M anualizados en fees brutos. El holder recibe $0. La gobernanza puede activar el fee switch en algún momento, pero hoy está apagada y la decisión depende de VCs que controlan el voto. Bajo Sistema Medusa, 'podría' no es respuesta válida - solo 'es' o 'no es'. Hoy NO captura valor."
+  },
+  "comparative_analysis": {
+    "peer_tokens": [
+      {
+        "ticker": "MORPHO",
+        "mc": null,
+        "revenue": 0,
+        "ps_ratio": null,
+        "value_capture_pct": 0,
+        "notes": "Fee switch off, descarte automático"
+      },
+      {
+        "ticker": "AAVE",
+        "mc": null,
+        "revenue": null,
+        "ps_ratio": 10,
+        "value_capture_pct": null,
+        "notes": "Activado, comparable institucional"
+      },
+      {
+        "ticker": "SYRUP",
+        "mc": null,
+        "revenue": 30800000,
+        "ps_ratio": 4.5,
+        "value_capture_pct": 65,
+        "notes": "Maple - modelo opuesto, captura 65%"
+      },
+      {
+        "ticker": "AERO",
+        "mc": 375000000,
+        "revenue": 205500000,
+        "ps_ratio": 1.8,
+        "value_capture_pct": 100,
+        "notes": "DEX, captura 100% directa"
+      }
+    ],
+    "summary": "Morpho es el ejemplo arquetípico de 'protocolo exitoso ≠ token rentable'. Mismo patrón que ETHFI documentado en lead magnet Medusa: fundamentales del negocio impecables pero tokenomics desalineados."
+  },
+  "risks_and_watchpoints": {
+    "structural_risks": [
+      "Capture Ratio 0% sin fecha de activación verificable",
+      "Fee switch dependiente de gobernanza controlada por VCs",
+      "Dilución estructural pendiente (~27% del float en 12m)"
+    ],
+    "operational_risks": [
+      "Cohorts de unlock futuras (Cohort 3 6.7%, founders 15.2%)",
+      "Concentración VC alta vs retail",
+      "Presión vendedora demostrada (precio -84% desde ATH)"
+    ],
+    "things_to_monitor": [
+      "Activación del fee switch vía gobernanza (catalizador potencial de re-evaluación)",
+      "Evolución del Realized Float Growth tras siguientes unlocks",
+      "Comportamiento de Apollo como comprador estructural",
+      "Si el fee switch se activa con >25% → revisar veredicto"
+    ]
+  },
+  "verdict_section": {
+    "final_verdict": "DESCARTE",
+    "confidence_level": "ALTA",
+    "next_step": "Re-evaluar SOLO si el fee switch se activa vía gobernanza con un % significativo (>25%) y se demuestra distribución on-chain. Hasta entonces, descarte sin fecha de revisión."
+  },
+  "sources": {
+    "primary": [
+      {
+        "name": "DefiLlama Morpho",
+        "url": "https://defillama.com/protocol/morpho",
+        "type": "aggregator"
+      },
+      {
+        "name": "Documentación oficial Morpho",
+        "url": "https://docs.morpho.org",
+        "type": "official_docs"
+      }
+    ],
+    "secondary": []
+  }
+}

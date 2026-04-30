@@ -1,0 +1,322 @@
+{
+  "ticker": "META",
+  "project_name": "MetaDAO",
+  "contract_address": "Pendiente verificar contrato Solana",
+  "chain": "Solana",
+  "category": "INFRASTRUCTURE",
+  "tags": [
+    "futarchy",
+    "launchpad-solana",
+    "real-revenue",
+    "contracyclical",
+    "programmable-equity",
+    "no-vc-rounds"
+  ],
+  "analysis_date": "2026-03-31",
+  "methodology_version": "V4",
+  "analyst": "Medusa Capital",
+  "verdict": "EN_CARTERA",
+  "verdict_summary": "Primer trimestre con revenue real ($2.51M Q4), captura de cuota contracíclica (+1.571% ICO volume vs mercado -25%), validación tier-1 (Multicoin, DBA, Moonrock, Theia, Coinbase Ventures).",
+  "executive_summary": "MetaDAO completó en Q4 2025 su primer trimestre con revenue real ($2.51M en fees) capturando cuota contracíclica: +1.571% ICO volume mientras competidores directos cayeron 28-40%. Total Equity 4.2x QoQ a $16.53M, NAV floor $0.72/META. Validación tier-1 con 5+ fondos institucionales (Multicoin, DBA, Moonrock, Theia, Coinbase Ventures) participando en ICO de p2p.me. Track record histórico Medusa: +900% (entrada $20M → salida $200M).",
+  "base_data": {
+    "price_usd": 3.79,
+    "market_cap_usd": 86000000,
+    "fdv_usd": 86000000,
+    "mc_fdv_ratio": 1,
+    "circulating_supply": 22680000,
+    "total_supply": 22680000,
+    "max_supply": null,
+    "revenue_annualized_usd": 5000000,
+    "mc_revenue_ratio": 16.9,
+    "tvl_usd": null,
+    "data_source_primary": "https://defillama.com",
+    "data_date": "2026-03-31"
+  },
+  "discard_filters": {
+    "filters": [
+      {
+        "id": "inflationary",
+        "name": "Token altamente inflacionario",
+        "status": "VERDE",
+        "justification": "No hay emisiones inflacionarias programáticas problemáticas. La emisión de $10M en tokens en Q4 2025 fue una venta OTC aprobada por futarquía (gobernanza on-chain), con divulgación on-chain en 24h. Paradigm compró $5.9M a $7.83/META; 6th Man Ventures $1.5M a $6.35. Sin ronda VC con descuento estructural.",
+        "key_metric": "Token issuance Q4 = $10M (venta OTC aprobada por futarquía); buybacks ejecutados = $0",
+        "metric_source": "https://defillama.com"
+      },
+      {
+        "id": "equity_token_duality",
+        "name": "Dualidad equity vs token",
+        "status": "VERDE",
+        "justification": "MetaDAO opera como 'programmable equity' (terminología Multicoin) - el revenue del protocolo va al treasury controlado on-chain por holders de META vía futarquía. No existe entidad privada (Inc.) capturando revenue de forma paralela.",
+        "key_metric": "Revenue va al treasury controlado on-chain por holders META; sin entidad privada paralela; tokens=equity validado por 5+ fondos institucionales",
+        "metric_source": "https://defillama.com"
+      },
+      {
+        "id": "low_float_high_fdv",
+        "name": "Low-float & high-FDV",
+        "status": "VERDE",
+        "justification": "FDV de $84.5M con NAV floor implícito de $0.72/META basado en $12.24M USDC. Ratio FDV/Equity de 5.1x es premium pero soportado por equity real. No hay estructura clásica low-float/high-FDV con cliffs problemáticos pendientes.",
+        "key_metric": "FDV/Total Equity = 5.1x; NAV floor $0.72/META; sin cliffs de VCs problemáticos",
+        "metric_source": "https://defillama.com"
+      },
+      {
+        "id": "egotistical_founder",
+        "name": "Fundador ególatra",
+        "status": "AMARILLO",
+        "justification": "Proph3t (fundador) tiene perfil técnico sólido y gestionó la crisis de Polymarket (29 marzo 2026) con transparencia: refunds disponibles, ICO extendida 2 días, profits del incidente al treasury, nueva regla de cancelación de raises donde founders operen en PMs propios. El episodio en sí mismo es un amarillo: el fundador del proyecto en ICO ($P2P), no Proph3t, apostó $20.5K en Polymarket. Proph3t respondió con autorregulación.",
+        "key_metric": "Crisis Polymarket gestionada con transparencia; nueva regla autorregulatoria implementada; drawdown post-ICO solo 8.9%",
+        "metric_source": "https://defillama.com"
+      },
+      {
+        "id": "excessive_tge_hype",
+        "name": "TGE con hype excesivo",
+        "status": "VERDE",
+        "justification": "META no tuvo TGE explosivo. Track record histórico: entrada Medusa Capital a $20M MC, salida >$200M MC (+900%). FDV actual $84.5M, muy por debajo del umbral de $1B. Distribución mediante venta OTC transparente vía futarquía.",
+        "key_metric": "FDV actual $84.5M, sin presale problemático, distribución vía futarquía",
+        "metric_source": "https://defillama.com"
+      },
+      {
+        "id": "not_understandable",
+        "name": "No lo entiendo tras 30 min",
+        "status": "VERDE",
+        "justification": "MetaDAO es un launchpad sobre Solana que aplica futarquía (gobernanza basada en mercados de predicción). Genera revenue por dos vías: Futarchy AMM ($1.37M Q4, 54%) y Meteora LP fees ($1.15M Q4, 46%). Modelo claro y explicable.",
+        "key_metric": "2 fuentes de revenue claramente identificadas: Futarchy AMM + Meteora LP",
+        "metric_source": "https://defillama.com"
+      }
+    ],
+    "step_1_result": "PASA",
+    "step_1_summary": "MetaDAO supera los 6 filtros de descarte. Único asterisco: episodio Polymarket de marzo 2026 (filtro #04) gestionado adecuadamente con autorregulación."
+  },
+  "fundamental_pillars": {
+    "pillars": [
+      {
+        "id": "pmf",
+        "name": "Product-Market Fit",
+        "status": "VERDE",
+        "analysis": "Captura de cuota de mercado contracíclica documentada. Mientras crypto marketcap caía 25.5% y Pump.fun 39.9% en Q4 2025, MetaDAO creció +1.571% en ICO volume ($1.12M Q3 → $18.72M Q4). Ecosistema Futarchy de 2 a 8 protocolos. 6 ICOs lanzadas en Q4 vs 1 en Q3. Total Futarchy Marketcap $218.8M.",
+        "key_metrics": [
+          {
+            "metric": "Token ICO Volume Q4",
+            "value": "$18.72M (vs $1.12M Q3, +1.571%)",
+            "source_url": "https://defillama.com"
+          },
+          {
+            "metric": "ICOs lanzadas Q4",
+            "value": "6 (vs 1 en Q3)",
+            "source_url": "https://defillama.com"
+          },
+          {
+            "metric": "Protocolos en ecosistema Futarchy",
+            "value": "2 → 8",
+            "source_url": "https://defillama.com"
+          },
+          {
+            "metric": "Total Futarchy Marketcap",
+            "value": "$218.8M (vs $54.2M Q3)",
+            "source_url": "https://defillama.com"
+          },
+          {
+            "metric": "Non-META Appreciation",
+            "value": "$40.7M",
+            "source_url": "https://defillama.com"
+          }
+        ]
+      },
+      {
+        "id": "real_revenue",
+        "name": "Revenue Real",
+        "status": "VERDE",
+        "analysis": "Q4 2025 fue el primer trimestre con fee revenue real: $2.51M ($1.37M Futarchy AMM + $1.15M Meteora LP). Margen operativo real sobre fee revenue: 65.7%. Distinguir Gross Profit ($3.88M, incluye Other Income reflexivo) del Operating Cash Flow real ($497K). Q1-Q3 son pre-revenue. ARR conservador (Q3+Q4 promedio): $5M. ARR agresivo (Q4 × 4): $10.1M.",
+        "key_metrics": [
+          {
+            "metric": "Fee Revenue Q4 2025",
+            "value": "$2.51M (primer trimestre con revenue)",
+            "source_url": "https://defillama.com"
+          },
+          {
+            "metric": "Margen operativo real",
+            "value": "65.7%",
+            "source_url": "https://defillama.com"
+          },
+          {
+            "metric": "Operating Cash Flow Q4",
+            "value": "$497K (cash real)",
+            "source_url": "https://defillama.com"
+          },
+          {
+            "metric": "ARR conservador",
+            "value": "~$5M",
+            "source_url": "https://defillama.com"
+          },
+          {
+            "metric": "FDV/ARR conservador",
+            "value": "16.9x",
+            "source_url": "https://defillama.com"
+          }
+        ]
+      },
+      {
+        "id": "value_capture",
+        "name": "Captura de Valor",
+        "status": "VERDE",
+        "analysis": "El revenue del protocolo va a treasury controlado on-chain por holders META vía futarquía. Total Equity creció 4.2x en un trimestre ($3.96M → $16.53M): $10M venta OTC (futarquía) + $2.2M apreciación de activos + $497K OCF operativo real. Buybacks aún no ejecutados ($0 en Q4) pero la mecánica existe estructuralmente. NAV floor de $0.72/META actúa como suelo teórico de valoración.",
+        "key_metrics": [
+          {
+            "metric": "Total Equity",
+            "value": "$16.53M (+317% QoQ)",
+            "source_url": "https://defillama.com"
+          },
+          {
+            "metric": "USDC en treasury",
+            "value": "$12.24M (74% assets)",
+            "source_url": "https://defillama.com"
+          },
+          {
+            "metric": "NAV floor",
+            "value": "~$0.72/META",
+            "source_url": "https://defillama.com"
+          },
+          {
+            "metric": "Mecanismo",
+            "value": "Treasury controlado por futarquía",
+            "source_url": "https://defillama.com"
+          },
+          {
+            "metric": "Token buybacks ejecutados",
+            "value": "$0 (mecanismo activable vía futarquía)",
+            "source_url": "https://defillama.com"
+          }
+        ]
+      },
+      {
+        "id": "aligned_incentives",
+        "name": "Incentivos Alineados",
+        "status": "VERDE",
+        "analysis": "Sin rondas privadas con descuento estructural. La venta OTC de Q4 ($10M) fue aprobada por futarquía a precios de mercado: Paradigm $7.83/META, 6th Man Ventures $6.35/META. Ambos están actualmente en pérdidas significativas. Validación externa de fondos tier-1 (Multicoin, DBA, Moonrock, Theia, Coinbase Ventures) que enfatizan elección deliberada de MetaDAO sobre rondas privadas. Caso Ranger: ICO investors +2.8% en proyecto que no llegó a objetivo, mercado -30% (mecánica unruggable).",
+        "key_metrics": [
+          {
+            "metric": "Paradigm OTC purchase",
+            "value": "$5.9M a $7.83/META (en pérdidas)",
+            "source_url": "https://defillama.com"
+          },
+          {
+            "metric": "6th Man Ventures",
+            "value": "$1.5M a $6.35/META (en pérdidas)",
+            "source_url": "https://defillama.com"
+          },
+          {
+            "metric": "Caso Ranger",
+            "value": "ICO investors +2.8% con mercado -30%",
+            "source_url": "https://defillama.com"
+          },
+          {
+            "metric": "Drawdown post-ICO P2P",
+            "value": "Solo 8.9%",
+            "source_url": "https://defillama.com"
+          }
+        ]
+      }
+    ],
+    "step_2_result": "PASA",
+    "step_2_summary": "Los 4 pilares fundamentales superados. Caso especial: MetaDAO es el ejemplo arquetípico de tokens=equity del Sistema Medusa."
+  },
+  "ita_definitiva": {
+    "question": "¿Si este proyecto gana dinero, YO voy a ganar dinero con mi token?",
+    "answer": "SI_CLARO",
+    "rationale": "El revenue del protocolo va al treasury controlado on-chain por holders de META vía futarquía. Total Equity creció 4.2x en Q4 ($3.96M → $16.53M) con $497K de OCF operativo real. NAV floor implícito $0.72/META. Validación tier-1 (Multicoin programmable equity, Moonrock sweat equity, Theia superando venture) confirma que el mercado institucional reconoce el mecanismo. Track record verificable: +900% (entrada $20M MC → salida $200M MC)."
+  },
+  "comparative_analysis": {
+    "peer_tokens": [
+      {
+        "ticker": "META",
+        "mc": null,
+        "revenue": 5000000,
+        "ps_ratio": 16.9,
+        "value_capture_pct": null,
+        "notes": "Programmable equity, $5M ARR conservador, NAV floor $0.72"
+      },
+      {
+        "ticker": "Pump.fun",
+        "mc": 2110000000,
+        "revenue": null,
+        "ps_ratio": null,
+        "value_capture_pct": null,
+        "notes": "Q4: -39.9% MC, modelo en declive"
+      },
+      {
+        "ticker": "Metaplex Genesis",
+        "mc": null,
+        "revenue": null,
+        "ps_ratio": null,
+        "value_capture_pct": null,
+        "notes": "Q4: -28.3% volumen, comparable directo"
+      },
+      {
+        "ticker": "HYPE",
+        "mc": null,
+        "revenue": 922000000,
+        "ps_ratio": 11,
+        "value_capture_pct": 97,
+        "notes": "Caso de éxito Sistema Medusa"
+      },
+      {
+        "ticker": "SYRUP",
+        "mc": null,
+        "revenue": 30800000,
+        "ps_ratio": 4.5,
+        "value_capture_pct": 65,
+        "notes": "Otro caso EN CARTERA"
+      }
+    ],
+    "summary": "MetaDAO es el único launchpad de Solana que aceleró durante el bear market Q4 2025. Mientras competidores directos (Pump.fun, Metaplex Genesis) cayeron 28-40%, MetaDAO multiplicó por 17 su ICO volume. La señalización institucional de marzo 2026 confirma que el modelo tokens=equity se está consolidando como categoría diferenciada."
+  },
+  "risks_and_watchpoints": {
+    "structural_risks": [
+      "Revenue concentrado en 2 fuentes (Futarchy AMM 54% + Meteora LP 46%): diversificación pendiente",
+      "Other Income Q4 ($2.23M) son ~83% ganancias no realizadas META/USDC - reflexivo y no repetible",
+      "Q4 fue el primer trimestre con revenue: serie histórica corta, ARR difícil de proyectar",
+      "Anualizar Q4 ($10.1M ARR) es agresivo; promedio Q3+Q4 da ~$5M más realista"
+    ],
+    "operational_risks": [
+      "Episodio Polymarket marzo 2026: estresó la confianza pero fue gestionado con autorregulación",
+      "Cost of Revenue al 12% es I+D + labor contractual - escalabilidad no validada todavía",
+      "OpEx +50% QoQ por expansión de equipo: si revenue no escala proporcionalmente, runway se acorta",
+      "Riesgo de impermanent loss en posiciones Meteora LP ($2.73M en pool)"
+    ],
+    "things_to_monitor": [
+      "Sostenibilidad del fee revenue post-Q4 (¿Q1 2026 mantiene o supera $2.5M?)",
+      "Consolidación del moat tokens=equity frente a competencia futura",
+      "Ejecución de la ICO P2P y rendimiento post-ICO de los inversores",
+      "Activación de mecanismos de buyback vía futarquía (hoy en $0)",
+      "Evolución del Total Futarchy Marketcap (Q4: $218.8M)",
+      "Decisiones de gobernanza sobre el treasury de $12.24M"
+    ]
+  },
+  "verdict_section": {
+    "final_verdict": "EN_CARTERA",
+    "confidence_level": "ALTA",
+    "next_step": "Mantener posición. Monitorizar Q1 2026 fee revenue, ejecución de la ICO P2P y eventual activación de buybacks vía futarquía."
+  },
+  "sources": {
+    "primary": [
+      {
+        "name": "DefiLlama",
+        "url": "https://defillama.com",
+        "type": "aggregator"
+      }
+    ],
+    "secondary": [
+      {
+        "name": "Multicoin Capital - Programmable Equity statement",
+        "url": "https://multicoin.capital"
+      },
+      {
+        "name": "Polymarket on-chain (27 marzo 2026)",
+        "url": "https://polymarket.com"
+      },
+      {
+        "name": "Respuesta oficial Proph3t (29 marzo 2026)",
+        "url": "https://x.com"
+      }
+    ]
+  }
+}

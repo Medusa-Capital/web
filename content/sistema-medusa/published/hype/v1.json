@@ -1,0 +1,241 @@
+{
+  "ticker": "HYPE",
+  "project_name": "Hyperliquid",
+  "contract_address": "Native L1 (Hyperliquid chain)",
+  "chain": "Hyperliquid_L1",
+  "category": "PERPS",
+  "tags": [
+    "market-leader",
+    "revenue-positive",
+    "no-vc",
+    "buyback-mechanism",
+    "infrastructure"
+  ],
+  "analysis_date": "2026-02-18",
+  "methodology_version": "V4",
+  "analyst": "Medusa Capital",
+  "verdict": "EN_CARTERA",
+  "verdict_summary": "Caso de éxito documentado. Empresa rentable con 80% market share en DEX de derivados. Buyback automático con fees del protocolo.",
+  "executive_summary": "Hyperliquid es el caso de éxito de manual del Sistema Medusa. 80% de cuota de mercado en DEX de derivados, $844M-$1B en revenue anualizado, buyback automático con fees del protocolo, 11 empleados sin VCs. +154% en 2025 mientras el 85% de tokens perdían dinero. Ejemplo de fundamentales reales, no narrativa.",
+  "base_data": {
+    "price_usd": 31,
+    "market_cap_usd": 8000000000,
+    "fdv_usd": 30300000000,
+    "mc_fdv_ratio": 0.27,
+    "circulating_supply": 258000000,
+    "total_supply": 957000000,
+    "max_supply": null,
+    "revenue_annualized_usd": 922000000,
+    "mc_revenue_ratio": 11,
+    "tvl_usd": null,
+    "data_source_primary": "https://defillama.com/protocol/hyperliquid",
+    "data_date": "2026-02-18"
+  },
+  "discard_filters": {
+    "filters": [
+      {
+        "id": "inflationary",
+        "name": "Token altamente inflacionario",
+        "status": "VERDE",
+        "justification": "Sin emisiones programáticas inflacionarias relevantes. Buyback automático con fees del protocolo absorbe presión vendedora.",
+        "key_metric": "Buyback con revenue del protocolo > emisiones netas",
+        "metric_source": "https://defillama.com/protocol/hyperliquid"
+      },
+      {
+        "id": "equity_token_duality",
+        "name": "Dualidad equity vs token",
+        "status": "VERDE",
+        "justification": "El revenue del protocolo va al token vía buyback automático. No hay entidad privada capturando fees de forma paralela.",
+        "key_metric": "Buyback automático con fees del protocolo activado",
+        "metric_source": "https://defillama.com/protocol/hyperliquid"
+      },
+      {
+        "id": "low_float_high_fdv",
+        "name": "Low-float & high-FDV",
+        "status": "VERDE",
+        "justification": "Sin VCs con allocations a precio descontado. Distribución limpia.",
+        "key_metric": "Sin rondas VC con descuento",
+        "metric_source": "https://defillama.com/protocol/hyperliquid"
+      },
+      {
+        "id": "egotistical_founder",
+        "name": "Fundador ególatra",
+        "status": "VERDE",
+        "justification": "Equipo con skin in the game real. 11 empleados (estructura tipo empresa familiar eficiente). Producto > personaje.",
+        "key_metric": "11 empleados, sin rondas VC",
+        "metric_source": "https://defillama.com/protocol/hyperliquid"
+      },
+      {
+        "id": "excessive_tge_hype",
+        "name": "TGE con hype excesivo",
+        "status": "VERDE",
+        "justification": "Token launch sin características de hype excesivo. Distribución mayoritaria a la comunidad.",
+        "key_metric": "No identificado como TGE problemático",
+        "metric_source": "https://defillama.com/protocol/hyperliquid"
+      },
+      {
+        "id": "not_understandable",
+        "name": "No lo entiendo tras 30 min",
+        "status": "VERDE",
+        "justification": "DEX de derivados con producto operativo, métricas claras y modelo de negocio entendible. Genera fees de trading que retornan al token.",
+        "key_metric": "Producto en producción con uso masivo",
+        "metric_source": "https://defillama.com/protocol/hyperliquid"
+      }
+    ],
+    "step_1_result": "PASA",
+    "step_1_summary": "Hyperliquid supera los 6 filtros de descarte sin red flags estructurales."
+  },
+  "fundamental_pillars": {
+    "pillars": [
+      {
+        "id": "pmf",
+        "name": "Product-Market Fit",
+        "status": "VERDE",
+        "analysis": "80% de cuota de mercado en DEX de derivados. Uso real masivo. Es el líder absoluto del sector. La adopción es orgánica y verificable on-chain.",
+        "key_metrics": [
+          {
+            "metric": "Cuota mercado DEX derivados",
+            "value": "80%",
+            "source_url": "https://defillama.com/protocol/hyperliquid"
+          },
+          {
+            "metric": "Posición competitiva",
+            "value": "Líder absoluto del sector",
+            "source_url": "https://defillama.com/protocol/hyperliquid"
+          }
+        ]
+      },
+      {
+        "id": "real_revenue",
+        "name": "Revenue Real",
+        "status": "VERDE",
+        "analysis": "$844M-$1B en revenue anualizado, verificable on-chain. Equivalente al revenue de una empresa del S&P 500. Margen neto top tier.",
+        "key_metrics": [
+          {
+            "metric": "Revenue Anualizado",
+            "value": "$844M - $1B",
+            "source_url": "https://defillama.com/protocol/hyperliquid"
+          },
+          {
+            "metric": "MC/Revenue",
+            "value": "~11x",
+            "source_url": "https://defillama.com/protocol/hyperliquid"
+          },
+          {
+            "metric": "Sostenibilidad",
+            "value": "Estructural",
+            "source_url": "https://defillama.com/protocol/hyperliquid"
+          }
+        ]
+      },
+      {
+        "id": "value_capture",
+        "name": "Captura de Valor",
+        "status": "VERDE",
+        "analysis": "Buyback automático con fees del protocolo. El revenue del protocolo va al token de forma directa y programática, no discrecional. ~97% de fees → buyback HYPE vía Assistance Fund.",
+        "key_metrics": [
+          {
+            "metric": "% Revenue al token",
+            "value": "~97% (vía buyback)",
+            "source_url": "https://defillama.com/protocol/hyperliquid"
+          },
+          {
+            "metric": "Mecanismo",
+            "value": "Buyback automático con fees (Assistance Fund)",
+            "source_url": "https://defillama.com/protocol/hyperliquid"
+          },
+          {
+            "metric": "Verificable on-chain",
+            "value": "Sí",
+            "source_url": "https://defillama.com/protocol/hyperliquid"
+          }
+        ]
+      },
+      {
+        "id": "aligned_incentives",
+        "name": "Incentivos Alineados",
+        "status": "VERDE",
+        "analysis": "11 empleados con skin in the game, sin rondas VC con descuento. El equipo come la misma comida que la comunidad.",
+        "key_metrics": [
+          {
+            "metric": "Tamaño equipo",
+            "value": "11 empleados",
+            "source_url": "https://defillama.com/protocol/hyperliquid"
+          },
+          {
+            "metric": "VC allocation líquido",
+            "value": "0%",
+            "source_url": "https://defillama.com/protocol/hyperliquid"
+          }
+        ]
+      }
+    ],
+    "step_2_result": "PASA",
+    "step_2_summary": "Los 4 pilares fundamentales superados con verde limpio. Caso de manual."
+  },
+  "ita_definitiva": {
+    "question": "¿Si este proyecto gana dinero, YO voy a ganar dinero con mi token?",
+    "answer": "SI_CLARO",
+    "rationale": "Cada dólar que genera Hyperliquid en fees alimenta un buyback automático del token HYPE. La mecánica está demostrada operacionalmente con $844M-$1B anualizados retornando al token. Sin VCs vendiendo contra retail, sin entidad privada capturando revenue paralelamente."
+  },
+  "comparative_analysis": {
+    "peer_tokens": [
+      {
+        "ticker": "HYPE",
+        "mc": null,
+        "revenue": 922000000,
+        "ps_ratio": 11,
+        "value_capture_pct": 97,
+        "notes": "Líder DEX derivados, sin VCs, buyback automático"
+      },
+      {
+        "ticker": "AERO",
+        "mc": 375000000,
+        "revenue": 205500000,
+        "ps_ratio": 1.8,
+        "value_capture_pct": 100,
+        "notes": "Líder en Base, comprimido vs HYPE"
+      },
+      {
+        "ticker": "UNI",
+        "mc": null,
+        "revenue": null,
+        "ps_ratio": 21,
+        "value_capture_pct": 17,
+        "notes": "Buyback&burn parcial post-UNIfication"
+      }
+    ],
+    "summary": "HYPE muestra captura de valor superior con un mecanismo automático no discrecional. Es el caso de referencia 'fundamentales reales, no hype' del Sistema Medusa."
+  },
+  "risks_and_watchpoints": {
+    "structural_risks": [
+      "Concentración en un solo producto (perps DEX)",
+      "Dependencia de la actividad de trading especulativo",
+      "Competencia futura de DEXs perps (dYdX, Pacifica, otros)"
+    ],
+    "operational_risks": [
+      "Volumen procíclico al sentimiento del mercado",
+      "Riesgo de smart contract en una L1 nueva"
+    ],
+    "things_to_monitor": [
+      "Evolución del market share frente a competidores",
+      "Sostenibilidad del revenue en bear market",
+      "Consolidación o pérdida de la posición de líder"
+    ]
+  },
+  "verdict_section": {
+    "final_verdict": "EN_CARTERA",
+    "confidence_level": "ALTA",
+    "next_step": "Mantener posición. Monitorizar cuota de mercado y sostenibilidad del revenue trimestralmente."
+  },
+  "sources": {
+    "primary": [
+      {
+        "name": "DefiLlama Hyperliquid",
+        "url": "https://defillama.com/protocol/hyperliquid",
+        "type": "aggregator"
+      }
+    ],
+    "secondary": []
+  }
+}
